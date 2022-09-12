@@ -1,11 +1,8 @@
 import { Module } from '@nestjs/common';
-import { EventsModule } from './events/events.module';
 
 @Module({
-  imports: [EventsModule],
+  imports: [],
   controllers: [],
   providers: [],
 })
 export class AppModule {}
-
-//prueba
