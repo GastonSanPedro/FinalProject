@@ -1,0 +1,30 @@
+html, body{
+    padding:20px;
+    background-color: grey;
+}
+
+.conteiner{
+ display: flex;
+ align-items: center;
+ flex-direction: column;
+}
+
+h1{
+    font-size: 40px;
+    color: white;
+}
+
+article{
+    width: 100%;
+}
+.httpSeparation{
+    border: 2px solid black;
+    border-radius: 10px;
+    width: 30%;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 2rem;
+}
