@@ -37,7 +37,7 @@ npm run start:dev
 http://localhost:3000/api/v2/seed
 ``` -->
 
-9. La app estara corriendo en el puerto http://localhost:3000
+9. La app estara corriendo en el puerto http://localhost:3001
 
 ## Recomendado
 
