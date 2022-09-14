@@ -29,9 +29,7 @@ const CreateUser = () => {
             <Input
                 pr='70px'
                 type={show ? 'text' : 'password'}
-
                 placeholder='Enter password'
-                onChange={handleInputChange}
             />
             <InputRightElement width='70px'>
             <Button h='30px' size='sm' onClick={handleShowClick}>
