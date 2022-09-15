@@ -56,12 +56,6 @@ https://www.docker.com/get-started/
 
 2. Una vez descargado verificar que Docker abajo a la izquierda este en verde.
 
-3. Comando para descargar imagen de Mongo en docker
-
-```
-docker pull mongo:5.0.0
-```
-
 ## Stack usado
 * MongoDB
 * Nest
