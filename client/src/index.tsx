@@ -3,13 +3,28 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Profile from './views/Profile';
+import Landing from './views/LandingPage'
+import SignIn from './views/SignIn'
+import { ChakraProvider } from '@chakra-ui/react'
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <App />
+    <ChakraProvider>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<App/>}/>
+        <Route path="profile" element={<Profile/>}/>
+        <Route path="/landing-page" element={<Landing/>}></Route>
+        <Route path="/sign-in" element={<SignIn/>}></Route>
+      </Routes>
+    </BrowserRouter>
+
+    </ChakraProvider>
   </React.StrictMode>
 );
 

@@ -15,15 +15,15 @@ npm install situado en api
 ```
 npm i -g @nestjs/cli
 ```
-<!-- 4. Levantar la base de datos
+4. Levantar la base de datos
 
 ```
 docker-compose up -d
 ```
 
-5. Clonarel archivo __.env.template__ y renombrar la copia a __.env__
+<!-- 5. Clonarel archivo __.env.template__ y renombrar la copia a __.env__
 
-6. LLenar las variables de entorno definidas en el ```.env``` -->
+6. LLenar las variables de entorno definidas en el ```.env```  -->
 
 7. Levantar la app
 
@@ -46,6 +46,15 @@ Instalar Material Icon Theme y cambiar íconos de Angular por íconos de Nest ->
 ```
 "material-icon-theme.activeIconPack": "nest"
 ```
+Docker:
+
+1. Pagina para descargar Docker:
+
+```
+https://www.docker.com/get-started/
+```
+
+2. Una vez descargado verificar que Docker abajo a la izquierda este en verde.
 
 ## Stack usado
 * MongoDB
