@@ -1,10 +1,10 @@
 
 
 export interface UserResponse {
-    users: User[];
+    users: IUser[];
 }
 
-export interface User {
+export interface IUser {
     firstName: string;
     lastName:  string;
     userName:  string;
