@@ -4,6 +4,7 @@ import { Model } from 'mongoose';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
+import { UsersModule } from './users.module';
 
 export interface IUser {
   name: string;
@@ -54,6 +55,7 @@ export class UsersService {
       $or: [
         { userName: term.toLocaleLowerCase().trim() },
         { email: term.toLocaleLowerCase().trim() },
+        {_id:term} //esto fue lo que toque
       ],
     });
 
@@ -64,11 +66,20 @@ export class UsersService {
     return userFinded;
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  async update(term: string, updateUserDto: UpdateUserDto) {
+    const user = await this.findOne(term);
+
+    if(updateUserDto.userName)
+      updateUserDto.userName = updateUserDto.userName.toLowerCase();
+    //si no lo pongo en true nunca va a ser el nuevo objeto siempre sera el old
+      await user.updateOne(updateUserDto) 
+
+    return {...user.toJSON(),...updateUserDto};
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  async remove(id: string) {
+    const userDelete = await this.findOne(id);
+      await userDelete.deleteOne()
+    // return `This action removes a #${id} user`;
   }
 }

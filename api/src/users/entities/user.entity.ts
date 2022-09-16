@@ -15,6 +15,10 @@ export class User extends Document {
   })
   userName: string;
 
+  @Prop({
+    unique:true,
+    index:true
+  })
   password: string;
 
   @Prop({
@@ -29,7 +33,7 @@ export class User extends Document {
   img?: string;
 
   @Prop({})
-  birthDate: string;
+  birthDate?: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
