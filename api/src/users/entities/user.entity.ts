@@ -29,7 +29,7 @@ export class User extends Document {
   img?: string;
 
   @Prop({})
-  birthDate: string;
+  birthDate?: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
