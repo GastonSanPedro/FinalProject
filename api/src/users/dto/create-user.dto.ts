@@ -1,4 +1,12 @@
-import { IsEmail, IsNotEmpty, IsString, MinLength } from 'class-validator';
+import {
+  IsDataURI,
+  IsDate,
+  IsEmail,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  MinLength,
+} from 'class-validator';
 
 // export interface Ipublication{
 
@@ -7,7 +15,7 @@ export class CreateUserDto {
   @IsString()
   @IsNotEmpty()
   @MinLength(1)
-  name:string;
+  firstName: string;
 
   @IsString()
   @IsNotEmpty()
@@ -24,5 +32,17 @@ export class CreateUserDto {
   @IsNotEmpty()
   password: String;
 
-  // publications: Ipublication;
+  @IsString()
+  @IsNotEmpty()
+  @MinLength(1)
+  lastName: string;
+
+  @IsOptional()
+  @IsString()
+  @IsDataURI()
+  image?: string;
+
+  @IsDate()
+  @IsOptional()
+  birthDate?: Date;
 }

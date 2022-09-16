@@ -5,54 +5,62 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 
-
 export interface IUser {
-  name:string,
-  ID: string,
-  userName: string,
-  password: string,
-  email: string,
+  name: string;
+  ID: string;
+  userName: string;
+  password: string;
+  email: string;
 }
-
 
 @Injectable()
 export class UsersService {
-
   constructor(
     @InjectModel(User.name)
-    private readonly userModel: Model<User>
-  ){}
+    private readonly userModel: Model<User>,
+  ) {}
 
-  users: IUser []=[
+  users: IUser[] = [
     {
-      name: "Gaston",
-      ID: "1",
-      userName: "gaston123",
-      password: "12345",
-      email: "gaston@hotmail.com",
+      name: 'Gaston',
+      ID: '1',
+      userName: 'gaston123',
+      password: '12345',
+      email: 'gaston@hotmail.com',
     },
     {
-      name: "Alirio",
-      ID: "2",
-      userName: "Alopez",
-      password: "1234",
-      email: "alopez@hotmail.com",
-    }
-   ]
-  
+      name: 'Alirio',
+      ID: '2',
+      userName: 'Alopez',
+      password: '1234',
+      email: 'alopez@hotmail.com',
+    },
+  ];
+
   async create(createUserDto: CreateUserDto) {
-    createUserDto.userName= createUserDto.name.toLowerCase()
-    const user = await this.userModel.create(createUserDto)
+    const userFinded = await this.userModel;
+    createUserDto.userName = createUserDto.firstName.toLowerCase();
+    createUserDto.email = createUserDto.email.toLowerCase();
+    const user = await this.userModel.create(createUserDto);
     return user;
   }
 
   findAll() {
-    return this.userModel.find()
+    return this.userModel.find();
   }
 
-  findOne(id: string) {
-    const userFinded:IUser= this.users.find(user=> user.ID === id)
-    if(!userFinded) throw new NotFoundException(`El usuario con id ${id} no existe`)
+  async findOne(term: string) {
+    const userFinded = await this.userModel.findOne({
+      $or: [
+        { userName: term.toLocaleLowerCase().trim() },
+        { email: term.toLocaleLowerCase().trim() },
+      ],
+    });
+
+    console.log(userFinded);
+    if (!userFinded)
+      throw new NotFoundException(`El usuario con el nombre ${term} no existe`);
+
     return userFinded;
   }
 
