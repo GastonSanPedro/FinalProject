@@ -46,8 +46,8 @@ export class UsersService {
     return user;
   }
 
-  findAll() {
-    return this.userModel.find();
+  async findAll() {
+    return await this.userModel.find();
   }
 
   async findOne(term: string) {
@@ -59,7 +59,7 @@ export class UsersService {
       ],
     });
     if (!userFinded)
-      throw new NotFoundException(`El usuario con el nombre ${term} no existe`);
+      throw new NotFoundException(`El usuario con el term ${term} no existe`);
 
     return userFinded;
   }
@@ -78,6 +78,6 @@ export class UsersService {
   async remove(id: string) {
     const userDelete = await this.findOne(id);
       await userDelete.deleteOne()
-    // return `This action removes a #${id} user`;
+    return `User ${id} has been deleted`;
   }
 }
