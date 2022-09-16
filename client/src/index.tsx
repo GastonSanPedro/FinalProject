@@ -8,24 +8,31 @@ import Profile from './views/Profile';
 import Landing from './views/LandingPage'
 import SignIn from './views/SignIn'
 import { ChakraProvider } from '@chakra-ui/react'
+import SearchPage from './views/SearchPage';
+import theme from './theme';
+import {Provider} from 'react-redux';
+import { store } from './redux/store'
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
+  <Provider store={store}>
   <React.StrictMode>
-    <ChakraProvider>
+    <ChakraProvider theme={theme}>
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App/>}/>
         <Route path="profile" element={<Profile/>}/>
         <Route path="/landing-page" element={<Landing/>}></Route>
         <Route path="/sign-in" element={<SignIn/>}></Route>
+        <Route path="/search-page" element={<SearchPage/>}></Route>
       </Routes>
     </BrowserRouter>
 
     </ChakraProvider>
   </React.StrictMode>
+  </Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function
