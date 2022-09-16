@@ -38,14 +38,11 @@ export class UsersService {
   ];
 
   async create(createUserDto: CreateUserDto) {
-    const userFinded = await this.userModel;
+    // const userFinded = await this.userModel;
     createUserDto.userName = createUserDto.firstName.toLowerCase();
     createUserDto.email = createUserDto.email.toLowerCase();
     const user = await this.userModel.create(createUserDto);
     return user;
-    // }else{
-    //   throw new BadRequestException(`El usuario con id ${createUserDto.userName} ya existe`)
-    // }
   }
 
   findAll() {
@@ -59,8 +56,6 @@ export class UsersService {
         { email: term.toLocaleLowerCase().trim() },
       ],
     });
-
-    console.log(userFinded);
     if (!userFinded)
       throw new NotFoundException(`El usuario con el nombre ${term} no existe`);
 

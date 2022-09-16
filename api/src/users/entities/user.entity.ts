@@ -4,10 +4,12 @@ import { Document } from 'mongoose';
 @Schema()
 export class User extends Document {
   @Prop({
-    unique: true,
     index: true,
   })
   firstName: string;
+
+  @Prop({})
+  lastName: string;
 
   @Prop({
     unique: true,
@@ -15,15 +17,13 @@ export class User extends Document {
   })
   userName: string;
 
+  @Prop({})
   password: string;
 
   @Prop({
     unique: true,
   })
   email: string;
-
-  @Prop({})
-  lastName: string;
 
   @Prop({})
   img?: string;
