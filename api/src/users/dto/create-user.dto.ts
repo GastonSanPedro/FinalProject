@@ -30,7 +30,7 @@ export class CreateUserDto {
   @IsString()
   @MinLength(6)
   @IsNotEmpty()
-  password: String;
+  password: string;
 
   @IsString()
   @IsNotEmpty()
@@ -39,7 +39,6 @@ export class CreateUserDto {
 
   @IsOptional()
   @IsString()
-  @IsDataURI()
   image?: string;
 
   @IsDate()
