@@ -25,18 +25,10 @@ export class UsersController {
     return this.usersService.findAll();
   }
 
-
-
   @Get(':term')
   findOne(@Param('term') term: string) {
     return this.usersService.findOne(term);
   }
-
-
-  // @Patch(':id')
-  // update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-  //   return this.usersService.update(+id, updateUserDto);
-  // }
 
   @Patch(':term')
   update(@Param('term') term: string, @Body() updateUserDto: UpdateUserDto) {
