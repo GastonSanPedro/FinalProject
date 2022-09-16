@@ -1,33 +1,34 @@
-import React from 'react'
 import UserSinglePost from '../components/UserSinglePost/UserSinglePost'
+import Navbar from '../components/navbar/Navbar';
+import CreatePost from '../components/CreatePost/CreatePost';
+import { HStack } from '@chakra-ui/react'
+// import React from 'react'
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getUsers } from '../redux/actions';
-import { State } from "../redux/reducers"
-import { useAppDispatch } from '../redux/hooks';
+import { getPosts } from '../redux/actions';
+// import { State } from "../redux/reducers"
+// import { useAppDispatch } from '../redux/hooks';
 
 
 const Feed = () => {
 
-    const dispatch = useAppDispatch()
-    // dispatch(getUsers())
-
-    const users = useSelector((state: State) => state.users);
+    const dispatch = useDispatch()
 
 
-    
 
-
-    // useEffect(() => {
-    //     dispatch(getUsers())
-    // }, [dispatch])
+    useEffect(() =>{
+        dispatch(getPosts())
+    },[dispatch])
 
     return (
         <>
-            {users.map}
 
-            <UserSinglePost />
-            <UserSinglePost />
+            <Navbar />
+            <CreatePost />
+            <HStack >
+                <UserSinglePost />
+                <UserSinglePost />
+            </HStack>
         </>
     )
 }
