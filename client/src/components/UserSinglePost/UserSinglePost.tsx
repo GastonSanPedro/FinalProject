@@ -23,7 +23,6 @@ const UserSinglePost = () => {
                     algún órgano está especializado en el almacenamiento de agua en cantidades mayores que las plantas sin esta adaptación
                     algún órgano está especializado en el almacenamiento de agua en cantidades mayores que las plantas sin esta adaptación
                     algún órgano está especializado en el almacenamiento de agua en cantidades mayores que las plantas sin esta adaptación
-                    
                 </Box>
                 <Stack w="15%" ml={8} >
                     <Avatar mt="5%" ml={3} size='xl' name='usuario' src="https://avatarfiles.alphacoders.com/128/thumb-128984.png" />
