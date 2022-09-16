@@ -21,7 +21,7 @@ export class User extends Document {
   password: string;
 
   @Prop({
-    unique: true,
+    unique: true
   })
   email: string;
 

@@ -39,7 +39,6 @@ export class CreateUserDto {
 
   @IsOptional()
   @IsString()
-  @IsDataURI()
   image?: string;
 
   @IsDate()
