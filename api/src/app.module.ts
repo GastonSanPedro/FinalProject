@@ -10,7 +10,7 @@ import { MongooseModule } from '@nestjs/mongoose';
     ServeStaticModule.forRoot({
       rootPath: join(__dirname,'..','public'),
       }),
-    MongooseModule.forRoot('mongodb://localhost:27017/nest-FinalProject'),
+    // MongooseModule.forRoot('mongodb://localhost:27017/nest-FinalProject'),
     UsersModule, 
     PosteosModule
   ],

@@ -1,56 +1,78 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException, InternalServerErrorException } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { isValidObjectId, Model } from 'mongoose';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-
+import { User } from './entities/user.entity';
 
 export interface IUser {
-  name:string,
-  ID: string,
-  userName: string,
-  password: string,
-  email: string,
+  firstName: string;
+  userName: string;
+  email: string;
+  password: string;
+  lastName: string;
+  image?: string;
+  birthDay?: Date;
+  // _id: string;
 }
-
 
 @Injectable()
 export class UsersService {
+  constructor(
+    @InjectModel(User.name)
+    private readonly userModel: Model<User>,
+  ) {}
 
-  users: IUser []=[
-    {
-      name: "Gaston",
-      ID: "1",
-      userName: "gaston123",
-      password: "12345",
-      email: "gaston@hotmail.com",
-    },
-    {
-      name: "Alirio",
-      ID: "2",
-      userName: "Alopez",
-      password: "1234",
-      email: "alopez@hotmail.com",
+  async create(createUserDto: CreateUserDto) {
+    createUserDto.email = createUserDto.email.toLowerCase();
+    createUserDto.userName = createUserDto.firstName.toLowerCase();
+    try {
+      const user:User = await this.userModel.create(createUserDto);
+      return user;
+    } catch (error) {
+      if(error.code === 11000){//si consologeamos el error nos va a mostrar tanto la propiedad code, como la propiedad keyValue
+        throw new BadRequestException(`User exist in db ${JSON.stringify(error.keyValue)}`)
+      }
+      console.log(error);
+      throw new InternalServerErrorException(`Can't create User - check server logs`)
     }
-   ]
-  
-  create(createUserDto: CreateUserDto) {
-    return createUserDto;
   }
 
-  findAll() {
-    return this.users;
+  async findAll() {
+    return await this.userModel.find();
   }
 
-  findOne(id: string) {
-    const userFinded:IUser= this.users.find(user=> user.ID === id)
-    if(!userFinded) throw new NotFoundException(`El usuario con id ${id} no existe`)
-    return userFinded;
+  async findOne(term: string) {
+        let userFinded:User;
+        term = term.toLowerCase()
+        //Busco por mail
+        if(term.includes("@")){
+          userFinded = await this.userModel.findOne({email : term})
+        }
+        //Busco por MongoId
+        if(isValidObjectId(term)){
+          userFinded =  await this.userModel.findById(term)
+        }
+        //Si no hay nada hasta este punto busco por UserName
+        if(!userFinded){
+          userFinded =  await this.userModel.findOne({userName: term})
+        }
+        //Si no encontro nada arroja error
+        if (!userFinded) throw new NotFoundException(`El usuario con el id, username or email ${term} no existe`);
+        return userFinded;
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  async update(term: string, updateUserDto: UpdateUserDto) {
+    const user:User = await this.findOne(term);
+    if(updateUserDto.userName) {updateUserDto.userName = updateUserDto.userName.toLowerCase()};
+    //si no lo pongo en true nunca va a ser el nuevo objeto siempre sera el old
+    await user.updateOne(updateUserDto) 
+    return {...user.toJSON(),...updateUserDto};
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  async remove(id: string) {
+    const userDelete:User = await this.findOne(id);
+    await userDelete.deleteOne()
+    return `User ${id} has been deleted`;
   }
 }
