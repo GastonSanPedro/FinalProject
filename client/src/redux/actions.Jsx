@@ -12,23 +12,18 @@ export function getUsers() {
             type: GET_USERS,
             payload: info.data
         })
-    } catch (error) {
-        console.log(error, 'Error al llamar a la api');
     }
 }
 }
 
 export function getPosts() {
     return async function(dispatch){
-    try {
-        let info = await axios.get('http://localhost:3001/posteos', {})
-        
-        dispatch({
+    return async function (dispatch) {
+        let info = await axios.get('http://localhost:3001/posteos',{})
+        return dispatch({
             type: GET_POSTS,
             payload: info.data
         })
-    } catch (error) {
-        console.log(error, 'Error al llamar a la api');
     }
 }
 
@@ -44,9 +39,6 @@ export function createUser(payload) {
         }
     }
 }
-
-
-
 
 
 
