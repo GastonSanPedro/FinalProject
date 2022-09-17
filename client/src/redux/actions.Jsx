@@ -12,18 +12,23 @@ export function getUsers() {
             type: GET_USERS,
             payload: info.data
         })
+    } catch (error) {
+        console.log(error, 'Error al llamar a la api');
     }
 }
 }
 
 export function getPosts() {
     return async function(dispatch){
-    return async function (dispatch) {
-        let info = await axios.get('http://localhost:3001/posteos',{})
-        return dispatch({
+    try {
+        let info = await axios.get('http://localhost:3001/posteos', {})
+        
+        dispatch({
             type: GET_POSTS,
             payload: info.data
         })
+    } catch (error) {
+        console.log(error, 'Error al llamar a la api');
     }
 }
 
@@ -39,6 +44,31 @@ export function createUser(payload) {
         }
     }
 }
+
+
+
+
+
+
+
+//----------TYPSCRIPT FUNCIONALpor si las dudas---------
+// export const getPosts = (): any => async (dispatch: any): Promise<any> => {
+
+//     try {
+
+//         var jsona = await axios.get('http://localhost:3001/posteos')
+//         let json = await jsona.data
+
+
+//         dispatch({
+//             type: 'GET_POSTS',
+//             payload: json
+//         });
+
+//     } catch (error) {
+//         console.log(error, 'error al llamar a la api');
+//     }
+// }
 
 
 
