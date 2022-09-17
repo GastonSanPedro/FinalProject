@@ -17,9 +17,9 @@ export class PosteosController {
     return this.posteosService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.posteosService.findOne(id);
+  @Get(':term')
+  findByHashtag(@Param('term') term: string) {
+    return this.posteosService.findByHashtag(term);
   }
 
   @Patch(':id')
