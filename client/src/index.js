@@ -26,11 +26,12 @@ root.render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App/>}/>
-        <Route path="profile" element={<Profile/>}/>
+        <Route path="/profile" element={<Profile/>}/>
         <Route path="/landing-page" element={<Landing/>}></Route>
         <Route path="/sign-in" element={<SignIn/>}></Route>
         <Route path="/search-page" element={<SearchPage/>}></Route>
         <Route path="/home" element={<Feed/>}></Route>
+        <Route exact path= "/user/:id" element={<Profile/>}/>
       </Routes>
     </BrowserRouter>
 

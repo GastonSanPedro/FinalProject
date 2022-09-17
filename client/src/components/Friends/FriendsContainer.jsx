@@ -14,6 +14,7 @@ const FriendsContainer = ({ allUsers }) => {
                 {allUsers && allUsers.map((e) => {
                     return (
                         <Friend
+                            id= {e._id}
                             firstName={e.firstName}
                             lastName={e.lastName}
                         />
