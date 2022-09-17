@@ -3,7 +3,7 @@ export const GET_USERS = 'GET_USERS';
 export const GET_POSTS = 'GET_POSTS';
 export const POST_USER = 'POST_USER'
 
-export async function getUsers() {
+export function getUsers() {
     return async function(dispatch){
     try {
         let info = await axios.get('http://localhost:3001/users', {})
@@ -29,8 +29,8 @@ export function getPosts() {
 
 }
 
-export async function createUser(payload) {
-    return async function (dispatch){
+export function createUser(payload) {
+    return async function (){
         try{
             var json = await axios.post('http://localhost:3001/users', payload)
             return json
