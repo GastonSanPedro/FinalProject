@@ -31,11 +31,11 @@ docker-compose up -d
 npm run start:dev
 ```
 
-<!-- 8. Reconstruir la base de datos con la semilla
+8. Reconstruir la base de datos con la semilla
 
 ```
-http://localhost:3000/api/v2/seed
-``` -->
+http://localhost:3001/seed
+```
 
 9. La app estara corriendo en el puerto http://localhost:3001
 

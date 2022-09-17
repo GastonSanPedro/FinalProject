@@ -9,9 +9,10 @@ import Landing from './views/LandingPage'
 import SignIn from './views/SignIn'
 import { ChakraProvider } from '@chakra-ui/react'
 import SearchPage from './views/SearchPage';
+import Feed from './views/Feed';
 import theme from './theme';
 import {Provider} from 'react-redux';
-import { store } from './redux/store'
+import store  from './redux/store'
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -27,6 +28,7 @@ root.render(
         <Route path="/landing-page" element={<Landing/>}></Route>
         <Route path="/sign-in" element={<SignIn/>}></Route>
         <Route path="/search-page" element={<SearchPage/>}></Route>
+        <Route path="/home" element={<Feed/>}></Route>
       </Routes>
     </BrowserRouter>
 
