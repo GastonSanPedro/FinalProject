@@ -50,19 +50,19 @@ export class PosteosService {
     }
   }
 
-  findAll() {
-    return this.posteoModel.find();
+  async findAll() {
+    return await this.posteoModel.find();
   }
 
-  findOne(id: string) {
+  async findOne(id: string) {
     return `This action returns a #${id} posteo`;
   }
 
-  update(id: number, updatePosteoDto: UpdatePosteoDto) {
+  async update(id: number, updatePosteoDto: UpdatePosteoDto) {
     return `This action updates a #${id} posteo`;
   }
 
-  remove(id: number) {
+  async remove(id: number) {
     return `This action removes a #${id} posteo`;
   }
 }
