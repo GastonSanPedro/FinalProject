@@ -24,7 +24,7 @@ export class SeedService {
 
       usersDB.forEach(({ firstName, lastName, userName, email, password, image, birthdate }) => {
 
-      usersToInsert.push({ firstName, lastName, userName, email, password, image, birthdate })  
+      usersToInsert.push({ firstName, lastName, userName: userName.toLowerCase(), email: email.toLowerCase(), password, image, birthdate })  
       });
    await this.userModel.insertMany(usersToInsert)
    
