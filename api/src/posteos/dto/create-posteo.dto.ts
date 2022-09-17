@@ -7,6 +7,7 @@ import {
   } from 'class-validator';
 export class CreatePosteoDto {
     @IsString()
+    @IsOptional()
     pics: string;
 
     @IsString()
