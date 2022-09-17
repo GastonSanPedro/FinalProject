@@ -64,7 +64,7 @@ const CreateUser = () => {
                 if(usernameFilter[0]) return alert('This username already exist')
 
                 dispatch(createUser(values), [])
-                //navigate(`/profile`)
+                navigate(`/profile`)
                                
 
                 console.log('Formulario Enviado')
