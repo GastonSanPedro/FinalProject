@@ -1,11 +1,13 @@
 import axios from 'axios';
+export const GET_USERS = 'GET_USERS';
+export const GET_POSTS = 'GET_POSTS';
 
 export async function getUsers() {
     try {
         let info = await axios.get('http://localhost:3001/users', {})
         
         dispatch({
-            type: 'GET_USERS',
+            type: GET_USERS,
             payload: info.data
         })
     } catch (error) {
@@ -18,7 +20,7 @@ export async function getPosts() {
         let info = await axios.get('http://localhost:3001/posteos', {})
         
         dispatch({
-            type: 'GET_POSTS',
+            type: GET_POSTS,
             payload: info.data
         })
     } catch (error) {
