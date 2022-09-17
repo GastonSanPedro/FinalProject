@@ -7,7 +7,7 @@ const userImg: string = 'https://previews.123rf.com/images/pandavector/pandavect
 const UserCard = () => {
     return(
         <>
-        <Stack m={3} display='flex' flexDir='column' w='200px' h='245px' alignItems='center' justifyContent='center' backgroundColor='gray.200' borderRadius='7px' >
+        <Stack m={3} ml={0} display='flex' flexDir='column' w='200px' h='245px' alignItems='center' justifyContent='center' backgroundColor='gray.200' borderRadius='7px' >
             <Avatar
             size='xl'
             name='user'
