@@ -1,33 +1,51 @@
 import axios from 'axios';
 
-export async function getUsers() {
-    try {
-        let info = await axios.get('http://localhost:3001/users', {})
+// export async function getUsers(dispatch) {
+//     try {
+//         let info = await axios.get('http://localhost:3001/users', {})
         
-        dispatch({
+//         dispatch({
+//             type: 'GET_USERS',
+//             payload: info.data
+//         })
+//     } catch (error) {
+//         console.log(error, 'Error al llamar a la api');
+//     }
+// }
+
+// export async function getPosts(dispatch) {
+//     try {
+//         let info = await axios.get('http://localhost:3001/posteos', {})
+        
+//         dispatch({
+//             type: 'GET_POSTS',
+//             payload: info.data
+//         })
+//     } catch (error) {
+//         console.log(error, 'Error al llamar a la api');
+//     }
+// }
+
+
+export function getUsers() {
+    return async function (dispatch) {
+        let info = await axios.get('http://localhost:3001/users',{})
+        return dispatch({
             type: 'GET_USERS',
             payload: info.data
         })
-    } catch (error) {
-        console.log(error, 'Error al llamar a la api');
     }
 }
 
-export async function getPosts() {
-    try {
-        let info = await axios.get('http://localhost:3001/posteos', {})
-        
-        dispatch({
+export function getPosts() {
+    return async function (dispatch) {
+        let info = await axios.get('http://localhost:3001/posteos',{})
+        return dispatch({
             type: 'GET_POSTS',
             payload: info.data
         })
-    } catch (error) {
-        console.log(error, 'Error al llamar a la api');
     }
 }
-
-
-
 
 
 
