@@ -1,5 +1,4 @@
 import {
-  IsDataURI,
   IsDate,
   IsEmail,
   IsNotEmpty,
@@ -7,10 +6,6 @@ import {
   IsString,
   MinLength,
 } from 'class-validator';
-
-// export interface Ipublication{
-
-// }
 export class CreateUserDto {
   @IsString()
   @IsNotEmpty()
