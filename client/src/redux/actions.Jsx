@@ -2,6 +2,7 @@ import axios from 'axios';
 export const GET_USERS = 'GET_USERS';
 export const GET_POSTS = 'GET_POSTS';
 export const POST_USER = 'POST_USER';
+export const AUTH_USER = 'AUTH_USER';
 
 export function getUsers() {
   return async function (dispatch) {
@@ -43,6 +44,30 @@ export function createUser(payload) {
     }
   };
 }
+export const authUser = (mail, password) => {
+  return async function (dispatch) {
+    try {
+      var user = await axios.get(`http://localhost:3001/users/${mail}`);
+      let formatUser = user.data;
+      //console.log(formatUser);
+      if (formatUser.email !== mail) {
+        return dispatch({ type: AUTH_USER, payload: { err: 'Mail invalido' } });
+      } else if (formatUser.password !== password) {
+        return dispatch({
+          type: AUTH_USER,
+          payload: 'Invalid password',
+        });
+      } else {
+        return dispatch({
+          type: AUTH_USER,
+          payload: { auth: true, user: user },
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
 
 //----------TYPSCRIPT FUNCIONALpor si las dudas---------
 // export const getPosts = (): any => async (dispatch: any): Promise<any> => {
