@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { getUsers, createUser } from "../../redux/actions";
 import { Formik, Form } from "formik";
-import { Link, useNavigate } from "react-router-dom";
-import { Center, Box, FormControl, Input, FormLabel, InputGroup, InputRightElement, Text, Button } from '@chakra-ui/react';
-import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavegate } from "react-router-dom";
+import { Center, Box, FormControl, Input, FormLabel, FormErrorMessage, FormHelperText, InputGroup, InputRightElement, Button, Text } from '@chakra-ui/react';
+import { useDispatch, useSelector  } from "react-redux";
 
 
 const CreateUser = () => {
