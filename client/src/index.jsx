@@ -1,39 +1,36 @@
+import { ChakraProvider } from '@chakra-ui/react';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
+import { Provider } from 'react-redux';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import App from './App';
+import './index.css';
+import store from './redux/store';
 import reportWebVitals from './reportWebVitals';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Profile from './views/Profile';
-import Landing from './views/LandingPage'
-import SignIn from './views/SignIn'
-import { ChakraProvider } from '@chakra-ui/react'
-import SearchPage from './views/SearchPage';
-import Feed from './views/Feed';
 import theme from './theme';
-import {Provider} from 'react-redux';
-import store  from './redux/store'
+import Feed from './views/Feed';
+import Landing from './views/LandingPage';
+import Profile from './views/Profile';
+import SearchPage from './views/SearchPage';
+import SignIn from './views/SignIn';
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root')
-);
+const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>
-  <React.StrictMode>
-    <ChakraProvider theme={theme}>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<App/>}/>
-        <Route path="profile" element={<Profile/>}/>
-        <Route path="/landing-page" element={<Landing/>}></Route>
-        <Route path="/sign-in" element={<SignIn/>}></Route>
-        <Route path="/search-page" element={<SearchPage/>}></Route>
-        <Route path="/home" element={<Feed/>}></Route>
-      </Routes>
-    </BrowserRouter>
-
-    </ChakraProvider>
-  </React.StrictMode>
+    <React.StrictMode>
+      <ChakraProvider theme={theme}>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<App />} />
+            <Route path="profile" element={<Profile />} />
+            <Route path="/landing-page" element={<Landing />}></Route>
+            <Route path="/sign-in" element={<SignIn />}></Route>
+            <Route path="/search-page" element={<SearchPage />}></Route>
+            <Route path="/home" element={<Feed />}></Route>
+          </Routes>
+        </BrowserRouter>
+      </ChakraProvider>
+    </React.StrictMode>
   </Provider>
 );
 
