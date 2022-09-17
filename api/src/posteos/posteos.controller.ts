@@ -18,13 +18,13 @@ export class PosteosController {
   }
 
   @Get(':term')
-  findByHashtag(@Param('term') term: string) {
-    return this.posteosService.findByHashtag(term);
+  findByDescription(@Param('term') term: string) {
+    return this.posteosService.findByDescription(term);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updatePosteoDto: UpdatePosteoDto) {
-    return this.posteosService.update(+id, updatePosteoDto);
+    return this.posteosService.update(id, updatePosteoDto);
   }
 
   @Delete(':id')

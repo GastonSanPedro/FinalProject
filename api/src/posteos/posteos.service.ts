@@ -54,14 +54,14 @@ export class PosteosService {
     return await this.posteoModel.find();
   }
 
-  async findByHashtag(term: string) {
+  async findByDescription(term: string) {
     term = term.toLowerCase()
     const posteos:Posteo [] = await this.posteoModel.find({description: {$regex: term, $options: "$i"} })
     if (!posteos) throw new NotFoundException(`No existe ningun posteo que contenga ${term}`);
     return posteos;
   }
 
-  async update(id: number, updatePosteoDto: UpdatePosteoDto) {
+  async update(id: string, updatePosteoDto: UpdatePosteoDto) {
     return `This action updates a #${id} posteo`;
   }
 
