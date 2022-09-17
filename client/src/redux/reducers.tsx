@@ -1,15 +1,44 @@
-import { State, ActionUsers} from './types'
+import {GET_POSTS} from "./actions"
 
-const initialState = {
-    users: []
+
+interface User {
+    mongo_id: string,
+    first_name: string,
+    last_name: string,
+    email: string,
+    password: string,    
 }
 
-export default function rootReducer (state = initialState, action:any) {
+interface Post{
+    ID: number,
+    user_ID: number,
+    description:string
+}
+
+interface State {
+    users: User[],
+    posts:Post[]
+}
+
+type Action = {
+    type: string,
+    payload?: any
+}
+
+const initialState = {
+    users:[],
+    posts:[]
+
+}
+
+// function getProductReducer(state: state = initialState, action: action): state {
+
+function rootReducer (state: State = initialState, action: Action):State  {
     switch (action.type) {
-        case 'GET_USERS':
+        case GET_POSTS:
             return{
               ...state,
-              users: action.payload 
+              posts: action.payload 
             }
         default:
             return state
