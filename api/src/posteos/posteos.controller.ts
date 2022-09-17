@@ -17,14 +17,14 @@ export class PosteosController {
     return this.posteosService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.posteosService.findOne(id);
+  @Get(':term')
+  findByDescription(@Param('term') term: string) {
+    return this.posteosService.findByDescription(term);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updatePosteoDto: UpdatePosteoDto) {
-    return this.posteosService.update(+id, updatePosteoDto);
+    return this.posteosService.update(id, updatePosteoDto);
   }
 
   @Delete(':id')

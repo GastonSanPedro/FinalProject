@@ -1,52 +1,44 @@
 import axios from 'axios';
+export const GET_USERS = 'GET_USERS';
+export const GET_POSTS = 'GET_POSTS';
+export const POST_USER = 'POST_USER'
 
-// export async function getUsers(dispatch) {
-//     try {
-//         let info = await axios.get('http://localhost:3001/users', {})
+export async function getUsers() {
+    return async function(dispatch){
+    try {
+        let info = await axios.get('http://localhost:3001/users', {})
         
-//         dispatch({
-//             type: 'GET_USERS',
-//             payload: info.data
-//         })
-//     } catch (error) {
-//         console.log(error, 'Error al llamar a la api');
-//     }
-// }
-
-// export async function getPosts(dispatch) {
-//     try {
-//         let info = await axios.get('http://localhost:3001/posteos', {})
-        
-//         dispatch({
-//             type: 'GET_POSTS',
-//             payload: info.data
-//         })
-//     } catch (error) {
-//         console.log(error, 'Error al llamar a la api');
-//     }
-// }
-
-
-export function getUsers() {
-    return async function (dispatch) {
-        let info = await axios.get('http://localhost:3001/users',{})
-        return dispatch({
-            type: 'GET_USERS',
+        dispatch({
+            type: GET_USERS,
             payload: info.data
         })
     }
+}
 }
 
 export function getPosts() {
+    return async function(dispatch){
     return async function (dispatch) {
         let info = await axios.get('http://localhost:3001/posteos',{})
         return dispatch({
-            type: 'GET_POSTS',
+            type: GET_POSTS,
             payload: info.data
         })
     }
 }
 
+}
+
+export async function createUser(payload) {
+    return async function (dispatch){
+        try{
+            var json = await axios.post('http://localhost:3001/users', payload)
+            return json
+        }catch(error){
+            console.log(error)
+        }
+    }
+}
 
 
 
