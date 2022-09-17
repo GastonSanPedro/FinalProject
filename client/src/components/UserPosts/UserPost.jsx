@@ -1,7 +1,15 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { Box, Avatar, Flex, Wrap, WrapItem} from '@chakra-ui/react'
+import {getPosts} from '../../redux/actions'
+import {useDispatch, useSelector} from 'react-redux'
 
 const UserPost = () => {
+    const dispatch = useDispatch()
+    const allPosts = useSelector((state) => state.posts);
+    useEffect(() => {
+        dispatch(getPosts());
+      }, [dispatch]);
+    console.log(allPosts)
   return (
     <>
     <Box ml={10} mt={5} p={7} w="70%" backgroundColor={'#ECEAEA'}>
