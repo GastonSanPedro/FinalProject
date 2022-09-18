@@ -26,6 +26,8 @@ export class SeedService {
 
       usersToInsert.push({ firstName, lastName, userName: userName.toLowerCase(), email: email.toLowerCase(), password, image, birthdate })  
       });
+
+      
    await this.userModel.insertMany(usersToInsert)
    
    return 'SEED executed'

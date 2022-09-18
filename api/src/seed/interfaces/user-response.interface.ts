@@ -12,11 +12,6 @@ export interface IUser {
     password:  string;
     image:     string;
     birthdate: string;
-    posteos: IPosteos []
 
 }
 
-export interface IPosteos{
-    pics?: string,
-    description: string,
-}
