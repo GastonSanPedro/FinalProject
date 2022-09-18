@@ -15,6 +15,7 @@ const Navbar = () =>{
                     aria-label='Options'
                     icon={<HamburgerIcon />}
                     variant='outline'
+                    mr={2}
                 />
                 <MenuList>
                     <MenuGroup title='Profile'>

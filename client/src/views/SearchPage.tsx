@@ -1,4 +1,4 @@
-import { Box } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
 import React from "react";
 import HashtagContainer from "../components/HashtagSearch/HashtagContainer";
 import UserSearchContainer from "../components/UserSearch/UserSearchContainer";
@@ -20,7 +20,9 @@ const SearchPage = () =>{
         
         </Box>
         <Box display='flex' dir='column' pt={5} pr={10} pl={10}  >
-        <Box  w='945px' borderRadius='7px' display='flex' justifyContent='space-between' p={3} m={3} backgroundColor={"gray.300"}></Box>
+        <Box  w='945px' borderRadius='7px' display='flex' justifyContent='space-between' p={3} m={3} backgroundColor={"gray.300"}>
+            <Text>Hola</Text>
+        </Box>
         <FriendsContainer/>
         </Box>
         

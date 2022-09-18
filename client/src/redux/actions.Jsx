@@ -2,6 +2,8 @@ import axios from 'axios';
 export const GET_USERS = 'GET_USERS';
 export const GET_POSTS = 'GET_POSTS';
 export const POST_USER = 'POST_USER';
+export const SEARCH_USER = 'SEARCH_USER';
+export const SEARCH_POST = 'SEARCH_POST';
 export const AUTH_USER = 'AUTH_USER';
 
 export function getUsers() {
@@ -44,6 +46,38 @@ export function createUser(payload) {
     }
   };
 }
+
+export function searchUser(searcher) {
+    return async function(dispatch){
+        try{
+            var json = await axios.get(`http://localhost:3001/users/${searcher}`)
+            return dispatch({
+                type: SEARCH_USER,
+                payload: json.data
+            })
+        }catch(error){
+            console.log(error)
+        }}}
+
+export function searchPost(searcher){
+    return async function(dispatch){
+        try{
+            var json = await axios.get(`http://localhost:3001/users/${searcher}`)
+            return dispatch({
+                type: SEARCH_POST,
+                payload: json.date
+            })
+        }catch(error){
+            console.log(error)
+        }
+    }
+        }
+
+
+
+
+
+
 export const authUser = (mail, password) => {
   return async function (dispatch) {
     try {
