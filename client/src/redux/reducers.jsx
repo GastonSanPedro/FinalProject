@@ -1,4 +1,4 @@
-import { GET_USERS, GET_POSTS, POST_USER } from "./actions"
+import { GET_USERS, GET_POSTS, POST_USER, AUTH_USER, SEARCH_POST, SEARCH_USER } from "./actions"
 
 const initialState = {
     allUsers: [],
