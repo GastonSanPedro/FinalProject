@@ -1,9 +1,11 @@
-import { GET_USERS, GET_POSTS, POST_USER } from "./actions"
+import { GET_USERS, GET_POSTS, POST_USER, SEARCH_USER, SEARCH_POST } from "./actions"
 
 const initialState = {
     allUsers: [],
     users:[],
-    posts:[]
+    posts:[],
+    searchUser: [],
+    searchPost: [],
 }
 
 export default function rootReducer(state = initialState, action) {
@@ -22,6 +24,27 @@ export default function rootReducer(state = initialState, action) {
         case POST_USER:
             return {
                 ...state
+            }
+        case SEARCH_USER:
+
+            const usersSearch = action.payload
+            if(!usersSearch[0]){
+                return {
+                    ...state,
+                    usersSearch: '1'    
+            }}else return {
+                ...state,
+                searchUser: action.payload
+            }        
+        case SEARCH_POST:
+            const postSearch = action.payload
+            if(!postSearch[0]){
+                return{
+                    ...state,
+                    usersPost: '1'
+            }}else return {
+                ...state,
+                searchPost: action.payload
             }
         
         default:

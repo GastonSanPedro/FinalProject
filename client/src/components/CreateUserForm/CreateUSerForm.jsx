@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { getUsers, createUser } from "../../redux/actions";
 import { Formik, Form } from "formik";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Center, Box, FormControl, Input, FormLabel, InputGroup, InputRightElement, Text, Button } from '@chakra-ui/react';
 import { useDispatch, useSelector } from "react-redux";
 
@@ -45,7 +45,7 @@ const CreateUser = () => {
                 if(!values.lastName){ 
                   errores.lastName= 'Please enter your last name'
                 }else if(!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(values.lastName)){
-                  errores.firstName='The last name can only contain letters and spaces'
+                  errores.lastName='The last name can only contain letters and spaces'
                 }
                 if(!values.userName){ 
                   errores.userName= 'Please create an user name'
@@ -64,7 +64,7 @@ const CreateUser = () => {
                 if(usernameFilter[0]) return alert('This username already exist')
 
                 dispatch(createUser(values), [])
-                //navigate(`/profile`)
+                navigate(`/profile`)
                                
 
                 console.log('Formulario Enviado')
