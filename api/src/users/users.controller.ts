@@ -6,6 +6,7 @@ import {
   Param,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -28,6 +29,11 @@ export class UsersController {
   @Get(':term')
   findOne(@Param('term') term: string) {
     return this.usersService.findOne(term);
+  }
+  @Get('/name/:term')
+   findByName(@Param('term') term: string) {
+  
+    return this.usersService.findByName(term);
   }
 
   @Patch(':term')
