@@ -3,6 +3,7 @@ export const GET_USERS = 'GET_USERS';
 export const GET_USER = 'GET_USER';
 export const GET_POSTS = 'GET_POSTS';
 export const POST_USER = 'POST_USER';
+export const CREATE_USER_POST = 'CREATE_USER_POST';
 export const SEARCH_USER = 'SEARCH_USER';
 export const SEARCH_POST = 'SEARCH_POST';
 export const AUTH_USER = 'AUTH_USER';
@@ -49,6 +50,23 @@ export function getPosts() {
       });
     } catch (error) {
       console.log(error, 'Error al llamar a la api');
+    }
+  };
+}
+
+export function createUserPost(user, payload) {
+  return async function (dispatch) {
+    try {
+      var json = await axios.patch(
+        `http://localhost:3001/users/${user}`,
+        payload
+      );
+      return dispatch({
+        type: CREATE_USER_POST,
+        payload: json.data,
+      });
+    } catch (error) {
+      console.log(error);
     }
   };
 }
