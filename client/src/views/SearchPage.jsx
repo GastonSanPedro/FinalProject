@@ -5,7 +5,7 @@ import UserSearchContainer from "../components/UserSearch/UserSearchContainer";
 import Navbar from '../components/navbar/Navbar'
 import UserCard from '../components/UserCard/UserCard'
 import FriendsContainer from "../components/Friends/FriendsContainer";
-import UserPost from '../components/UserPosts/UserPost'
+// import UserPost from '../components/UserPosts/UserPost'
 
 const SearchPage = () =>{
     return(
