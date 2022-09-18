@@ -21,12 +21,19 @@ root.render(
       <ChakraProvider theme={theme}>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<App />} />
-            <Route path="profile" element={<Profile />} />
-            <Route path="/landing-page" element={<Landing />}></Route>
-            <Route path="/sign-in" element={<SignIn />}></Route>
-            <Route path="/search-page" element={<SearchPage />}></Route>
-            <Route path="/home" element={<Feed />}></Route>
+            <Route exact path="profile" element={<Profile />} />
+            <Route exact path="/landing-page" element={<Landing />}></Route>
+            <Route exact path="/sign-in" element={<SignIn />}></Route>
+            <Route exact path="/search-page" element={<SearchPage />}></Route>
+            <Route exact path="/home" element={<Feed />}></Route>
+            <Route
+              path="*"
+              element={
+                <main>
+                  <p>No hay naaaa</p>
+                </main>
+              }
+            />
           </Routes>
         </BrowserRouter>
       </ChakraProvider>
