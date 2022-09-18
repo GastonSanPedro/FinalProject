@@ -1,9 +1,12 @@
-import { GET_USERS, GET_POSTS, POST_USER, AUTH_USER, SEARCH_POST, SEARCH_USER } from "./actions"
+import { GET_USERS, GET_POSTS, POST_USER, AUTH_USER,SEARCH_USER,SEARCH_POST } from "./actions"
 
 const initialState = {
     allUsers: [],
     users:[],
-    posts:[]
+    posts:[],
+    auth: {
+      auth:false,
+    },
 }
 
 export default function rootReducer(state = initialState, action) {

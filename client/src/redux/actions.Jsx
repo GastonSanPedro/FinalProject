@@ -80,11 +80,14 @@ export const authUser = (mail, password) => {
       let formatUser = user.data;
       //console.log(formatUser);
       if (formatUser.email !== mail) {
-        return dispatch({ type: AUTH_USER, payload: { err: 'Mail invalido' } });
+        return dispatch({ 
+          type: AUTH_USER, 
+          payload: {auth: false}
+        });
       } else if (formatUser.password !== password) {
         return dispatch({
           type: AUTH_USER,
-          payload: 'Invalid password',
+          payload: { auth: false},
         });
       } else {
         return dispatch({

@@ -1,10 +1,11 @@
-import { Box } from "@chakra-ui/react";
+import { Box,Text } from "@chakra-ui/react";
 import React from "react";
 import HashtagContainer from "../components/HashtagSearch/HashtagContainer";
 import UserSearchContainer from "../components/UserSearch/UserSearchContainer";
 import Navbar from '../components/navbar/Navbar'
 import UserCard from '../components/UserCard/UserCard'
 import FriendsContainer from "../components/Friends/FriendsContainer";
+// import UserPost from '../components/UserPosts/UserPost'
 
 const SearchPage = () =>{
     return(
@@ -16,11 +17,14 @@ const SearchPage = () =>{
         <UserSearchContainer/>
         <HashtagContainer/>
         </Box>
-        <UserCard/>
+        <UserCard /> 
         
         </Box>
         <Box display='flex' dir='column' pt={5} pr={10} pl={10}  >
-        <Box  w='945px' borderRadius='7px' display='flex' justifyContent='space-between' p={3} m={3} backgroundColor={"gray.300"}></Box>
+        <Box  w='945px' borderRadius='7px' display='flex' justifyContent='space-between' p={3} m={3} backgroundColor={"gray.300"}>
+            {/* Aca deberia hacer un mapeo de los posteos que coincidan con lo que busque... */}
+            <Text color={"black"}>HOLA!!</Text>
+        </Box>
         <FriendsContainer/>
         </Box>
         

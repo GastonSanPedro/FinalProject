@@ -17,9 +17,7 @@ const CreateUser = () => {
         useEffect(()=>{
           dispatch(getUsers())
         }, [dispatch])
-
-
-
+        
     return(
         <>
             <Formik
