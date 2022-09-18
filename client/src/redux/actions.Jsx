@@ -39,14 +39,14 @@ export function getUser(email) {
   };
 }
 
-export function getPosts() {
+export function getPosts(email) {
   return async function (dispatch) {
     try {
-      let info = await axios.get('http://localhost:3001/posteos', {});
-
+      let info = await axios.get(`http://localhost:3001/users/${email}`, {});
+      //console.log(info.data.posteos);
       dispatch({
         type: GET_POSTS,
-        payload: info.data,
+        payload: info.data.posteos,
       });
     } catch (error) {
       console.log(error, 'Error al llamar a la api');
