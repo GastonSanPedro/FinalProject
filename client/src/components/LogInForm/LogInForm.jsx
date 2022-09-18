@@ -12,9 +12,10 @@ import {
   InputGroup,
   InputRightElement,
   Button,
+  AlertTitle,
 } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
-import { authUser } from '../../redux/actions';
+import { authUser, getUser, logOut } from '../../redux/actions';
 
 const CreateUser = () => {
   const [show, setShow] = React.useState(false);
@@ -23,27 +24,32 @@ const CreateUser = () => {
     pass: '',
   });
   const auth = useSelector((state) => state.auth);
+  const User = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleShowClick = () => setShow(!show);
   const handleInputChange = (event) =>
     setInput({ ...input, [event.target.name]: event.target.value });
   const isError = input === ''; //true or false
-  
-  const handleSubmit = (input) => {
-    dispatch(authUser(input.email, input.pass));
-  };
 
   useEffect(()=>{
     isUserValidate()
   },[auth])
 
-  const isUserValidate = ()=>{
-    if(auth.auth){
-      localStorage.setItem('user', JSON.stringify(auth.user.data));
+  const handleSubmit = (input) => {
+    dispatch(authUser(input.email, input.pass));
+  };
+
+  const isUserValidate = () => {
+    if (auth.auth === true) {
+      localStorage.setItem('user', JSON.stringify(auth.user));
+
+      dispatch(logOut());
       navigate(`/profile`);
-  }
-}
+    } else if (auth.reason) {
+      alert(auth.reason);
+    }
+  };
 
   return (
     <>
