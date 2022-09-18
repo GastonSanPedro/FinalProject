@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Document, PromiseProvider } from 'mongoose';
+import { Iposteos } from 'src/seed/interfaces/user-response.interface';
 
 @Schema()
 export class User extends Document {
@@ -26,10 +27,16 @@ export class User extends Document {
   email: string;
 
   @Prop({})
-  img?: string;
-
+  image?: string; 
+  
   @Prop({})
   birthDate?: string;
+
+  @Prop({})
+  posteos?: Iposteos[]
+
+  @Prop({})
+  fullName: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
