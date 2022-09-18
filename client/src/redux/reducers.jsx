@@ -4,9 +4,7 @@ const initialState = {
     allUsers: [],
     users:[],
     posts:[],
-    auth: {
-      auth:false,
-    },
+    auth: {},
 }
 
 export default function rootReducer(state = initialState, action) {
