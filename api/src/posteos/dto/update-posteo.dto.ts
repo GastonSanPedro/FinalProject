@@ -7,5 +7,5 @@ import {
 
 export class UpdatePosteoDto extends PartialType(CreatePosteoDto) {
     @IsDate()
-    updatedAt?: Date;
+    updatedAt?: number;
 }
