@@ -20,10 +20,10 @@ const CreatePost = () => {
     setInput({ ...input, [event.target.name]: event.target.value });
 
   const handleSubmit = () => {
-    let post = { posteos: [input] };
+    let post = { posteos: [...user.posteos, input] };
+    console.log(post);
     dispatch(createUserPost(user.email, post));
   };
-
   return (
     <>
       <Box

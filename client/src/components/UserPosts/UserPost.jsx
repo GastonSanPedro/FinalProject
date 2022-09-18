@@ -1,15 +1,17 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box, Avatar, Flex, Wrap, WrapItem } from '@chakra-ui/react';
-import { getPosts } from '../../redux/actions';
+import { getUser } from '../../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
 
 const UserPost = () => {
+  const [User, setUser] = useState(JSON.parse(localStorage.getItem('user')));
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
   const allPosts = useSelector((state) => state.posts);
   useEffect(() => {
-    dispatch(getPosts());
-  }, [dispatch]);
-  console.log(allPosts[0]);
+    dispatch(getUser(User.email));
+  }, [dispatch, User.email]);
+  //console.log(user.posteos[0]);
   return (
     <>
       <Box ml={10} mt={5} p={7} w="70%" backgroundColor={'#ECEAEA'}>
@@ -24,7 +26,7 @@ const UserPost = () => {
         </Box>
         <Flex ml={0} mt={0} p={7} w="100%" direction={['column', 'row']}>
           <Wrap w="100%" align="stretch" spacing={7}>
-            {allPosts.map((post) => {
+            {user.posteos.map((post) => {
               return (
                 <WrapItem w="30%" key={post._id}>
                   <Box w="100%" h="auto" p={2} backgroundColor={'#D9D9D9'}>
