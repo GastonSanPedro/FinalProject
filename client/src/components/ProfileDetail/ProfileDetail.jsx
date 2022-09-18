@@ -3,6 +3,7 @@ import { Box, Avatar } from '@chakra-ui/react';
 
 const ProfileDetail = () => {
   const [User, setUser] = useState(JSON.parse(localStorage.getItem('user')));
+
   return (
     <>
       <Box
