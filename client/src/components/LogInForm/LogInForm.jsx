@@ -12,9 +12,10 @@ import {
   InputGroup,
   InputRightElement,
   Button,
+  AlertTitle,
 } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
-import { authUser } from '../../redux/actions';
+import { authUser, getUser, logOut } from '../../redux/actions';
 
 const CreateUser = () => {
   const [show, setShow] = React.useState(false);
@@ -23,22 +24,13 @@ const CreateUser = () => {
     pass: '',
   });
   const auth = useSelector((state) => state.auth);
+  const User = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleShowClick = () => setShow(!show);
   const handleInputChange = (event) =>
     setInput({ ...input, [event.target.name]: event.target.value });
   const isError = input === ''; //true or false
-  const [isValidate, setIsValidate]= React.useState(false)
-//   const mounted = useRef();
-// useEffect(() => {
-//   if (!mounted.current) {
-//     // do componentDidMount logic
-//     mounted.current = true;
-//   } else {
-//     // do componentDidUpdate logic
-//   }
-// });
 
   useEffect(()=>{
     isUserValidate()
@@ -48,12 +40,16 @@ const CreateUser = () => {
     dispatch(authUser(input.email, input.pass));
   };
 
-  const isUserValidate = ()=>{
-    if(auth.auth){
-      localStorage.setItem('user', JSON.stringify(auth.user.data));
+  const isUserValidate = () => {
+    if (auth.auth === true) {
+      localStorage.setItem('user', JSON.stringify(auth.user));
+
+      dispatch(logOut());
       navigate(`/profile`);
+    } else if (auth.reason) {
+      alert(auth.reason);
     }
-  }
+  };
 
   return (
     <>
