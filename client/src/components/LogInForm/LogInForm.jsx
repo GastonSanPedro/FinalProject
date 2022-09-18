@@ -31,20 +31,10 @@ const CreateUser = () => {
   const handleInputChange = (event) =>
     setInput({ ...input, [event.target.name]: event.target.value });
   const isError = input === ''; //true or false
-  const [isValidate, setIsValidate] = React.useState(false);
-  //   const mounted = useRef();
-  // useEffect(() => {
-  //   if (!mounted.current) {
-  //     // do componentDidMount logic
-  //     mounted.current = true;
-  //   } else {
-  //     // do componentDidUpdate logic
-  //   }
-  // });
 
-  useEffect(() => {
-    isUserValidate();
-  }, [auth]);
+  useEffect(()=>{
+    isUserValidate()
+  },[auth])
 
   const handleSubmit = (input) => {
     dispatch(authUser(input.email, input.pass));

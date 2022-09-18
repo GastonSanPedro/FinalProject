@@ -56,6 +56,7 @@ export class UsersService {
 
   async update(term: string, updateUserDto: UpdateUserDto) {
     const user:User = await this.findOne(term);
+    console.log({user})
     if(updateUserDto.userName) {updateUserDto.userName = updateUserDto.userName.toLowerCase()};
     //si no lo pongo en true nunca va a ser el nuevo objeto siempre sera el old
     await user.updateOne(updateUserDto) 
