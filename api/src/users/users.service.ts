@@ -5,16 +5,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 
-export interface IUser {
-  firstName: string;
-  userName: string;
-  email: string;
-  password: string;
-  lastName: string;
-  image?: string;
-  birthDay?: Date;
-  // _id: string;
-}
+
 
 @Injectable()
 export class UsersService {
@@ -49,6 +40,7 @@ export class UsersService {
         if(term.includes("@")){
           userFinded = await this.userModel.findOne({email : term})
         }
+
         //Busco por MongoId
         if(isValidObjectId(term)){
           userFinded =  await this.userModel.findById(term)
@@ -75,4 +67,20 @@ export class UsersService {
     await userDelete.deleteOne()
     return `User ${id} has been deleted`;
   }
+
+  async findByName(term: string) {
+    let userFinded:User[];
+    term = term.toLowerCase()
+    //Busco por firstName, lastName y fullName
+  
+      userFinded = await this.userModel.find(
+        {$or:[
+          {firstName: {$regex: term, $options: "$i"} },
+          {lastName: {$regex: term, $options: "$i"} },
+          {fullName: {$regex: term, $options: "$i"} }
+        ]})
+        if(userFinded.length === 0) throw new NotFoundException(`El usuario con el First Name, Last Name or Full Name ${term} no existe`)
+      return userFinded
+  }
+
 }

@@ -4,7 +4,8 @@ import { Model } from 'mongoose';
 
 import { User } from 'src/users/entities/user.entity';
 import { IUser } from '../seed/interfaces/user-response.interface';
-import { usersDB } from './users';
+import { userDBFull } from './users';
+
 
 
 @Injectable()
@@ -21,11 +22,12 @@ export class SeedService {
       await this.userModel.deleteMany({});
 
       const usersToInsert: IUser[] = []
+      
+      userDBFull.forEach(({ firstName, lastName, userName, email, password, image, birthdate, posteos, fullName }) => {
 
-      usersDB.forEach(({ firstName, lastName, userName, email, password, image, birthdate }) => {
-
-      usersToInsert.push({ firstName, lastName, userName: userName.toLowerCase(), email: email.toLowerCase(), password, image, birthdate })  
+      usersToInsert.push({ firstName, lastName, userName: userName.toLowerCase(), email: email.toLowerCase(), password, image, birthdate, posteos, fullName: fullName.toLowerCase() })  
       });
+    
    await this.userModel.insertMany(usersToInsert)
    
    return 'SEED executed'
