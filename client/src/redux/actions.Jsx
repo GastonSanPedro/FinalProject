@@ -73,11 +73,6 @@ export function searchPost(searcher){
     }
         }
 
-
-
-
-
-
 export const authUser = (mail, password) => {
   return async function (dispatch) {
     try {
