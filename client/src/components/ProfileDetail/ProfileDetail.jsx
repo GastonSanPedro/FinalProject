@@ -6,6 +6,9 @@ const ProfileDetail = () => {
   console.log({User})
   const [canEdit, setCanEdit] = React.useState(false)
   const [firstName, setFirstName] = React.useState(User.firstName)
+  const [lastName, setLastName] = React.useState(User.lastName)
+  const [email, setEmail] = React.useState(User.email)
+  const [bio, setBio] = React.useState(User.bio)
 
   const editDataProfile = () =>{
     setCanEdit(true)
@@ -13,7 +16,7 @@ const ProfileDetail = () => {
 
   useEffect(()=>{
     if(canEdit){
-
+      setBio("holis soy gasti")
     }
   },[canEdit])
 
@@ -39,12 +42,18 @@ const ProfileDetail = () => {
           </section>
           <section style={{display:"flex"}}>
           <h4>LastName:</h4> 
-          <p>{User.lastName}</p>
+          <p>{lastName}</p>
           </section>
           <section style={{display:"flex"}}>
           <h4>Email:</h4>
-          <p>{User.email}</p>
+          <p>{email}</p>
           </section>
+          {bio && 
+          <section style={{display:"flex"}}>
+          <h4>Bio:</h4>
+          <p>{bio}</p>
+          </section>
+          }
           
           <Button colorScheme={'green'} mt={2} w="20%" onClick={editDataProfile}>Editar</Button>
         </Box>
