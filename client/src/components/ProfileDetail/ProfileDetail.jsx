@@ -43,8 +43,8 @@ const ProfileDetail = () => {
           </section>
           <section style={{display:"flex"}}>
           <h4>Email:</h4>
-          <p>{User.email}
-          </p></section>
+          <p>{User.email}</p>
+          </section>
           
           <Button colorScheme={'green'} mt={2} w="20%" onClick={editDataProfile}>Editar</Button>
         </Box>
