@@ -10,13 +10,6 @@ import {
 } from './actions';
 
 const initialState = {
-<<<<<<< HEAD
-    allUsers: [],
-    users:[],
-    posts:[],
-    auth: {},
-}
-=======
   allUsers: [],
   users: [],
   user: [],
@@ -25,7 +18,6 @@ const initialState = {
     auth: '',
   },
 };
->>>>>>> dev
 
 export default function rootReducer(state = initialState, action) {
   switch (action.type) {
