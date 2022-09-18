@@ -2,13 +2,13 @@ import { Avatar, Button, Stack, Text } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const userImg: string =
+const userImg =
   'https://previews.123rf.com/images/pandavector/pandavector1901/pandavector190105171/126078877-vector-design-of-avatar-and-dummy-symbol-set-of-avatar-and-image-stock-vector-illustration-.jpg?fj=1';
 
 const UserCard = () => {
   const [User, setUser] = useState(JSON.parse(localStorage.getItem('user')));
   const navigate = useNavigate();
-  const handleClick = (e) => {
+  const handleClick = () => {
     localStorage.removeItem('user');
     navigate(`/landing-page`);
   };
@@ -33,8 +33,8 @@ const UserCard = () => {
         </Text>
         <Button
           size="sm"
-          onClick={(e) => {
-            handleClick(e);
+          onClick={() => {
+            handleClick();
           }}
         >
           Log Out
