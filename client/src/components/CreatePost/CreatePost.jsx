@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createUserPost, getUser } from '../../redux/actions';
 import { useNavigate } from 'react-router-dom';
 
-const CreatePost = ({ user }) => {
+const CreatePost = ({ posteos, email }) => {
   const [input, setInput] = useState({
     description: '',
     pics: '',
@@ -15,8 +15,8 @@ const CreatePost = ({ user }) => {
     setInput({ ...input, [event.target.name]: event.target.value });
 
   const handleSubmit = () => {
-    let post = { posteos: [...user.posteos, input] };
-    dispatch(createUserPost(user.email, post));
+    let post = { posteos: [...posteos, input] };
+    dispatch(createUserPost(email, post));
     setInput({
       description: '',
       pics: '',
@@ -49,7 +49,7 @@ const CreatePost = ({ user }) => {
               handleInputChange(e);
               />
             }} */}
-          
+
           <Textarea
             w={'730px'}
             type="textarea"

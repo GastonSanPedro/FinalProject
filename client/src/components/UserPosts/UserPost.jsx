@@ -22,7 +22,6 @@ const UserPost = ({ posteos, name, email }) => {
               return (
                 <WrapItem w="30%" key={post._id}>
                   <Box w="100%" h="auto" p={2} backgroundColor={'#D9D9D9'}>
-                    <img src={post.pics} alt="Imagend el Post" />
                     <Box w="100%" h="auto" mt={2} p={2}>
                       <p>{post.description}</p>
                     </Box>
