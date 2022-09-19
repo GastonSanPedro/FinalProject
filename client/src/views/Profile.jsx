@@ -20,6 +20,7 @@ const Profile = () => {
   const user = useSelector((state) => state.myUser);
   const posts = useSelector((state) => state.posts);
   const neededEmail = User[0].email;
+  console.log(neededEmail);
   // const logUser = JSON.parse(localStorage.getItem('user'));
   // const loggedUser = JSON.parse(logUser.User);
   // console.log(loggedUser);
@@ -35,7 +36,12 @@ const Profile = () => {
       <Navbar></Navbar>
       <Box display="flex" dir="row">
         <Box m={3}>
-          <ProfileDetail userEmail={user?.email} />
+          <ProfileDetail
+            firstname={user?.firstName}
+            lastname={user?.lastName}
+            bioUser={user?.bio}
+            userEmail={user?.email}
+          />
           <CreatePost posteos={user?.posteos} email={user?.email} />
           <Wrap
             justify={'center'}

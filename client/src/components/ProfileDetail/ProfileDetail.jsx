@@ -3,14 +3,19 @@ import { Box, Avatar, Button, Input } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeDataProfile, getMyUser } from '../../redux/actions';
 
-const ProfileDetail = ({ userEmail }) => {
-  const user = useSelector((state) => state.myUser);
+const ProfileDetail = ({ userEmail, firstname, lastname, bioUser }) => {
   //const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
   const [canEdit, setCanEdit] = React.useState(false);
-  const [firstName, setFirstName] = React.useState(user.firstName);
-  const [lastName, setLastName] = React.useState(user.lastName);
-  const [email, setEmail] = React.useState(user.email);
-  const [bio, setBio] = React.useState(user.bio); //aca deberia inicializarlo con User.bio para que traiga si es que tiene algo
+  const [firstName, setFirstName] = React.useState(firstname);
+  const [lastName, setLastName] = React.useState(lastname);
+  const [email, setEmail] = React.useState(userEmail);
+  const [bio, setBio] = React.useState(bioUser); //aca deberia inicializarlo con User.bio para que traiga si es que tiene algo
+  const [input, setInput] = React.useState({
+    firstName: firstName,
+    lastName: lastName,
+    email: email,
+    bio: bio,
+  });
 
   const dispatch = useDispatch();
 
@@ -18,30 +23,35 @@ const ProfileDetail = ({ userEmail }) => {
     dispatch(getMyUser(userEmail));
   }, [canEdit]);
 
+  const user = useSelector((state) => state.myUser);
   const editDataProfile = () => {
     setCanEdit(true);
     //prueba
   };
 
-  const changeData = () => {
-    dispatch(changeDataProfile(firstName, lastName, email, bio));
-    setCanEdit(false);
-  };
-
   const handleInputFirstNameChange = (e) => {
     setFirstName(e.target.value);
+    setInput({ ...input, [e.target.name]: e.target.value });
   };
   const handleInputLastNameChange = (e) => {
     setLastName(e.target.value);
+    setInput({ ...input, [e.target.name]: e.target.value });
   };
 
   const handleInputEmailChange = (e) => {
     setEmail(e.target.value);
+    setInput({ ...input, [e.target.name]: e.target.value });
   };
   const handleInputBioChange = (e) => {
     setBio(e.target.value);
+    setInput({ ...input, [e.target.name]: e.target.value });
   };
 
+  const changeData = (input) => {
+    dispatch(changeDataProfile(input, userEmail));
+    setCanEdit(false);
+    dispatch(getMyUser(email));
+  };
   return (
     <>
       <Box
@@ -62,7 +72,7 @@ const ProfileDetail = ({ userEmail }) => {
             <h4>First name:</h4>
             {canEdit ? (
               <Input
-                name="firsName"
+                name="firstName"
                 type="text"
                 value={firstName}
                 onChange={(e) => {
@@ -70,7 +80,7 @@ const ProfileDetail = ({ userEmail }) => {
                 }}
               />
             ) : (
-              <p>{firstName}</p>
+              <p>{firstname}</p>
             )}
           </section>
           <section style={{ display: 'flex' }}>
@@ -85,22 +95,7 @@ const ProfileDetail = ({ userEmail }) => {
                 }}
               />
             ) : (
-              <p>{lastName}</p>
-            )}
-          </section>
-          <section style={{ display: 'flex' }}>
-            <h4>LastName:</h4>
-            {canEdit ? (
-              <Input
-                name="lastName"
-                type="text"
-                value={lastName}
-                onChange={(e) => {
-                  handleInputLastNameChange(e);
-                }}
-              />
-            ) : (
-              <p>{lastName}</p>
+              <p>{lastname}</p>
             )}
           </section>
           <section style={{ display: 'flex' }}>
@@ -115,7 +110,7 @@ const ProfileDetail = ({ userEmail }) => {
                 }}
               />
             ) : (
-              <p>{email}</p>
+              <p>{userEmail}</p>
             )}
           </section>
           {(canEdit || bio?.length > 0) && (
@@ -131,7 +126,7 @@ const ProfileDetail = ({ userEmail }) => {
                   }}
                 />
               ) : (
-                <p>{user?.bio}</p>
+                <p>{bioUser}</p>
               )}
             </section>
           )}
@@ -145,7 +140,14 @@ const ProfileDetail = ({ userEmail }) => {
               Editar
             </Button>
             {canEdit && (
-              <Button colorScheme={'green'} mt={2} w="20%" onClick={changeData}>
+              <Button
+                colorScheme={'green'}
+                mt={2}
+                w="20%"
+                onClick={(e) => {
+                  changeData(input);
+                }}
+              >
                 Guardar
               </Button>
             )}
