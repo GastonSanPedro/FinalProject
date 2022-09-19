@@ -8,6 +8,7 @@ export const SEARCH_USER = 'SEARCH_USER';
 export const SEARCH_POST = 'SEARCH_POST';
 export const AUTH_USER = 'AUTH_USER';
 export const LOG_OUT = 'LOG_OUT';
+export const CHANGE_DATA_PROFILE = "CHANGE_DATA_PROFILE";
 export const GET_MY_USER = 'GET_MY_USER';
 
 export function getUsers() {
@@ -160,6 +161,19 @@ export const authUser = (mail, password) => {
     }
   };
 };
+
+export function changeDataProfile() {
+  return async function (dispatch) {
+    try {
+      return dispatch({
+        type: CHANGE_DATA_PROFILE,
+        payload: { auth: false },
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
 
 export function logOut() {
   return async function (dispatch) {

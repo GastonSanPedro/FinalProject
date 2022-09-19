@@ -17,6 +17,8 @@ export class UsersService {
   async create(createUserDto: CreateUserDto) {
     createUserDto.email = createUserDto.email.toLowerCase();
     createUserDto.userName = createUserDto.firstName.toLowerCase();
+    createUserDto.bio= "";
+    createUserDto.fullName = `${createUserDto.firstName} ${createUserDto.lastName}`;
     try {
       const user:User = await this.userModel.create(createUserDto);
       return user;
