@@ -18,12 +18,13 @@ const ProfileDetail = () => {
 
   const editDataProfile = () => {
     setCanEdit(true);
+    //prueba
   };
 
 
   const changeData =()=>{ 
-    dispatch()
     setCanEdit(false)
+    
   }
 
   const handleInputFirstNameChange = (e)=>{
