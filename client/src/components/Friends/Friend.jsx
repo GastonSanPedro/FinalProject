@@ -5,11 +5,11 @@ const userImg = 'https://previews.123rf.com/images/pandavector/pandavector1901/p
 
 
 
-const Friend = ({ id, firstName, lastName }) => {
+const Friend = ({ id, firstName, lastName,email }) => {
 
     return (
         <Box w="90%">
-        <Link to={'/user/' + id} >
+        <Link to={'/user/' + email} >
             <Stack backgroundColor='gray.200' direction='row' w='90%' h='30px' p={1} pl={3} borderRadius='5px' >
                 <Avatar
                     size='xs'

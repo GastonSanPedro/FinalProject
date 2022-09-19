@@ -1,26 +1,42 @@
 import React from "react";
-import { Stack } from "@chakra-ui/react";
+import { Heading, Stack } from "@chakra-ui/react";
 import Friend from "./Friend";
-import { useRoutes } from "react-router-dom";
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import {getUsers} from '../../redux/actions'
 
 
-const FriendsContainer = ({ allUsers }) => {
+let allUsers = []
 
-    allUsers = allUsers.slice(0, 15)
+const FriendsContainer = () => {
+
+    const dispatch = useDispatch()
+
+    const users = useSelector((state) => state.users)
+
+    useEffect(() => {
+        dispatch(getUsers())
+    }, [dispatch])
+
+    allUsers = users.slice(0, 15)
 
     return (
         <>
-            <Stack w='200px' minH='200px' backgroundColor='gray.300' borderRadius='7px' alignItems='center' pt={2} pb={2}>
+        {allUsers.length >1 ?
+            <Stack w='230px' minH='200px' backgroundColor='gray.300' borderRadius='7px' alignItems='center' pt={2} pb={2}>
+                <Heading as="h3" size='md' mb="5" mt="5" color="#606c38"> Contactos:</Heading>
                 {allUsers && allUsers.map((e) => {
                     return (
                         <Friend
                             id= {e._id}
                             firstName={e.firstName}
                             lastName={e.lastName}
+                            email = {e.email}
                         />
                     )
                 })}
             </Stack>
+            : null}
         </>
     )
 }

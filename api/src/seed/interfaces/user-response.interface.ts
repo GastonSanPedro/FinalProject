@@ -16,10 +16,11 @@ export interface IUser {
     image:     string;
     birthdate: string;
     posteos: Iposteos[];
-
+    
 }
 
 export interface Iposteos{
     ID: string;
-    description: string
+    description: string;
+    pics?: string
 }
