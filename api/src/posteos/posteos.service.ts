@@ -16,6 +16,7 @@ export interface IPost {
 
 @Injectable()
 export class PosteosService {
+  userModel: any;
   constructor(
     @InjectModel(Posteo.name)
     private readonly posteoModel: Model<Posteo>,
@@ -68,4 +69,5 @@ export class PosteosService {
   async remove(id: number) {
     return `This action removes a #${id} posteo`;
   }
+  
 }
