@@ -88,7 +88,7 @@ const Feed = () => {
                                 : <Box><Text>no hay posteos</Text> </Box>
                         }
                         <HStack>
-                            <Button onClick={() => handleClickMore()} h='50px' mr="50" w={0} fontSize='sm'>Ver más</Button>
+                            <Button onClick={() => handleClickMore()} h='50px' w="200px" mr="50" fontSize='sm'>Ver más</Button>
                         </HStack>
                     </Wrap>
                 </Box>
