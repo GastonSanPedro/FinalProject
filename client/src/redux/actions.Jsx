@@ -8,7 +8,7 @@ export const SEARCH_USER = 'SEARCH_USER';
 export const SEARCH_POST = 'SEARCH_POST';
 export const AUTH_USER = 'AUTH_USER';
 export const LOG_OUT = 'LOG_OUT';
-export const CHANGE_DATA_PROFILE = "CHANGE_DATA_PROFILE";
+export const CHANGE_DATA_PROFILE = 'CHANGE_DATA_PROFILE';
 export const GET_MY_USER = 'GET_MY_USER';
 
 export function getUsers() {
@@ -140,10 +140,8 @@ export const authUser = (mail, password) => {
       if (formatUser.password !== password) {
         return dispatch({
           type: AUTH_USER,
-          payload: { auth: false, reason: 'Usuario o contraseña no válidos'},
+          payload: { auth: false, reason: 'Usuario o contraseña no válidos' },
         });
-      
-        
       } else {
         return dispatch({
           type: AUTH_USER,
@@ -162,21 +160,25 @@ export const authUser = (mail, password) => {
   };
 };
 
-//reason: error.response.data.message 
+//reason: error.response.data.message
 
-export function changeDataProfile(firstName,lastName,email,bio) {
+export function changeDataProfile(payload, email) {
   return async function (dispatch) {
     try {
-      var user = await axios.patch(`http://localhost:3001/users/${email}`,{firstName,lastName,email,bio});
-      console.log(user)
+      var user = await axios.patch(
+        `http://localhost:3001/users/${email}`,
+        payload
+      );
+      console.log(user);
+      let info = await axios.get(`http://localhost:3001/users/${email}`);
       return dispatch({
         type: CHANGE_DATA_PROFILE,
-        payload: user
+        payload: info.data,
       });
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 }
 
 export function logOut() {
@@ -191,19 +193,6 @@ export function logOut() {
     }
   };
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 //----------TYPSCRIPT FUNCIONALpor si las dudas---------
 // export const getPosts = (): any => async (dispatch: any): Promise<any> => {
