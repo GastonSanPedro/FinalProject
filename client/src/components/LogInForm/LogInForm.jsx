@@ -12,7 +12,8 @@ import {
   InputRightElement,
   Button,
   Flex,
-  Image
+  Image,
+  Text
 } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { authUser, logOut } from '../../redux/actions';
