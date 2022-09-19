@@ -8,21 +8,21 @@ import ProfileDetail from '../components/ProfileDetail/ProfileDetail';
 import UserCard from '../components/UserCard/UserCard';
 import UserPost from '../components/UserPosts/UserPost';
 import '../index.css';
-import { getUser, getPosts } from '../redux/actions';
+import { getMyUser, getPosts } from '../redux/actions';
 
 const Profile = () => {
   const [User, setUser] = useState(
     useState(JSON.parse(localStorage.getItem('user')))
   );
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user);
+  const user = useSelector((state) => state.myUser);
   const posts = useSelector((state) => state.posts);
   const neededEmail = User[0].email;
   // const logUser = JSON.parse(localStorage.getItem('user'));
   // const loggedUser = JSON.parse(logUser.User);
   // console.log(loggedUser);
   useEffect(() => {
-    dispatch(getUser(neededEmail));
+    dispatch(getMyUser(neededEmail));
     dispatch(getPosts(neededEmail));
   }, [dispatch, neededEmail]);
   // console.log(posts);
@@ -46,7 +46,7 @@ const Profile = () => {
           pr={0}
           pl={0}
         >
-          <UserCard first={user.firstName} last={user.lastName} />
+          <UserCard />
           <FriendsContainer />
         </Box>
       </Box>
