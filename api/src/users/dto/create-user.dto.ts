@@ -43,4 +43,8 @@ export class CreateUserDto {
   @IsOptional()
   @IsString()
   bio?: string;
+
+  @IsString()
+  @IsOptional()
+  fullName: string;
 }
