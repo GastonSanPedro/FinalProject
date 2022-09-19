@@ -9,6 +9,7 @@ export const SEARCH_POST = 'SEARCH_POST';
 export const AUTH_USER = 'AUTH_USER';
 export const LOG_OUT = 'LOG_OUT';
 export const CHANGE_DATA_PROFILE = "CHANGE_DATA_PROFILE";
+export const GET_MY_USER = 'GET_MY_USER';
 
 export function getUsers() {
   return async function (dispatch) {
@@ -36,6 +37,21 @@ export function getUser(email) {
       });
     } catch (error) {
       console.log(error, 'holis');
+    }
+  };
+}
+
+export function getMyUser(email) {
+  return async function (dispatch) {
+    try {
+      let info = await axios.get(`http://localhost:3001/users/${email}`, {});
+
+      dispatch({
+        type: GET_MY_USER,
+        payload: info.data,
+      });
+    } catch (error) {
+      console.log(error, 'Error al llamar a la api');
     }
   };
 }
