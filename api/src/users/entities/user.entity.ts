@@ -1,6 +1,8 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, PromiseProvider } from 'mongoose';
 import { Iposteos } from 'src/seed/interfaces/user-response.interface';
+import { PosteoSchema } from 'src/posteos/entities/posteo.entity';
+//toque el importe del posteSchema
 
 @Schema()
 export class User extends Document {
@@ -32,7 +34,8 @@ export class User extends Document {
   @Prop({})
   birthDate?: string;
 
-  @Prop({})
+  //toque un poco esto nada mas dentro de la prop 
+  @Prop([PosteoSchema]) //({})
   posteos?: Iposteos[]
 
   @Prop({})

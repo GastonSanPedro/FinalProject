@@ -5,6 +5,8 @@ import {
     IsString,
     IsUrl,
   } from 'class-validator';
+
+  
 export class CreatePosteoDto {
     @IsString()
     @IsOptional()

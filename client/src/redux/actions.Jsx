@@ -133,6 +133,19 @@ export function logOut() {
   };
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 //----------TYPSCRIPT FUNCIONALpor si las dudas---------
 // export const getPosts = (): any => async (dispatch: any): Promise<any> => {
 
