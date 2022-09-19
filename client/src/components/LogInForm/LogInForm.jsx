@@ -17,7 +17,6 @@ import {
 import { Formik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import { authUser, logOut } from '../../redux/actions';
-import { Formik } from 'formik';
 import imgBackground from '../../assets/landing-pic.jpg';
 import logo from '../../assets/logo.jpg';
 
