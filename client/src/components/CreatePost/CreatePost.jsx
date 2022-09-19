@@ -5,6 +5,7 @@ import { createUserPost, getUser } from '../../redux/actions';
 import { useNavigate } from 'react-router-dom';
 
 const CreatePost = ({ user }) => {
+  
   const [input, setInput] = useState({
     description: '',
     pics: '',
