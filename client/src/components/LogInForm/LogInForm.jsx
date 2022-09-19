@@ -1,3 +1,4 @@
+
 import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {
@@ -7,15 +8,20 @@ import {
   FormControl,
   Input,
   FormLabel,
-  FormErrorMessage,
-  FormHelperText,
   InputGroup,
   InputRightElement,
   Button,
-  AlertTitle,
+  Flex,
+  Image
 } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
-import { authUser, getUser, logOut } from '../../redux/actions';
+import { authUser, logOut } from '../../redux/actions';
+import { Formik } from 'formik';
+import imgBackground from '../../assets/landing-pic.jpg'
+import logo from '../../assets/logo.jpg'
+
+const imagenB = imgBackground
+const logoLeafme = logo
 
 const CreateUser = () => {
   const [show, setShow] = React.useState(false);
@@ -52,62 +58,75 @@ const CreateUser = () => {
   };
 
   return (
-    <>
-      <Center>
-        <Box w="400px" m="60px">
-          <FormControl isInvalid={isError}>
-            <FormLabel>Email address / Username</FormLabel>
-            <Input
-              name="email"
-              type="email"
-              value={input.email}
-              onChange={(e) => {
-                handleInputChange(e);
-              }}
-            />
-          </FormControl>
-          <FormControl isInvalid={isError}>
-            <FormLabel>Password</FormLabel>
-            <InputGroup>
+    <><Box h={'760px'} backgroundImage={imagenB} display={'flex'} justifyContent={'end'} >
+      <Formik >
+        <Flex flexDir={'column'} w={'500px'} p={5} backgroundColor={'white'}>
+          <Image alignSelf={'center'} boxSize={300} objectFit={'contain'} src={logoLeafme} alt='logo'/>
+          <Box w="400px" ml={'30px'}>
+            <FormControl isInvalid={isError}>
+              <FormLabel>Email address or Username </FormLabel>
               <Input
-                name="pass"
-                value={input.pass}
-                pr="70px"
-                type={show ? 'text' : 'password'}
-                placeholder="Enter password"
+                name="email"
+                type="email"
+                value={input.email}
                 onChange={(e) => {
                   handleInputChange(e);
                 }}
               />
-              <InputRightElement width="70px">
-                <Button h="30px" size="sm" onClick={handleShowClick}>
-                  {show ? 'Hide' : 'Show'}
-                </Button>
-              </InputRightElement>
-            </InputGroup>
-          </FormControl>
-
-          {!isError ? (
-            <Button
-              onClick={(e) => {
-                handleSubmit(input);
-              }}
-              mt="10px"
-            >
-              Log In
-            </Button>
-          ) : (
-            <Tooltip
-              label="Please complete required information"
-              shouldWrapChildren
-            >
-              <Button isDisabled mt="10px">
+            </FormControl>
+            <FormControl isInvalid={isError}>
+              <FormLabel>Password</FormLabel>
+              <InputGroup>
+                <Input
+                  name="pass"
+                  value={input.pass}
+                  pr="70px"
+                  type={show ? 'text' : 'password'}
+                  placeholder="Enter password"
+                  onChange={(e) => {
+                    handleInputChange(e);
+                  }}
+                />
+                <InputRightElement width="70px">
+                  <Button h="30px" size="sm" onClick={handleShowClick}>
+                    {show ? 'Hide' : 'Show'}
+                  </Button>
+                </InputRightElement>
+              </InputGroup>
+              {auth.reason && (
+                  <Text color="red.300" size="xxs">
+                    {auth.reason}
+                  </Text>
+                )}
+            </FormControl>
+            {!isError ? (
+              <Button
+                onClick={(e) => {
+                  handleSubmit(input);
+                }}
+                mt="10px"
+              >
                 Log In
               </Button>
-            </Tooltip>
-          )}
-        </Box>
+            ) : (
+              <Tooltip
+                label="Please complete required information"
+                shouldWrapChildren
+              >
+                <Button isDisabled mt="10px">
+                  Log In
+                </Button>
+              </Tooltip>
+            )}
+          </Box>
+          <Center display={'flex'} flexDir={'column'}>
+        <p>Don't have an account?</p>
+        <Link to ='/sign-in'><Button mt='10px' >Sign In</Button></Link>
       </Center>
+        </Flex>
+      </Formik>
+
+      </Box>
     </>
   );
 };
