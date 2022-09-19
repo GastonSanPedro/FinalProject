@@ -110,5 +110,6 @@ const ProfileDetail = () => {
     </>
   );
 };
+//prueba2
 
 export default ProfileDetail;
