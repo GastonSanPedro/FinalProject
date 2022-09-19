@@ -41,7 +41,8 @@ const UserSearchContainer = () => {
                         <UserSearchCard
                             firstName={user.firstName}
                             lastName={user.lastName}
-                            img={user.image}/>
+                            img={user.image}
+                            email={user.email}/>
                 )
                 })
             : <Center h={10}><Text fontSize='md'>Ups... The user you are looking for does not exist</Text></Center>}
