@@ -19,7 +19,7 @@ export function getUsers() {
         payload: info.data,
       });
     } catch (error) {
-      console.log(error, 'Error al llamar a la api');
+      console.log(error, 'Error');
     }
   };
 }
@@ -34,7 +34,7 @@ export function getUser(email) {
         payload: info.data,
       });
     } catch (error) {
-      console.log(error, 'Error al llamar a la api');
+      console.log(error, 'holis');
     }
   };
 }
@@ -142,6 +142,7 @@ export const authUser = (mail, password) => {
     }
   };
 };
+
 export function logOut() {
   return async function (dispatch) {
     try {

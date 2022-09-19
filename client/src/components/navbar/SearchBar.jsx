@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Input, Box, IconButton } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
 import { useNavigate } from "react-router-dom";
-import { searchUser, searchPost } from "../../redux/actions";
+import { searchUser, searchPost, getUsers } from "../../redux/actions";
 import { useDispatch } from "react-redux";
 
 const Searchbar = () => {
@@ -20,6 +20,7 @@ const Searchbar = () => {
         e.preventDefault()
         dispatch(searchUser(searcher))
         dispatch(searchPost(searcher))
+        dispatch(getUsers())
         
         navigate('/search-page')
         setSearcher('')
