@@ -8,9 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getPosts, getUsers } from '../redux/actions';
 import FriendsContainer from '../components/Friends/FriendsContainer';
 import UserCard from '../components/UserCard/UserCard';
-import { useResolvedPath } from 'react-router-dom';
-import { useScroll } from 'framer-motion';
-import { isJSDocNullableType } from 'typescript';
+
 
 // let users =[]
 
@@ -30,14 +28,6 @@ const Feed = () => {
         dispatch(getUsers())
     }, [dispatch])
 
-    // if(allUsers.length > 1){
-    //     users = allUsers
-    // }
-
-    // if(users.length > 1){
-    //     console.log(users)
-    // }
-
     return (
         <>
 
@@ -46,8 +36,7 @@ const Feed = () => {
                 <VStack>
                     <CreatePost />
                     <HStack >
-                        <UserSinglePost />
-                        <UserSinglePost />
+                        
                     </HStack>
                 </VStack>
                 <VStack>
