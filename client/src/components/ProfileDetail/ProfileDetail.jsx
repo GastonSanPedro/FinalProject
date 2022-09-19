@@ -110,6 +110,6 @@ const ProfileDetail = () => {
     </>
   );
 };
-//prueba
+//prueba2
 
 export default ProfileDetail;
