@@ -5,6 +5,7 @@ import {
   GET_POSTS,
   GET_USER,
   GET_USERS,
+  CREATE_USER,
   LOG_OUT,
   POST_USER,
   SEARCH_POST,
@@ -57,6 +58,11 @@ export default function rootReducer(state = initialState, action) {
     case CREATE_USER_POST:
       return {
         ...state,
+      };
+    case CREATE_USER:
+      return {
+        ...state,
+        myUser: action.payload,
       };
     case AUTH_USER:
       return {
