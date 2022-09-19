@@ -8,19 +8,21 @@ import {
   POST_USER,
   SEARCH_POST,
   SEARCH_USER,
+  GET_MY_USER,
 } from './actions';
 
 const initialState = {
   allUsers: [],
   users: [],
   user: [],
+  myUser:[],
   posts: [],
   auth: {
     auth: '',
   },
-    searchUser:[],
-    searchPost:[]
-  };
+  searchUser: [],
+  searchPost: []
+};
 
 export default function rootReducer(state = initialState, action) {
   
@@ -32,13 +34,16 @@ export default function rootReducer(state = initialState, action) {
         users: action.payload,
         allUsers: action.payload,
       };
-
-    case GET_USER: 
-     return {
-      ...state,
-      user: action.payload
-     }
-
+    case GET_USER:
+      return {
+        ...state,
+        user: action.payload,
+      };
+    case GET_MY_USER:
+      return {
+        ...state,
+        myUser: action.payload,
+      };
 
     case GET_POSTS:
       return {
@@ -68,17 +73,18 @@ export default function rootReducer(state = initialState, action) {
       };
     case SEARCH_USER:
 
-          return {
-            ...state,
-            searchUser: action.payload
-            }   
+      return {
+        ...state,
+        searchUser: action.payload
+      }
 
     case SEARCH_POST:
       return {
-              ...state,
-              searchPost: action.payload
-            }
-      
-        default:
-          return state;
-  }}
+        ...state,
+        searchPost: action.payload
+      }
+
+    default:
+      return state;
+  }
+}
