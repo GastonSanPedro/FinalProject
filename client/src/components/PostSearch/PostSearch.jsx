@@ -1,17 +1,18 @@
 import React from 'react'
-import { Box, Avatar, Text, Stack } from '@chakra-ui/react'
+import { Box, Avatar, Text, Stack, Center } from '@chakra-ui/react'
 
-const PostSearch = ({fullName, image, posteo}) => {
+const PostSearch = ({fullName, image, posteos}) => {
     return (
         <>
-            <Box ml={10} mt={5} p={7} w="35%" display={'flex'} backgroundColor={'#ECEAEA'} borderRadius={5}>
-                <Box ml={2} w="70%" >
-                    {posteo}
-                </Box>
-                <Stack w="15%" ml={8} >
+            <Box ml={7} width='40%'display={'flex'} alignItems='center' justifyContent='space-between' backgroundColor='gray.200' borderRadius={7}>
+
+                <Stack alignItems='center'>
                     <Avatar mt="5%" ml={3} size='lg' name='usuario' src={image?image:"https://avatarfiles.alphacoders.com/128/thumb-128984.png"} />
-                    <Text w="80" pt={0} color="#4f772d" fontWeight="bold" >{fullName}</Text >
+                    <Center p={3}><Text fontWeight="bold" >{fullName}</Text ></Center>
                 </Stack>
+                <Box m={2} p={2} backgroundColor='white' borderRadius={7}>
+                <Text fontWeight='light' >{posteos}</Text>
+                </Box>
             </Box>
         </>
     )

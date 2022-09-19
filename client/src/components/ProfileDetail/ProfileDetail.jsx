@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Avatar,Button, Input } from '@chakra-ui/react';
+import { useDispatch, useSelector } from 'react-redux';
+import {changeDataProfile} from '../../redux/actions'
 
 const ProfileDetail = () => {
+  // const user = useSelector((state) => state.user)
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
   console.log({user})
   const [canEdit, setCanEdit] = React.useState(false)
@@ -10,17 +13,20 @@ const ProfileDetail = () => {
   const [email, setEmail] = React.useState(user.email)
   const [bio, setBio] = React.useState(user.bio) //aca deberia inicializarlo con User.bio para que traiga si es que tiene algo
 
+  const dispatch = useDispatch()
+
   useEffect(()=>{
   },[canEdit])
 
   const editDataProfile = () => {
     setCanEdit(true);
+    //prueba
   };
 
 
-  const changeData =()=>{
-    //aca deberia dispatchar una accion que se conecte con el patch del user y lo cambie
-    setCanEdit(false)
+  const changeData =()=>{ 
+    dispatch(changeDataProfile(firstName,lastName,email,bio))
+    setCanEdit(false) 
   }
 
   const handleInputFirstNameChange = (e)=>{
@@ -44,7 +50,7 @@ const ProfileDetail = () => {
         ml={10}
         mt={5}
         p={7}
-        w="70%"
+        w="100%"
         display={'flex'}
         backgroundColor={'#ECEAEA'}
       >

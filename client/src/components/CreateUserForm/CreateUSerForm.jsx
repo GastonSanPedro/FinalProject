@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { getUsers, createUser, authUser } from '../../redux/actions';
 import { Formik, Form } from 'formik';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
+
 import {
   Center,
   Box,
@@ -23,6 +24,8 @@ const CreateUser = () => {
 
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
+  
+  
 
   useEffect(() => {
     dispatch(getUsers());
@@ -65,6 +68,9 @@ const CreateUser = () => {
           }
           if (!values.password) {
             errores.password = 'Please create a password';
+          }
+          else if (values.password.length < 6) {
+            errores.password = 'Password must be longer';
           }
           return errores;
         }}
@@ -194,6 +200,13 @@ const CreateUser = () => {
                 <Button type="submit" mt="10px" onSubmit={handleSubmit}>
                   Create Account
                 </Button>
+                    
+                <Link to="/">
+                <Button mt="10px" >
+                  Back
+                </Button>
+                </Link>
+             
               </Form>
             </Box>
           </Center>

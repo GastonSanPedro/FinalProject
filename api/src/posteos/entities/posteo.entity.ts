@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import mongoose, { Document } from 'mongoose';
+import { User } from '../../users/entities/user.entity';
 
 @Schema()
 export class Posteo extends Document{
@@ -13,6 +14,9 @@ export class Posteo extends Document{
 
     @Prop({})
     createdAt: Date;
+
+
+
 }
 
 export const PosteoSchema = SchemaFactory.createForClass(Posteo);
