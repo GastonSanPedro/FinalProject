@@ -1,12 +1,13 @@
 import {
-  GET_USERS,
-  GET_USER,
-  GET_POSTS,
-  POST_USER,
   AUTH_USER,
-  SEARCH_USER,
-  SEARCH_POST,
+  CREATE_USER_POST,
+  GET_POSTS,
+  GET_USER,
+  GET_USERS,
   LOG_OUT,
+  POST_USER,
+  SEARCH_POST,
+  SEARCH_USER,
 } from './actions';
 
 const initialState = {
@@ -43,7 +44,10 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
       };
-
+    case CREATE_USER_POST:
+      return {
+        ...state,
+      };
     case AUTH_USER:
       return {
         ...state,
