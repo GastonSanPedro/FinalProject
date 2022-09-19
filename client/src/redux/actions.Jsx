@@ -3,6 +3,7 @@ export const GET_USERS = 'GET_USERS';
 export const GET_USER = 'GET_USER';
 export const GET_POSTS = 'GET_POSTS';
 export const POST_USER = 'POST_USER';
+export const CREATE_USER_POST = 'CREATE_USER_POST';
 export const SEARCH_USER = 'SEARCH_USER';
 export const SEARCH_POST = 'SEARCH_POST';
 export const AUTH_USER = 'AUTH_USER';
@@ -38,17 +39,34 @@ export function getUser(email) {
   };
 }
 
-export function getPosts() {
+export function getPosts(email) {
   return async function (dispatch) {
     try {
-      let info = await axios.get('http://localhost:3001/posteos', {});
-
+      let info = await axios.get(`http://localhost:3001/users/${email}`, {});
+      //console.log(info.data.posteos);
       dispatch({
         type: GET_POSTS,
-        payload: info.data,
+        payload: info.data.posteos,
       });
     } catch (error) {
       console.log(error, 'Error al llamar a la api');
+    }
+  };
+}
+
+export function createUserPost(user, payload) {
+  return async function (dispatch) {
+    try {
+      var json = await axios.patch(
+        `http://localhost:3001/users/${user}`,
+        payload
+      );
+      return dispatch({
+        type: CREATE_USER_POST,
+        payload: json.data,
+      });
+    } catch (error) {
+      console.log(error);
     }
   };
 }
@@ -67,13 +85,18 @@ export function createUser(payload) {
 export function searchUser(searcher) {
   return async function (dispatch) {
     try {
-      var json = await axios.get(`http://localhost:3001/users/${searcher}`);
+      var json = await axios.get(
+        `http://localhost:3001/users/name/${searcher}`
+      );
       return dispatch({
         type: SEARCH_USER,
         payload: json.data,
       });
     } catch (error) {
-      console.log(error);
+      return dispatch({
+        type: SEARCH_USER,
+        payload: [],
+      });
     }
   };
 }
@@ -81,10 +104,9 @@ export function searchUser(searcher) {
 export function searchPost(searcher) {
   return async function (dispatch) {
     try {
-      var json = await axios.get(`http://localhost:3001/users/${searcher}`);
       return dispatch({
         type: SEARCH_POST,
-        payload: json.date,
+        payload: searcher,
       });
     } catch (error) {
       console.log(error);

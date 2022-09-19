@@ -14,6 +14,7 @@ import theme from './theme';
 import { Provider } from 'react-redux';
 import store from './redux/store';
 import { createRoot } from 'react-dom/client';
+import AnyProfile from './views/AnyProfile';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -29,7 +30,7 @@ root.render(
             <Route path="/sign-in" element={<SignIn />}></Route>
             <Route path="/search-page" element={<SearchPage />}></Route>
             <Route path="/home" element={<Feed />}></Route>
-            <Route exact path="/user/:id" element={<Profile />} />
+            <Route exact path="/user/:email" element={<AnyProfile />} />
             <Route path="*" element={<Landing />} />
           </Routes>
         </BrowserRouter>

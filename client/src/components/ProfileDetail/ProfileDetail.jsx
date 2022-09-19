@@ -13,9 +13,9 @@ const ProfileDetail = () => {
   useEffect(()=>{
   },[canEdit])
 
-  const editDataProfile = () =>{
-    setCanEdit(true)
-  }
+  const editDataProfile = () => {
+    setCanEdit(true);
+  };
 
 
   const changeData =()=>{
@@ -106,7 +106,6 @@ const ProfileDetail = () => {
             {canEdit && <Button colorScheme={'green'} mt={2} w="20%" onClick={changeData}>Guardar</Button>}
           </section>
         </Box>
-        
       </Box>
     </>
   );

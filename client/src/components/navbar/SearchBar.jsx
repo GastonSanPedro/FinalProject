@@ -1,26 +1,29 @@
-import React, { useState } from 'react';
-import { Input, Box, IconButton } from '@chakra-ui/react';
-import { SearchIcon } from '@chakra-ui/icons';
-import { useNavigate } from 'react-router-dom';
-import { searchUser } from '../../redux/actions';
-import { useDispatch } from 'react-redux';
+import React, { useState } from "react";
+import { Input, Box, IconButton } from "@chakra-ui/react";
+import { SearchIcon } from "@chakra-ui/icons";
+import { useNavigate } from "react-router-dom";
+import { searchUser, searchPost } from "../../redux/actions";
+import { useDispatch } from "react-redux";
 
 const Searchbar = () => {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const [searcher, setSearcher] = useState('');
+    
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
+    const [searcher, setSearcher] = useState('')
 
   function handleInputChange(e) {
     e.preventDefault();
     setSearcher(e.target.value);
   }
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    navigate('/search-page');
-    dispatch(searchUser(searcher));
-    setSearcher('');
-  }
+    function handleSubmit(e){
+        e.preventDefault()
+        dispatch(searchUser(searcher))
+        dispatch(searchPost(searcher))
+        
+        navigate('/search-page')
+        setSearcher('')
+    }
 
   return (
     <>

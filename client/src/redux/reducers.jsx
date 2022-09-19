@@ -1,12 +1,13 @@
 import {
-  GET_USERS,
-  GET_USER,
-  GET_POSTS,
-  POST_USER,
   AUTH_USER,
-  SEARCH_USER,
-  SEARCH_POST,
+  CREATE_USER_POST,
+  GET_POSTS,
+  GET_USER,
+  GET_USERS,
   LOG_OUT,
+  POST_USER,
+  SEARCH_POST,
+  SEARCH_USER,
 } from './actions';
 
 const initialState = {
@@ -17,7 +18,9 @@ const initialState = {
   auth: {
     auth: '',
   },
-};
+    searchUser:[],
+    searchPost:[]
+  };
 
 export default function rootReducer(state = initialState, action) {
   switch (action.type) {
@@ -43,7 +46,10 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
       };
-
+    case CREATE_USER_POST:
+      return {
+        ...state,
+      };
     case AUTH_USER:
       return {
         ...state,
@@ -57,31 +63,18 @@ export default function rootReducer(state = initialState, action) {
         user: [],
       };
     case SEARCH_USER:
-      const usersSearch = action.payload;
-      if (!usersSearch[0]) {
-        return {
-          ...state,
-          usersSearch: '1',
-        };
-      } else
-        return {
-          ...state,
-          searchUser: action.payload,
-        };
-    case SEARCH_POST:
-      const postSearch = action.payload;
-      if (!postSearch[0]) {
-        return {
-          ...state,
-          usersPost: '1',
-        };
-      } else
-        return {
-          ...state,
-          searchPost: action.payload,
-        };
 
-    default:
-      return state;
-  }
-}
+          return {
+            ...state,
+            searchUser: action.payload
+            }   
+
+    case SEARCH_POST:
+      return {
+              ...state,
+              searchPost: action.payload
+            }
+      
+        default:
+          return state;
+  }}
