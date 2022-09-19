@@ -1,13 +1,14 @@
-import { Avatar, Button, Stack, Text } from '@chakra-ui/react';
+import { Avatar, Button, Stack, Text, VStack } from '@chakra-ui/react';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { authUser, getMyUser, logOut } from '../../redux/actions';
+import { Link } from 'react-router-dom';
 const userImg =
   'https://previews.123rf.com/images/pandavector/pandavector1901/pandavector190105171/126078877-vector-design-of-avatar-and-dummy-symbol-set-of-avatar-and-image-stock-vector-illustration-.jpg?fj=1';
 
 const UserCard = () => {
-  
+
   const auth = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -20,7 +21,7 @@ const UserCard = () => {
   const [User, setUser] = useState(
     useState(JSON.parse(localStorage.getItem('user')))
   );
-  
+
   const myUser = useSelector((state) => state.myUser);
   const neededEmail = User[0].email;
   // const logUser = JSON.parse(localStorage.getItem('user'));
@@ -47,10 +48,14 @@ const UserCard = () => {
         backgroundColor="gray.200"
         borderRadius="7px"
       >
-        <Avatar size="xl" name="user" src={userImg} />
-        <Text as="b" fontSize="sm">
-          {myUser.firstName + ' ' + myUser.lastName}
-        </Text>
+        <Link to={'/profile'}>
+          <VStack >
+            <Avatar size="xl" name="user" src={userImg} />
+            <Text as="b" fontSize="sm">
+              {myUser.firstName + ' ' + myUser.lastName}
+            </Text>
+          </VStack>
+        </Link>
         <Button
           size="sm"
           onClick={() => {
