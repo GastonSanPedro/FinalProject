@@ -3,12 +3,13 @@ import { Box, Avatar,Button, Input } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
 import {changeDataProfile} from '../../redux/actions'
 
+
 const ProfileDetail = () => {
+
   // const user = useSelector((state) => state.user)
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
-  console.log({user})
   const [canEdit, setCanEdit] = React.useState(false)
-  const [firstName, setFirstName] = React.useState(user.firstName)
+  const [firstName, setFirstName] = React.useState(user.firstName) 
   const [lastName, setLastName] = React.useState(user.lastName)
   const [email, setEmail] = React.useState(user.email)
   const [bio, setBio] = React.useState(user.bio) //aca deberia inicializarlo con User.bio para que traiga si es que tiene algo
@@ -69,8 +70,9 @@ const ProfileDetail = () => {
               onChange={(e) => {
                 handleInputFirstNameChange(e);
               }}
+
             /> : <p>{firstName}</p>}
-          
+
           </section>
           <section style={{display:"flex"}}>
           <h4>LastName:</h4> 
