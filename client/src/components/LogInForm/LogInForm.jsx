@@ -56,7 +56,7 @@ const CreateUser = () => {
       <Center>
         <Box w="400px" m="60px">
           <FormControl isInvalid={isError}>
-            <FormLabel>Email address</FormLabel>
+            <FormLabel>Email address / Username</FormLabel>
             <Input
               name="email"
               type="email"
