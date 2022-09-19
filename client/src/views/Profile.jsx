@@ -30,6 +30,9 @@ const Profile = () => {
     dispatch(getPosts(neededEmail));
   }, [dispatch, neededEmail]);
 
+  const changeHandler = (email) => {
+    dispatch(getMyUser(email));
+  };
   // console.log(posts);
   return (
     <>
@@ -41,6 +44,7 @@ const Profile = () => {
             lastname={user?.lastName}
             bioUser={user?.bio}
             userEmail={user?.email}
+            changeHandler={changeHandler}
           />
           <CreatePost posteos={user?.posteos} email={user?.email} />
           <Wrap

@@ -1,23 +1,23 @@
-import React, { useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
 import {
-  Tooltip,
-  Center,
+  AlertTitle,
   Box,
-  Text,
+  Button,
+  Center,
   FormControl,
-  Input,
-  FormLabel,
   FormErrorMessage,
   FormHelperText,
+  FormLabel,
+  Input,
   InputGroup,
   InputRightElement,
-  Button,
-  AlertTitle,
+  Text,
+  Tooltip,
 } from '@chakra-ui/react';
-import { useDispatch, useSelector } from 'react-redux';
-import { authUser, getUser, logOut } from '../../redux/actions';
 import { Formik } from 'formik';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import { authUser, getUser, logOut } from '../../redux/actions';
 
 const LogInForm = () => {
   const [show, setShow] = React.useState(false);
@@ -35,8 +35,8 @@ const LogInForm = () => {
   const isError = input === ''; //true or false
 
   useEffect(() => {
-    isUserValidate()
-  }, [auth])
+    isUserValidate();
+  }, [auth]);
 
   const handleSubmit = (input) => {
     dispatch(authUser(input.email, input.pass));
@@ -45,8 +45,6 @@ const LogInForm = () => {
   const isUserValidate = () => {
     if (auth.auth === true) {
       localStorage.setItem('user', JSON.stringify(auth.user));
-
-      dispatch(logOut());
       navigate(`/profile`);
     }
     // } else if (auth.reason) {
@@ -85,10 +83,6 @@ const LogInForm = () => {
                   }}
                 />
 
-
-                
-
-
                 <InputRightElement width="70px">
                   <Button h="30px" size="sm" onClick={handleShowClick}>
                     {show ? 'Hide' : 'Show'}
@@ -96,10 +90,10 @@ const LogInForm = () => {
                 </InputRightElement>
               </InputGroup>
               {auth.reason && (
-                  <Text color="red.300" size="xxs">
-                    {auth.reason}
-                  </Text>
-                )}
+                <Text color="red.300" size="xxs">
+                  {auth.reason}
+                </Text>
+              )}
             </FormControl>
 
             {!isError ? (
