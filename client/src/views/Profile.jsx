@@ -4,9 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import CreatePost from '../components/CreatePost/CreatePost';
 import FriendsContainer from '../components/Friends/FriendsContainer';
 import Navbar from '../components/navbar/Navbar';
-import PostSearch from '../components/PostSearch/PostSearch';
 import ProfileDetail from '../components/ProfileDetail/ProfileDetail';
 import UserCard from '../components/UserCard/UserCard';
+import UserPost from '../components/UserPosts/UserPost';
 
 import '../index.css';
 import { getMyUser, getPosts, getUsers } from '../redux/actions';
@@ -28,6 +28,7 @@ const Profile = () => {
     dispatch(getMyUser(neededEmail));
     dispatch(getPosts(neededEmail));
   }, [dispatch, neededEmail]);
+
   // console.log(posts);
   
   return (
@@ -35,8 +36,8 @@ const Profile = () => {
       <Navbar></Navbar>
       <Box display="flex" dir="row">
         <Box m={3}>
-          <ProfileDetail />
-          <CreatePost user={user} />
+          <ProfileDetail userEmail={user?.email} />
+          <CreatePost posteos={user?.posteos} email={user?.email} />
           <Wrap
             justify={'center'}
             spacing={30}
@@ -46,11 +47,7 @@ const Profile = () => {
             m={3}
             backgroundColor={'gray.300'}
           >
-            <PostSearch
-              fullName={user?.fullName}
-              image={user?.image}
-              posteos={user?.post}
-            />
+            <UserPost posteos={user?.posteos} />
           </Wrap>
         </Box>
 
