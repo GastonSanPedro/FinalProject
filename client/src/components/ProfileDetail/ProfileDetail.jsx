@@ -87,34 +87,6 @@ const ProfileDetail = () => {
             )}
           </section>
           <section style={{ display: 'flex' }}>
-            <h4>LastName:</h4>
-            {canEdit ? (
-              <Input
-                name="lastName"
-                type="text"
-                value={lastName}
-                onChange={(e) => {
-                  handleInputLastNameChange(e);
-                }}
-              />
-            ) : (
-              <p>{lastName}</p>
-            )}
-          </section>
-<<<<<<< HEAD
-          {(canEdit || bio?.length > 0) && 
-          <section style={{display:"flex"}}>
-          <h4>Bio:</h4>
-          {canEdit? <Input
-              name="bio"
-              type="text"
-              value={bio}
-              onChange={(e) => {
-                handleInputBioChange(e);
-              }}
-            /> : <p>{bio}</p>}
-=======
-          <section style={{ display: 'flex' }}>
             <h4>Email:</h4>
             {canEdit ? (
               <Input
@@ -128,7 +100,6 @@ const ProfileDetail = () => {
             ) : (
               <p>{email}</p>
             )}
->>>>>>> 5fdd65757777573ae6c66fa2d23072b8e3ae45b5
           </section>
           {(canEdit || bio?.length > 0) && (
             <section style={{ display: 'flex' }}>
