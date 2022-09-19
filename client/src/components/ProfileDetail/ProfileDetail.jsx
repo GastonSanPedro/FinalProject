@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Avatar,Button, Input } from '@chakra-ui/react';
+import { useDispatch } from 'react-redux';
 
 const ProfileDetail = () => {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
@@ -10,6 +11,8 @@ const ProfileDetail = () => {
   const [email, setEmail] = React.useState(user.email)
   const [bio, setBio] = React.useState(user.bio) //aca deberia inicializarlo con User.bio para que traiga si es que tiene algo
 
+  const dispatch = useDispatch()
+
   useEffect(()=>{
   },[canEdit])
 
@@ -18,8 +21,8 @@ const ProfileDetail = () => {
   };
 
 
-  const changeData =()=>{
-    //aca deberia dispatchar una accion que se conecte con el patch del user y lo cambie
+  const changeData =()=>{ 
+    dispatch()
     setCanEdit(false)
   }
 
