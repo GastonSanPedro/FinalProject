@@ -41,11 +41,11 @@ const UserCard = () => {
         ml={0}
         display="flex"
         flexDir="column"
-        w="200px"
+        w="230px"
         h="245px"
         alignItems="center"
         justifyContent="center"
-        backgroundColor="gray.200"
+        backgroundColor="gray.300"
         borderRadius="7px"
       >
         <Link to={'/profile'}>
