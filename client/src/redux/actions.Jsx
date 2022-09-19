@@ -141,6 +141,8 @@ export const authUser = (mail, password) => {
           type: AUTH_USER,
           payload: { auth: false, reason: 'Contraseña incorrecta' },
         });
+      
+        
       } else {
         return dispatch({
           type: AUTH_USER,
