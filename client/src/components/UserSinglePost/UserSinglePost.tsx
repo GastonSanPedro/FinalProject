@@ -1,19 +1,6 @@
 import React from 'react'
 import { Box, Avatar, Text, Stack } from '@chakra-ui/react'
 
-
-//Solo me falta ajustar los tamaños con la descipcion, o sea que si viene con mucho texto que sea gande
-//despues otro chico onda twett y otro mediado, pero eso lo voy a hacer con lo que me entre y le 
-//hago un .lenght, antes de retornar la función
-
-//Variable que me entran, me falta la foto de perfil, y ver como pongo los ids
-//userName: string, description: string
-
-//Esto sería masomenos la lógica que quiero hacer con el cmponente
-// if (description.lenght > 1000 ){
-//     idBox.h = tanto 
-// }
-
 const UserSinglePost = () => {
     return (
         <>
