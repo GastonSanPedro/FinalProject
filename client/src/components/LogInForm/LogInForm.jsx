@@ -61,7 +61,7 @@ const LogInForm = () => {
   };
 
   return (
-    <><Box h={'700px'} backgroundImage={imagenB} display={'flex'} justifyContent={'end'} >
+    <><Box h={'760px'} backgroundImage={imagenB} display={'flex'} justifyContent={'end'} >
       <Formik >
         <Flex flexDir={'column'} w={'500px'} p={5} backgroundColor={'white'}>
           <Image alignSelf={'center'} boxSize={300} objectFit={'contain'} src={logoLeafme} alt='logo'/>
