@@ -31,7 +31,7 @@ const Profile = () => {
       <Navbar></Navbar>
       <Box display="flex" dir="column" pt={10} pr={10} pl={10}>
         <Box>
-          <ProfileDetail />
+          <ProfileDetail user={user}/>
           <CreatePost user={user} />
           <UserPost posteos={posts} name={user.userName} email={user.email} />
         </Box>
