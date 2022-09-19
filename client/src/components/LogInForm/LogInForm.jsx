@@ -1,25 +1,30 @@
+
 import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {
   Tooltip,
   Center,
   Box,
-  Text,
   FormControl,
   Input,
   FormLabel,
-  FormErrorMessage,
-  FormHelperText,
   InputGroup,
   InputRightElement,
   Button,
-  AlertTitle,
+  Flex,
+  Image,
+  Text
 } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
-import { authUser, getUser, logOut } from '../../redux/actions';
+import { authUser, logOut } from '../../redux/actions';
 import { Formik } from 'formik';
+import imgBackground from '../../assets/landing-pic.jpg'
+import logo from '../../assets/logo.jpg'
 
-const LogInForm = () => {
+const imagenB = imgBackground
+const logoLeafme = logo
+
+const CreateUser = () => {
   const [show, setShow] = React.useState(false);
   const [input, setInput] = React.useState({
     email: '',
@@ -34,9 +39,9 @@ const LogInForm = () => {
     setInput({ ...input, [event.target.name]: event.target.value });
   const isError = input === ''; //true or false
 
-  useEffect(() => {
+  useEffect(()=>{
     isUserValidate()
-  }, [auth])
+  },[auth])
 
   const handleSubmit = (input) => {
     dispatch(authUser(input.email, input.pass));
@@ -48,18 +53,17 @@ const LogInForm = () => {
 
       dispatch(logOut());
       navigate(`/profile`);
+    } else if (auth.reason) {
+      alert(auth.reason);
     }
-    // } else if (auth.reason) {
-    //   //alert(auth.reason);
-    //   //ESTO LO TENGO QUE CAMBIAR, HABRIA QUE VER QUE ESE MENSAJE SE RENDERIZE EN ERRORES
-    // }
   };
 
   return (
-    <>
-      <Formik>
-        <Center>
-          <Box w="400px" m="60px">
+    <><Box h={'760px'} backgroundImage={imagenB} display={'flex'} justifyContent={'end'} >
+      <Formik >
+        <Flex flexDir={'column'} w={'500px'} p={5} backgroundColor={'white'}>
+          <Image alignSelf={'center'} boxSize={300} objectFit={'contain'} src={logoLeafme} alt='logo'/>
+          <Box w="400px" ml={'30px'}>
             <FormControl isInvalid={isError}>
               <FormLabel>Email address or Username </FormLabel>
               <Input
@@ -84,11 +88,6 @@ const LogInForm = () => {
                     handleInputChange(e);
                   }}
                 />
-
-
-                
-
-
                 <InputRightElement width="70px">
                   <Button h="30px" size="sm" onClick={handleShowClick}>
                     {show ? 'Hide' : 'Show'}
@@ -101,7 +100,6 @@ const LogInForm = () => {
                   </Text>
                 )}
             </FormControl>
-
             {!isError ? (
               <Button
                 onClick={(e) => {
@@ -122,10 +120,16 @@ const LogInForm = () => {
               </Tooltip>
             )}
           </Box>
-        </Center>
+          <Center display={'flex'} flexDir={'column'}>
+        <p>Don't have an account?</p>
+        <Link to ='/sign-in'><Button mt='10px' >Sign In</Button></Link>
+      </Center>
+        </Flex>
       </Formik>
+
+      </Box>
     </>
   );
 };
 
-export default LogInForm;
+export default CreateUser;

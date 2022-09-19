@@ -30,6 +30,7 @@ const Profile = () => {
   }, [dispatch, neededEmail]);
 
   // console.log(posts);
+  
   return (
     <>
       <Navbar></Navbar>

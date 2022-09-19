@@ -89,21 +89,6 @@ const ProfileDetail = ({ userEmail }) => {
             )}
           </section>
           <section style={{ display: 'flex' }}>
-            <h4>LastName:</h4>
-            {canEdit ? (
-              <Input
-                name="lastName"
-                type="text"
-                value={lastName}
-                onChange={(e) => {
-                  handleInputLastNameChange(e);
-                }}
-              />
-            ) : (
-              <p>{lastName}</p>
-            )}
-          </section>
-          <section style={{ display: 'flex' }}>
             <h4>Email:</h4>
             {canEdit ? (
               <Input

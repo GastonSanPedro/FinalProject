@@ -14,6 +14,8 @@ const AnyProfileDetail = () => {
 
   let anyUser  = useSelector((state) => state.user)
 
+  console.log(anyUser)
+
   useEffect(() => {
     dispatch(getUser(email));
     return () => {
@@ -33,10 +35,10 @@ const AnyProfileDetail = () => {
                 <Heading as="h4" size='sm' >Email: {anyUser.email}</Heading >
                 <Heading as="h4" size='sm' pl="100" >User name: {anyUser.userName}</Heading >
               </HStack>
+               {anyUser.bio !== "" && <Heading as="h4" size='sm' pl="100" >Bio: {anyUser.bio}</Heading >}
             </Box>
           </Box>
           {/* <h1>{anyUser.posteos[1].description}</h1> */}
-
           {anyUser.posteos && anyUser.posteos ?
          <AnyUserPosts
          posts= {anyUser.posteos}
