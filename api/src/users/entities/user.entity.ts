@@ -37,6 +37,9 @@ export class User extends Document {
 
   @Prop({})
   fullName: string;
+
+  @Prop({})
+  bio?: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
