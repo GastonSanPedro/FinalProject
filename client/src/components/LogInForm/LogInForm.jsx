@@ -4,7 +4,6 @@ import {
   Tooltip,
   Center,
   Box,
-  Text,
   FormControl,
   Input,
   FormLabel,
@@ -17,9 +16,8 @@ import {
 } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { authUser, getUser, logOut } from '../../redux/actions';
-import { Formik } from 'formik';
 
-const LogInForm = () => {
+const CreateUser = () => {
   const [show, setShow] = React.useState(false);
   const [input, setInput] = React.useState({
     email: '',
@@ -34,9 +32,9 @@ const LogInForm = () => {
     setInput({ ...input, [event.target.name]: event.target.value });
   const isError = input === ''; //true or false
 
-  useEffect(() => {
+  useEffect(()=>{
     isUserValidate()
-  }, [auth])
+  },[auth])
 
   const handleSubmit = (input) => {
     dispatch(authUser(input.email, input.pass));
@@ -48,16 +46,13 @@ const LogInForm = () => {
 
       dispatch(logOut());
       navigate(`/profile`);
+    } else if (auth.reason) {
+      alert(auth.reason);
     }
-    // } else if (auth.reason) {
-    //   //alert(auth.reason);
-    //   //ESTO LO TENGO QUE CAMBIAR, HABRIA QUE VER QUE ESE MENSAJE SE RENDERIZE EN ERRORES
-    // }
   };
 
   return (
     <>
-<<<<<<< HEAD
       <Center>
         <Box w="400px" m="60px">
           <FormControl isInvalid={isError}>
@@ -74,77 +69,47 @@ const LogInForm = () => {
           <FormControl isInvalid={isError}>
             <FormLabel>Password</FormLabel>
             <InputGroup>
-=======
-      <Formik>
-        <Center>
-          <Box w="400px" m="60px">
-            <FormControl isInvalid={isError}>
-              <FormLabel>Email address or Username </FormLabel>
->>>>>>> f797a76e640c073e55a4a83e1589997142414784
               <Input
-                name="email"
-                type="email"
-                value={input.email}
+                name="pass"
+                value={input.pass}
+                pr="70px"
+                type={show ? 'text' : 'password'}
+                placeholder="Enter password"
                 onChange={(e) => {
                   handleInputChange(e);
                 }}
               />
-            </FormControl>
-            <FormControl isInvalid={isError}>
-              <FormLabel>Password</FormLabel>
-              <InputGroup>
-                <Input
-                  name="pass"
-                  value={input.pass}
-                  pr="70px"
-                  type={show ? 'text' : 'password'}
-                  placeholder="Enter password"
-                  onChange={(e) => {
-                    handleInputChange(e);
-                  }}
-                />
+              <InputRightElement width="70px">
+                <Button h="30px" size="sm" onClick={handleShowClick}>
+                  {show ? 'Hide' : 'Show'}
+                </Button>
+              </InputRightElement>
+            </InputGroup>
+          </FormControl>
 
-
-                
-
-
-                <InputRightElement width="70px">
-                  <Button h="30px" size="sm" onClick={handleShowClick}>
-                    {show ? 'Hide' : 'Show'}
-                  </Button>
-                </InputRightElement>
-              </InputGroup>
-              {auth.reason && (
-                  <Text color="red.300" size="xxs">
-                    {auth.reason}
-                  </Text>
-                )}
-            </FormControl>
-
-            {!isError ? (
-              <Button
-                onClick={(e) => {
-                  handleSubmit(input);
-                }}
-                mt="10px"
-              >
+          {!isError ? (
+            <Button
+              onClick={(e) => {
+                handleSubmit(input);
+              }}
+              mt="10px"
+            >
+              Log In
+            </Button>
+          ) : (
+            <Tooltip
+              label="Please complete required information"
+              shouldWrapChildren
+            >
+              <Button isDisabled mt="10px">
                 Log In
               </Button>
-            ) : (
-              <Tooltip
-                label="Please complete required information"
-                shouldWrapChildren
-              >
-                <Button isDisabled mt="10px">
-                  Log In
-                </Button>
-              </Tooltip>
-            )}
-          </Box>
-        </Center>
-      </Formik>
+            </Tooltip>
+          )}
+        </Box>
+      </Center>
     </>
   );
 };
 
-export default LogInForm;
+export default CreateUser;
