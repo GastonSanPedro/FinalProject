@@ -94,7 +94,7 @@ const ProfileDetail = () => {
               }}
             /> : <p>{email}</p>}
           </section>
-          {/* {(canEdit || bio.length > 0) && 
+          {(canEdit || bio.length > 0) && 
           <section style={{display:"flex"}}>
           <h4>Bio:</h4>
           {canEdit? <Input
@@ -106,7 +106,7 @@ const ProfileDetail = () => {
               }}
             /> : <p>{bio}</p>}
           </section>
-          } */}
+          }
           <section>
             <Button colorScheme={'green'} mt={2} w="20%" onClick={editDataProfile}>Editar</Button>
             {canEdit && <Button colorScheme={'green'} mt={2} w="20%" onClick={changeData}>Guardar</Button>}
