@@ -162,12 +162,14 @@ export const authUser = (mail, password) => {
   };
 };
 
-export function changeDataProfile() {
+export function changeDataProfile(firstName,lastName,email,bio) {
   return async function (dispatch) {
     try {
+      var user = await axios.patch(`http://localhost:3001/users/${email}`,{firstName,lastName,email,bio});
+      console.log(user)
       return dispatch({
         type: CHANGE_DATA_PROFILE,
-        payload: { auth: false },
+        payload: user
       });
     } catch (error) {
       console.log(error);
