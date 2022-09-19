@@ -4,6 +4,7 @@ export const GET_USER = 'GET_USER';
 export const GET_POSTS = 'GET_POSTS';
 export const POST_USER = 'POST_USER';
 export const CREATE_USER_POST = 'CREATE_USER_POST';
+export const CREATE_USER = 'CREATE_USER';
 export const SEARCH_USER = 'SEARCH_USER';
 export const SEARCH_POST = 'SEARCH_POST';
 export const AUTH_USER = 'AUTH_USER';
@@ -92,7 +93,7 @@ export function createUser(payload) {
   return async function () {
     try {
       var json = await axios.post('http://localhost:3001/users', payload);
-      return json;
+      return json.info;
     } catch (error) {
       console.log(error);
     }
