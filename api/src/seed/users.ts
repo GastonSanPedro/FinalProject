@@ -5638,6 +5638,7 @@ export const usersDB:IUser[] = [
 export const userDBFull:IUser[] = usersDB.map(user => { 
   return({ 
     ...user,
-    fullName: `${user.firstName} ${user.lastName}`
+    fullName: `${user.firstName} ${user.lastName}`,
+    bio: ""
   })
 })
