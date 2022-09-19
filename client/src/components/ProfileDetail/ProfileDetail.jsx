@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Avatar, Button, Input } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeDataProfile } from '../../redux/actions';
+import { changeDataProfile, getMyUser } from '../../redux/actions';
 
-const ProfileDetail = () => {
-  // const user = useSelector((state) => state.user)
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
+const ProfileDetail = ({ userEmail }) => {
+  const user = useSelector((state) => state.myUser);
+  //const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
   const [canEdit, setCanEdit] = React.useState(false);
   const [firstName, setFirstName] = React.useState(user.firstName);
   const [lastName, setLastName] = React.useState(user.lastName);
@@ -14,7 +14,9 @@ const ProfileDetail = () => {
 
   const dispatch = useDispatch();
 
-  useEffect(() => {}, [canEdit]);
+  useEffect(() => {
+    dispatch(getMyUser(userEmail));
+  }, [canEdit]);
 
   const editDataProfile = () => {
     setCanEdit(true);
@@ -129,7 +131,7 @@ const ProfileDetail = () => {
                   }}
                 />
               ) : (
-                <p>{bio}</p>
+                <p>{user?.bio}</p>
               )}
             </section>
           )}

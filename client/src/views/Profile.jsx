@@ -35,7 +35,7 @@ const Profile = () => {
       <Navbar></Navbar>
       <Box display="flex" dir="row">
         <Box m={3}>
-          <ProfileDetail />
+          <ProfileDetail userEmail={user?.email} />
           <CreatePost posteos={user?.posteos} email={user?.email} />
           <Wrap
             justify={'center'}
