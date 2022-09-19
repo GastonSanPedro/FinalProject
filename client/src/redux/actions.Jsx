@@ -6,6 +6,7 @@ export const SEARCH_USER = 'SEARCH_USER';
 export const SEARCH_POST = 'SEARCH_POST';
 export const AUTH_USER = 'AUTH_USER';
 
+
 export function getUsers() {
   return async function (dispatch) {
     try {
@@ -50,22 +51,25 @@ export function createUser(payload) {
 export function searchUser(searcher) {
     return async function(dispatch){
         try{
-            var json = await axios.get(`http://localhost:3001/users/${searcher}`)
+            var json = await axios.get(`http://localhost:3001/users/name/${searcher}`)
             return dispatch({
                 type: SEARCH_USER,
                 payload: json.data
             })
         }catch(error){
-            console.log(error)
+          return dispatch({
+            type: SEARCH_USER,
+            payload: []
+        })
         }}}
 
 export function searchPost(searcher){
     return async function(dispatch){
         try{
-            var json = await axios.get(`http://localhost:3001/users/${searcher}`)
+           
             return dispatch({
                 type: SEARCH_POST,
-                payload: json.date
+                payload: searcher
             })
         }catch(error){
             console.log(error)
