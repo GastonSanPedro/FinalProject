@@ -7,11 +7,6 @@ const Landing = () => {
     return(
         <>
         <LogInForm></LogInForm>
-        <Center>
-
-        <p>Don't have an account?</p>
-        <Link to ='/sign-in'><Button mt='10px' >Sign In</Button></Link>
-        </Center>
         </>
     )
 }

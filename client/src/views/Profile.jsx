@@ -34,6 +34,7 @@ const Profile = () => {
     dispatch(getMyUser(email));
   };
   // console.log(posts);
+  
   return (
     <>
       <Navbar></Navbar>
