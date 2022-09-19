@@ -140,7 +140,7 @@ export const authUser = (mail, password) => {
       if (formatUser.password !== password) {
         return dispatch({
           type: AUTH_USER,
-          payload: { auth: false, reason: 'Contraseña incorrecta' },
+          payload: { auth: false, reason: 'Usuario o contraseña no válidos'},
         });
       
         
@@ -155,12 +155,14 @@ export const authUser = (mail, password) => {
         console.log(error);
         return dispatch({
           type: AUTH_USER,
-          payload: { auth: false, reason: error.response.data.message },
+          payload: { auth: false, reason: 'Usuario o contraseña no válidos' },
         });
       }
     }
   };
 };
+
+//reason: error.response.data.message 
 
 export function changeDataProfile(firstName,lastName,email,bio) {
   return async function (dispatch) {
