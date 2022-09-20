@@ -1,4 +1,4 @@
-import { Box } from '@chakra-ui/react';
+import { Box, Wrap } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import CreatePost from '../components/CreatePost/CreatePost';
@@ -7,47 +7,65 @@ import Navbar from '../components/navbar/Navbar';
 import ProfileDetail from '../components/ProfileDetail/ProfileDetail';
 import UserCard from '../components/UserCard/UserCard';
 import UserPost from '../components/UserPosts/UserPost';
+
 import '../index.css';
-import { getMyUser, getPosts } from '../redux/actions';
+import { getMyUser, getPosts, getUsers } from '../redux/actions';
 
 const Profile = () => {
   const [User, setUser] = useState(
     useState(JSON.parse(localStorage.getItem('user')))
   );
   const dispatch = useDispatch();
+  const allUsers = useSelector((state) => state.users);
   const user = useSelector((state) => state.myUser);
   const posts = useSelector((state) => state.posts);
   const neededEmail = User[0].email;
+  console.log(neededEmail);
   // const logUser = JSON.parse(localStorage.getItem('user'));
   // const loggedUser = JSON.parse(logUser.User);
   // console.log(loggedUser);
   useEffect(() => {
+    dispatch(getUsers());
     dispatch(getMyUser(neededEmail));
     dispatch(getPosts(neededEmail));
   }, [dispatch, neededEmail]);
+
+  const changeHandler = (email) => {
+    dispatch(getMyUser(email));
+  };
   // console.log(posts);
+  
   return (
     <>
       <Navbar></Navbar>
-      <Box display="flex" dir="column" pt={10} pr={10} pl={10}>
-        <Box>
-          <ProfileDetail />
-          <CreatePost user={user} />
-          <UserPost posteos={posts} name={user.userName} email={user.email} />
+      <Box display="flex" dir="row">
+        <Box m={3}>
+          <ProfileDetail
+            firstname={user?.firstName}
+            lastname={user?.lastName}
+            bioUser={user?.bio}
+            userEmail={user?.email}
+            changeHandler={changeHandler}
+          />
+          <CreatePost posteos={user?.posteos} email={user?.email} />
+          <Wrap
+            justify={'center'}
+            spacing={30}
+            w="980px"
+            borderRadius="7px"
+            p={8}
+            m={3}
+            backgroundColor={'gray.300'}
+          >
+            <UserPost posteos={user?.posteos} />
+          </Wrap>
         </Box>
 
-        <Box
-          display="-ms-flexbox"
-          position={'absolute'}
-          right={'0%'}
-          dir="row"
-          width={'20%'}
-          pt={0}
-          pr={0}
-          pl={0}
-        >
+        <Box>
           <UserCard />
-          <FriendsContainer />
+          {allUsers.length > 1 ? (
+            <FriendsContainer allUsers={allUsers} />
+          ) : null}
         </Box>
       </Box>
     </>

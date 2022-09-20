@@ -70,7 +70,7 @@ const CreateUser = () => {
             errores.password = 'Please create a password';
           }
           else if (values.password.length < 6) {
-            errores.password = 'Password must be longer';
+            errores.password = 'Password must be longer than 6 characters';
           }
           return errores;
         }}

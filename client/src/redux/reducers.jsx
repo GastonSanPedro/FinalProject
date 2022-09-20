@@ -1,33 +1,33 @@
 import {
   AUTH_USER,
   CREATE_USER_POST,
+  GET_MY_USER,
   GET_POSTS,
   GET_USER,
   GET_USERS,
+  CREATE_USER,
   LOG_OUT,
   POST_USER,
   SEARCH_POST,
   SEARCH_USER,
-  GET_MY_USER,
+  CHANGE_DATA_PROFILE,
 } from './actions';
 
 const initialState = {
   allUsers: [],
   users: [],
   user: [],
-  myUser:[],
+  myUser: [],
   posts: [],
   auth: {
     auth: '',
   },
   searchUser: [],
-  searchPost: []
+  searchPost: [],
 };
 
 export default function rootReducer(state = initialState, action) {
-  
   switch (action.type) {
-
     case GET_USERS:
       return {
         ...state,
@@ -59,31 +59,39 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
       };
+    case CREATE_USER:
+      return {
+        ...state,
+        myUser: action.payload,
+      };
     case AUTH_USER:
       return {
         ...state,
         auth: action.payload,
-        user: action.payload.user,
+        myUser: action.payload.user,
       };
     case LOG_OUT:
       return {
         ...state,
         auth: action.payload,
-        user: [],
+        myUser: [],
       };
     case SEARCH_USER:
-
       return {
         ...state,
-        searchUser: action.payload
-      }
+        searchUser: action.payload,
+      };
 
     case SEARCH_POST:
       return {
         ...state,
-        searchPost: action.payload
-      }
-
+        searchPost: action.payload,
+      };
+    case CHANGE_DATA_PROFILE:
+      return {
+        ...state,
+        myUser: action.payload,
+      };
     default:
       return state;
   }

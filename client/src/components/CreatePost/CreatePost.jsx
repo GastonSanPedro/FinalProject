@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createUserPost, getUser } from '../../redux/actions';
 import { useNavigate } from 'react-router-dom';
 
-const CreatePost = ({ user }) => {
+const CreatePost = ({ posteos, email }) => {
   const [input, setInput] = useState({
     description: '',
     pics: '',
@@ -15,8 +15,8 @@ const CreatePost = ({ user }) => {
     setInput({ ...input, [event.target.name]: event.target.value });
 
   const handleSubmit = () => {
-    let post = { posteos: [...user.posteos, input] };
-    dispatch(createUserPost(user.email, post));
+    let post = { posteos: [...posteos, input] };
+    dispatch(createUserPost(email, post));
     setInput({
       description: '',
       pics: '',
@@ -25,12 +25,12 @@ const CreatePost = ({ user }) => {
   return (
     <>
       <Box
-        ml={10}
-        mt={5}
-        p={7}
-        w="70%"
+        p={8}
+        m={3}
+        w="980px"
         display={'flex'}
-        backgroundColor={'#ECEAEA'}
+        borderRadius={7}
+        backgroundColor={'gray.300'}
       >
         <Avatar
           size="xl"
@@ -38,7 +38,7 @@ const CreatePost = ({ user }) => {
           src="https://previews.123rf.com/images/pandavector/pandavector1901/pandavector190105171/126078877-vector-design-of-avatar-and-dummy-symbol-set-of-avatar-and-image-stock-vector-illustration-.jpg?fj=1"
         />
         <Box ml={8} w="90%">
-          <Input
+          {/* <Input
             type="text"
             placeholder="Url de la imagen"
             name="pics"
@@ -47,11 +47,14 @@ const CreatePost = ({ user }) => {
             w={'60%'}
             onChange={(e) => {
               handleInputChange(e);
-            }}
-          />
+              />
+            }} */}
+
           <Textarea
+            w={'730px'}
             type="textarea"
-            placeholder="En que estas pensando"
+            backgroundColor={'white'}
+            placeholder="Write something..."
             value={input.description}
             name="description"
             size="md"
@@ -60,15 +63,15 @@ const CreatePost = ({ user }) => {
               handleInputChange(e);
             }}
           />
-          <Box textAlign={'right'}>
+          <Box>
             <Button
-              colorScheme={'green'}
+              colorScheme={'gray'}
               mt={2}
               onClick={(e) => {
                 handleSubmit(input);
               }}
             >
-              Publicar
+              Post
             </Button>
           </Box>
         </Box>
