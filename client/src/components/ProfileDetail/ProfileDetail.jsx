@@ -1,5 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Avatar, Button, Input } from '@chakra-ui/react';
+import {
+  Box,
+  Avatar,
+  Button,
+  Input,
+  Text,
+  Editable,
+  EditableInput,
+  EditablePreview,
+} from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeDataProfile, getMyUser } from '../../redux/actions';
 
@@ -58,9 +67,12 @@ const ProfileDetail = ({
   return (
     <>
       <Box
+        ml={3}
         p={8}
-        m={3}
-        w="980px"
+        mt={2}
+        mb={4}
+        w="90%"
+        h="34vh"
         display={'flex'}
         borderRadius={7}
         backgroundColor={'gray.300'}
@@ -71,56 +83,86 @@ const ProfileDetail = ({
           src="https://previews.123rf.com/images/pandavector/pandavector1901/pandavector190105171/126078877-vector-design-of-avatar-and-dummy-symbol-set-of-avatar-and-image-stock-vector-illustration-.jpg?fj=1"
         />
         <Box ml={8} w="90%" display={'flex'} flexDirection={'column'}>
-          <section style={{ display: 'flex' }}>
-            <h4>First name:</h4>
-            {canEdit ? (
-              <Input
-                name="firstName"
-                type="text"
-                value={firstName}
-                onChange={(e) => {
-                  handleInputFirstNameChange(e);
+          <Box
+            width={'90%'}
+            display={'flex'}
+            flexDirection={'row'}
+            height={'10vh'}
+          >
+            <Box width={'30%'} height={'10vh'}>
+              <span>First name:</span>
+              <section
+                style={{
+                  display: 'flex',
+                  width: '100%',
                 }}
-              />
-            ) : (
-              <p>{firstname}</p>
-            )}
-          </section>
-          <section style={{ display: 'flex' }}>
-            <h4>LastName:</h4>
-            {canEdit ? (
-              <Input
-                name="lastName"
-                type="text"
-                value={lastName}
-                onChange={(e) => {
-                  handleInputLastNameChange(e);
-                }}
-              />
-            ) : (
-              <p>{lastname}</p>
-            )}
-          </section>
-          <section style={{ display: 'flex' }}>
-            <h4>Email:</h4>
-            {canEdit ? (
-              <Input
-                name="email"
-                type="text"
-                value={email}
-                onChange={(e) => {
-                  handleInputEmailChange(e);
-                }}
-              />
-            ) : (
-              <p>{userEmail}</p>
-            )}
-          </section>
+              >
+                {canEdit ? (
+                  <Input
+                    name="firstName"
+                    type="text"
+                    value={firstName}
+                    onChange={(e) => {
+                      handleInputFirstNameChange(e);
+                    }}
+                  />
+                ) : (
+                  // <Editable defaultValue={firstName}>
+                  //   <EditablePreview />
+                  //   <EditableInput
+                  //     name="firstName"
+                  //     value={firstName}
+                  //     onChange={(e) => {
+                  //       handleInputFirstNameChange(e);
+                  //     }}
+                  //   />
+                  // </Editable>
+                  <Text fontSize="md">{firstname}</Text>
+                )}
+              </section>
+            </Box>
+            <Box width={'30%'} height={'10vh'} ml={10}>
+              <span>LastName:</span>
+              <section style={{ display: 'flex', position: 'absolute' }}>
+                {canEdit ? (
+                  <Input
+                    name="lastName"
+                    type="text"
+                    value={lastName}
+                    onChange={(e) => {
+                      handleInputLastNameChange(e);
+                    }}
+                  />
+                ) : (
+                  <Text>{lastname}</Text>
+                )}
+              </section>
+            </Box>
+            <Box width={'30%'} height={'10vh'} ml={10}>
+              <span>Email:</span>
+              <section style={{ display: 'flex' }}>
+                {canEdit ? (
+                  <Input
+                    name="email"
+                    type="text"
+                    value={email}
+                    onChange={(e) => {
+                      handleInputEmailChange(e);
+                    }}
+                  />
+                ) : (
+                  <Text>{userEmail}</Text>
+                )}
+              </section>
+            </Box>
+          </Box>
+          <span>Bio:</span>
           {(canEdit || bio?.length > 0) && (
             <section style={{ display: 'flex' }}>
-              <h4>Bio:</h4>
               {canEdit ? (
                 <Input
+                  w={'90%'}
+                  mb={'3'}
                   name="bio"
                   type="text"
                   value={bio}
@@ -146,6 +188,7 @@ const ProfileDetail = ({
               <Button
                 colorScheme={'green'}
                 mt={2}
+                ml={3}
                 w="20%"
                 onClick={(e) => {
                   changeData(input);

@@ -8,7 +8,6 @@ const userImg =
   'https://previews.123rf.com/images/pandavector/pandavector1901/pandavector190105171/126078877-vector-design-of-avatar-and-dummy-symbol-set-of-avatar-and-image-stock-vector-illustration-.jpg?fj=1';
 
 const UserCard = () => {
-
   const auth = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -32,8 +31,6 @@ const UserCard = () => {
   }, [dispatch, neededEmail]);
   // console.log(posts);
 
-
-
   return (
     <>
       <Stack
@@ -41,15 +38,15 @@ const UserCard = () => {
         ml={0}
         display="flex"
         flexDir="column"
-        w="230px"
-        h="245px"
+        w="15vw"
+        h="27vh"
         alignItems="center"
         justifyContent="center"
         backgroundColor="gray.300"
         borderRadius="7px"
       >
         <Link to={'/profile'}>
-          <VStack >
+          <VStack>
             <Avatar size="xl" name="user" src={userImg} />
             <Text as="b" fontSize="sm">
               {myUser.firstName + ' ' + myUser.lastName}
