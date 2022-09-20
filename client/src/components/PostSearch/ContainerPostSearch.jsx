@@ -28,8 +28,10 @@ const PostSearchContainer = () => {
             })
         }
     })
+    
 
     //--------- Lógica de paginado --------
+    
     const [currentStart, setCurrentStart] = useState(0)
     const [currentEnd, setCurrentEnd] = useState(8)
     const [button1, setButton1] = useState(true)
@@ -77,8 +79,8 @@ const PostSearchContainer = () => {
                         : <Box><Text>No hay posteos</Text> </Box>
                 }
                 <HStack>
-                    {
-                        filtered.length > 8 && word.length ? <Button disabled={button1} onClick={() => handleClickBackward()} h='50px' mr="50" w={0} fontSize='sm'>⪡</Button> : null
+                    { 
+                        filtered.length > 8 && word.length ? <Button disabled={button1} onClick={() => handleClickBackward()} h='50px' mr="50" w={0} fontSize='sm'>⪡</Button> : null 
                     }
                     {
                         filtered.length > 8 && word.length ? <Button disabled={button2} onClick={() => handleClickFoward()} h='50px' w={0} fontSize='sm'>⪢</Button> : null

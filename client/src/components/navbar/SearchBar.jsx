@@ -29,26 +29,29 @@ const Searchbar = () => {
   return (
     <>
       <Box
+        position={'fixed'}
         w={270}
         height={10}
         display="flex"
         flexDir="row"
         alignItems="center"
-        pos={'absolute'}
-        right={'2%'}
+        right={'40%'}
       >
         <Input
           h="80%"
-          w={180}
-          variant="filled"
-          placeholder="Search"
-          size="md"
+          w={190}
+          variant='unstyled'
+          placeholder={`Search`}
+          size='lg'
+          borderRadius={'none'}
+          borderBottomWidth="2px"
           value={searcher}
           onChange={(e) => handleInputChange(e)}
         />
         <IconButton
           onClick={(e) => handleSubmit(e)}
           aria-label="Search database"
+          bgColor={'white'}
           ml={1}
           w={10}
           h="80%"
