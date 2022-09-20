@@ -1,3 +1,4 @@
+/* global google */
 import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {
@@ -20,10 +21,12 @@ import { authUser, logOut } from '../../redux/actions';
 import imgBackground from '../../assets/landing-pic.jpg';
 import logo from '../../assets/logo.jpg';
 import jwt_decode from 'jwt-decode';
+
 const imagenB = imgBackground;
 const logoLeafme = logo;
 
 const CreateUser = () => {
+  const google = (window.google = window.google ? window.google : {});
   const [show, setShow] = React.useState(false);
   const [input, setInput] = React.useState({
     email: '',
@@ -46,18 +49,20 @@ const CreateUser = () => {
   };
 
   useEffect(() => {
-    /* global google */
+    setTimeout(function () {
+      google?.accounts.id.initialize({
+        client_id:
+          '239100653667-9cg4th0msle8b1fsvkgn7mbnae69msom.apps.googleusercontent.com',
+        callback: handleCallbackResponse,
+      });
+      google?.accounts.id.renderButton(document.getElementById('signInDiv'), {
+        theme: 'outline',
+        size: 'large',
+      });
+    });
+
     isUserValidate();
-    google.accounts.id.initialize({
-      client_id:
-        '239100653667-9cg4th0msle8b1fsvkgn7mbnae69msom.apps.googleusercontent.com',
-      callback: handleCallbackResponse,
-    });
-    google.accounts.id.renderButton(document.getElementById('signInDiv'), {
-      theme: 'outline',
-      size: 'large',
-    });
-  }, [auth]);
+  }, [auth, google]);
   //console.log(process.env.GOOGLE_ID_CLIENT);
   const handleSubmit = (input) => {
     dispatch(authUser(input.email, input.pass));
