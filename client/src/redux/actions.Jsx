@@ -133,18 +133,27 @@ export function searchPost(searcher) {
   };
 }
 
-export const authUser = (mail, password) => {
+export const authUser = (mail, password, google) => {
   return async function (dispatch) {
     try {
-      var user = await axios.get(`http://localhost:3001/users/${mail}`);
-      let formatUser = user.data;
-      //console.log(formatUser);
-      if (formatUser.password !== password) {
-        return dispatch({
-          type: AUTH_USER,
-          payload: { auth: false, reason: 'Usuario o contraseña no válidos' },
-        });
+      if (google === false) {
+        var user = await axios.get(`http://localhost:3001/users/${mail}`);
+        let formatUser = user.data;
+        //console.log(formatUser);
+        if (formatUser.password !== password) {
+          return dispatch({
+            type: AUTH_USER,
+            payload: { auth: false, reason: 'Usuario o contraseña no válidos' },
+          });
+        } else {
+          return dispatch({
+            type: AUTH_USER,
+            payload: { auth: true, user: formatUser },
+          });
+        }
       } else {
+        var user = await axios.get(`http://localhost:3001/users/${mail}`);
+        let formatUser = user.data;
         return dispatch({
           type: AUTH_USER,
           payload: { auth: true, user: formatUser },
