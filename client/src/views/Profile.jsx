@@ -39,7 +39,7 @@ const Profile = () => {
     <>
       <Navbar></Navbar>
       <Box display="flex" dir="row">
-        <Box m={3}>
+        <Box m={3} width={'78%'} position={'absolute'} left={'5%'}>
           <ProfileDetail
             firstname={user?.firstName}
             lastname={user?.lastName}
@@ -51,17 +51,19 @@ const Profile = () => {
           <Wrap
             justify={'center'}
             spacing={30}
-            w="980px"
+            w="90%"
             borderRadius="7px"
-            p={8}
+            p={4}
             m={3}
             backgroundColor={'gray.300'}
+            position={'absolute'}
+            left={'0%'}
           >
             <UserPost posteos={posts} name={user?.fullName} />
           </Wrap>
         </Box>
 
-        <Box>
+        <Box position={'absolute'} right={'3%'}>
           <UserCard />
           {allUsers.length > 1 ? (
             <FriendsContainer allUsers={allUsers} />

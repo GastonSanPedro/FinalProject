@@ -9,10 +9,10 @@ const UserPost = ({ posteos, name, email }) => {
       <Wrap
         justify={'center'}
         spacing={30}
-        w="980px"
+        w="90%"
         borderRadius="7px"
         pt={4}
-        m={3}
+        mb={3}
         backgroundColor={'gray.300'}
       >
         {posteos?.map((post) => {

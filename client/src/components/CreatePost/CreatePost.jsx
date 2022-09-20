@@ -27,7 +27,7 @@ const CreatePost = ({ posteos, email }) => {
       <Box
         p={8}
         m={3}
-        w="980px"
+        w="90%"
         display={'flex'}
         borderRadius={7}
         backgroundColor={'gray.300'}
@@ -51,7 +51,7 @@ const CreatePost = ({ posteos, email }) => {
             }} */}
 
           <Textarea
-            w={'730px'}
+            w={'100%'}
             type="textarea"
             backgroundColor={'white'}
             placeholder="Write something..."
