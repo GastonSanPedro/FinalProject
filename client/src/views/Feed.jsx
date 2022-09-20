@@ -64,9 +64,9 @@ const Feed = () => {
     const [socket, setSocket] = useState(null)
     const [user,setUser] = useState("")
 
-    useEffect(()=>{
-        setSocket(io("aca iria el localhost o LA ACTION DE REDUX"))
-    },[])
+    // useEffect(()=>{
+    //     setSocket(io("aca iria el localhost o LA ACTION DE REDUX"))
+    // },[])
     //--------------------------------
 
 
