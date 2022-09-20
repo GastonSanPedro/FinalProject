@@ -89,7 +89,7 @@ const CreateUser = () => {
               src={logoLeafme}
               alt="logo"
             />
-            <div id="signInDiv"></div>
+            <Box ml={'9vw'} mb={'3vh'} display={'flex'} id="signInDiv"></Box>
             <Box w="400px" ml={'30px'}>
               <FormControl isInvalid={isError}>
                 <FormLabel>Email address or Username </FormLabel>
