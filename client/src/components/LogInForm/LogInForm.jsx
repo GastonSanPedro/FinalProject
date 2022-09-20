@@ -19,7 +19,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { authUser, logOut } from '../../redux/actions';
 import imgBackground from '../../assets/landing-pic.jpg';
 import logo from '../../assets/logo.jpg';
-
+import jwt_decode from 'jwt-decode';
 const imagenB = imgBackground;
 const logoLeafme = logo;
 
@@ -38,10 +38,27 @@ const CreateUser = () => {
     setInput({ ...input, [event.target.name]: event.target.value });
   const isError = input === ''; //true or false
 
-  useEffect(() => {
-    isUserValidate();
-  }, [auth]);
+  const handleCallbackResponse = (response) => {
+    console.log('Encoded JWT ID token:' + response.credential);
+    var userObject = jwt_decode(response.credential);
+    console.log(userObject.email);
+    dispatch(authUser(userObject.email, null, true));
+  };
 
+  useEffect(() => {
+    /* global google */
+    isUserValidate();
+    google.accounts.id.initialize({
+      client_id:
+        '239100653667-9cg4th0msle8b1fsvkgn7mbnae69msom.apps.googleusercontent.com',
+      callback: handleCallbackResponse,
+    });
+    google.accounts.id.renderButton(document.getElementById('signInDiv'), {
+      theme: 'outline',
+      size: 'large',
+    });
+  }, [auth]);
+  //console.log(process.env.GOOGLE_ID_CLIENT);
   const handleSubmit = (input) => {
     dispatch(authUser(input.email, input.pass));
   };
@@ -72,6 +89,7 @@ const CreateUser = () => {
               src={logoLeafme}
               alt="logo"
             />
+            <div id="signInDiv"></div>
             <Box w="400px" ml={'30px'}>
               <FormControl isInvalid={isError}>
                 <FormLabel>Email address or Username </FormLabel>
