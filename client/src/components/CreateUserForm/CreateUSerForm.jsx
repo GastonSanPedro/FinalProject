@@ -1,21 +1,21 @@
+import { Form, Formik } from 'formik';
 import React, { useEffect } from 'react';
-import { getUsers, createUser, authUser } from '../../redux/actions';
-import { Formik, Form } from 'formik';
-import { useNavigate, Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { authUser, createUser, getUsers } from '../../redux/actions';
 
 import {
-  Center,
   Box,
+  Button,
+  Center,
   FormControl,
-  Input,
   FormLabel,
+  Input,
   InputGroup,
   InputRightElement,
   Text,
-  Button,
 } from '@chakra-ui/react';
-import { useDispatch, useSelector } from 'react-redux';
 import jwt_decode from 'jwt-decode';
+import { useDispatch, useSelector } from 'react-redux';
 
 const CreateUser = () => {
   const google = window.google;
@@ -25,6 +25,7 @@ const CreateUser = () => {
   const navigate = useNavigate();
   const [show, setShow] = React.useState(false);
   const [User, setUser] = React.useState('');
+  const google = window.google;
 
   const handleClick = () => setShow(!show);
   const handleCallbackResponse = (response) => {
@@ -157,7 +158,7 @@ const CreateUser = () => {
                   id="firstName"
                   name="firstName"
                   placeholder="First name"
-                  value={User ? User?.given_name : values.email}
+                  value={User ? User?.given_name : values.firstName}
                   onChange={handleChange}
                   onBlur={handleBlur}
                 />
@@ -174,7 +175,7 @@ const CreateUser = () => {
                     id="lastName"
                     name="lastName"
                     placeholder="Last Name"
-                    value={User ? User?.family_name : values.email}
+                    value={User ? User?.family_name : values.lastName}
                     onChange={handleChange}
                     onBlur={handleBlur}
                   />
