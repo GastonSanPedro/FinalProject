@@ -18,6 +18,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import jwt_decode from 'jwt-decode';
 
 const CreateUser = () => {
+  const google = window.google;
   const dispatch = useDispatch();
   const allUsers = useSelector((state) => state.allUsers);
   const user = useSelector((state) => state.user);
