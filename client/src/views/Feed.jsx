@@ -44,7 +44,6 @@ const Feed = () => {
 
 
     //--------- Lógica de ver mas --------
-
     const [currentStart, setCurrentStart] = useState(0)
     const [currentEnd, setCurrentEnd] = useState(8)
     // const [button1, setButton1] = useState(true)
@@ -59,18 +58,31 @@ const Feed = () => {
         // setCurrentStart(currentStart + 8)
         setCurrentEnd(currentEnd + 8)
     }
-
     //--------------------------------------
+
+    //--------- Lógica socket --------
+    const [socket, setSocket] = useState(null)
+    const [user,setUser] = useState("")
+
+    useEffect(()=>{
+        setSocket(io("aca iria el localhost o LA ACTION DE REDUX"))
+    },[])
+    //--------------------------------
 
 
 
 
     return (
         <>
-            <Navbar />
+            <Navbar 
+            socket={socket} 
+            />
             <Box display={'flex'} dir={'row'} >
                 <Box m={3}>
-                    <CreatePost />
+                    <CreatePost
+                    socket={socket}
+                    user ={user}
+                    />
                     <Wrap justify={'center'} spacing={30} w='980px' borderRadius='7px' p={8} m={3} backgroundColor={"gray.300"}>
                         {/* <Box mr="300"><Button >Ver más</Button></Box> */}
                         {

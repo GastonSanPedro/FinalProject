@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Box,
   Button,
@@ -9,13 +9,39 @@ import {
   MenuItem,
   MenuList,
   IconButton,
+  VStack,
 } from '@chakra-ui/react';
-import { HamburgerIcon } from '@chakra-ui/icons';
+import { HamburgerIcon, BellIcon } from '@chakra-ui/icons';
 import { Link } from 'react-router-dom';
 import Searchbar from './SearchBar';
 import Home from '../../assets/home.svg';
 
-const Navbar = () => {
+const Navbar = ({ socket }) => {
+
+
+  //----------Lógica notificaciones-------
+  const [notifications, setNotifications] = useState([])
+  const [open, setOpen] = useState(false)
+
+  useEffect(() => {
+    socket.on("getNotification", data => {
+      setNotifications((prev) => [...prev, data])
+    })
+  }, [socket])
+
+  const displayNotification = ({ senderName }) => {
+    return (
+      <span>A {senderName} le gustó tu posteo</span>
+    )
+  }
+
+  const handleRead = () => {
+    setNotifications([])
+    setOpen
+  }
+  //---------------------------------------
+
+
   return (
     <>
       <Box
@@ -24,15 +50,34 @@ const Navbar = () => {
         //justifyContent="flex-end"
         backgroundColor="gray.200"
       >
+        <Box>
+          <BellIcon onClick={() => setOpen(!open)} />
+          {notifications.length > 0 &&
+            <Box mr="3">
+              {notifications.length}
+            </Box>
+          }
+          {open && (
+            <VStack>
+              {notifications.map(n => (displayNotification(n)))}
+              <Button onClick={handleRead} ></Button>
+            </VStack>)}
+        </Box>
+
+
         <Button
           aria-label="Options"
           variant="outline"
           ml={'45%'}
           w={20}
           alignContent={'center'}
-          //   pos={'absolute'}
-          //right={'10%'}
+        //   pos={'absolute'}
+        //right={'10%'}
         >
+
+
+
+
           <Link to="/home" style={{ textDecoration: 'none' }}>
             <img
               src={Home}
@@ -41,6 +86,11 @@ const Navbar = () => {
             />
           </Link>
         </Button>
+
+
+
+
+
         <Menu>
           <Searchbar />
           <MenuButton
@@ -52,6 +102,8 @@ const Navbar = () => {
             pos={'absolute'}
             right={'0%'}
           />
+
+
           <MenuList>
             <MenuGroup title="Profile">
               <Link to="/profile">
