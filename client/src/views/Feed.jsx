@@ -6,10 +6,10 @@ import { HStack, VStack, Wrap, Box, Text, Button } from '@chakra-ui/react'
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getPosts, getUsers } from '../redux/actions';
-import FriendsContainer from '../components/Friends/FriendsContainer';
-import UserCard from '../components/UserCard/UserCard';
 
 import SidebarWithHeader from '../components/Sidebar-Navbar/SideBar';
+
+import TextPostContainer from '../components/TextPost/TextPostContainer';
 
 
 const Feed = () => {
@@ -70,6 +70,7 @@ const Feed = () => {
     return (
       <>
       <SidebarWithHeader/>
+      <TextPostContainer/>
       </>
 
 
