@@ -32,7 +32,7 @@ import {
   FiMenu,
   FiBell,
   FiChevronDown,
-} from 'react-icons/fi';
+} from 'react-icons';
 import { IconType } from 'react-icons';
 import { ReactText } from 'react';
 import logo from '../../assets/logo.jpg'
