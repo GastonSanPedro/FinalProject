@@ -21,7 +21,8 @@ import {
   MenuDivider,
   MenuItem,
   MenuList,
-  Image
+  Image,
+  Button
 } from '@chakra-ui/react';
 import {
   FiHome,
@@ -33,7 +34,7 @@ import {
   FiBell,
   FiChevronDown,
 } from 'react-icons/fi';
-import { IconType } from 'react-icons';
+//import { IconType } from 'react-icons';
 import { ReactText } from 'react';
 import logo from '../../assets/logo.jpg'
 import { useNavigate } from 'react-router-dom';
@@ -52,25 +53,48 @@ const LinkItems = [
   { name: 'Settings', icon: FiSettings },
 ];
 
-export default function SidebarWithHeader({children}) {
-  
+export default function SidebarWithHeader({ children }) {
+
+  //----------Lógica notificaciones-------
+  // const [notifications, setNotifications] = useState([])
+  // const [open, setOpen] = useState(false)
+
+  // useEffect(() => {
+  //   socket.on("getNotification", data => {
+  //     setNotifications((prev) => [...prev, data])
+  //   })
+  // }, [socket])
+
+  // const displayNotification = ({ senderName }) => {
+  //   return (
+  //     <MenuItem>A {senderName} le gustó tu posteo</MenuItem>
+  //   )
+  // }
+
+  // const handleRead = () => {
+  //   setNotifications([])
+  //   setOpen
+  // }
+  //En la parte del comienzo de la barra ({ children, socket })
+  //---------------------------------------
+
   const { isOpen, onOpen, onClose } = useDisclosure();
   const auth = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
 
-const [User, setUser] = useState(
-  useState(JSON.parse(localStorage.getItem('user')))
-);
+  const [User, setUser] = useState(
+    useState(JSON.parse(localStorage.getItem('user')))
+  );
 
-const myUser = useSelector((state) => state.myUser);
-const neededEmail = User[0].email;
+  const myUser = useSelector((state) => state.myUser);
+  const neededEmail = User[0].email;
 
-useEffect(() => {
-  dispatch(getMyUser(neededEmail));
-}, [dispatch, neededEmail]);    
-  
+  useEffect(() => {
+    dispatch(getMyUser(neededEmail));
+  }, [dispatch, neededEmail]);
+
 
   return (
     <Box minH="100vh" bg={useColorModeValue('gray.100', 'gray.900')}>
@@ -99,7 +123,7 @@ useEffect(() => {
   );
 }
 
- const SidebarContent = ({ onClose, ...rest }) => {
+const SidebarContent = ({ onClose, ...rest }) => {
   return (
     <Box
       transition="3s ease"
@@ -112,17 +136,17 @@ useEffect(() => {
       {...rest}>
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
         <Box mt={14}>
-        <Image src={logo}/>
+          <Image src={logo} />
         </Box>
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
       <Box mt={14}>
-      {LinkItems.map((link) => (
-        <NavItem key={link.name} icon={link.icon}>
-          {link.name}
-        </NavItem>
-        
-      ))}
+        {LinkItems.map((link) => (
+          <NavItem key={link.name} icon={link.icon}>
+            {link.name}
+          </NavItem>
+
+        ))}
       </Box>
     </Box>
   );
@@ -163,7 +187,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const handleClickLogOut = () => { 
+  const handleClickLogOut = () => {
     localStorage.removeItem('user');
     dispatch(logOut());
     navigate('/landing-page');
@@ -180,7 +204,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
       borderBottomColor={useColorModeValue('gray.200', 'gray.700')}
       justifyContent={{ base: 'space-between', md: 'flex-end' }}
       {...rest}>
-      <Searchbar/>
+      <Searchbar />
       <IconButton
         display={{ base: 'flex', md: 'none' }}
         onClick={onOpen}
@@ -194,16 +218,44 @@ const MobileNav = ({ onOpen, ...rest }) => {
         fontSize="2xl"
         fontFamily="monospace"
         fontWeight="bold">
-        <Image src={logo}/>
+        <Image src={logo} />
       </Box>
 
       <HStack spacing={{ base: '0', md: '6' }}>
-        <IconButton
-          size="lg"
-          variant="ghost"
-          aria-label="open menu"
-          icon={<FiBell />}
-        />
+
+
+
+        <Menu>
+          <MenuButton as={Button} p={0} pr={2.5} rightIcon={<FiBell />} />
+          <Icon viewBox='0 0 200 200' color='red.500' boxSize={5} position="absolute" top="5" right="195px" >
+            <path
+              fill='currentColor'
+              d='M 100, 100 m -75, 0 a 75,75 0 1,0 150,0 a 75,75 0 1,0 -150,0'
+            />
+          </Icon>
+          <MenuList >
+            <MenuItem>A Nacho le gusta tu post</MenuItem>
+            <MenuItem>A Ari le gusta tu post</MenuItem>
+            <MenuItem>Alirio quiere ser tu amigo</MenuItem>
+            <MenuItem>Keki aceptó tu solicitud de amistad</MenuItem>
+          </MenuList>
+        </Menu>
+
+        {/*   Lógica socket.io
+        <Box>
+          <BellIcon onClick={() => setOpen(!open)} />
+          {notifications.length > 0 &&
+            <Box mr="3">
+              {notifications.length}
+            </Box>
+          }
+          {open && (
+            <VStack>
+              {notifications.map(n => (displayNotification(n)))}
+              <Button onClick={handleRead} ></Button>
+            </VStack>)}
+        </Box> */}
+
         <Flex alignItems={'center'}>
           <Menu>
             <MenuButton
