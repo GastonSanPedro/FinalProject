@@ -15,49 +15,69 @@ import {
   Button,
 } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
+import jwt_decode from 'jwt-decode';
 
 const CreateUser = () => {
   const dispatch = useDispatch();
   const allUsers = useSelector((state) => state.allUsers);
   const user = useSelector((state) => state.user);
   const navigate = useNavigate();
-
   const [show, setShow] = React.useState(false);
-  const handleClick = () => setShow(!show);
+  const [User, setUser] = React.useState('');
 
+  const handleClick = () => setShow(!show);
+  const handleCallbackResponse = (response) => {
+    console.log('Encoded JWT ID token:' + response.credential);
+    var userObject = jwt_decode(response.credential);
+    //console.log(userObject);
+    setUser(userObject);
+    //dispatch(authUser(userObject.email, null, true));
+  };
   useEffect(() => {
+    /* global google */
     dispatch(getUsers());
+    google.accounts.id.initialize({
+      client_id:
+        '239100653667-9cg4th0msle8b1fsvkgn7mbnae69msom.apps.googleusercontent.com',
+      callback: handleCallbackResponse,
+    });
+    google.accounts.id.renderButton(document.getElementById('signInDiv'), {
+      theme: 'outline',
+      size: 'large',
+    });
   }, [dispatch]);
+  console.log(User);
 
   return (
     <>
       <Formik
         initialValues={{
-          firstName: '',
-          lastName: '',
+          firstName: User ? User?.given_name : '',
+          lastName: User ? User?.family_name : '',
           password: '',
-          email: '',
+          email: User ? User?.email : '',
           userName: '',
         }}
         validate={(values) => {
           let errores = {};
-          if (!values.email) {
+          if (!values.email && !User) {
             errores.email = 'Please enter your email';
           } else if (
             !/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(
               values.email
-            )
+            ) &&
+            !User
           ) {
             errores.email = 'e.g.: exaemail@leafme.com';
           }
-          if (!values.firstName) {
+          if (!values.firstName && !User) {
             errores.firstName = 'Please enter your name';
-          } else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(values.firstName)) {
+          } else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(values.firstName) && !User) {
             errores.firstName = 'The name can only contain letters and spaces';
           }
-          if (!values.lastName) {
+          if (!values.lastName && !User) {
             errores.lastName = 'Please enter your last name';
-          } else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(values.lastName)) {
+          } else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(values.lastName) && !User) {
             errores.lastName =
               'The last name can only contain letters and spaces';
           }
@@ -81,11 +101,24 @@ const CreateUser = () => {
             (user) => values.userName === user.userName
           );
           if (usernameFilter[0]) return alert('This username already exist');
-
-          dispatch(createUser(values), []);
-          localStorage.setItem('user', JSON.stringify(values));
-          navigate(`/home`);
-          console.log('Formulario Enviado');
+          if (User) {
+            const googleUser = {
+              firstName: User?.given_name,
+              lastName: User?.family_name,
+              email: User?.email,
+              password: values.password,
+              userName: values.userName,
+            };
+            dispatch(createUser(googleUser), []);
+            localStorage.setItem('user', JSON.stringify(googleUser));
+            navigate(`/home`);
+            console.log('Formulario Enviado');
+          } else {
+            dispatch(createUser(values), []);
+            localStorage.setItem('user', JSON.stringify(values));
+            navigate(`/home`);
+            console.log('Formulario Enviado');
+          }
         }}
       >
         {({
@@ -98,6 +131,7 @@ const CreateUser = () => {
         }) => (
           <Center>
             <Box w="400px" m="60px">
+              <Box ml={'9vw'} mb={'3vh'} display={'flex'} id="signInDiv"></Box>
               <Form>
                 <FormControl>
                   <FormLabel htmlFor="email">Email address</FormLabel>
@@ -105,7 +139,7 @@ const CreateUser = () => {
                     type="email"
                     id="email"
                     name="email"
-                    value={values.email}
+                    value={User ? User?.email : values.email}
                     onChange={handleChange}
                     onBlur={handleBlur}
                   />
@@ -122,7 +156,7 @@ const CreateUser = () => {
                   id="firstName"
                   name="firstName"
                   placeholder="First name"
-                  value={values.firstName}
+                  value={User ? User?.given_name : values.email}
                   onChange={handleChange}
                   onBlur={handleBlur}
                 />
@@ -139,7 +173,7 @@ const CreateUser = () => {
                     id="lastName"
                     name="lastName"
                     placeholder="Last Name"
-                    value={values.lastName}
+                    value={User ? User?.family_name : values.email}
                     onChange={handleChange}
                     onBlur={handleBlur}
                   />
