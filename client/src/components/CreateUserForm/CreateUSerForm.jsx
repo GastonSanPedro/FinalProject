@@ -24,8 +24,6 @@ const CreateUser = () => {
 
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
-  
-  
 
   useEffect(() => {
     dispatch(getUsers());
@@ -68,8 +66,7 @@ const CreateUser = () => {
           }
           if (!values.password) {
             errores.password = 'Please create a password';
-          }
-          else if (values.password.length < 6) {
+          } else if (values.password.length < 6) {
             errores.password = 'Password must be longer than 6 characters';
           }
           return errores;
@@ -87,7 +84,7 @@ const CreateUser = () => {
 
           dispatch(createUser(values), []);
           localStorage.setItem('user', JSON.stringify(values));
-          navigate(`/profile`);
+          navigate(`/home`);
           console.log('Formulario Enviado');
         }}
       >
@@ -200,13 +197,10 @@ const CreateUser = () => {
                 <Button type="submit" mt="10px" onSubmit={handleSubmit}>
                   Create Account
                 </Button>
-                    
+
                 <Link to="/">
-                <Button mt="10px" >
-                  Back
-                </Button>
+                  <Button mt="10px">Back</Button>
                 </Link>
-             
               </Form>
             </Box>
           </Center>

@@ -79,9 +79,10 @@ export function createUserPost(user, payload) {
         `http://localhost:3001/users/${user}`,
         payload
       );
+      let info = await axios.get(`http://localhost:3001/users/${user}`);
       return dispatch({
         type: CREATE_USER_POST,
-        payload: json.data,
+        payload: info.data.posteos,
       });
     } catch (error) {
       console.log(error);

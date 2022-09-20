@@ -34,7 +34,7 @@ const Profile = () => {
     dispatch(getMyUser(email));
   };
   // console.log(posts);
-  
+
   return (
     <>
       <Navbar></Navbar>
@@ -57,7 +57,7 @@ const Profile = () => {
             m={3}
             backgroundColor={'gray.300'}
           >
-            <UserPost posteos={user?.posteos} />
+            <UserPost posteos={posts} name={user?.fullName} />
           </Wrap>
         </Box>
 

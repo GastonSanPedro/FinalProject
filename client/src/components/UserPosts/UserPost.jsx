@@ -1,37 +1,61 @@
+import { Avatar, Box, Stack, Text, Wrap, Center } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
-import { Box, Avatar, Flex, Wrap, WrapItem } from '@chakra-ui/react';
-import { getPosts, getUser } from '../../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
+import { getPosts, getUser } from '../../redux/actions';
 
 const UserPost = ({ posteos, name, email }) => {
   return (
     <>
-      <Box ml={10} mt={5} p={7} w="70%" backgroundColor={'#ECEAEA'}>
-        <Box w="100" ml={0} display={'flex'} h="10">
-          <Avatar
-            size="sm"
-            mr={2}
-            name="usuario"
-            src="https://previews.123rf.com/images/pandavector/pandavector1901/pandavector190105171/126078877-vector-design-of-avatar-and-dummy-symbol-set-of-avatar-and-image-stock-vector-illustration-.jpg?fj=1"
-          />
-          <h1>{name}</h1>
-        </Box>
-        <Flex ml={0} mt={0} p={7} w="100%" direction={['column', 'row']}>
-          <Wrap w="100%" align="stretch" spacing={7}>
-            {posteos?.map((post) => {
-              return (
-                <WrapItem w="30%" key={post._id}>
-                  <Box w="100%" h="auto" p={2} backgroundColor={'#D9D9D9'}>
-                    <Box w="100%" h="auto" mt={2} p={2}>
-                      <p>{post.description}</p>
-                    </Box>
-                  </Box>
-                </WrapItem>
-              );
-            })}
-          </Wrap>
-        </Flex>
-      </Box>
+      <Wrap
+        justify={'center'}
+        spacing={30}
+        w="980px"
+        borderRadius="7px"
+        pt={4}
+        m={3}
+        backgroundColor={'gray.300'}
+      >
+        {posteos?.map((post) => {
+          return (
+            <Box
+              ml={7}
+              width="40%"
+              display={'flex'}
+              alignItems="center"
+              justifyContent="space-between"
+              backgroundColor="gray.200"
+              borderRadius={7}
+            >
+              <Stack alignItems="center" pt={2}>
+                <Avatar
+                  mt="5%"
+                  ml={3}
+                  size="lg"
+                  name="usuario"
+                  src={
+                    'https://avatarfiles.alphacoders.com/128/thumb-128984.png'
+                  }
+                />
+                <Center p={3} pt={1}>
+                  <Text fontWeight="bold" textAlign="center">
+                    {name}
+                  </Text>
+                </Center>
+              </Stack>
+              <Box
+                m={2}
+                p={2}
+                w="100%"
+                h="90%"
+                backgroundColor="white"
+                borderRadius={7}
+              >
+                <Text fontWeight="light">{post.description}</Text>
+              </Box>
+            </Box>
+          );
+        })}
+      </Wrap>
     </>
   );
 };
