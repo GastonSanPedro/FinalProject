@@ -12,7 +12,7 @@ const PostSearch = ({ fullName, image, posteos, socket, user }) => {
         setLiked(true)
         socket.emit("sendNotification",{
             senderId:user,
-            reciverId:"tengo que tomar el id de lo que hago de alguna manera"
+            reciverId:"tomar el id"
         })
     }
 

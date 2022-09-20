@@ -16,29 +16,31 @@ import { Link } from 'react-router-dom';
 import Searchbar from './SearchBar';
 import Home from '../../assets/home.svg';
 
-const Navbar = ({ socket }) => {
+//const Navbar = ({ socket })
+
+const Navbar = () => {
 
 
   //----------Lógica notificaciones-------
-  const [notifications, setNotifications] = useState([])
-  const [open, setOpen] = useState(false)
+  // const [notifications, setNotifications] = useState([])
+  // const [open, setOpen] = useState(false)
 
-  useEffect(() => {
-    socket.on("getNotification", data => {
-      setNotifications((prev) => [...prev, data])
-    })
-  }, [socket])
+  // useEffect(() => {
+  //   socket.on("getNotification", data => {
+  //     setNotifications((prev) => [...prev, data])
+  //   })
+  // }, [socket])
 
-  const displayNotification = ({ senderName }) => {
-    return (
-      <span>A {senderName} le gustó tu posteo</span>
-    )
-  }
+  // const displayNotification = ({ senderName }) => {
+  //   return (
+  //     <span>A {senderName} le gustó tu posteo</span>
+  //   )
+  // }
 
-  const handleRead = () => {
-    setNotifications([])
-    setOpen
-  }
+  // const handleRead = () => {
+  //   setNotifications([])
+  //   setOpen
+  // }
   //---------------------------------------
 
 
@@ -50,7 +52,7 @@ const Navbar = ({ socket }) => {
         //justifyContent="flex-end"
         backgroundColor="gray.200"
       >
-        <Box>
+        {/* <Box>
           <BellIcon onClick={() => setOpen(!open)} />
           {notifications.length > 0 &&
             <Box mr="3">
@@ -62,8 +64,7 @@ const Navbar = ({ socket }) => {
               {notifications.map(n => (displayNotification(n)))}
               <Button onClick={handleRead} ></Button>
             </VStack>)}
-        </Box>
-
+        </Box> */}
 
         <Button
           aria-label="Options"
