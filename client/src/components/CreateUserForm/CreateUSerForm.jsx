@@ -25,7 +25,6 @@ const CreateUser = () => {
   const navigate = useNavigate();
   const [show, setShow] = React.useState(false);
   const [User, setUser] = React.useState('');
-  const google = window.google;
 
   const handleClick = () => setShow(!show);
   const handleCallbackResponse = (response) => {

@@ -40,7 +40,6 @@ const CreateUser = () => {
   const handleInputChange = (event) =>
     setInput({ ...input, [event.target.name]: event.target.value });
   const isError = input === ''; //true or false
-  const google = window.google;
   
   const handleCallbackResponse = (response) => {
     console.log('Encoded JWT ID token:' + response.credential);
