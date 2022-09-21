@@ -19,7 +19,6 @@ const Feed = () => {
         textAlign={'center'}
         justifyContent={'center'}
         direction={'column'}
-        border={'1px solid black'}
         width={'79vw'}
         height={'80vh'}
         mt={'7%'}

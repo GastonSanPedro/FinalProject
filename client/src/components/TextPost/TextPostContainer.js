@@ -71,7 +71,7 @@ export default function TextPostContainer() {
 
   return (
     <Flex textAlign={'center'} justifyContent={'center'} direction={'column'}>
-      <CreatePost />
+      <CreatePost site="feed" />
       <SimpleGrid columns={{ base: 1, xl: 2 }} spacing={'10'} mt={2}>
         {post ? (
           renderPosts.map((user) => {
