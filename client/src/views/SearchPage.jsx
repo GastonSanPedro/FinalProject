@@ -6,12 +6,14 @@ import Navbar from '../components/navbar/Navbar'
 import UserCard from '../components/UserCard/UserCard'
 import FriendsContainer from "../components/Friends/FriendsContainer";
 import PostSearchContainer from "../components/PostSearch/ContainerPostSearch";
+import SidebarWithHeader from "../components/Sidebar-Navbar/SideBar";
 
 
 const SearchPage = () =>{
     return(
         <>
-        <Navbar/>
+        <SidebarWithHeader/>
+        {/* <Navbar/>
         <Box display='flex' dir='column' pt={10} pr={10} pl={10} >
         
         <Box>
@@ -25,7 +27,7 @@ const SearchPage = () =>{
          <PostSearchContainer/>
         <FriendsContainer/>
         </Box>
-        
+         */}
         </>
     )
 }
