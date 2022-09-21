@@ -8,6 +8,7 @@ import ProfileDetail from '../components/ProfileDetail/ProfileDetail';
 import UserCard from '../components/UserCard/UserCard';
 import UserPost from '../components/UserPosts/UserPost';
 
+
 import '../index.css';
 import { getMyUser, getPosts, getUsers } from '../redux/actions';
 
