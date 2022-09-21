@@ -20,12 +20,6 @@ const Feed = () => {
 
 
 
-
-
-
-
-
-
         // <>
         // <Navbar />
         //   <Box display={'flex'} dir={'row'} >

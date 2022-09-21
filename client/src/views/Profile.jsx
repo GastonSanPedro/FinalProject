@@ -1,4 +1,4 @@
-import { Box, Wrap } from '@chakra-ui/react';
+import { Box, Wrap, Image } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import CreatePost from '../components/CreatePost/CreatePost';
@@ -7,6 +7,10 @@ import Navbar from '../components/navbar/Navbar';
 import ProfileDetail from '../components/ProfileDetail/ProfileDetail';
 import UserCard from '../components/UserCard/UserCard';
 import UserPost from '../components/UserPosts/UserPost';
+import SidebarWithHeader from '../components/Sidebar-Navbar/SideBar';
+import portada1 from '../assets/portada1.jpg'
+import portada2 from '../assets/portada2.jpg'
+
 
 
 import '../index.css';
@@ -38,9 +42,14 @@ const Profile = () => {
 
   return (
     <>
-      <Navbar></Navbar>
-      <Box display="flex" dir="row">
-        <Box m={3} width={'70%'} position={'absolute'} left={'5%'}>
+      <SidebarWithHeader />
+      <Box mt="20" ml="15%" h="150px" width={'85%'} position={'absolute'} backgroundImage={portada1} bgRepeat="no-repeat"bgPosition="center"bgSize="cover" >
+        hola
+      </Box>
+
+
+      {/* <Box display="flex" dir="row">
+        <Box m={10} width={'60%'} position={'absolute'} left={'5%'} backgroundImage={port}>
           <ProfileDetail
             firstname={user?.firstName}
             lastname={user?.lastName}
@@ -70,7 +79,7 @@ const Profile = () => {
             <FriendsContainer allUsers={allUsers} />
           ) : null}
         </Box>
-      </Box>
+     </Box> */}
     </>
   );
 };
