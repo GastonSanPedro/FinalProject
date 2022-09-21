@@ -17,8 +17,8 @@ import { createRoot } from 'react-dom/client';
 import AnyProfile from './views/AnyProfile';
 import axios from 'axios'
 
-// const dotenv = require('dotenv')
-// dotenv.config();
+import dotenv from 'dotenv'
+dotenv.config();
 
 axios.defaults.baseURL = process.env.REACT_APP_API || "http://localhost:3001";
 
