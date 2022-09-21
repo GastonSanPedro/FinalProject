@@ -17,10 +17,15 @@ import { createRoot } from 'react-dom/client';
 import AnyProfile from './views/AnyProfile';
 import axios from 'axios'
 
+// const Dotenv = require('dotenv-webpack');
+
+// require('dotenv').config();
+
 // import dotenv from 'dotenv'
 // dotenv.config();
 
-axios.defaults.baseURL = process.env.REACT_APP_API || "http://localhost:3001";
+console.log(process.env.REACT_APP_API)
+axios.defaults.baseURL = process.env.REACT_APP_API;
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
