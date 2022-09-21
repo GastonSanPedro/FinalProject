@@ -74,9 +74,9 @@ const CreatePost = ({ posteos, email }) => {
             name="usuario"
             src="https://previews.123rf.com/images/pandavector/pandavector1901/pandavector190105171/126078877-vector-design-of-avatar-and-dummy-symbol-set-of-avatar-and-image-stock-vector-illustration-.jpg?fj=1"
           />
-          <Box width={'9%'} h={'6vh'} position={'absolute'} top={'88%'}>
+          <Box width={'9%'} h={'6vh'} position={'absolute'} top={'22%'}>
             <Select
-              style={{ width: '120%' }}
+              style={{ width: '100%' }}
               value={TypePost}
               size={'sm'}
               onChange={(e) => {
