@@ -30,10 +30,27 @@ const UserSearchContainer = () => {
 
     return(
         <>
-        <Stack position={'fixed'} top={'15%'} left={'18%'} direction='row' w='80%' maxW={'79%'} display='flex' justifyContent='space-between' p={3} m={3} backgroundColor={'rgba(229, 191, 124, 0.3)'} borderRadius={3}>
+        <Stack position={'fixed'} top={'15%'} left={'18%'} direction='row' w='80%' maxW={'79%'} display='flex' justifyContent='space-between' p={3} m={3} backgroundColor={'rgba(229, 191, 124, 0.1)'} borderRadius={3}>
         <Stack direction='row'>
         {
-            searchUsers.length > 8 ? <Button disabled={button1} onClick={() => handleClickBackward()} h='150px' mr={0.7} w={0} fontSize='sm'>⪡</Button> : null
+            searchUsers.length > 6 
+            ? <Button 
+                borderRadius={2}
+                alignSelf={'center'}
+                bg={'logo.3'}
+                color={'white'}
+                disabled={button1} 
+                onClick={() => handleClickBackward()} 
+                h={10} 
+                mr={0.7} 
+                w={0} 
+                fontSize='sm'
+                _hover={{
+                    bg: 'rgba(140, 161, 116, 0.5)'
+                }}
+                _active={{
+
+                }}>⪡</Button> : null
         }
         { searchUsers.length
             ? first6.map(user =>{
@@ -46,10 +63,23 @@ const UserSearchContainer = () => {
                             email={user.email}/>
                 )
                 })
-            : <Center h={10}><Text fontSize='md' color={'white'}>Ups... The user you are looking for does not exist</Text></Center>}
+            : <Center h={10}><Text justifySelf={'center'} fontSize='md' color={'black'}>Ups... The user you are looking for does not exist</Text></Center>}
         </Stack>
         {
-            searchUsers.length > 8 ? <Button disabled={button2} onClick={() =>handleClickFoward()} h='150px' w={0} fontSize='sm'>⪢</Button> : null
+            searchUsers.length > 6 
+            ? <Button
+                borderRadius={2}
+                alignSelf={'center'}
+                bg={'logo.3'}
+                color={'white'}
+                disabled={button2} 
+                onClick={() =>handleClickFoward()} 
+                h={10}
+                w={0} 
+                fontSize='sm'
+                _hover={{
+                    bg: 'rgba(140, 161, 116, 0.5)'
+                }}>⪢</Button> : null
         }
               
         </Stack>
