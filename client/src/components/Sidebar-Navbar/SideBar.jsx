@@ -22,7 +22,7 @@ import {
   MenuItem,
   MenuList,
   Image,
-  Button
+  Button,
 } from '@chakra-ui/react';
 import {
   FiHome,
@@ -34,16 +34,14 @@ import {
   FiBell,
   FiChevronDown,
 } from 'react-icons/fi';
-//import { IconType } from 'react-icons';
+import { IconType } from 'react-icons';
 import { ReactText } from 'react';
-import logo from '../../assets/logo.jpg'
+import logo from '../../assets/logo.jpg';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logOut, getMyUser } from '../../redux/actions';
-import { Link as ReactLink } from 'react-router-dom'
+import { Link as ReactLink } from 'react-router-dom';
 import Searchbar from '../navbar/SearchBar';
-
-
 
 const LinkItems = [
   { name: 'Home', icon: FiHome },
@@ -54,7 +52,6 @@ const LinkItems = [
 ];
 
 export default function SidebarWithHeader({ children }) {
-
   //----------Lógica notificaciones-------
   // const [notifications, setNotifications] = useState([])
   // const [open, setOpen] = useState(false)
@@ -83,7 +80,6 @@ export default function SidebarWithHeader({ children }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-
   const [User, setUser] = useState(
     useState(JSON.parse(localStorage.getItem('user')))
   );
@@ -95,9 +91,8 @@ export default function SidebarWithHeader({ children }) {
     dispatch(getMyUser(neededEmail));
   }, [dispatch, neededEmail]);
 
-
   return (
-    <Box minH="100vh" bg={useColorModeValue('gray.100', 'gray.900')}>
+    <Box pos={'fixed'} maxW={'15%'}minH="100vh" bg={useColorModeValue('gray.100', 'gray.900')}>
       <SidebarContent
         onClose={() => onClose}
         display={{ base: 'none', md: 'block' }}
@@ -109,7 +104,8 @@ export default function SidebarWithHeader({ children }) {
         onClose={onClose}
         returnFocusOnClose={false}
         onOverlayClick={onClose}
-        size="full">
+        size="full"
+      >
         <DrawerContent>
           <SidebarContent onClose={onClose} />
         </DrawerContent>
@@ -133,7 +129,8 @@ const SidebarContent = ({ onClose, ...rest }) => {
       w={{ base: 'full', md: 60 }}
       pos="fixed"
       h="full"
-      {...rest}>
+      {...rest}
+    >
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
         <Box mt={14}>
           <Image src={logo} />
@@ -145,7 +142,6 @@ const SidebarContent = ({ onClose, ...rest }) => {
           <NavItem key={link.name} icon={link.icon}>
             {link.name}
           </NavItem>
-
         ))}
       </Box>
     </Box>
@@ -154,7 +150,11 @@ const SidebarContent = ({ onClose, ...rest }) => {
 
 const NavItem = ({ icon, children, ...rest }) => {
   return (
-    <Link href="#" style={{ textDecoration: 'none' }} _focus={{ boxShadow: 'none' }}>
+    <Link
+      href="#"
+      style={{ textDecoration: 'none' }}
+      _focus={{ boxShadow: 'none' }}
+    >
       <Flex
         align="center"
         p="4"
@@ -166,7 +166,8 @@ const NavItem = ({ icon, children, ...rest }) => {
           bg: '#8ea26f',
           color: 'white',
         }}
-        {...rest}>
+        {...rest}
+      >
         {icon && (
           <Icon
             mr="4"
@@ -184,7 +185,6 @@ const NavItem = ({ icon, children, ...rest }) => {
 };
 
 const MobileNav = ({ onOpen, ...rest }) => {
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleClickLogOut = () => {
@@ -195,15 +195,20 @@ const MobileNav = ({ onOpen, ...rest }) => {
 
   return (
     <Flex
+      
+      pos={'fixed'}
+      zIndex={'100'}
       ml={{ base: 0, md: 60 }}
       px={{ base: 4, md: 4 }}
       height="20"
+      w={'85%'}
       alignItems="center"
       bg={useColorModeValue('white', 'gray.900')}
       borderBottomWidth="1px"
       borderBottomColor={useColorModeValue('gray.200', 'gray.700')}
       justifyContent={{ base: 'space-between', md: 'flex-end' }}
-      {...rest}>
+      {...rest}
+    >
       <Searchbar />
       <IconButton
         display={{ base: 'flex', md: 'none' }}
@@ -212,7 +217,28 @@ const MobileNav = ({ onOpen, ...rest }) => {
         aria-label="open menu"
         icon={<FiMenu />}
       />
-
+          <Menu>
+          <MenuButton as={Button} p={0} pr={2.5} rightIcon={<FiBell />} />
+          <Icon
+            viewBox="0 0 200 200"
+            color="red.500"
+            boxSize={5}
+            position="absolute"
+            top="5"
+            right="195px"
+          >
+            <path
+              fill="currentColor"
+              d="M 100, 100 m -75, 0 a 75,75 0 1,0 150,0 a 75,75 0 1,0 -150,0"
+            />
+          </Icon>
+          <MenuList>
+            <MenuItem>A Nacho le gusta tu post</MenuItem>
+            <MenuItem>A Ari le gusta tu post</MenuItem>
+            <MenuItem>Alirio quiere ser tu amigo</MenuItem>
+            <MenuItem>Keki aceptó tu solicitud de amistad</MenuItem>
+          </MenuList>
+        </Menu>
       <Box
         display={{ base: 'flex', md: 'none' }}
         fontSize="2xl"
@@ -224,22 +250,6 @@ const MobileNav = ({ onOpen, ...rest }) => {
       <HStack spacing={{ base: '0', md: '6' }}>
 
 
-
-        <Menu>
-          <MenuButton as={Button} p={0} pr={2.5} rightIcon={<FiBell />} />
-          <Icon viewBox='0 0 200 200' color='red.500' boxSize={5} position="absolute" top="5" right="195px" >
-            <path
-              fill='currentColor'
-              d='M 100, 100 m -75, 0 a 75,75 0 1,0 150,0 a 75,75 0 1,0 -150,0'
-            />
-          </Icon>
-          <MenuList >
-            <MenuItem>A Nacho le gusta tu post</MenuItem>
-            <MenuItem>A Ari le gusta tu post</MenuItem>
-            <MenuItem>Alirio quiere ser tu amigo</MenuItem>
-            <MenuItem>Keki aceptó tu solicitud de amistad</MenuItem>
-          </MenuList>
-        </Menu>
 
         {/*   Lógica socket.io
         <Box>
@@ -256,12 +266,13 @@ const MobileNav = ({ onOpen, ...rest }) => {
             </VStack>)}
         </Box> */}
 
-        <Flex alignItems={'center'}>
+        <Flex alignItems={'center'} mr={10} ml={5}>
           <Menu>
             <MenuButton
               py={2}
               transition="all 0.3s"
-              _focus={{ boxShadow: 'none' }}>
+              _focus={{ boxShadow: 'none' }}
+            >
               <HStack>
                 <Avatar
                   size={'sm'}
@@ -273,7 +284,8 @@ const MobileNav = ({ onOpen, ...rest }) => {
                   display={{ base: 'none', md: 'flex' }}
                   alignItems="flex-start"
                   spacing="1px"
-                  ml="2">
+                  ml="2"
+                >
                   <Text fontSize="sm">Ariadna Ruvini</Text>
                   <Text fontSize="xs" color="gray.600">
                     Admin
@@ -286,12 +298,15 @@ const MobileNav = ({ onOpen, ...rest }) => {
             </MenuButton>
             <MenuList
               bg={useColorModeValue('white', 'gray.900')}
-              borderColor={useColorModeValue('gray.200', 'gray.700')}>
-              <Link as={ReactLink} to='/profile'><MenuItem>Profile</MenuItem></Link>
+              borderColor={useColorModeValue('gray.200', 'gray.700')}
+            >
+              <Link as={ReactLink} to="/profile">
+                <MenuItem>Profile</MenuItem>
+              </Link>
               <MenuItem>Settings</MenuItem>
               <MenuItem>Payments</MenuItem>
               <MenuDivider />
-              <MenuItem onClick={() => handleClickLogOut()} >Sign out</MenuItem>
+              <MenuItem onClick={() => handleClickLogOut()}>Sign out</MenuItem>
             </MenuList>
           </Menu>
         </Flex>
@@ -299,4 +314,3 @@ const MobileNav = ({ onOpen, ...rest }) => {
     </Flex>
   );
 };
-

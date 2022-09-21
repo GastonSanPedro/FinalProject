@@ -47,7 +47,6 @@ const CreateUser = () => {
       size: 'large',
     });
   }, [dispatch]);
-  console.log(User);
 
   return (
     <>
