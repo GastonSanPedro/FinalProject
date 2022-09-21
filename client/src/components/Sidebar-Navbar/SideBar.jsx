@@ -139,7 +139,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
       </Flex>
       <Box mt={14}>
         {LinkItems.map((link) => (
-          <NavItem key={link.name} icon={link.icon}>
+          <NavItem textDecoration={'none'} link={link} key={link.name} icon={link.icon}>
             {link.name}
           </NavItem>
         ))}
@@ -148,10 +148,10 @@ const SidebarContent = ({ onClose, ...rest }) => {
   );
 };
 
-const NavItem = ({ icon, children, ...rest }) => {
+const NavItem = ({ icon, link, children, ...rest }) => {
   return (
     <Link
-      href="#"
+      href={`/${link.name}`}
       style={{ textDecoration: 'none' }}
       _focus={{ boxShadow: 'none' }}
     >
@@ -218,7 +218,19 @@ const MobileNav = ({ onOpen, ...rest }) => {
         icon={<FiMenu />}
       />
           <Menu>
-          <MenuButton as={Button} p={0} pr={2.5} rightIcon={<FiBell />} />
+          <MenuButton
+          as={IconButton}
+          justifyContent={'center'}
+          alignContent={'center'}
+          borderRadius={2} 
+          bg={'white'} 
+          p={2}  
+          icon={<FiBell />}
+          _hover={{
+            bg: 'logo.3',
+            color: 'white'
+          }}
+          _active={{bg: 'rgba(140, 161, 116, 0.5)' }} />
           <Icon
             viewBox="0 0 200 200"
             color="red.500"
@@ -232,11 +244,28 @@ const MobileNav = ({ onOpen, ...rest }) => {
               d="M 100, 100 m -75, 0 a 75,75 0 1,0 150,0 a 75,75 0 1,0 -150,0"
             />
           </Icon>
-          <MenuList>
-            <MenuItem>A Nacho le gusta tu post</MenuItem>
-            <MenuItem>A Ari le gusta tu post</MenuItem>
-            <MenuItem>Alirio quiere ser tu amigo</MenuItem>
-            <MenuItem>Keki aceptó tu solicitud de amistad</MenuItem>
+          <MenuList >
+            <MenuItem
+              _hover={{
+                bg: 'logo.3',
+                color: 'white'
+              }}>A Nacho le gusta tu post</MenuItem>
+            <MenuItem
+              _hover={{
+                bg: 'logo.3',
+                color: 'white'
+              }}>A Ari le gusta tu post</MenuItem>
+            <MenuItem 
+            color={'red'}
+            _hover={{
+              bg: 'logo.3',
+              color: 'white'
+            }}>Alirio lee el readme</MenuItem>
+            <MenuItem
+              _hover={{
+                bg: 'logo.3',
+                color: 'white'
+              }}>Keki aceptó tu solicitud de amistad</MenuItem>
           </MenuList>
         </Menu>
       <Box
