@@ -1,4 +1,4 @@
-import React, { useState } from 'react'; 
+import React, { useState } from 'react';  
 import { Box, Avatar, Heading, HStack } from '@chakra-ui/react';
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";

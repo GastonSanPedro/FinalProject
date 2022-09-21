@@ -18,8 +18,8 @@ import AnyProfile from './views/AnyProfile';
 import AdminProfile from './views/AdminProfile';
 import axios from 'axios'
 
-const dotenv = require('dotenv')
-dotenv.config();
+// const dotenv = require('dotenv')
+// dotenv.config();
 
 axios.defaults.baseURL = process.env.REACT_APP_API || "http://localhost:3001";
 
