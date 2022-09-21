@@ -39,7 +39,7 @@ const Profile = () => {
     <>
       <Navbar></Navbar>
       <Box display="flex" dir="row">
-        <Box m={3} width={'78%'} position={'absolute'} left={'5%'}>
+        <Box m={3} width={'70%'} position={'absolute'} left={'5%'}>
           <ProfileDetail
             firstname={user?.firstName}
             lastname={user?.lastName}
@@ -51,7 +51,7 @@ const Profile = () => {
           <Wrap
             justify={'center'}
             spacing={30}
-            w="90%"
+            w="100%"
             borderRadius="7px"
             p={4}
             m={3}
