@@ -18,13 +18,13 @@ import jwt_decode from 'jwt-decode';
 import { useDispatch, useSelector } from 'react-redux';
 
 const CreateUser = () => {
+  const google = window.google;
   const dispatch = useDispatch();
   const allUsers = useSelector((state) => state.allUsers);
   const user = useSelector((state) => state.user);
   const navigate = useNavigate();
   const [show, setShow] = React.useState(false);
   const [User, setUser] = React.useState('');
-  const google = window.google;
 
   const handleClick = () => setShow(!show);
   const handleCallbackResponse = (response) => {
