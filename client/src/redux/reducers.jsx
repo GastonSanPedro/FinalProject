@@ -24,6 +24,7 @@ const initialState = {
   },
   searchUser: [],
   searchPost: [],
+  uploadedImage: [],
 };
 
 export default function rootReducer(state = initialState, action) {
