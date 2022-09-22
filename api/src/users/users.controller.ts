@@ -5,13 +5,14 @@ import {
   Get,
   Param,
   Patch,
-  Post,
-  Query,
+  Post
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger/dist';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UsersService } from './users.service';
 
+@ApiTags('Users')
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
