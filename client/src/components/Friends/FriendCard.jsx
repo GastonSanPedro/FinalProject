@@ -13,8 +13,9 @@ export const FriendCard = ({ image, link,firstName, lastName, email }) => {
       >
         <Flex
           align="center"
+          w={'100%'}
           p="4"
-          mx="4"
+          
           borderRadius="lg"
           role="group"
           cursor="pointer"
@@ -24,11 +25,11 @@ export const FriendCard = ({ image, link,firstName, lastName, email }) => {
           }}
         >
         <Avatar
-            size={'xs'}
+            size={'sm'}
             name="user"
             src={image? image : userImg}
             />
-            <Text fontSize={'1vw'}> 
+            <Text pl={2} fontSize={'1vw'} fontWeight={'bold'}> 
             {firstName[0].toUpperCase()+ firstName.substring(1)} {lastName[0].toUpperCase()+ lastName.substring(1)}
             </Text>      
           

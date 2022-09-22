@@ -6,14 +6,15 @@ import {
     DrawerContent,
     DrawerCloseButton,
     Flex,
-    Icon
+    Icon,
+    Box
   } from '@chakra-ui/react';
 import { useState, useEffect } from 'react';
 import { useDisclosure } from '@chakra-ui/react';
 import { FiUsers } from 'react-icons/fi';
 import { useDispatch, useSelector } from 'react-redux';
 import { FriendCard } from './FriendCard';
-import { getUsers } from '../../redux/actions';
+import { getUsers } from '../../redux/action';
 
 
 
@@ -73,12 +74,15 @@ export default function Friends() {
                 friends[0]
                 ? friends.map( friend => {
                     return(
+                      <Box
+                      key={friend._id}>
                         <FriendCard
                         id={friend._id}
-                        firstName={friend.firstNamfriend}
+                        firstName={friend.firstName}
                         lastName={friend.lastName}
                         email={friend.email}
-                        />         
+                        />
+                      </Box>         
                         
                     )})
                 : <p>Maybe you can try being more sociable</p> }
