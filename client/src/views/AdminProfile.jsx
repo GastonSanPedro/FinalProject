@@ -9,7 +9,7 @@ import UserPost from '../components/UserPosts/UserPost';
 import { Button, Flex, Avatar, Wrap, Badge, Box, Text } from '@chakra-ui/react';
 
 import '../index.css';
-import { getMyUser, getPosts, getUsers } from '../redux/actions';
+import { getMyUser, getPosts, getUsers } from '../redux/action';
 
 const AdminProfile = () => {
     const [User, setUser] = useState(

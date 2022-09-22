@@ -59,6 +59,7 @@
     ]
   },
   "devDependencies": {
-    "dotenv-webpack": "^8.0.1"
+    "dotenv-webpack": "^8.0.1",
+    "source-map-loader": "^4.0.0"
   }
 }
