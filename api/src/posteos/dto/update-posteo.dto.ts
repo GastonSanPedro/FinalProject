@@ -1,11 +1,11 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreatePosteoDto } from './create-posteo.dto';
+import { ApiProperty, PartialType } from '@nestjs/swagger';
 import {
-    IsDate,
-    IsOptional,
-  } from 'class-validator';
+  IsDate
+} from 'class-validator';
+import { CreatePosteoDto } from './create-posteo.dto';
 
 export class UpdatePosteoDto extends PartialType(CreatePosteoDto) {
-    @IsDate()
+  @ApiProperty()  
+  @IsDate()
     updatedAt?: number;
 }
