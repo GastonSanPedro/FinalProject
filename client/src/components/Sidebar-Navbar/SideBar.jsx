@@ -39,7 +39,7 @@ import { ReactText } from 'react';
 import logo from '../../assets/logo.jpg';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { logOut, getMyUser } from '../../redux/actions';
+import { logOut, getMyUser } from '../../redux/action';
 import { Link as ReactLink } from 'react-router-dom';
 import Searchbar from '../navbar/SearchBar';
 

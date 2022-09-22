@@ -9,7 +9,7 @@ import UserCard from '../components/UserCard/UserCard';
 import UserPost from '../components/UserPosts/UserPost';
 
 import '../index.css';
-import { getMyUser, getPosts, getUsers } from '../redux/actions';
+import { getMyUser, getPosts, getUsers } from '../redux/action';
 
 const Profile = () => {
   const [User, setUser] = useState(

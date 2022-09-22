@@ -17,7 +17,7 @@ import {
 } from '@chakra-ui/react';
 import { Formik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
-import { authUser, logOut } from '../../redux/actions';
+import { authUser, logOut } from '../../redux/action';
 import imgBackground from '../../assets/landing-pic.jpg';
 import logo from '../../assets/logo.jpg';
 import jwt_decode from 'jwt-decode';

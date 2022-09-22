@@ -14,7 +14,7 @@ import {
 import TextPost from './TextPost';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getPosts, getUsers } from '../../redux/actions';
+import { getPosts, getUsers } from '../../redux/action';
 import CreatePost from '../CreatePost/CreatePost';
 
 //--------- Lógica socket --------

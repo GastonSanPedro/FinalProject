@@ -3,7 +3,7 @@ import { Text, Stack } from '@chakra-ui/react';
 import Friend from './Friend';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getUsers } from '../../redux/actions';
+import { getUsers } from '../../redux/action';
 
 let allUsers = [];
 
