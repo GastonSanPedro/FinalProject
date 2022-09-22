@@ -1,7 +1,7 @@
-const Dotenv = require('dotenv-webpack');
+// const Dotenv = require('dotenv-webpack');
 
-require('dotenv').config();
+// require('dotenv').config();
 
-module.exports = {
-  plugins: [new Dotenv()],
-};
+// module.exports = {
+//   plugins: [new Dotenv()],
+// };

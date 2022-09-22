@@ -65,8 +65,8 @@ const CreatePost = ({ posteos, email, site }) => {
         m={3}
         w="100%"
         display={'flex'}
-        borderRadius={7}
-        backgroundColor={'gray.300'}
+        backgroundColor={'withe'}
+        boxShadow={'1px 0px 10px 1px rgba(0,0,0,0.47)'}
       >
         <Avatar
           size="xl"
