@@ -203,11 +203,8 @@ const NavItem = ({ icon, link, children, ...rest }) => {
 };
 
 const MobileNav = ({ onOpen, ...rest }) => {
-<<<<<<< HEAD
   const myUser = useSelector((state) => state.myUser);
-=======
   const google = (window.google = window.google ? window.google : {});
->>>>>>> dev2
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleClickLogOut = () => {
