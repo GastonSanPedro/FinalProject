@@ -21,7 +21,6 @@ const Searchbar = () => {
         dispatch(searchUser(searcher))
         dispatch(searchPost(searcher))
         dispatch(getUsers())
-        
         navigate('/search-page')
         setSearcher('')
     }
@@ -49,6 +48,7 @@ const Searchbar = () => {
           onChange={(e) => handleInputChange(e)}
         />
         <IconButton
+          borderRadius={2}
           onClick={(e) => handleSubmit(e)}
           aria-label="Search database"
           bgColor={'white'}
@@ -56,6 +56,11 @@ const Searchbar = () => {
           w={10}
           h="80%"
           icon={<SearchIcon />}
+          _hover={{
+            bg: 'logo.3',
+            color: 'white'
+          }}
+          _active={{bg: 'rgba(140, 161, 116, 0.5)' }}
         />
       </Box>
     </>

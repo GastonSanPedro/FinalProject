@@ -18,7 +18,10 @@ import AnyProfile from './views/AnyProfile';
 import AdminProfile from './views/AdminProfile';
 import axios from 'axios'
 
-// const dotenv = require('dotenv')
+// const Dotenv = require('dotenv-webpack');
+
+// require('dotenv').config();
+
 // import dotenv from 'dotenv'
 // dotenv.config();
 

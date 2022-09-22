@@ -25,7 +25,7 @@ import {
           h={'100%'}
           minW={160}
           w={'full'}
-          bg={useColorModeValue('white', 'gray.800')}
+          bg={'white'}
           overflow={'hidden'}>
           <Box
             h={20}
