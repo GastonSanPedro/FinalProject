@@ -27,7 +27,7 @@ export function getUsers() {
   };
 }
 
-export function getUser(payload) {
+export function getUser(email) {
   return async function (dispatch) {
     try {
       let info = await axios.get(`/users/${email}`, {});
@@ -204,39 +204,3 @@ export function logOut() {
     }
   };
 }
-
-//----------TYPSCRIPT FUNCIONALpor si las dudas---------
-// export const getPosts = (): any => async (dispatch: any): Promise<any> => {
-
-//     try {
-
-//         var jsona = await axios.get('http://localhost:3001/posteos')
-//         let json = await jsona.data
-
-//         dispatch({
-//             type: 'GET_POSTS',
-//             payload: json
-//         });
-
-//     } catch (error) {
-//         console.log(error, 'error al llamar a la api');
-//     }
-// }
-
-//----------TYPSCRIPT FUNCIONALpor si las dudas---------
-// export const getPosts = (): any => async (dispatch: any): Promise<any> => {
-
-//     try {
-
-//         var jsona = await axios.get('http://localhost:3001/posteos')
-//         let json = await jsona.data
-
-//         dispatch({
-//             type: 'GET_POSTS',
-//             payload: json
-//         });
-
-//     } catch (error) {
-//         console.log(error, 'error al llamar a la api');
-//     }
-// }

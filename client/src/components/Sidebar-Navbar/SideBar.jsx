@@ -42,6 +42,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { logOut, getMyUser } from '../../redux/actions';
 import { Link as ReactLink } from 'react-router-dom';
 import Searchbar from '../navbar/SearchBar';
+import Friends from '../Friends/FriendsDrawer';
 
 const LinkItems = [
   { name: 'Home', icon: FiHome },
@@ -149,6 +150,12 @@ const SidebarContent = ({ onClose, ...rest }) => {
             {link.name}
           </NavItem>
         ))}
+      </Box>
+      <Box
+        pos={'fixed'}
+        top={'89%'}
+        >
+      <Friends/>
       </Box>
     </Box>
   );
