@@ -92,7 +92,13 @@ export default function SidebarWithHeader({ children }) {
   }, [dispatch, neededEmail]);
 
   return (
-    <Box pos={'fixed'} maxW={'15%'}minH="100vh" bg={useColorModeValue('gray.100', 'gray.900')}>
+    <Box
+      pos={'fixed'}
+      zIndex={'10'}
+      maxW={'15%'}
+      minH="100vh"
+      bg={useColorModeValue('gray.100', 'gray.900')}
+    >
       <SidebarContent
         onClose={() => onClose}
         display={{ base: 'none', md: 'block' }}
@@ -195,13 +201,11 @@ const MobileNav = ({ onOpen, ...rest }) => {
 
   return (
     <Flex
-      
-      pos={'fixed'}
-      zIndex={'100'}
+      //pos={'absolute'}
       ml={{ base: 0, md: 60 }}
       px={{ base: 4, md: 4 }}
       height="20"
-      w={'85%'}
+      w={'84vw'}
       alignItems="center"
       bg={useColorModeValue('white', 'gray.900')}
       borderBottomWidth="1px"
@@ -217,40 +221,38 @@ const MobileNav = ({ onOpen, ...rest }) => {
         aria-label="open menu"
         icon={<FiMenu />}
       />
-          <Menu>
-          <MenuButton as={Button} p={0} pr={2.5} rightIcon={<FiBell />} />
-          <Icon
-            viewBox="0 0 200 200"
-            color="red.500"
-            boxSize={5}
-            position="absolute"
-            top="5"
-            right="195px"
-          >
-            <path
-              fill="currentColor"
-              d="M 100, 100 m -75, 0 a 75,75 0 1,0 150,0 a 75,75 0 1,0 -150,0"
-            />
-          </Icon>
-          <MenuList>
-            <MenuItem>A Nacho le gusta tu post</MenuItem>
-            <MenuItem>A Ari le gusta tu post</MenuItem>
-            <MenuItem>Alirio quiere ser tu amigo</MenuItem>
-            <MenuItem>Keki aceptó tu solicitud de amistad</MenuItem>
-          </MenuList>
-        </Menu>
+      <Menu>
+        <MenuButton as={Button} p={0} pr={2.5} rightIcon={<FiBell />} />
+        <Icon
+          viewBox="0 0 200 200"
+          color="red.500"
+          boxSize={3}
+          position="relative"
+          left={'-4'}
+          top={'-3'}
+        >
+          <path
+            fill="currentColor"
+            d="M 100, 100 m -75, 0 a 75,75 0 1,0 150,0 a 75,75 0 1,0 -150,0"
+          />
+        </Icon>
+        <MenuList>
+          <MenuItem>A Nacho le gusta tu post</MenuItem>
+          <MenuItem>A Ari le gusta tu post</MenuItem>
+          <MenuItem>Alirio quiere ser tu amigo</MenuItem>
+          <MenuItem>Keki aceptó tu solicitud de amistad</MenuItem>
+        </MenuList>
+      </Menu>
       <Box
         display={{ base: 'flex', md: 'none' }}
         fontSize="2xl"
         fontFamily="monospace"
-        fontWeight="bold">
+        fontWeight="bold"
+      >
         <Image src={logo} />
       </Box>
 
       <HStack spacing={{ base: '0', md: '6' }}>
-
-
-
         {/*   Lógica socket.io
         <Box>
           <BellIcon onClick={() => setOpen(!open)} />
