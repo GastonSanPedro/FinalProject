@@ -13,6 +13,7 @@ const SearchPage = () =>{
     return(
         <>
         <SidebarWithHeader/>
+        <UserSearchContainer/>
         {/* <Navbar/>
         <Box display='flex' dir='column' pt={10} pr={10} pl={10} >
         

@@ -17,6 +17,10 @@ import { createRoot } from 'react-dom/client';
 import AnyProfile from './views/AnyProfile';
 import axios from 'axios'
 
+// const Dotenv = require('dotenv-webpack');
+
+// require('dotenv').config();
+
 // import dotenv from 'dotenv'
 // dotenv.config();
 
