@@ -51,6 +51,10 @@ const CreateUser = ({ logOrSign, setlogOrSign }) => {
       });
     });
   }, [dispatch]);
+
+  const handleClickLog = (event) => {
+    setlogOrSign('log');
+  };
   
   const valEmail = (inputValueEmail) => {
     const emailF = allUsers.filter((user) => inputValueEmail === user.email);
