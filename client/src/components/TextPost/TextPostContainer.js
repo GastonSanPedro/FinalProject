@@ -61,8 +61,9 @@ export default function TextPostContainer({ site }) {
 
   return (
     <Flex textAlign={'center'} justifyContent={'center'} direction={'column'}>
-      <CreatePost site={site} />
-      <SimpleGrid columns={{ base: 1, xl: 2 }} spacing={'10'} mt={2}>
+      {site === "anyProfile" ? null
+      : <CreatePost site={site} /> }
+      <SimpleGrid columns={{ base: 1, xl: 2 }} spacing={'10'} mt={site === "anyProfile" ? "360px"  : 2}>
         {post ? (
           renderPosts.map((user) => {
             if (user?.fullName && user?.post) {
