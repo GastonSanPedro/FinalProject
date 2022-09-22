@@ -40,7 +40,7 @@ const CreateUser = () => {
   const handleInputChange = (event) =>
     setInput({ ...input, [event.target.name]: event.target.value });
   const isError = input === ''; //true or false
-  
+
   const handleCallbackResponse = (response) => {
     console.log('Encoded JWT ID token:' + response.credential);
     var userObject = jwt_decode(response.credential);
@@ -56,8 +56,12 @@ const CreateUser = () => {
         callback: handleCallbackResponse,
       });
       google?.accounts.id.renderButton(document.getElementById('signInDiv'), {
-        theme: 'outline',
+        theme: 'outlined',
+        type: 'standard',
         size: 'large',
+        text: 'Google',
+        shape: 'pill',
+        logo_alignment: 'left',
       });
     });
 
@@ -94,7 +98,13 @@ const CreateUser = () => {
               src={logoLeafme}
               alt="logo"
             />
-            <Box ml={'9vw'} mb={'3vh'} display={'flex'} id="signInDiv"></Box>
+            <Box
+              w={'10vw'}
+              ml={'9vw'}
+              mb={'3vh'}
+              display={'flex'}
+              id="signInDiv"
+            ></Box>
             <Box w="400px" ml={'30px'}>
               <FormControl isInvalid={isError}>
                 <FormLabel>Email address or Username </FormLabel>

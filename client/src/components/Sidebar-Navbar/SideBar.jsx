@@ -145,7 +145,12 @@ const SidebarContent = ({ onClose, ...rest }) => {
       </Flex>
       <Box mt={14}>
         {LinkItems.map((link) => (
-          <NavItem textDecoration={'none'} link={link} key={link.name} icon={link.icon}>
+          <NavItem
+            textDecoration={'none'}
+            link={link}
+            key={link.name}
+            icon={link.icon}
+          >
             {link.name}
           </NavItem>
         ))}
@@ -191,11 +196,13 @@ const NavItem = ({ icon, link, children, ...rest }) => {
 };
 
 const MobileNav = ({ onOpen, ...rest }) => {
+  const google = (window.google = window.google ? window.google : {});
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleClickLogOut = () => {
     localStorage.removeItem('user');
     dispatch(logOut());
+    google.accounts.id.disableAutoSelect();
     navigate('/landing-page');
   };
 
@@ -221,57 +228,70 @@ const MobileNav = ({ onOpen, ...rest }) => {
         aria-label="open menu"
         icon={<FiMenu />}
       />
-          <Menu>
-          <MenuButton
+      <Menu>
+        <MenuButton
           as={IconButton}
           justifyContent={'center'}
           alignContent={'center'}
-          borderRadius={2} 
-          bg={'white'} 
-          p={2}  
+          borderRadius={2}
+          bg={'white'}
+          p={2}
           icon={<FiBell />}
           _hover={{
             bg: 'logo.3',
-            color: 'white'
+            color: 'white',
           }}
-          _active={{bg: 'rgba(140, 161, 116, 0.5)' }} />
-          <Icon
-            viewBox="0 0 200 200"
-            color="red.500"
-            boxSize={5}
-            position="absolute"
-            top="5"
-            right="195px"
+          _active={{ bg: 'rgba(140, 161, 116, 0.5)' }}
+        />
+        <Icon
+          viewBox="0 0 200 200"
+          color="red.500"
+          boxSize={5}
+          position="absolute"
+          top="5"
+          right="195px"
+        >
+          <path
+            fill="currentColor"
+            d="M 100, 100 m -75, 0 a 75,75 0 1,0 150,0 a 75,75 0 1,0 -150,0"
+          />
+        </Icon>
+        <MenuList>
+          <MenuItem
+            _hover={{
+              bg: 'logo.3',
+              color: 'white',
+            }}
           >
-            <path
-              fill="currentColor"
-              d="M 100, 100 m -75, 0 a 75,75 0 1,0 150,0 a 75,75 0 1,0 -150,0"
-            />
-          </Icon>
-          <MenuList >
-            <MenuItem
-              _hover={{
-                bg: 'logo.3',
-                color: 'white'
-              }}>A Nacho le gusta tu post</MenuItem>
-            <MenuItem
-              _hover={{
-                bg: 'logo.3',
-                color: 'white'
-              }}>A Ari le gusta tu post</MenuItem>
-            <MenuItem 
+            A Nacho le gusta tu post
+          </MenuItem>
+          <MenuItem
+            _hover={{
+              bg: 'logo.3',
+              color: 'white',
+            }}
+          >
+            A Ari le gusta tu post
+          </MenuItem>
+          <MenuItem
             color={'red'}
             _hover={{
               bg: 'logo.3',
-              color: 'white'
-            }}>Alirio lee el readme</MenuItem>
-            <MenuItem
-              _hover={{
-                bg: 'logo.3',
-                color: 'white'
-              }}>Keki aceptó tu solicitud de amistad</MenuItem>
-          </MenuList>
-        </Menu>
+              color: 'white',
+            }}
+          >
+            Alirio lee el readme
+          </MenuItem>
+          <MenuItem
+            _hover={{
+              bg: 'logo.3',
+              color: 'white',
+            }}
+          >
+            Keki aceptó tu solicitud de amistad
+          </MenuItem>
+        </MenuList>
+      </Menu>
       <Box
         display={{ base: 'flex', md: 'none' }}
         fontSize="2xl"
