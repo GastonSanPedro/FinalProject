@@ -50,6 +50,7 @@ export default function TextPostContainer() {
       };
     }
   });
+  console.log(post)
 
   useEffect(() => {
     dispatch(getUsers());
