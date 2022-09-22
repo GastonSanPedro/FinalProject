@@ -380,7 +380,7 @@ const CreateUser = ({ logOrSign, setlogOrSign }) => {
             </Flex>
           )}
         </Formik>
-      </Box>
+      </Formik>
     </>
   );
 };
