@@ -25,7 +25,7 @@ import jwt_decode from 'jwt-decode';
 const imagenB = imgBackground;
 const logoLeafme = logo;
 
-const CreateUser = () => {
+const LogInForm = ({ logOrsign, setlogOrSign }) => {
   const google = (window.google = window.google ? window.google : {});
   const [show, setShow] = React.useState(false);
   const [input, setInput] = React.useState({
@@ -68,6 +68,9 @@ const CreateUser = () => {
   const handleSubmit = (input) => {
     dispatch(authUser(input.email, input.pass));
   };
+  const handleClick = (event) => {
+    setlogOrSign('sign');
+  };
 
   const isUserValidate = () => {
     if (auth.auth === true) {
@@ -87,15 +90,14 @@ const CreateUser = () => {
         justifyContent={'end'}
       >
         <Formik>
-          <Flex flexDir={'column'} w={'500px'} p={5} backgroundColor={'white'}>
-            <Image
-              alignSelf={'center'}
-              boxSize={300}
-              objectFit={'contain'}
-              src={logoLeafme}
-              alt="logo"
-            />
-            <Box w="400px" ml={'30px'}>
+          <Flex
+            flexDir={'column'}
+            w={'500px'}
+            h={'100%'}
+            p={5}
+            backgroundColor={'white'}
+          >
+            <Box w="400px" ml={'30px'} position={'absolute'} top={'40%'}>
               <FormControl isInvalid={isError}>
                 <FormLabel>Email address or Username </FormLabel>
                 <Input
@@ -157,6 +159,7 @@ const CreateUser = () => {
               width={'8vw'}
               display={'inline-block'}
               position={'relative'}
+              top={'70%'}
               left={'37%'}
               textAlign={'center'}
               mb={'2vh'}
@@ -167,12 +170,30 @@ const CreateUser = () => {
                 id="signInDiv"
               ></div>
             </Box>
-            <hr style={{ width: '60%', marginLeft: '20%' }} />
-            <Center display={'flex'} flexDir={'column'} mt={'2vh'}>
+            <hr
+              style={{
+                width: '60%',
+                marginLeft: '20%',
+                position: 'relative',
+                top: '70%',
+              }}
+            />
+            <Center
+              display={'flex'}
+              flexDir={'column'}
+              mt={'2vh'}
+              position={'relative'}
+              top={'70%'}
+            >
               <p>Don't have an account?</p>
-              <Link to="/sign-in">
-                <Button mt="10px">Sign In</Button>
-              </Link>
+              <Button
+                onClick={(e) => {
+                  handleClick(e);
+                }}
+                mt="10px"
+              >
+                Sign In
+              </Button>
             </Center>
           </Flex>
         </Formik>
@@ -181,4 +202,4 @@ const CreateUser = () => {
   );
 };
 
-export default CreateUser;
+export default LogInForm;
