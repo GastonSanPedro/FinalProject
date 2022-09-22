@@ -246,10 +246,10 @@ const MobileNav = ({ onOpen, ...rest }) => {
         <Icon
           viewBox="0 0 200 200"
           color="red.500"
-          boxSize={5}
-          position="absolute"
-          top="5"
-          right="195px"
+          boxSize={3}
+          position={'relative'}
+          top={'-15%'}
+          right={'1.2%'}
         >
           <path
             fill="currentColor"
