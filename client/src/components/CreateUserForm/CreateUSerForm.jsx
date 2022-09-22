@@ -37,14 +37,17 @@ const CreateUser = () => {
   useEffect(() => {
     /* global google */
     dispatch(getUsers());
-    google.accounts.id.initialize({
-      client_id:
-        '239100653667-9cg4th0msle8b1fsvkgn7mbnae69msom.apps.googleusercontent.com',
-      callback: handleCallbackResponse,
-    });
-    google.accounts.id.renderButton(document.getElementById('signInDiv'), {
-      theme: 'outline',
-      size: 'large',
+    setTimeout(function () {
+      google?.accounts.id.initialize({
+        client_id:
+          '239100653667-9cg4th0msle8b1fsvkgn7mbnae69msom.apps.googleusercontent.com',
+        callback: handleCallbackResponse,
+      });
+      google?.accounts.id.renderButton(document.getElementById('signInDiv'), {
+        theme: 'outlined',
+        type: 'icon',
+        size: 'large',
+      });
     });
   }, [dispatch]);
 
@@ -131,7 +134,21 @@ const CreateUser = () => {
         }) => (
           <Center>
             <Box w="400px" m="60px">
-              <Box ml={'9vw'} mb={'3vh'} display={'flex'} id="signInDiv"></Box>
+              <Box
+                height={'10vh'}
+                width={'8vw'}
+                display={'inline-block'}
+                position={'relative'}
+                left={'37%'}
+                textAlign={'center'}
+                mb={'2vh'}
+              >
+                <Text mb={'1vh'}>Complete with</Text>
+                <div
+                  style={{ position: 'relative', top: '0%', left: '30%' }}
+                  id="signInDiv"
+                ></div>
+              </Box>
               <Form>
                 <FormControl>
                   <FormLabel htmlFor="email">Email address</FormLabel>
