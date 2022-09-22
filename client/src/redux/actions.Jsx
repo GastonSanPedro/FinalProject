@@ -30,7 +30,7 @@ export function getUsers() {
 export function getUser(email) {
   return async function (dispatch) {
     try {
-      let info = await axios.get(`/${email}`, {});
+      let info = await axios.get(`/users  /${email}`, {});
 
       dispatch({
         type: GET_USER,
@@ -45,7 +45,7 @@ export function getUser(email) {
 export function getMyUser(email) {
   return async function (dispatch) {
     try {
-      let info = await axios.get(`/${email}`, {});
+      let info = await axios.get(`/users/${email}`, {});
 
       dispatch({
         type: GET_MY_USER,
@@ -75,10 +75,7 @@ export function getPosts(email) {
 export function createUserPost(user, payload) {
   return async function (dispatch) {
     try {
-      var json = await axios.patch(
-        `/users/${user}`,
-        payload
-      );
+      var json = await axios.patch(`/users/${user}`, payload);
       let info = await axios.get(`/${user}`);
       return dispatch({
         type: CREATE_USER_POST,
@@ -104,9 +101,7 @@ export function createUser(payload) {
 export function searchUser(searcher) {
   return async function (dispatch) {
     try {
-      var json = await axios.get(
-        `/users/name/${searcher}`
-      );
+      var json = await axios.get(`/users/name/${searcher}`);
       return dispatch({
         type: SEARCH_USER,
         payload: json.data,
@@ -176,10 +171,7 @@ export const authUser = (mail, password, google) => {
 export function changeDataProfile(payload, email) {
   return async function (dispatch) {
     try {
-      var user = await axios.patch(
-        `/users/${email}`,
-        payload
-      );
+      var user = await axios.patch(`/users/${email}`, payload);
       console.log(user);
       let info = await axios.get(`/users/${email}`);
       return dispatch({

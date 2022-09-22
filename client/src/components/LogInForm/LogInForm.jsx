@@ -44,7 +44,7 @@ const CreateUser = () => {
   const handleCallbackResponse = (response) => {
     console.log('Encoded JWT ID token:' + response.credential);
     var userObject = jwt_decode(response.credential);
-    console.log(userObject.email);
+    console.log(userObject);
     dispatch(authUser(userObject.email, null, true));
   };
 
@@ -57,11 +57,8 @@ const CreateUser = () => {
       });
       google?.accounts.id.renderButton(document.getElementById('signInDiv'), {
         theme: 'outlined',
-        type: 'standard',
+        type: 'icon',
         size: 'large',
-        text: 'Google',
-        shape: 'pill',
-        logo_alignment: 'left',
       });
     });
 
@@ -98,13 +95,6 @@ const CreateUser = () => {
               src={logoLeafme}
               alt="logo"
             />
-            <Box
-              w={'10vw'}
-              ml={'9vw'}
-              mb={'3vh'}
-              display={'flex'}
-              id="signInDiv"
-            ></Box>
             <Box w="400px" ml={'30px'}>
               <FormControl isInvalid={isError}>
                 <FormLabel>Email address or Username </FormLabel>
@@ -162,7 +152,23 @@ const CreateUser = () => {
                 </Tooltip>
               )}
             </Box>
-            <Center display={'flex'} flexDir={'column'}>
+            <Box
+              height={'10vh'}
+              width={'8vw'}
+              display={'inline-block'}
+              position={'relative'}
+              left={'37%'}
+              textAlign={'center'}
+              mb={'2vh'}
+            >
+              <Text mb={'1vh'}>Access with</Text>
+              <div
+                style={{ position: 'relative', top: '0%', left: '30%' }}
+                id="signInDiv"
+              ></div>
+            </Box>
+            <hr style={{ width: '60%', marginLeft: '20%' }} />
+            <Center display={'flex'} flexDir={'column'} mt={'2vh'}>
               <p>Don't have an account?</p>
               <Link to="/sign-in">
                 <Button mt="10px">Sign In</Button>

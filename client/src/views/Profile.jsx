@@ -25,9 +25,11 @@ const Profile = () => {
   // const loggedUser = JSON.parse(logUser.User);
   // console.log(loggedUser);
   useEffect(() => {
-    dispatch(getUsers());
-    dispatch(getMyUser(neededEmail));
-    dispatch(getPosts(neededEmail));
+    setTimeout(function () {
+      dispatch(getUsers());
+      dispatch(getMyUser(neededEmail));
+      dispatch(getPosts(neededEmail));
+    });
   }, [dispatch, neededEmail]);
 
   const changeHandler = (email) => {

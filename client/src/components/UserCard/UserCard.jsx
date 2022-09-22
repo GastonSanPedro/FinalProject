@@ -27,9 +27,11 @@ const UserCard = () => {
   // const loggedUser = JSON.parse(logUser.User);
   // console.log(loggedUser);
   useEffect(() => {
-    dispatch(getMyUser(neededEmail));
+    setTimeout(function () {
+      dispatch(getMyUser(neededEmail));
+    });
   }, [dispatch, neededEmail]);
-  // console.log(posts);
+  console.log(myUser);
 
   return (
     <>
@@ -49,7 +51,7 @@ const UserCard = () => {
           <VStack>
             <Avatar size="xl" name="user" src={userImg} />
             <Text as="b" fontSize="sm">
-              {myUser.firstName + ' ' + myUser.lastName}
+              {myUser?.firstName + ' ' + myUser?.lastName}
             </Text>
           </VStack>
         </Link>
