@@ -84,7 +84,7 @@ export default function SidebarWithHeader({ children }) {
     useState(JSON.parse(localStorage.getItem('user')))
   );
 
-  const myUser = useSelector((state) => state.myUser);
+
   const neededEmail = User[0].email;
 
   useEffect(() => {
@@ -191,6 +191,7 @@ const NavItem = ({ icon, link, children, ...rest }) => {
 };
 
 const MobileNav = ({ onOpen, ...rest }) => {
+  const myUser = useSelector((state) => state.myUser);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleClickLogOut = () => {
@@ -317,7 +318,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
                   spacing="1px"
                   ml="2"
                 >
-                  <Text fontSize="sm">Ariadna Ruvini</Text>
+                  <Text fontSize="sm">{myUser.firstName + ' ' + myUser.lastName}</Text>
                   <Text fontSize="xs" color="gray.600">
                     Admin
                   </Text>

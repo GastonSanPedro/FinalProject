@@ -1,15 +1,11 @@
 import React from 'react';
 import {
-  Avatar,
   Box,
-  chakra,
-  Container,
-  Flex,
-  Icon,
   SimpleGrid,
-  useColorModeValue,
   Text,
   Button,
+  Center,
+  Flex
 } from '@chakra-ui/react';
 import TextPost from './TextPost';
 import { useState, useEffect } from 'react';
@@ -29,7 +25,7 @@ import CreatePost from '../CreatePost/CreatePost';
 //<CreatePost socket={socket} user ={user} />
 //--------------------------------
 
-export default function TextPostContainer() {
+export default function TextPostContainer({ site }) {
   const dispatch = useDispatch();
   const users = useSelector((state) => state.users);
   const allUsers = useSelector((state) => state.users);
@@ -50,7 +46,7 @@ export default function TextPostContainer() {
       };
     }
   });
-  console.log(post)
+  // console.log(post)
 
   useEffect(() => {
     dispatch(getUsers());
@@ -72,7 +68,7 @@ export default function TextPostContainer() {
 
   return (
     <Flex textAlign={'center'} justifyContent={'center'} direction={'column'}>
-      <CreatePost site="feed" />
+      <CreatePost site={site} />
       <SimpleGrid columns={{ base: 1, xl: 2 }} spacing={'10'} mt={2}>
         {post ? (
           renderPosts.map((user) => {
@@ -93,16 +89,20 @@ export default function TextPostContainer() {
           </Box>
         )}
       </SimpleGrid>
+      <Center>
 
-      <Button
-        onClick={() => handleClickMore()}
-        h="50px"
-        w="200px"
-        mr="50"
-        fontSize="sm"
-      >
-        Ver más
-      </Button>
+        <Button
+          onClick={() => handleClickMore()}
+          h="50px"
+          w="200px"
+          mr="50"
+          fontSize="sm"
+          mt= "50px"
+          mb= "50px"
+        >
+          Ver más
+        </Button>
+      </Center>
     </Flex>
   );
 }

@@ -59,7 +59,11 @@ const Profile = () => {
         bgSize="cover"
       />
 
-      <Box ml="80%" mt="13%" h="420px" w="250px" position={'absolute'} bgColor="rgba(140, 161, 116, .9)"  >
+      <UserCard />
+
+
+
+      {/* <Box ml="80%" mt="13%" h="420px" w="250px" position={'absolute'} bgColor="rgba(140, 161, 116, .9)"  >
         <Center>
           <VStack>
             <Avatar
@@ -97,8 +101,8 @@ const Profile = () => {
             </Box>
           </VStack>
         </Center>
-      </Box>
-      {/* <Box
+      </Box> */}
+      <Box
         pos={'absolute'}
         top={'20%'}
         left={'0%'}
@@ -107,13 +111,14 @@ const Profile = () => {
         direction={'column'}
         width={'79vw'}
         height={'80vh'}
-        mt={'30%'}
+        mt={'20%'}
         ml={'18%'}
         mr={'7%'}
       >
-        <TextPostContainer />
-      </Box> */}
-      <UserPost/>
+        <TextPostContainer
+          site="profile"
+        />
+      </Box>
 
 
 
