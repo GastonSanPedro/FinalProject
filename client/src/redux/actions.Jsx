@@ -30,7 +30,7 @@ export function getUsers() {
 export function getUser(email) {
   return async function (dispatch) {
     try {
-      let info = await axios.get(`/users  /${email}`, {});
+      let info = await axios.get(`/users/${email}`, {});
 
       dispatch({
         type: GET_USER,
@@ -60,7 +60,7 @@ export function getMyUser(email) {
 export function getPosts(email) {
   return async function (dispatch) {
     try {
-      let info = await axios.get(`/${email}`, {});
+      let info = await axios.get(`/users/${email}`, {});
       //console.log(info.data.posteos);
       dispatch({
         type: GET_POSTS,
