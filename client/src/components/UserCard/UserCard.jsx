@@ -2,7 +2,7 @@ import { Avatar, Button, Stack, Text, VStack } from '@chakra-ui/react';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { authUser, getMyUser, logOut } from '../../redux/actions';
+import { authUser, getMyUser, logOut } from '../../redux/action';
 import { Link } from 'react-router-dom';
 const userImg =
   'https://previews.123rf.com/images/pandavector/pandavector1901/pandavector190105171/126078877-vector-design-of-avatar-and-dummy-symbol-set-of-avatar-and-image-stock-vector-illustration-.jpg?fj=1';
@@ -27,9 +27,11 @@ const UserCard = () => {
   // const loggedUser = JSON.parse(logUser.User);
   // console.log(loggedUser);
   useEffect(() => {
-    dispatch(getMyUser(neededEmail));
+    setTimeout(function () {
+      dispatch(getMyUser(neededEmail));
+    });
   }, [dispatch, neededEmail]);
-  // console.log(posts);
+  console.log(myUser);
 
   return (
     <>
@@ -49,7 +51,7 @@ const UserCard = () => {
           <VStack>
             <Avatar size="xl" name="user" src={userImg} />
             <Text as="b" fontSize="sm">
-              {myUser.firstName + ' ' + myUser.lastName}
+              {myUser?.firstName + ' ' + myUser?.lastName}
             </Text>
           </VStack>
         </Link>

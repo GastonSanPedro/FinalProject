@@ -9,7 +9,7 @@ import UserCard from '../components/UserCard/UserCard';
 import UserPost from '../components/UserPosts/UserPost';
 
 import '../index.css';
-import { getMyUser, getPosts, getUsers } from '../redux/actions';
+import { getMyUser, getPosts, getUsers } from '../redux/action';
 
 const Profile = () => {
   const [User, setUser] = useState(
@@ -25,9 +25,11 @@ const Profile = () => {
   // const loggedUser = JSON.parse(logUser.User);
   // console.log(loggedUser);
   useEffect(() => {
-    dispatch(getUsers());
-    dispatch(getMyUser(neededEmail));
-    dispatch(getPosts(neededEmail));
+    setTimeout(function () {
+      dispatch(getUsers());
+      dispatch(getMyUser(neededEmail));
+      dispatch(getPosts(neededEmail));
+    });
   }, [dispatch, neededEmail]);
 
   const changeHandler = (email) => {

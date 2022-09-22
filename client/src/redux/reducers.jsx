@@ -11,7 +11,7 @@ import {
   SEARCH_POST,
   SEARCH_USER,
   CHANGE_DATA_PROFILE,
-} from './actions';
+} from './action';
 
 const initialState = {
   allUsers: [],

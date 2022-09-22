@@ -1,29 +1,28 @@
-import React, { useState } from "react";
-import { Input, Box, IconButton } from "@chakra-ui/react";
-import { SearchIcon } from "@chakra-ui/icons";
-import { useNavigate } from "react-router-dom";
-import { searchUser, searchPost, getUsers } from "../../redux/actions";
-import { useDispatch } from "react-redux";
+import React, { useState } from 'react';
+import { Input, Box, IconButton } from '@chakra-ui/react';
+import { SearchIcon } from '@chakra-ui/icons';
+import { useNavigate } from 'react-router-dom';
+import { searchUser, searchPost, getUsers } from '../../redux/action';
+import { useDispatch } from 'react-redux';
 
 const Searchbar = () => {
-    
-    const navigate = useNavigate()
-    const dispatch = useDispatch()
-    const [searcher, setSearcher] = useState('')
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [searcher, setSearcher] = useState('');
 
   function handleInputChange(e) {
     e.preventDefault();
     setSearcher(e.target.value);
   }
 
-    function handleSubmit(e){
-        e.preventDefault()
-        dispatch(searchUser(searcher))
-        dispatch(searchPost(searcher))
-        dispatch(getUsers())
-        navigate('/search-page')
-        setSearcher('')
-    }
+  function handleSubmit(e) {
+    e.preventDefault();
+    dispatch(searchUser(searcher));
+    dispatch(searchPost(searcher));
+    dispatch(getUsers());
+    navigate('/search-page');
+    setSearcher('');
+  }
 
   return (
     <>
@@ -39,9 +38,9 @@ const Searchbar = () => {
         <Input
           h="80%"
           w={190}
-          variant='unstyled'
+          variant="unstyled"
           placeholder={`Search`}
-          size='lg'
+          size="lg"
           borderRadius={'none'}
           borderBottomWidth="2px"
           value={searcher}
@@ -58,9 +57,9 @@ const Searchbar = () => {
           icon={<SearchIcon />}
           _hover={{
             bg: 'logo.3',
-            color: 'white'
+            color: 'white',
           }}
-          _active={{bg: 'rgba(140, 161, 116, 0.5)' }}
+          _active={{ bg: 'rgba(140, 161, 116, 0.5)' }}
         />
       </Box>
     </>

@@ -17,7 +17,7 @@ import {
 } from '@chakra-ui/react';
 import { Formik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
-import { authUser, logOut } from '../../redux/actions';
+import { authUser, logOut } from '../../redux/action';
 import imgBackground from '../../assets/landing-pic.jpg';
 import logo from '../../assets/logo.jpg';
 import jwt_decode from 'jwt-decode';
@@ -40,11 +40,11 @@ const CreateUser = () => {
   const handleInputChange = (event) =>
     setInput({ ...input, [event.target.name]: event.target.value });
   const isError = input === ''; //true or false
-  
+
   const handleCallbackResponse = (response) => {
     console.log('Encoded JWT ID token:' + response.credential);
     var userObject = jwt_decode(response.credential);
-    console.log(userObject.email);
+    console.log(userObject);
     dispatch(authUser(userObject.email, null, true));
   };
 
@@ -56,7 +56,8 @@ const CreateUser = () => {
         callback: handleCallbackResponse,
       });
       google?.accounts.id.renderButton(document.getElementById('signInDiv'), {
-        theme: 'outline',
+        theme: 'outlined',
+        type: 'icon',
         size: 'large',
       });
     });
@@ -94,7 +95,6 @@ const CreateUser = () => {
               src={logoLeafme}
               alt="logo"
             />
-            <Box ml={'9vw'} mb={'3vh'} display={'flex'} id="signInDiv"></Box>
             <Box w="400px" ml={'30px'}>
               <FormControl isInvalid={isError}>
                 <FormLabel>Email address or Username </FormLabel>
@@ -152,7 +152,23 @@ const CreateUser = () => {
                 </Tooltip>
               )}
             </Box>
-            <Center display={'flex'} flexDir={'column'}>
+            <Box
+              height={'10vh'}
+              width={'8vw'}
+              display={'inline-block'}
+              position={'relative'}
+              left={'37%'}
+              textAlign={'center'}
+              mb={'2vh'}
+            >
+              <Text mb={'1vh'}>Access with</Text>
+              <div
+                style={{ position: 'relative', top: '0%', left: '30%' }}
+                id="signInDiv"
+              ></div>
+            </Box>
+            <hr style={{ width: '60%', marginLeft: '20%' }} />
+            <Center display={'flex'} flexDir={'column'} mt={'2vh'}>
               <p>Don't have an account?</p>
               <Link to="/sign-in">
                 <Button mt="10px">Sign In</Button>
