@@ -16,6 +16,8 @@ import TextPostContainer from '../components/TextPost/TextPostContainer';
 
 
 
+
+
 import '../index.css';
 import { getMyUser, getPosts, getUsers } from '../redux/actions';
 
@@ -96,6 +98,23 @@ const Profile = () => {
           </VStack>
         </Center>
       </Box>
+      {/* <Box
+        pos={'absolute'}
+        top={'20%'}
+        left={'0%'}
+        textAlign={'center'}
+        justifyContent={'center'}
+        direction={'column'}
+        width={'79vw'}
+        height={'80vh'}
+        mt={'30%'}
+        ml={'18%'}
+        mr={'7%'}
+      >
+        <TextPostContainer />
+      </Box> */}
+      <UserPost/>
+
 
 
       {/* <Box display="flex" dir="row">
