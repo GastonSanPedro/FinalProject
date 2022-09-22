@@ -35,6 +35,9 @@ const CreateUser = ({ logOrSign, setlogOrSign }) => {
     setUser(userObject);
     //dispatch(authUser(userObject.email, null, true));
   };
+  const handleClickLog = (event) => {
+    setlogOrSign('log');
+  };
   useEffect(() => {
     /* global google */
     dispatch(getUsers());
@@ -51,18 +54,20 @@ const CreateUser = ({ logOrSign, setlogOrSign }) => {
       });
     });
   }, [dispatch]);
-  
+
   const valEmail = (inputValueEmail) => {
     const emailF = allUsers.filter((user) => inputValueEmail === user.email);
-    console.log(allUsers)
-      if(emailF[0])return true;
-      else return false;
-      }
-  const valUsername = (inputValueUsername) => {
-    const usernameF = allUsers.filter(user=> inputValueUsername === user.userName);
-    if(usernameF[0]) return true;
+    console.log(allUsers);
+    if (emailF[0]) return true;
     else return false;
-  }
+  };
+  const valUsername = (inputValueUsername) => {
+    const usernameF = allUsers.filter(
+      (user) => inputValueUsername === user.userName
+    );
+    if (usernameF[0]) return true;
+    else return false;
+  };
   return (
     <>
       <Formik
@@ -74,7 +79,6 @@ const CreateUser = ({ logOrSign, setlogOrSign }) => {
           userName: '',
         }}
         validate={(values) => {
-
           let errores = {};
           if (!values.email && !User) {
             errores.email = 'Please enter your email';
@@ -85,7 +89,7 @@ const CreateUser = ({ logOrSign, setlogOrSign }) => {
             !User
           ) {
             errores.email = 'e.g.: exaemail@leafme.com';
-          }else if(valEmail(values.email)){
+          } else if (valEmail(values.email)) {
             errores.email = 'Email in use';
           }
           if (!values.firstName && !User) {
@@ -101,8 +105,8 @@ const CreateUser = ({ logOrSign, setlogOrSign }) => {
           }
           if (!values.userName) {
             errores.userName = 'Please create an user name';
-          }else if(valUsername(values.userName)){
-            errores.userName = 'Username in use, please create another one'
+          } else if (valUsername(values.userName)) {
+            errores.userName = 'Username in use, please create another one';
           }
           if (!values.password) {
             errores.password = 'Please create a password';
@@ -118,10 +122,9 @@ const CreateUser = ({ logOrSign, setlogOrSign }) => {
           const usernameFilter = allUsers.filter(
             (user) => values.userName === user.userName
           );
-          
+
           if (emailFilter[0]) return alert('This email is already in use');
 
-         
           if (usernameFilter[0]) return alert('This username already exist');
           if (User) {
             const googleUser = {

@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-  Box,
-  SimpleGrid,
-  Text,
-  Button,
-  Center,
-  Flex
-} from '@chakra-ui/react';
+import { Box, SimpleGrid, Text, Button, Center, Flex } from '@chakra-ui/react';
 import TextPost from './TextPost';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -90,15 +83,14 @@ export default function TextPostContainer({ site }) {
         )}
       </SimpleGrid>
       <Center>
-
         <Button
           onClick={() => handleClickMore()}
           h="50px"
           w="200px"
           mr="50"
           fontSize="sm"
-          mt= "50px"
-          mb= "50px"
+          mt="50px"
+          mb="50px"
         >
           Ver más
         </Button>
