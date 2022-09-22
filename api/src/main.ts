@@ -12,8 +12,8 @@ async function bootstrap() {
     }),
   );
   const config = new DocumentBuilder()
-    .setTitle('Pokedex example')
-    .setDescription('The Pokedex API description')
+    .setTitle('Final Project')
+    .setDescription('The Final Project API description')
     .setVersion('1.0')
     .build();
   const document = SwaggerModule.createDocument(app, config);
