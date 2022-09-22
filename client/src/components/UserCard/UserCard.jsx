@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { authUser, getMyUser, logOut } from '../../redux/actions';
+import { authUser, getMyUser, logOut } from '../../redux/action';
 import { Link } from 'react-router-dom';
 import { Box, Wrap, Image, Avatar, Center, VStack } from '@chakra-ui/react';
 
@@ -26,7 +26,9 @@ const UserCard = () => {
   // const loggedUser = JSON.parse(logUser.User);
   // console.log(loggedUser);
   useEffect(() => {
-    dispatch(getMyUser(neededEmail));
+    setTimeout(function () {
+      dispatch(getMyUser(neededEmail));
+    });
   }, [dispatch, neededEmail]);
   
 

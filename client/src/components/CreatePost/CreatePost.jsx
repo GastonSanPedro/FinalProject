@@ -10,7 +10,7 @@ import {
   Stack
 } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
-import { createUserPost, getUser, UploadPic } from '../../redux/actions';
+import { createUserPost, getUser, UploadPic } from '../../redux/action';
 import { useNavigate } from 'react-router-dom';
 import { Radio, RadioGroup } from '@chakra-ui/react'
 import { createNonNullExpression } from 'typescript';
