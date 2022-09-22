@@ -2,7 +2,6 @@ import { Form, Formik } from 'formik';
 import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { authUser, createUser, getUsers } from '../../redux/actions';
-
 import {
   Box,
   Button,
@@ -18,6 +17,7 @@ import jwt_decode from 'jwt-decode';
 import { useDispatch, useSelector } from 'react-redux';
 
 const CreateUser = () => {
+
   const google = window.google;
   const dispatch = useDispatch();
   const allUsers = useSelector((state) => state.allUsers);
@@ -30,7 +30,6 @@ const CreateUser = () => {
   const handleCallbackResponse = (response) => {
     console.log('Encoded JWT ID token:' + response.credential);
     var userObject = jwt_decode(response.credential);
-    //console.log(userObject);
     setUser(userObject);
     //dispatch(authUser(userObject.email, null, true));
   };
@@ -47,7 +46,18 @@ const CreateUser = () => {
       size: 'large',
     });
   }, [dispatch]);
-
+  
+  const valEmail = (inputValueEmail) => {
+    const emailF = allUsers.filter((user) => inputValueEmail === user.email);
+    console.log(allUsers)
+      if(emailF[0])return true;
+      else return false;
+      }
+  const valUsername = (inputValueUsername) => {
+    const usernameF = allUsers.filter(user=> inputValueUsername === user.userName);
+    if(usernameF[0]) return true;
+    else return false;
+  }
   return (
     <>
       <Formik
@@ -59,6 +69,7 @@ const CreateUser = () => {
           userName: '',
         }}
         validate={(values) => {
+
           let errores = {};
           if (!values.email && !User) {
             errores.email = 'Please enter your email';
@@ -69,6 +80,8 @@ const CreateUser = () => {
             !User
           ) {
             errores.email = 'e.g.: exaemail@leafme.com';
+          }else if(valEmail(values.email)){
+            errores.email = 'Email in use';
           }
           if (!values.firstName && !User) {
             errores.firstName = 'Please enter your name';
@@ -83,6 +96,8 @@ const CreateUser = () => {
           }
           if (!values.userName) {
             errores.userName = 'Please create an user name';
+          }else if(valUsername(values.userName)){
+            errores.userName = 'Username in use, please create another one'
           }
           if (!values.password) {
             errores.password = 'Please create a password';
@@ -95,11 +110,13 @@ const CreateUser = () => {
           const emailFilter = allUsers.filter(
             (user) => values.email === user.email
           );
-          if (emailFilter[0]) return alert('This email is already in use');
-
           const usernameFilter = allUsers.filter(
             (user) => values.userName === user.userName
           );
+          
+          if (emailFilter[0]) return alert('This email is already in use');
+
+         
           if (usernameFilter[0]) return alert('This username already exist');
           if (User) {
             const googleUser = {

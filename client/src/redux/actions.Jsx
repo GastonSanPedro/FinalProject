@@ -27,11 +27,10 @@ export function getUsers() {
   };
 }
 
-export function getUser(email) {
+export function getUser(payload) {
   return async function (dispatch) {
     try {
-      let info = await axios.get(`https://finalprojectteam.herokuapp.com/${email}`, {});
-
+      let info = await axios.get(`https://finalprojectteam.herokuapp.com/users/${payload}`, {});
       dispatch({
         type: GET_USER,
         payload: info.data,
@@ -45,7 +44,7 @@ export function getUser(email) {
 export function getMyUser(email) {
   return async function (dispatch) {
     try {
-      let info = await axios.get(`https://finalprojectteam.herokuapp.com/${email}`, {});
+      let info = await axios.get(`https://finalprojectteam.herokuapp.com/users/${email}`, {});
 
       dispatch({
         type: GET_MY_USER,
@@ -60,8 +59,8 @@ export function getMyUser(email) {
 export function getPosts(email) {
   return async function (dispatch) {
     try {
-      let info = await axios.get(`https://finalprojectteam.herokuapp.com/${email}`, {});
-      //console.log(info.data.posteos);
+      let info = await axios.get(`https://finalprojectteam.herokuapp.com/users/${email}`, {});
+      
       dispatch({
         type: GET_POSTS,
         payload: info.data.posteos,

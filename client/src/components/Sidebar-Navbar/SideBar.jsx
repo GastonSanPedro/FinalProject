@@ -124,7 +124,7 @@ export default function SidebarWithHeader({ children }) {
     </Box>
   );
 }
-
+/*--------------- BARRA LATERAL----------------------*/
 const SidebarContent = ({ onClose, ...rest }) => {
   return (
     <Box
