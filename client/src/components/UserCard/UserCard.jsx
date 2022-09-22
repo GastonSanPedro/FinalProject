@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { authUser, getMyUser, logOut } from '../../redux/action';
+import { authUser, getMyUser, logOut, getUser } from '../../redux/action';
 import { Link } from 'react-router-dom';
 import { Box, Wrap, Image, Avatar, Center, VStack } from '@chakra-ui/react';
+import { useParams } from 'react-router-dom';
+
 
 const UserCard = ({ site }) => {
+
 
   const auth = useSelector((state) => state.auth);
   const navigate = useNavigate();
@@ -32,6 +35,11 @@ const UserCard = ({ site }) => {
     });
   }, [dispatch, neededEmail]);
 
+  let { email } = useParams();
+
+  useEffect(() => {
+      dispatch(getUser(email));
+  }, [dispatch])
 
   return (
     <Box ml="80%" mt="13%" h="430px" w="250px" position={'absolute'} bgColor="rgba(140, 161, 116, .9)" >
