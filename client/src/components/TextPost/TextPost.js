@@ -1,4 +1,21 @@
-import { Avatar, chakra, Flex, useColorModeValue, Box } from '@chakra-ui/react';
+import React, { useState } from 'react';
+import {
+  Avatar,
+  chakra,
+  Flex,
+  useColorModeValue,
+  Box,
+  ModalOverlay,
+  useDisclosure,
+  Modal,
+  ModalContent,
+  Button,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
+  ModalFooter,
+  Text,
+} from '@chakra-ui/react';
 import Quotes from '../../assets/comillas.svg';
 
 function randomNumber(min, max) {
@@ -6,6 +23,17 @@ function randomNumber(min, max) {
   return Math.floor(a);
 }
 
+const OverlayOne = () => (
+  <ModalOverlay
+    bg="blackAlpha.300"
+    backdropFilter="blur(10px) hue-rotate(90deg)"
+    w={'83.5vw'}
+    h={'90vh'}
+    position={'fixed'}
+    mt={'10.5vh'}
+    left={'17%'}
+  />
+);
 //--------- Lógica socket.io --------
 //const [liked, setLiked] = useState(false)
 // const handleNotification = () =>{
@@ -21,9 +49,24 @@ function randomNumber(min, max) {
 //) : (<StarIcon color="black" onClick={handleNotification}/>)}
 //----------------------------------
 export default function TextPost(props) {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [overlay, setOverlay] = useState(<OverlayOne />);
   const { fullName, description, avatar, index, role, background } = props;
   return (
     <>
+      <Modal isCentered isOpen={isOpen} onClose={onClose}>
+        {overlay}
+        <ModalContent ml={'15vw'}>
+          <ModalHeader>{fullName}</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Text>{description}</Text>
+          </ModalBody>
+          <ModalFooter>
+            <Button onClick={onClose}>Close</Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
       <Flex
         maxW={'640px'}
         direction={{ base: 'column-reverse', md: 'row' }}
@@ -34,6 +77,10 @@ export default function TextPost(props) {
         ml={'1vw'}
         boxShadow={'1px 0px 10px 1px rgba(0,0,0,0.47)'}
         bg={useColorModeValue('white', 'gray.800')}
+        onClick={() => {
+          setOverlay(<OverlayOne />);
+          onOpen();
+        }}
         _after={{
           content: '""',
           position: 'absolute',
