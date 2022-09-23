@@ -65,7 +65,7 @@ const CreatePost = ({ posteos, email, site }) => {
         p={3}
         m={3}
         mt={'4vh'}
-        h={site === 'feed' ? '180px' : '300px'}
+        h={site === 'feed' ? '22vh' : '36vh'}
         w={site === 'feed' ? '100%' : '65%'}
         display={'flex'}
         backgroundColor={'withe'}
@@ -85,9 +85,9 @@ const CreatePost = ({ posteos, email, site }) => {
           width={'9%'}
           h={'6vh'}
           position={'absolute'}
-          top={site === 'profile' ? '45.5%' : '24%'}
+          top={site === 'profile' ? '50.5%' : '24.5%'}
           mb={site === 'profile' ? '50px' : null}
-          ml={site === 'profile' ? '40px' : null}
+          ml={site === 'profile' ? '40px' : '0vw'}
         >
           <RadioGroup onChange={setTypePost} value={TypePost}>
             <Stack direction="row">

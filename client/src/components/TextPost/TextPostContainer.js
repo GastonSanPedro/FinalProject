@@ -1,5 +1,14 @@
 import React from 'react';
-import { Box, SimpleGrid, Text, Button, Center, Flex } from '@chakra-ui/react';
+import {
+  Box,
+  SimpleGrid,
+  Text,
+  Button,
+  Center,
+  Flex,
+  SlideFade,
+  useDisclosure,
+} from '@chakra-ui/react';
 import TextPost from './TextPost';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -21,6 +30,7 @@ import UserSearchContainer from '../UserSearch/UserSearchContainer';
 
 export default function TextPostContainer({ site, word, email }) {
   const dispatch = useDispatch();
+  const { isOpen, onToggle } = useDisclosure();
   const users = useSelector((state) => state.users);
   const posteosUser = users?.map((user) => {
     return {
@@ -59,59 +69,119 @@ export default function TextPostContainer({ site, word, email }) {
   const handleClickMore = () => {
     setCurrentEnd(currentEnd + 8);
   };
-
-  return (
-    <Flex
-      pr={'2%'}
-      pl={'2%'}
-      textAlign={'center'}
-      justifyContent={'center'}
-      direction={'column'}
-      bg={'rgba(229, 191, 124, 0.2)'}
-      borderRadius={2}
-      mt={site === 'feed' ? '0vh' : '4vh'}
-    >
-      {site === 'search' ? (
-        <UserSearchContainer word={word} />
-      ) : (
-        <CreatePost site={site} email={email} />
-      )}
-      <SimpleGrid columns={{ base: 1, xl: 2 }} spacing={'10'} mt={2} mr={5}>
-        {post ? (
-          renderPosts.map((user, index) => {
-            if (user?.fullName && user?.post) {
-              return (
-                <Box key={index}>
-                  <TextPost
-                    fullName={user?.fullName}
-                    image={user?.image}
-                    description={user?.post}
-                    background={`logo.${Math.random(1, 2, 3)}`}
-                    id={index}
-                  />
-                </Box>
-              );
-            }
-          })
-        ) : (
-          <Box>
-            <Text>no hay posteos</Text>{' '}
-          </Box>
-        )}
-      </SimpleGrid>
-      <Center>
-        <Button
-          onClick={() => handleClickMore()}
-          h="50px"
-          w="200px"
-          mr="50"
-          fontSize="sm"
-          mt="50px"
-          mb="50px"
+  if (site === 'anyProfile') {
+    return (
+      <Flex
+        pr={'2%'}
+        pl={'2%'}
+        textAlign={'center'}
+        justifyContent={'center'}
+        direction={'column'}
+        bg={'rgba(229, 191, 124, 0.2)'}
+        borderRadius={2}
+        mt={site === 'feed' ? '0vh' : '4vh'}
+      >
+        <SimpleGrid
+          columns={{ base: 1, xl: 2 }}
+          spacing={'10'}
+          mt={'40vh'}
+          mr={5}
         >
-          Ver más
-        </Button>
-      </Center>
-    </Flex>
-  );
+          {post ? (
+            renderPosts.map((user, index) => {
+              if (user?.fullName && user?.post) {
+                return (
+                  <SlideFade in={onToggle} offsetY="20px">
+                    <Box key={index}>
+                      <TextPost
+                        fullName={user?.fullName}
+                        image={user?.image}
+                        description={user?.post}
+                        background={`logo.${Math.random(1, 2, 3)}`}
+                        id={index}
+                      />
+                    </Box>
+                  </SlideFade>
+                );
+              }
+            })
+          ) : (
+            <Box>
+              <Text>no hay posteos</Text>{' '}
+            </Box>
+          )}
+        </SimpleGrid>
+        <Center>
+          <Button
+            onClick={() => handleClickMore()}
+            h="50px"
+            w="200px"
+            mr="50"
+            fontSize="sm"
+            mt="50px"
+            mb="50px"
+          >
+            Ver más
+          </Button>
+        </Center>
+      </Flex>
+    );
+  } else {
+    return (
+      <Flex
+        pr={'2%'}
+        pl={'2%'}
+        textAlign={'center'}
+        justifyContent={'center'}
+        direction={'column'}
+        bg={'rgba(229, 191, 124, 0.2)'}
+        borderRadius={2}
+        mt={site === 'feed' ? '0vh' : '4vh'}
+      >
+        {site === 'search' ? (
+          <UserSearchContainer word={word} />
+        ) : (
+          <CreatePost site={site} email={email} />
+        )}
+        <SimpleGrid columns={{ base: 1, xl: 2 }} spacing={'10'} mt={2} mr={5}>
+          {post ? (
+            renderPosts.map((user, index) => {
+              if (user?.fullName && user?.post) {
+                return (
+                  <SlideFade in={onToggle} offsetY="20px">
+                    <Box key={index}>
+                      <TextPost
+                        fullName={user?.fullName}
+                        image={user?.image}
+                        description={user?.post}
+                        background={`logo.${Math.random(1, 2, 3)}`}
+                        id={index}
+                      />
+                    </Box>
+                  </SlideFade>
+                );
+              }
+            })
+          ) : (
+            <Box>
+              <Text>no hay posteos</Text>{' '}
+            </Box>
+          )}
+        </SimpleGrid>
+        <Center>
+          <Button
+            onClick={() => handleClickMore()}
+            h="50px"
+            w="200px"
+            mr="50"
+            fontSize="sm"
+            mt="50px"
+            mb="50px"
+          >
+            Ver más
+          </Button>
+        </Center>
+      </Flex>
+    );
+  }
 }

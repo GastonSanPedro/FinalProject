@@ -135,12 +135,14 @@ const SidebarContent = ({ onClose, ...rest }) => {
       bg={useColorModeValue('white', 'gray.900')}
       borderRight="1px"
       borderRightColor={useColorModeValue('gray.200', 'gray.700')}
+      minW={'18%'}
+      maxW={'18%'}
       w={{ base: 'full', md: 60 }}
       pos="fixed"
       h="full"
       {...rest}
     >
-      <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
+      <Flex h={'20'} alignItems="center" mx="8" justifyContent="space-between">
         <Box mt={14}>
           <Image src={logo} />
         </Box>
@@ -219,10 +221,12 @@ const MobileNav = ({ onOpen, ...rest }) => {
   return (
     <Flex
       //pos={'absolute'}
+      minH={'12%'}
+      maxH={'12%'}
       ml={{ base: 0, md: 60 }}
       px={{ base: 4, md: 4 }}
-      height="20"
-      w={'84vw'}
+      height={'11.5vh'}
+      w={'86vw'}
       alignItems="center"
       bg={useColorModeValue('white', 'gray.900')}
       borderBottomWidth="1px"
@@ -307,6 +311,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
         fontSize="2xl"
         fontFamily="monospace"
         fontWeight="bold"
+        mr={'2vw'}
       >
         <Image src={logo} />
       </Box>
@@ -327,7 +332,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
             </VStack>)}
         </Box> */}
 
-        <Flex alignItems={'center'} mr={10} ml={5}>
+        <Flex alignItems={'center'} mr={12} ml={5}>
           <Menu>
             <MenuButton
               py={2}

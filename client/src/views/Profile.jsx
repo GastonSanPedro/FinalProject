@@ -1,12 +1,7 @@
-import { Box, Wrap, Image, Avatar, Center, VStack } from '@chakra-ui/react';
+import { Box } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import CreatePost from '../components/CreatePost/CreatePost';
-import FriendsContainer from '../components/Friends/FriendsContainer';
-import Navbar from '../components/navbar/Navbar';
-import ProfileDetail from '../components/ProfileDetail/ProfileDetail';
 import UserCard from '../components/UserCard/UserCard';
-import UserPost from '../components/UserPosts/UserPost';
 import SidebarWithHeader from '../components/Sidebar-Navbar/SideBar';
 import portada1 from '../assets/portada1.jpg';
 import portada2 from '../assets/portada2.jpg';
@@ -46,9 +41,10 @@ const Profile = () => {
     <>
       <SidebarWithHeader />
       <Box
-        mt="20"
+        mt={'10vh'}
         ml="15%"
-        h="210"
+        minH={'28vh'}
+        maxH={'28vh'}
         width="85%"
         position={'absolute'}
         backgroundImage={port1}
@@ -57,7 +53,7 @@ const Profile = () => {
         bgSize="cover"
       />
 
-      <UserCard site="profile" />
+      <UserCard site="profile" fullName={user?.fullName} />
 
       {/* <Box ml="80%" mt="13%" h="420px" w="250px" position={'absolute'} bgColor="rgba(140, 161, 116, .9)"  >
         <Center>
