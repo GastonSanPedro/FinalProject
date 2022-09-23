@@ -89,7 +89,9 @@ export default function SidebarWithHeader({ children }) {
   const neededEmail = User[0].email;
 
   useEffect(() => {
-    dispatch(getMyUser(neededEmail));
+    setTimeout(function () {
+      dispatch(getMyUser(neededEmail));
+    }, 300);
   }, [dispatch, neededEmail]);
 
   return (
@@ -346,7 +348,9 @@ const MobileNav = ({ onOpen, ...rest }) => {
                   ml="2"
                 >
                   <Text fontSize="sm">
-                    {myUser.firstName + ' ' + myUser.lastName}
+                    {myUser.firstName
+                      ? myUser.firstName + ' ' + myUser.lastName
+                      : 'Loading'}
                   </Text>
                   <Text fontSize="xs" color="gray.600">
                     Admin

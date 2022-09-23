@@ -19,8 +19,7 @@ import UserSearchContainer from '../UserSearch/UserSearchContainer';
 //<CreatePost socket={socket} user ={user} />
 //--------------------------------
 
-export default function TextPostContainer({ site, word}) {
-
+export default function TextPostContainer({ site, word, email }) {
   const dispatch = useDispatch();
   const users = useSelector((state) => state.users);
   const posteosUser = users?.map((user) => {
@@ -32,11 +31,15 @@ export default function TextPostContainer({ site, word}) {
   });
 
   const post = posteosUser.map((user) => {
-    if (user.posteos.some((post) => post.includes(site==='search'?word:' '))) {
+    if (
+      user.posteos.some((post) => post.includes(site === 'search' ? word : ' '))
+    ) {
       return {
         fullName: user.fullName,
         image: user.image,
-        post: user.posteos.find((post) => post.includes(site==='search'?word:' ')),
+        post: user.posteos.find((post) =>
+          post.includes(site === 'search' ? word : ' ')
+        ),
       };
     }
   });
@@ -49,7 +52,6 @@ export default function TextPostContainer({ site, word}) {
 
   const [currentStart, setCurrentStart] = useState(0);
   const [currentEnd, setCurrentEnd] = useState(8);
-  
 
   const renderPosts =
     post.length > 8 ? post?.slice(currentStart, currentEnd) : post;
@@ -59,32 +61,34 @@ export default function TextPostContainer({ site, word}) {
   };
 
   return (
-    <Flex 
-    pr={'2%'}
-    pl={'2%'}
-    textAlign={'center'} 
-    justifyContent={'center'} 
-    direction={'column'} 
-    bg={'rgba(229, 191, 124, 0.2)'}
-    borderRadius={2}
+    <Flex
+      pr={'2%'}
+      pl={'2%'}
+      textAlign={'center'}
+      justifyContent={'center'}
+      direction={'column'}
+      bg={'rgba(229, 191, 124, 0.2)'}
+      borderRadius={2}
+      mt={site === 'feed' ? '0vh' : '4vh'}
     >
-      {
-        site === 'search' ? <UserSearchContainer word={word}/> : <CreatePost site={site} />
-      }
+      {site === 'search' ? (
+        <UserSearchContainer word={word} />
+      ) : (
+        <CreatePost site={site} email={email} />
+      )}
       <SimpleGrid columns={{ base: 1, xl: 2 }} spacing={'10'} mt={2} mr={5}>
         {post ? (
           renderPosts.map((user, index) => {
             if (user?.fullName && user?.post) {
               return (
-                <Box
-                key={index}>
-                <TextPost
-                  fullName={user?.fullName}
-                  image={user?.image}
-                  description={user?.post}
-                  background={`logo.${Math.random(1, 2, 3)}`}
-                  id={index}
-                />
+                <Box key={index}>
+                  <TextPost
+                    fullName={user?.fullName}
+                    image={user?.image}
+                    description={user?.post}
+                    background={`logo.${Math.random(1, 2, 3)}`}
+                    id={index}
+                  />
                 </Box>
               );
             }
