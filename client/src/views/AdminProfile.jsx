@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import SidebarWithHeader from '../components/Sidebar-Navbar/SideBar';
 import '../index.css';
 import { getMyUser, getPosts, getUsers } from '../redux/action';
-import { Box,Heading, HStack, VStack, Text } from '@chakra-ui/react';
+import { Box, Heading, HStack, VStack, Text, Center, StatGroup, Stat, StatLabel, StatNumber, StatHelpText, StatArrow } from '@chakra-ui/react';
 import UserStats from '../components/Stats/UsersStats';
 
 const AdminProfile = () => {
@@ -34,33 +34,70 @@ const AdminProfile = () => {
             <Box
                 pos="absolute"
                 mt="8%"
-                //mt="200px"
-                //ml="400px" "10%"
                 ml="20%"
                 bg={'rgba(229, 191, 124, 0.2)'}
                 h="auto"
                 w='75%'
-            >
-                <Heading>Plans</Heading>
-                <HStack>
-                    {/* <VStack>
+            ><Box>
                     <HStack>
-                         <Text>Plan 1</Text> 
-                         <Box bgColor='#4dc9f6' w="40px" h="10px"></Box>
+                        <UserStats />
+                        <Box pt="0px" mt="0px">
+                            <Center pt="0px" mt="0px" >
+                                <VStack ml="200px" >
+                                    <Heading pt="0px" mt="0px" >Premium post stats</Heading>
+                                    <Box>
+                                        <Text >Plan de 3 días</Text>
+                                        <Text>Plan de 1 semana</Text>
+                                        <Text>Plan de 1 mes</Text>
+                                    </Box>
+                                </VStack>
+                            </Center>
+                        </Box>
                     </HStack>
-                    <HStack>
-                         <Text>Plan 2</Text> 
-                         <Box bgColor='#f67019' w="40px" h="10px"></Box>
-                    </HStack>
-                    <HStack>
-                         <Text>Plan 3</Text> 
-                         <Box bgColor='#f53794' w="40px" h="10px"></Box>
-                    </HStack>
-                    
-                        
-                    </VStack> */}
-                    <UserStats />
-                </HStack>
+                </Box>
+            </Box>
+            <Box
+                pos="absolute"
+                mt="30%"
+                ml="20%"
+                bg={'rgba(229, 191, 124, 0.2)'}
+                h="auto"
+                w='75%'>
+                <StatGroup>
+                    <Stat>
+                        <StatLabel>New Users</StatLabel>
+                        <StatNumber>28</StatNumber>
+                        <StatHelpText>
+                            <StatArrow type='increase' />
+                            32%
+                        </StatHelpText>
+                    </Stat>
+                    <Stat>
+                        <StatLabel>Coments </StatLabel>
+                        <StatNumber>875</StatNumber>
+                        <StatHelpText>
+                            <StatArrow type='increase' />
+                            120.58%
+                        </StatHelpText>
+                    </Stat>
+                    <Stat>
+                        <StatLabel>Likes</StatLabel>
+                        <StatNumber>2687</StatNumber>
+                        <StatHelpText>
+                            <StatArrow type='increase' />
+                            26.8%
+                        </StatHelpText>
+                    </Stat>
+
+                    <Stat>
+                        <StatLabel>Posts</StatLabel>
+                        <StatNumber>45</StatNumber>
+                        <StatHelpText>
+                            <StatArrow type='decrease' />
+                            9.05%
+                        </StatHelpText>
+                    </Stat>
+                </StatGroup>
             </Box>
         </>
     );
