@@ -42,6 +42,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { logOut, getMyUser } from '../../redux/action';
 import { Link as ReactLink } from 'react-router-dom';
 import Searchbar from '../navbar/SearchBar';
+import Friends from '../Friends/FriendsDrawer';
+import PaymentDrawer from '../PaymentDrawer/PaymentDrawer';
 
 const LinkItems = [
   { name: 'Home', icon: FiHome },
@@ -84,11 +86,12 @@ export default function SidebarWithHeader({ children }) {
     useState(JSON.parse(localStorage.getItem('user')))
   );
 
-  const myUser = useSelector((state) => state.myUser);
   const neededEmail = User[0].email;
 
   useEffect(() => {
-    dispatch(getMyUser(neededEmail));
+    setTimeout(function () {
+      dispatch(getMyUser(neededEmail));
+    }, 300);
   }, [dispatch, neededEmail]);
 
   return (
@@ -124,7 +127,7 @@ export default function SidebarWithHeader({ children }) {
     </Box>
   );
 }
-
+/*--------------- BARRA LATERAL----------------------*/
 const SidebarContent = ({ onClose, ...rest }) => {
   return (
     <Box
@@ -132,12 +135,14 @@ const SidebarContent = ({ onClose, ...rest }) => {
       bg={useColorModeValue('white', 'gray.900')}
       borderRight="1px"
       borderRightColor={useColorModeValue('gray.200', 'gray.700')}
+      minW={'18%'}
+      maxW={'18%'}
       w={{ base: 'full', md: 60 }}
       pos="fixed"
       h="full"
       {...rest}
     >
-      <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
+      <Flex h={'20'} alignItems="center" mx="8" justifyContent="space-between">
         <Box mt={14}>
           <Image src={logo} />
         </Box>
@@ -154,6 +159,12 @@ const SidebarContent = ({ onClose, ...rest }) => {
             {link.name}
           </NavItem>
         ))}
+      </Box>
+      <Box pos={'fixed'} top={'80%'}>
+        <PaymentDrawer />
+      </Box>
+      <Box pos={'fixed'} top={'89%'}>
+        <Friends />
       </Box>
     </Box>
   );
@@ -196,6 +207,7 @@ const NavItem = ({ icon, link, children, ...rest }) => {
 };
 
 const MobileNav = ({ onOpen, ...rest }) => {
+  const myUser = useSelector((state) => state.myUser);
   const google = (window.google = window.google ? window.google : {});
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -209,10 +221,12 @@ const MobileNav = ({ onOpen, ...rest }) => {
   return (
     <Flex
       //pos={'absolute'}
+      minH={'12%'}
+      maxH={'12%'}
       ml={{ base: 0, md: 60 }}
       px={{ base: 4, md: 4 }}
-      height="20"
-      w={'84vw'}
+      height={'11.5vh'}
+      w={'86vw'}
       alignItems="center"
       bg={useColorModeValue('white', 'gray.900')}
       borderBottomWidth="1px"
@@ -297,6 +311,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
         fontSize="2xl"
         fontFamily="monospace"
         fontWeight="bold"
+        mr={'2vw'}
       >
         <Image src={logo} />
       </Box>
@@ -317,7 +332,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
             </VStack>)}
         </Box> */}
 
-        <Flex alignItems={'center'} mr={10} ml={5}>
+        <Flex alignItems={'center'} mr={12} ml={5}>
           <Menu>
             <MenuButton
               py={2}
@@ -337,7 +352,11 @@ const MobileNav = ({ onOpen, ...rest }) => {
                   spacing="1px"
                   ml="2"
                 >
-                  <Text fontSize="sm">Ariadna Ruvini</Text>
+                  <Text fontSize="sm">
+                    {myUser.firstName
+                      ? myUser.firstName + ' ' + myUser.lastName
+                      : 'Loading'}
+                  </Text>
                   <Text fontSize="xs" color="gray.600">
                     Admin
                   </Text>
@@ -355,7 +374,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
                 <MenuItem>Profile</MenuItem>
               </Link>
               <MenuItem>Settings</MenuItem>
-              <MenuItem>Payments</MenuItem>
+              <Link as={ReactLink} to="/payments" ><MenuItem>Payments</MenuItem></Link>
               <MenuDivider />
               <MenuItem onClick={() => handleClickLogOut()}>Sign out</MenuItem>
             </MenuList>

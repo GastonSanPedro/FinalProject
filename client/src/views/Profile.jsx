@@ -1,13 +1,13 @@
-import { Box, Wrap } from '@chakra-ui/react';
+import { Box } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import CreatePost from '../components/CreatePost/CreatePost';
-import FriendsContainer from '../components/Friends/FriendsContainer';
-import Navbar from '../components/navbar/Navbar';
-import ProfileDetail from '../components/ProfileDetail/ProfileDetail';
 import UserCard from '../components/UserCard/UserCard';
-import UserPost from '../components/UserPosts/UserPost';
-
+import SidebarWithHeader from '../components/Sidebar-Navbar/SideBar';
+import portada1 from '../assets/portada1.jpg';
+import portada2 from '../assets/portada2.jpg';
+import portada3 from '../assets/portada3.png';
+import port1 from '../assets/port1.png';
+import TextPostContainer from '../components/TextPost/TextPostContainer';
 import '../index.css';
 import { getMyUser, getPosts, getUsers } from '../redux/action';
 
@@ -39,9 +39,79 @@ const Profile = () => {
 
   return (
     <>
-      <Navbar></Navbar>
-      <Box display="flex" dir="row">
-        <Box m={3} width={'70%'} position={'absolute'} left={'5%'}>
+      <SidebarWithHeader />
+      <Box
+        mt={'10vh'}
+        ml="15%"
+        minH={'28vh'}
+        maxH={'28vh'}
+        width="85%"
+        position={'absolute'}
+        backgroundImage={port1}
+        bgRepeat="no-repeat"
+        // bgPosition="center"
+        bgSize="cover"
+      />
+
+      <UserCard site="profile" fullName={user?.fullName} />
+
+      {/* <Box ml="80%" mt="13%" h="420px" w="250px" position={'absolute'} bgColor="rgba(140, 161, 116, .9)"  >
+        <Center>
+          <VStack>
+            <Avatar
+              size='2xl'
+              mt="5%"
+              src={
+                'https://images.unsplash.com/photo-1619946794135-5bc917a27793?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9'
+              } ></Avatar>
+            <Box
+              pt="30px"
+              fontWeight='semibold'
+              fontSize='2xl'
+              textAlign='left'
+            >
+              Ariadna Ruvini
+            </Box>
+            <Box
+              pt="20px"
+              fontSize='xl'
+            >
+              Friends 563
+            </Box>
+
+            <Box
+              pt="5px"
+              fontSize='xl'
+            >
+              Posts 25
+            </Box>
+            <Box
+              pt="5px"
+              fontSize='xl'
+            >
+              Likes 1k
+            </Box>
+          </VStack>
+        </Center>
+      </Box> */}
+      <Box
+        pos={'absolute'}
+        top={'20%'}
+        left={'0%'}
+        textAlign={'center'}
+        justifyContent={'center'}
+        direction={'column'}
+        width={'79vw'}
+        height={'80vh'}
+        mt={'20%'}
+        ml={'18%'}
+        mr={'7%'}
+      >
+        <TextPostContainer site="profile" email={user?.email} />
+      </Box>
+
+      {/* <Box display="flex" dir="row">
+        <Box m={10} width={'60%'} position={'absolute'} left={'5%'} backgroundImage={port}>
           <ProfileDetail
             firstname={user?.firstName}
             lastname={user?.lastName}
@@ -71,7 +141,7 @@ const Profile = () => {
             <FriendsContainer allUsers={allUsers} />
           ) : null}
         </Box>
-      </Box>
+     </Box> */}
     </>
   );
 };

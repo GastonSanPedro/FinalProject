@@ -1,21 +1,20 @@
 import React from 'react';
 import {
-  Avatar,
   Box,
-  chakra,
-  Container,
-  Flex,
-  Icon,
   SimpleGrid,
-  useColorModeValue,
   Text,
   Button,
+  Center,
+  Flex,
+  SlideFade,
+  useDisclosure,
 } from '@chakra-ui/react';
 import TextPost from './TextPost';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPosts, getUsers } from '../../redux/action';
 import CreatePost from '../CreatePost/CreatePost';
+import UserSearchContainer from '../UserSearch/UserSearchContainer';
 
 //--------- Lógica socket --------
 // const [socket, setSocket] = useState(null)
@@ -29,10 +28,10 @@ import CreatePost from '../CreatePost/CreatePost';
 //<CreatePost socket={socket} user ={user} />
 //--------------------------------
 
-export default function TextPostContainer() {
+export default function TextPostContainer({ site, word, email }) {
   const dispatch = useDispatch();
+  const { isOpen, onToggle } = useDisclosure();
   const users = useSelector((state) => state.users);
-  const allUsers = useSelector((state) => state.users);
   const posteosUser = users?.map((user) => {
     return {
       fullName: user.fullName,
@@ -42,11 +41,15 @@ export default function TextPostContainer() {
   });
 
   const post = posteosUser.map((user) => {
-    if (user.posteos.some((post) => post.includes(' '))) {
+    if (
+      user.posteos.some((post) => post.includes(site === 'search' ? word : ' '))
+    ) {
       return {
         fullName: user.fullName,
         image: user.image,
-        post: user.posteos.find((post) => post.includes(' ')),
+        post: user.posteos.find((post) =>
+          post.includes(site === 'search' ? word : ' ')
+        ),
       };
     }
   });
@@ -59,8 +62,6 @@ export default function TextPostContainer() {
 
   const [currentStart, setCurrentStart] = useState(0);
   const [currentEnd, setCurrentEnd] = useState(8);
-  // const [button1, setButton1] = useState(true)
-  // const [button2, setButton2] = useState(false)
 
   const renderPosts =
     post.length > 8 ? post?.slice(currentStart, currentEnd) : post;
@@ -68,40 +69,119 @@ export default function TextPostContainer() {
   const handleClickMore = () => {
     setCurrentEnd(currentEnd + 8);
   };
-
-  return (
-    <Flex textAlign={'center'} justifyContent={'center'} direction={'column'}>
-      <CreatePost site="feed" />
-      <SimpleGrid columns={{ base: 1, xl: 2 }} spacing={'10'} mt={2}>
-        {post ? (
-          renderPosts.map((user) => {
-            if (user?.fullName && user?.post) {
-              return (
-                <TextPost
-                  fullName={user?.fullName}
-                  image={user?.image}
-                  description={user?.post}
-                  background={`logo.${Math.random(1, 2, 3)}`}
-                />
-              );
-            }
-          })
-        ) : (
-          <Box>
-            <Text>no hay posteos</Text>{' '}
-          </Box>
-        )}
-      </SimpleGrid>
-
-      <Button
-        onClick={() => handleClickMore()}
-        h="50px"
-        w="200px"
-        mr="50"
-        fontSize="sm"
+  if (site === 'anyProfile') {
+    return (
+      <Flex
+        pr={'2%'}
+        pl={'2%'}
+        textAlign={'center'}
+        justifyContent={'center'}
+        direction={'column'}
+        bg={'rgba(229, 191, 124, 0.2)'}
+        borderRadius={2}
+        mt={site === 'feed' ? '0vh' : '4vh'}
       >
-        Ver más
-      </Button>
-    </Flex>
-  );
+        <SimpleGrid
+          columns={{ base: 1, xl: 2 }}
+          spacing={'10'}
+          mt={'40vh'}
+          mr={5}
+        >
+          {post ? (
+            renderPosts.map((user, index) => {
+              if (user?.fullName && user?.post) {
+                return (
+                  <SlideFade in={onToggle} offsetY="20px">
+                    <Box key={index}>
+                      <TextPost
+                        fullName={user?.fullName}
+                        image={user?.image}
+                        description={user?.post}
+                        background={`logo.${Math.random(1, 2, 3)}`}
+                        id={index}
+                      />
+                    </Box>
+                  </SlideFade>
+                );
+              }
+            })
+          ) : (
+            <Box>
+              <Text>no hay posteos</Text>{' '}
+            </Box>
+          )}
+        </SimpleGrid>
+        <Center>
+          <Button
+            onClick={() => handleClickMore()}
+            h="50px"
+            w="200px"
+            mr="50"
+            fontSize="sm"
+            mt="50px"
+            mb="50px"
+          >
+            Ver más
+          </Button>
+        </Center>
+      </Flex>
+    );
+  } else {
+    return (
+      <Flex
+        pr={'2%'}
+        pl={'2%'}
+        textAlign={'center'}
+        justifyContent={'center'}
+        direction={'column'}
+        bg={'rgba(229, 191, 124, 0.2)'}
+        borderRadius={2}
+        mt={site === 'feed' ? '0vh' : '4vh'}
+      >
+        {site === 'search' ? (
+          <UserSearchContainer word={word} />
+        ) : (
+          <CreatePost site={site} email={email} />
+        )}
+        <SimpleGrid columns={{ base: 1, xl: 2 }} spacing={'10'} mt={2} mr={5}>
+          {post ? (
+            renderPosts.map((user, index) => {
+              if (user?.fullName && user?.post) {
+                return (
+                  <SlideFade in={onToggle} offsetY="20px">
+                    <Box key={index}>
+                      <TextPost
+                        fullName={user?.fullName}
+                        image={user?.image}
+                        description={user?.post}
+                        background={`logo.${Math.random(1, 2, 3)}`}
+                        id={index}
+                      />
+                    </Box>
+                  </SlideFade>
+                );
+              }
+            })
+          ) : (
+            <Box>
+              <Text>no hay posteos</Text>{' '}
+            </Box>
+          )}
+        </SimpleGrid>
+        <Center>
+          <Button
+            onClick={() => handleClickMore()}
+            h="50px"
+            w="200px"
+            mr="50"
+            fontSize="sm"
+            mt="50px"
+            mb="50px"
+          >
+            Ver más
+          </Button>
+        </Center>
+      </Flex>
+    );
+  }
 }

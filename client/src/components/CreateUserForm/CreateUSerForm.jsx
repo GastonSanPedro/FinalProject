@@ -2,7 +2,6 @@ import { Form, Formik } from 'formik';
 import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { authUser, createUser, getUsers } from '../../redux/action';
-
 import {
   Box,
   Button,
@@ -14,10 +13,14 @@ import {
   InputRightElement,
   Text,
   Flex,
+  Image,
 } from '@chakra-ui/react';
 import jwt_decode from 'jwt-decode';
 import { useDispatch, useSelector } from 'react-redux';
+import logo from '../../assets/logo.jpg';
 import imgBackground from '../../assets/landing-pic.jpg';
+
+const logoLeafme = logo;
 const imagenB = imgBackground;
 
 const CreateUser = ({ logOrSign, setlogOrSign }) => {
@@ -33,9 +36,11 @@ const CreateUser = ({ logOrSign, setlogOrSign }) => {
   const handleCallbackResponse = (response) => {
     console.log('Encoded JWT ID token:' + response.credential);
     var userObject = jwt_decode(response.credential);
-    //console.log(userObject);
     setUser(userObject);
     //dispatch(authUser(userObject.email, null, true));
+  };
+  const handleClickLog = (event) => {
+    setlogOrSign('log');
   };
   useEffect(() => {
     /* global google */
@@ -54,10 +59,19 @@ const CreateUser = ({ logOrSign, setlogOrSign }) => {
     });
   }, [dispatch]);
 
-  const handleClickLog = (event) => {
-    setlogOrSign('log');
+  const valEmail = (inputValueEmail) => {
+    const emailF = allUsers.filter((user) => inputValueEmail === user.email);
+    console.log(allUsers);
+    if (emailF[0]) return true;
+    else return false;
   };
-
+  const valUsername = (inputValueUsername) => {
+    const usernameF = allUsers.filter(
+      (user) => inputValueUsername === user.userName
+    );
+    if (usernameF[0]) return true;
+    else return false;
+  };
   return (
     <>
       <Box
@@ -85,6 +99,10 @@ const CreateUser = ({ logOrSign, setlogOrSign }) => {
               !User
             ) {
               errores.email = 'e.g.: exaemail@leafme.com';
+            } else if (valEmail(values.email)) {
+              errores.email = 'Email in use';
+            } else if (values.email.includes('+')) {
+              errores.email = 'Email can not contain +';
             }
             if (!values.firstName && !User) {
               errores.firstName = 'Please enter your name';
@@ -106,24 +124,18 @@ const CreateUser = ({ logOrSign, setlogOrSign }) => {
             }
             if (!values.userName) {
               errores.userName = 'Please create an user name';
+            } else if (valUsername(values.userName)) {
+              errores.userName = 'Username in use, please create another one';
             }
             if (!values.password) {
               errores.password = 'Please create a password';
             } else if (values.password.length < 6) {
               errores.password = 'Password must be longer than 6 characters';
             }
+
             return errores;
           }}
           onSubmit={(values, actions) => {
-            const emailFilter = allUsers.filter(
-              (user) => values.email === user.email
-            );
-            if (emailFilter[0]) return alert('This email is already in use');
-
-            const usernameFilter = allUsers.filter(
-              (user) => values.userName === user.userName
-            );
-            if (usernameFilter[0]) return alert('This username already exist');
             if (User) {
               const googleUser = {
                 firstName: User?.given_name,
@@ -154,12 +166,25 @@ const CreateUser = ({ logOrSign, setlogOrSign }) => {
           }) => (
             <Flex
               flexDir={'column'}
+              position={'absolute'}
+              top={'0%'}
+              right={'0%'}
               w={'500px'}
               h={'100%'}
               p={5}
               backgroundColor={'white'}
             >
-              <Box w="400px" ml={'30px'} position={'absolute'} top={'25%'}>
+              <Image
+                alignSelf={'center'}
+                boxSize={300}
+                objectFit={'contain'}
+                position={'absolute'}
+                right={'20%'}
+                top={'-5%'}
+                src={logoLeafme}
+                alt="logo"
+              />
+              <Box w="400px" ml={'30px'} position={'absolute'} top={'27%'}>
                 <Box
                   height={'10vh'}
                   width={'3vw'}
@@ -169,18 +194,14 @@ const CreateUser = ({ logOrSign, setlogOrSign }) => {
                   left={'54%'}
                   textAlign={'center'}
                   mb={'2vh'}
-                >
-                  <div
-                    style={{ position: 'relative', top: '0%', left: '30%' }}
-                    id="signInDiv"
-                  ></div>
-                </Box>
+                ></Box>
                 <Form>
                   <FormControl>
                     <FormLabel htmlFor="email">Email address</FormLabel>
                     <Input
                       type="email"
                       id="email"
+                      placeholder="Email"
                       name="email"
                       value={User ? User?.email : values.email}
                       onChange={handleChange}
@@ -271,15 +292,48 @@ const CreateUser = ({ logOrSign, setlogOrSign }) => {
                       </Text>
                     )}
                   </FormControl>
-                  <Button type="submit" mt="10px" onSubmit={handleSubmit}>
-                    Create Account
-                  </Button>
+                  {Object.entries(errors).length ? (
+                    <Button
+                      disabled={true}
+                      type="submit"
+                      mt="10px"
+                      onSubmit={handleSubmit}
+                    >
+                      Create Account
+                    </Button>
+                  ) : (
+                    <Button
+                      disabled={false}
+                      type="submit"
+                      mt="10px"
+                      onSubmit={handleSubmit}
+                    >
+                      Create Account
+                    </Button>
+                  )}
 
                   <Link to="/">
                     <Button mt="10px" ml={'0.5vw'}>
                       Back
                     </Button>
                   </Link>
+                  <Button
+                    mt="10px"
+                    ml={'0.5vw'}
+                    onClick={(e) => {
+                      setUser('');
+                    }}
+                  >
+                    Clean
+                  </Button>
+                  <div
+                    style={{
+                      position: 'absolute',
+                      bottom: '19.5%',
+                      left: '75%',
+                    }}
+                    id="signInDiv"
+                  ></div>
                   <hr
                     style={{
                       width: '60%',

@@ -7,17 +7,21 @@ import {
   Button,
   Text,
   Select,
+  Stack,
 } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createUserPost, getUser, UploadPic } from '../../redux/action';
 import { useNavigate } from 'react-router-dom';
+import { Radio, RadioGroup } from '@chakra-ui/react';
+import { createNonNullExpression } from 'typescript';
 
 const CreatePost = ({ posteos, email, site }) => {
   const [input, setInput] = useState({
     description: '',
     pics: '',
   });
-  const [TypePost, setTypePost] = useState('pics');
+  const [TypePost, setTypePost] = useState('text');
+
   const dispatch = useDispatch();
 
   const handleInputImage = (event) => {
@@ -55,42 +59,44 @@ const CreatePost = ({ posteos, email, site }) => {
     });
   };
 
-  const selectChange = (event) => {
-    setTypePost(event.target.value);
-  };
   return (
     <>
       <Box
         p={3}
         m={3}
-        w="100%"
+        mt={'4vh'}
+        h={site === 'feed' ? '22vh' : '36vh'}
+        w={site === 'feed' ? '100%' : '65%'}
         display={'flex'}
         backgroundColor={'withe'}
-        boxShadow={'1px 0px 10px 1px rgba(0,0,0,0.47)'}
+        mb={site === 'profile' ? '50px' : null}
       >
-        <Avatar
-          size="xl"
-          name="usuario"
-          src="https://previews.123rf.com/images/pandavector/pandavector1901/pandavector190105171/126078877-vector-design-of-avatar-and-dummy-symbol-set-of-avatar-and-image-stock-vector-illustration-.jpg?fj=1"
-        />
+        {site === 'feed' ? (
+          <Avatar
+            ml="3"
+            size="xl"
+            name="usuario"
+            src="https://images.unsplash.com/photo-1619946794135-5bc917a27793?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9"
+          />
+        ) : null}
+
         <Box
+          fontWeight="semibold"
           width={'9%'}
           h={'6vh'}
           position={'absolute'}
-          top={site === 'feed' ? '22%' : '88%'}
+          top={site === 'profile' ? '50.5%' : '24.5%'}
+          mb={site === 'profile' ? '50px' : null}
+          ml={site === 'profile' ? '40px' : '0vw'}
         >
-          <Select
-            style={{ width: '100%' }}
-            value={TypePost}
-            size={'sm'}
-            onChange={(e) => {
-              selectChange(e);
-            }}
-          >
-            <option value="text">Text</option>
-            <option value="pics">Pics</option>
-          </Select>
+          <RadioGroup onChange={setTypePost} value={TypePost}>
+            <Stack direction="row">
+              <Radio value="text">Text</Radio>
+              <Radio value="pics">Pics</Radio>
+            </Stack>
+          </RadioGroup>
         </Box>
+
         <Box ml={8} w="90%">
           {/* <Input
               type="text"
@@ -105,6 +111,7 @@ const CreatePost = ({ posteos, email, site }) => {
               }} */}
           <Textarea
             w={'100%'}
+            h={site === 'profile' ? '200px' : null}
             type="textarea"
             backgroundColor={'white'}
             placeholder="Write something..."
@@ -121,7 +128,8 @@ const CreatePost = ({ posteos, email, site }) => {
             display={'inline-flex'}
             position={'relative'}
             left={site === 'feed' ? '-10%' : '0%'}
-            ml={0}
+            ml={site === 'feed' ? 0 : '150px'}
+            mt={site === 'feed' ? 0 : '10px'}
           >
             <Button
               colorScheme={'gray'}

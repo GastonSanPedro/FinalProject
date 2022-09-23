@@ -74,7 +74,7 @@ const ProfileDetail = ({
         w="100%"
         h="34vh"
         display={'flex'}
-        borderRadius={7}
+        
         backgroundColor={'gray.300'}
       >
         <Avatar
