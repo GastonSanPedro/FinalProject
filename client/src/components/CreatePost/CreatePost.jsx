@@ -73,7 +73,6 @@ const CreatePost = ({ posteos, email, site }) => {
         w={site === "feed" ? "100%" : "65%"}
         display={'flex'}
         backgroundColor={'withe'}
-        boxShadow={'1px 0px 10px 1px rgba(0,0,0,0.47)'}
         mb={site === "profile" ? "50px" : null}
       >
         {site === 'feed' ?
