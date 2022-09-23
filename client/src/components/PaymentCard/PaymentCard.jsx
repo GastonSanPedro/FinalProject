@@ -33,7 +33,7 @@ import {
               px={3}
               color={'green.500'}
               rounded={'full'}>
-              Add
+              Post Add
             </Text>
             <Stack direction={'row'} align={'center'} justify={'center'}>
               <Text fontSize={'xl'}>usd$</Text>

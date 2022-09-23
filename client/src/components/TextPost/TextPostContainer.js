@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getPosts, getUsers } from '../../redux/action';
 import CreatePost from '../CreatePost/CreatePost';
 import UserSearchContainer from '../UserSearch/UserSearchContainer';
+import { bottom } from '@popperjs/core';
+import ImgPost from '../ImgPost/ImgPost';
 
 //--------- Lógica socket --------
 // const [socket, setSocket] = useState(null)
@@ -19,9 +21,10 @@ import UserSearchContainer from '../UserSearch/UserSearchContainer';
 //<CreatePost socket={socket} user ={user} />
 //--------------------------------
 
-export default function TextPostContainer({ site, word}) {
+export default function TextPostContainer({site, word}) {
 
   const dispatch = useDispatch();
+  const [textImg, setTextImg] = useState('Img')
   const users = useSelector((state) => state.users);
   const posteosUser = users?.map((user) => {
     return {
@@ -41,6 +44,8 @@ export default function TextPostContainer({ site, word}) {
     }
   });
 
+  const postImg = []
+
   useEffect(() => {
     dispatch(getUsers());
   }, [dispatch]);
@@ -51,51 +56,51 @@ export default function TextPostContainer({ site, word}) {
   const [currentEnd, setCurrentEnd] = useState(8);
   
 
-  const renderPosts =
-    post.length > 8 ? post?.slice(currentStart, currentEnd) : post;
+  const renderPosts = post.length > 8 ? post?.slice(currentStart, currentEnd) : post;
 
   const handleClickMore = () => {
     setCurrentEnd(currentEnd + 8);
   };
 
   return (
+    <>
     <Flex 
     pr={'2%'}
     pl={'2%'}
     textAlign={'center'} 
     justifyContent={'center'} 
     direction={'column'} 
-    bg={'rgba(229, 191, 124, 0.2)'}
+    bg={'rgba(229, 191, 124, 0.3)'}
     borderRadius={2}
     >
       {
         site === 'search' ? <UserSearchContainer word={word}/> : <CreatePost site={site} />
       }
-      <SimpleGrid columns={{ base: 1, xl: 2 }} spacing={'10'} mt={2} mr={5}>
-        {post ? (
-          renderPosts.map((user, index) => {
-            if (user?.fullName && user?.post) {
-              return (
-                <Box
-                key={index}>
-                <TextPost
-                  fullName={user?.fullName}
-                  image={user?.image}
-                  description={user?.post}
-                  background={`logo.${Math.random(1, 2, 3)}`}
-                  id={index}
-                />
-                </Box>
-              );
-            }
-          })
-        ) : (
-          <Box>
-            <Text>no hay posteos</Text>{' '}
-          </Box>
-        )}
-      </SimpleGrid>
-      <Center>
+
+  { (<SimpleGrid columns={{ base: 1, xl: 2 }} spacing={'10'} mt={2} mr={5}>
+        {post ?
+            renderPosts.map((user, index) => {
+                if (user?.fullName && user?.post) {
+                    return (
+                        <Box
+                            key={index}>
+                            <TextPost
+                                fullName={user?.fullName}
+                                image={user?.image}
+                                description={user?.post}
+                                background={`logo.${Math.random(1, 2, 3)}`}
+                                id={index}
+                            />
+                        </Box>
+                    )
+                }
+            })
+        : <Box><Text>no hay posteos</Text></Box>}
+        </SimpleGrid> 
+    )
+}
+       
+    <Center>
         <Button
           onClick={() => handleClickMore()}
           h="50px"
@@ -108,6 +113,7 @@ export default function TextPostContainer({ site, word}) {
           Ver más
         </Button>
       </Center>
-    </Flex>
+      </Flex>
+    </>
   );
 }

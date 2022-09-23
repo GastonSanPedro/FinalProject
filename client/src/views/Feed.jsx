@@ -2,7 +2,7 @@ import React from 'react';
 import PostSearch from '../components/PostSearch/PostSearch';
 import Navbar from '../components/navbar/Navbar';
 import CreatePost from '../components/CreatePost/CreatePost';
-import { HStack, VStack, Wrap, Box, Text, Button } from '@chakra-ui/react';
+import { HStack, VStack, Wrap, Box, Text, Button, Flex } from '@chakra-ui/react';
 import { useState } from 'react';
 import SidebarWithHeader from '../components/Sidebar-Navbar/SideBar';
 
@@ -25,6 +25,41 @@ const Feed = () => {
         ml={'18%'}
         mr={'7%'}
       >
+        <Flex
+        dir='row'
+        align={'center'}
+        justify={'center'}
+        mb={'2%'}
+        >
+      <Button
+        size={'lg'}
+        bg={'none'}
+        borderRadius='none'
+        _hover={{
+          bg: 'none',
+          borderBottom: '3px solid black'
+        }}
+        _focus={{
+          bg: 'none',
+          borderBottom: '3px solid black'
+        }}>
+        Images
+      </Button>
+      <Button
+        size={'lg'}
+        bg={'none'}
+        borderRadius='none'
+        _hover={{
+          bg: 'none',
+          borderBottom: '3px solid black'
+        }}
+        _focus={{
+          bg: 'none',
+          borderBottom: '3px solid black'
+        }}>
+        Text
+      </Button>
+      </Flex>
         <TextPostContainer
           site="feed"
         />
