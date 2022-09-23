@@ -374,7 +374,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
                 <MenuItem>Profile</MenuItem>
               </Link>
               <MenuItem>Settings</MenuItem>
-              <MenuItem>Payments</MenuItem>
+              <Link as={ReactLink} to="/payments" ><MenuItem>Payments</MenuItem></Link>
               <MenuDivider />
               <MenuItem onClick={() => handleClickLogOut()}>Sign out</MenuItem>
             </MenuList>

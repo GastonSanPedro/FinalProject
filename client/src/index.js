@@ -17,7 +17,7 @@ import { createRoot } from 'react-dom/client';
 import AnyProfile from './views/AnyProfile';
 import AdminProfile from './views/AdminProfile';
 import axios from 'axios'
-
+import Payments from './views/Payments'
 // const Dotenv = require('dotenv-webpack');
 
 // require('dotenv').config();
@@ -44,6 +44,7 @@ root.render(
             <Route path="/home" element={<Feed />}></Route>
             <Route exact path="/user/:email" element={<AnyProfile />} />
             <Route path="*" element={<Landing />} />
+            <Route path='/payments' element={<Payments/>}/>
           </Routes>
         </BrowserRouter>
       </ChakraProvider>
