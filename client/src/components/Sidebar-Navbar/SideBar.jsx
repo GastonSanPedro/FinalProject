@@ -53,6 +53,7 @@ const LinkItems = [
   { name: 'Settings', icon: FiSettings },
 ];
 
+
 export default function SidebarWithHeader({ children }) {
   //----------Lógica notificaciones-------
   // const [notifications, setNotifications] = useState([])
@@ -204,6 +205,7 @@ const NavItem = ({ icon, link, children, ...rest }) => {
 
 const MobileNav = ({ onOpen, ...rest }) => {
   const myUser = useSelector((state) => state.myUser);
+  console.log(myUser)
   const google = (window.google = window.google ? window.google : {});
   const navigate = useNavigate();
   const dispatch = useDispatch();

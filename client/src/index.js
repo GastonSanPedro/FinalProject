@@ -37,7 +37,7 @@ root.render(
           <Routes>
             {/* <Route path="/" element={<App/>}/> */}
             <Route path="/profile" element={<Profile />} />
-            <Route path="/admin/:email" element={<AdminProfile/>} />
+            <Route path="/admin" element={<AdminProfile/>} />
             <Route path="/landing-page" element={<Landing />}></Route>
             <Route path="/sign-in" element={<SignIn />}></Route>
             <Route path="/search-page" element={<SearchPage />}></Route>
