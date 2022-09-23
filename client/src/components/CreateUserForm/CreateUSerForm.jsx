@@ -58,7 +58,7 @@ const CreateUser = ({ logOrSign, setlogOrSign }) => {
       });
     });
   }, [dispatch]);
-  
+
   const valEmail = (inputValueEmail) => {
     const emailF = allUsers.filter((user) => inputValueEmail === user.email);
     console.log(allUsers);
@@ -74,74 +74,89 @@ const CreateUser = ({ logOrSign, setlogOrSign }) => {
   };
   return (
     <>
-      <Formik
-        initialValues={{
-          firstName: User ? User?.given_name : '',
-          lastName: User ? User?.family_name : '',
-          password: '',
-          email: User ? User?.email : '',
-          userName: '',
-        }}
-        validate={(values) => {
+      <Box
+        h={'760px'}
+        backgroundImage={imagenB}
+        display={'flex'}
+        justifyContent={'end'}
+      >
+        <Formik
+          initialValues={{
+            firstName: User ? User?.given_name : '',
+            lastName: User ? User?.family_name : '',
+            password: '',
+            email: User ? User?.email : '',
+            userName: '',
+          }}
+          validate={(values) => {
+            let errores = {};
+            if (!values.email && !User) {
+              errores.email = 'Please enter your email';
+            } else if (
+              !/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(
+                values.email
+              ) &&
+              !User
+            ) {
+              errores.email = 'e.g.: exaemail@leafme.com';
+            } else if (valEmail(values.email)) {
+              errores.email = 'Email in use';
+            } else if (values.email.includes('+')) {
+              errores.email = 'Email can not contain +';
+            }
+            if (!values.firstName && !User) {
+              errores.firstName = 'Please enter your name';
+            } else if (
+              !/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(values.firstName) &&
+              !User
+            ) {
+              errores.firstName =
+                'The name can only contain letters and spaces';
+            }
+            if (!values.lastName && !User) {
+              errores.lastName = 'Please enter your last name';
+            } else if (
+              !/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(values.lastName) &&
+              !User
+            ) {
+              errores.lastName =
+                'The last name can only contain letters and spaces';
+            }
+            if (!values.userName) {
+              errores.userName = 'Please create an user name';
+            } else if (valUsername(values.userName)) {
+              errores.userName = 'Username in use, please create another one';
+            }
+            if (!values.password) {
+              errores.password = 'Please create a password';
+            } else if (values.password.length < 6) {
+              errores.password = 'Password must be longer than 6 characters';
+            }
 
-          let errores = {};
-          if (!values.email && !User) {
-            errores.email = 'Please enter your email';
-          } else if (!/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(values.email) 
-          && !User) {
-            errores.email = 'e.g.: exaemail@leafme.com';
-          }else if(valEmail(values.email)){
-            errores.email = 'Email in use';
-          }else if(values.email.includes('+')){
-            errores.email = 'Email can not contain +'
-          }
-          if (!values.firstName && !User) {
-            errores.firstName = 'Please enter your name';
-          } else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(values.firstName) && !User) {
-            errores.firstName = 'The name can only contain letters and spaces';
-          }
-          if (!values.lastName && !User) {
-            errores.lastName = 'Please enter your last name';
-          } else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(values.lastName) && !User) {
-            errores.lastName =
-              'The last name can only contain letters and spaces';
-          }
-          if (!values.userName) {
-            errores.userName = 'Please create an user name';
-          }else if(valUsername(values.userName)){
-            errores.userName = 'Username in use, please create another one'
-          }
-          if (!values.password) {
-            errores.password = 'Please create a password';
-          } else if (values.password.length < 6) {
-            errores.password = 'Password must be longer than 6 characters';
-          }
-          
-          return errores;
-        }}
-        onSubmit={(values, actions) => {
-
-          if (User) {
-            const googleUser = {
-              firstName: User?.given_name,
-              lastName: User?.family_name,
-              email: User?.email,
-              password: values.password,
-              userName: values.userName,
-            };
-            dispatch(createUser(googleUser), []);
-            localStorage.setItem('user', JSON.stringify(googleUser));
-            navigate(`/home`);
-            console.log('Formulario Enviado');
-          } else {
-            dispatch(createUser(values), []);
-            localStorage.setItem('user', JSON.stringify(values));
-            navigate(`/home`);
-            console.log('Formulario Enviado');
-          }
-        }}
+            return errores;
+          }}
+          onSubmit={(values, actions) => {
+            if (User) {
+              const googleUser = {
+                firstName: User?.given_name,
+                lastName: User?.family_name,
+                email: User?.email,
+                password: values.password,
+                userName: values.userName,
+              };
+              dispatch(createUser(googleUser), []);
+              localStorage.setItem('user', JSON.stringify(googleUser));
+              navigate(`/home`);
+              console.log('Formulario Enviado');
+            } else {
+              dispatch(createUser(values), []);
+              localStorage.setItem('user', JSON.stringify(values));
+              navigate(`/home`);
+              console.log('Formulario Enviado');
+            }
+          }}
         >
-        {({
+          {({
             handleBlur,
             handleChange,
             handleSubmit,
@@ -152,6 +167,7 @@ const CreateUser = ({ logOrSign, setlogOrSign }) => {
             <Flex
               flexDir={'column'}
               position={'absolute'}
+              top={'0%'}
               right={'0%'}
               w={'500px'}
               h={'100%'}
@@ -178,18 +194,14 @@ const CreateUser = ({ logOrSign, setlogOrSign }) => {
                   left={'54%'}
                   textAlign={'center'}
                   mb={'2vh'}
-                >
-                  <div
-                    style={{ position: 'relative', top: '0%', left: '30%' }}
-                    id="signInDiv"
-                  ></div>
-                </Box>
+                ></Box>
                 <Form>
                   <FormControl>
                     <FormLabel htmlFor="email">Email address</FormLabel>
                     <Input
                       type="email"
                       id="email"
+                      placeholder="Email"
                       name="email"
                       value={User ? User?.email : values.email}
                       onChange={handleChange}
@@ -280,21 +292,48 @@ const CreateUser = ({ logOrSign, setlogOrSign }) => {
                       </Text>
                     )}
                   </FormControl>
-                  {
-                    Object.entries(errors).length 
-                    ? <Button disabled={true} type="submit" mt="10px" onSubmit={handleSubmit}>
-                        Create Account
-                      </Button>
-                    : <Button disabled={false} type="submit" mt="10px" onSubmit={handleSubmit}>
-                    Create Account
-                  </Button>
-                  }
+                  {Object.entries(errors).length ? (
+                    <Button
+                      disabled={true}
+                      type="submit"
+                      mt="10px"
+                      onSubmit={handleSubmit}
+                    >
+                      Create Account
+                    </Button>
+                  ) : (
+                    <Button
+                      disabled={false}
+                      type="submit"
+                      mt="10px"
+                      onSubmit={handleSubmit}
+                    >
+                      Create Account
+                    </Button>
+                  )}
 
                   <Link to="/">
                     <Button mt="10px" ml={'0.5vw'}>
                       Back
                     </Button>
                   </Link>
+                  <Button
+                    mt="10px"
+                    ml={'0.5vw'}
+                    onClick={(e) => {
+                      setUser('');
+                    }}
+                  >
+                    Clean
+                  </Button>
+                  <div
+                    style={{
+                      position: 'absolute',
+                      bottom: '19.5%',
+                      left: '75%',
+                    }}
+                    id="signInDiv"
+                  ></div>
                   <hr
                     style={{
                       width: '60%',
@@ -317,7 +356,8 @@ const CreateUser = ({ logOrSign, setlogOrSign }) => {
               </Box>
             </Flex>
           )}
-      </Formik>
+        </Formik>
+      </Box>
     </>
   );
 };
