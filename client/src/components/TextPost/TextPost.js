@@ -5,6 +5,7 @@ import {
   Flex,
   useColorModeValue,
   Box,
+  IconButton,
   ModalOverlay,
   useDisclosure,
   Modal,
@@ -16,6 +17,8 @@ import {
   ModalFooter,
   Text,
 } from '@chakra-ui/react';
+import { BiMessage } from 'react-icons/bi';
+import { BsSun } from 'react-icons/bs';
 import Quotes from '../../assets/comillas.svg';
 
 function randomNumber(min, max) {
@@ -71,11 +74,10 @@ export default function TextPost(props) {
         maxW={'640px'}
         direction={{ base: 'column-reverse', md: 'row' }}
         width={'full'}
-        p={10}
+        p={8}
         justifyContent={'space-between'}
         position={'relative'}
         ml={'1vw'}
-        boxShadow={'1px 0px 10px 1px rgba(0,0,0,0.47)'}
         bg={useColorModeValue('white', 'gray.800')}
         onClick={() => {
           setOverlay(<OverlayOne />);
@@ -118,13 +120,52 @@ export default function TextPost(props) {
             {fullName}
           </chakra.p>
         </Flex>
-        <Avatar
-          src={avatar}
-          height={'80px'}
-          width={'80px'}
-          alignSelf={'center'}
-          m={{ base: '0 0 35px 0', md: '0 0 0 50px' }}
-        />
+        <Flex
+          flexDir={'column'}
+          alignContent={'center'}
+          justifyContent={'center'}
+          minW={'35%'}
+        >
+          <Avatar
+            size={'xl'}
+            src={avatar}
+            height={'100px'}
+            width={'100px'}
+            justifySelf={'center'}
+            alignSelf={'center'}
+            mt={'10%'}
+            mb={'18%'}
+            ml={'3%'}
+          />
+          <Flex align={'flex-end'} justify={'center'}>
+            <IconButton
+              size={'lg'}
+              bg={'none'}
+              h={30}
+              icon={<BiMessage />}
+              _hover={{
+                bg: 'white',
+              }}
+              _active={{
+                bg: 'white',
+                color: 'logo.3',
+              }}
+            />
+            <IconButton
+              size={'lg'}
+              h={30}
+              bg={'none'}
+              icon={<BsSun />}
+              _hover={{
+                bg: 'white',
+              }}
+              _active={{
+                bg: 'white',
+                color: 'logo.3',
+              }}
+            />
+          </Flex>
+        </Flex>
       </Flex>
     </>
   );

@@ -13,11 +13,6 @@ import portada2 from '../assets/portada2.jpg'
 import portada3 from '../assets/portada3.png'
 import port1 from '../assets/port1.png'
 import TextPostContainer from '../components/TextPost/TextPostContainer';
-
-
-
-
-
 import '../index.css';
 import { getMyUser, getPosts, getUsers } from '../redux/action';
 
