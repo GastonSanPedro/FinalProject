@@ -43,6 +43,7 @@ import { logOut, getMyUser } from '../../redux/action';
 import { Link as ReactLink } from 'react-router-dom';
 import Searchbar from '../navbar/SearchBar';
 import Friends from '../Friends/FriendsDrawer';
+import PaymentDrawer from '../PaymentDrawer/PaymentDrawer';
 
 const LinkItems = [
   { name: 'Home', icon: FiHome },
@@ -84,7 +85,6 @@ export default function SidebarWithHeader({ children }) {
   const [User, setUser] = useState(
     useState(JSON.parse(localStorage.getItem('user')))
   );
-
 
   const neededEmail = User[0].email;
 
@@ -156,11 +156,11 @@ const SidebarContent = ({ onClose, ...rest }) => {
           </NavItem>
         ))}
       </Box>
-      <Box
-        pos={'fixed'}
-        top={'89%'}
-        >
-      <Friends/>
+      <Box pos={'fixed'} top={'80%'}>
+        <PaymentDrawer />
+      </Box>
+      <Box pos={'fixed'} top={'89%'}>
+        <Friends />
       </Box>
     </Box>
   );
@@ -345,7 +345,9 @@ const MobileNav = ({ onOpen, ...rest }) => {
                   spacing="1px"
                   ml="2"
                 >
-                  <Text fontSize="sm">{myUser.firstName + ' ' + myUser.lastName}</Text>
+                  <Text fontSize="sm">
+                    {myUser.firstName + ' ' + myUser.lastName}
+                  </Text>
                   <Text fontSize="xs" color="gray.600">
                     Admin
                   </Text>

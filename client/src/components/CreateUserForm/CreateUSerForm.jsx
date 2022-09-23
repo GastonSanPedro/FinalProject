@@ -58,7 +58,7 @@ const CreateUser = ({ logOrSign, setlogOrSign }) => {
       });
     });
   }, [dispatch]);
-
+  
   const valEmail = (inputValueEmail) => {
     const emailF = allUsers.filter((user) => inputValueEmail === user.email);
     console.log(allUsers);
@@ -74,91 +74,74 @@ const CreateUser = ({ logOrSign, setlogOrSign }) => {
   };
   return (
     <>
-      <Box
-        h={'760px'}
-        backgroundImage={imagenB}
-        display={'flex'}
-        justifyContent={'end'}
-      >
-        <Formik
-          initialValues={{
-            firstName: User ? User?.given_name : '',
-            lastName: User ? User?.family_name : '',
-            password: '',
-            email: User ? User?.email : '',
-            userName: '',
-          }}
-          validate={(values) => {
-            let errores = {};
-            if (!values.email && !User) {
-              errores.email = 'Please enter your email';
-            } else if (
-              !/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(
-                values.email
-              ) &&
-              !User
-            ) {
-              errores.email = 'e.g.: exaemail@leafme.com';
-            }
-            if (!values.firstName && !User) {
-              errores.firstName = 'Please enter your name';
-            } else if (
-              !/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(values.firstName) &&
-              !User
-            ) {
-              errores.firstName =
-                'The name can only contain letters and spaces';
-            }
-            if (!values.lastName && !User) {
-              errores.lastName = 'Please enter your last name';
-            } else if (
-              !/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(values.lastName) &&
-              !User
-            ) {
-              errores.lastName =
-                'The last name can only contain letters and spaces';
-            }
-            if (!values.userName) {
-              errores.userName = 'Please create an user name';
-            }
-            if (!values.password) {
-              errores.password = 'Please create a password';
-            } else if (values.password.length < 6) {
-              errores.password = 'Password must be longer than 6 characters';
-            }
-            return errores;
-          }}
-          onSubmit={(values, actions) => {
-            const emailFilter = allUsers.filter(
-              (user) => values.email === user.email
-            );
-            if (emailFilter[0]) return alert('This email is already in use');
+      <Formik
+        initialValues={{
+          firstName: User ? User?.given_name : '',
+          lastName: User ? User?.family_name : '',
+          password: '',
+          email: User ? User?.email : '',
+          userName: '',
+        }}
+        validate={(values) => {
 
-            const usernameFilter = allUsers.filter(
-              (user) => values.userName === user.userName
-            );
-            if (usernameFilter[0]) return alert('This username already exist');
-            if (User) {
-              const googleUser = {
-                firstName: User?.given_name,
-                lastName: User?.family_name,
-                email: User?.email,
-                password: values.password,
-                userName: values.userName,
-              };
-              dispatch(createUser(googleUser), []);
-              localStorage.setItem('user', JSON.stringify(googleUser));
-              navigate(`/home`);
-              console.log('Formulario Enviado');
-            } else {
-              dispatch(createUser(values), []);
-              localStorage.setItem('user', JSON.stringify(values));
-              navigate(`/home`);
-              console.log('Formulario Enviado');
-            }
-          }}
+          let errores = {};
+          if (!values.email && !User) {
+            errores.email = 'Please enter your email';
+          } else if (!/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(values.email) 
+          && !User) {
+            errores.email = 'e.g.: exaemail@leafme.com';
+          }else if(valEmail(values.email)){
+            errores.email = 'Email in use';
+          }else if(values.email.includes('+')){
+            errores.email = 'Email can not contain +'
+          }
+          if (!values.firstName && !User) {
+            errores.firstName = 'Please enter your name';
+          } else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(values.firstName) && !User) {
+            errores.firstName = 'The name can only contain letters and spaces';
+          }
+          if (!values.lastName && !User) {
+            errores.lastName = 'Please enter your last name';
+          } else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(values.lastName) && !User) {
+            errores.lastName =
+              'The last name can only contain letters and spaces';
+          }
+          if (!values.userName) {
+            errores.userName = 'Please create an user name';
+          }else if(valUsername(values.userName)){
+            errores.userName = 'Username in use, please create another one'
+          }
+          if (!values.password) {
+            errores.password = 'Please create a password';
+          } else if (values.password.length < 6) {
+            errores.password = 'Password must be longer than 6 characters';
+          }
+          
+          return errores;
+        }}
+        onSubmit={(values, actions) => {
+
+          if (User) {
+            const googleUser = {
+              firstName: User?.given_name,
+              lastName: User?.family_name,
+              email: User?.email,
+              password: values.password,
+              userName: values.userName,
+            };
+            dispatch(createUser(googleUser), []);
+            localStorage.setItem('user', JSON.stringify(googleUser));
+            navigate(`/home`);
+            console.log('Formulario Enviado');
+          } else {
+            dispatch(createUser(values), []);
+            localStorage.setItem('user', JSON.stringify(values));
+            navigate(`/home`);
+            console.log('Formulario Enviado');
+          }
+        }}
         >
-          {({
+        {({
             handleBlur,
             handleChange,
             handleSubmit,
@@ -297,9 +280,15 @@ const CreateUser = ({ logOrSign, setlogOrSign }) => {
                       </Text>
                     )}
                   </FormControl>
-                  <Button type="submit" mt="10px" onSubmit={handleSubmit}>
+                  {
+                    Object.entries(errors).length 
+                    ? <Button disabled={true} type="submit" mt="10px" onSubmit={handleSubmit}>
+                        Create Account
+                      </Button>
+                    : <Button disabled={false} type="submit" mt="10px" onSubmit={handleSubmit}>
                     Create Account
                   </Button>
+                  }
 
                   <Link to="/">
                     <Button mt="10px" ml={'0.5vw'}>
@@ -328,8 +317,7 @@ const CreateUser = ({ logOrSign, setlogOrSign }) => {
               </Box>
             </Flex>
           )}
-        </Formik>
-      </Box>
+      </Formik>
     </>
   );
 };
