@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { authUser, getMyUser, logOut } from '../../redux/action';
+import { authUser, getMyUser, logOut, getUser } from '../../redux/action';
 import { Link } from 'react-router-dom';
 import { Box, Wrap, Image, Avatar, Center, VStack } from '@chakra-ui/react';
+import { useParams } from 'react-router-dom';
 
-const UserCard = () => {
+
+const UserCard = ({ site }) => {
+
 
   const auth = useSelector((state) => state.auth);
   const navigate = useNavigate();
@@ -21,6 +24,7 @@ const UserCard = () => {
   );
 
   const myUser = useSelector((state) => state.myUser);
+  const user = useSelector((state) => state.user);
   const neededEmail = User[0].email;
   // const logUser = JSON.parse(localStorage.getItem('user'));
   // const loggedUser = JSON.parse(logUser.User);
@@ -30,7 +34,12 @@ const UserCard = () => {
       dispatch(getMyUser(neededEmail));
     });
   }, [dispatch, neededEmail]);
-  
+
+  let { email } = useParams();
+
+  useEffect(() => {
+      dispatch(getUser(email));
+  }, [dispatch])
 
   return (
     <Box ml="80%" mt="13%" h="430px" w="250px" position={'absolute'} bgColor="rgba(140, 161, 116, .9)" >
@@ -48,7 +57,8 @@ const UserCard = () => {
             fontSize='2xl'
             textAlign='left'
           >
-            {myUser.firstName + ' ' + myUser.lastName}
+            {site === "anyProfile" ? `${user.firstName} ${user.lastName}`
+              : `${myUser.firstName} ${myUser.lastName}`}
           </Box>
           <Box pt="20px" fontSize='xl'> Friends 563 </Box>
           <Box pt="5px" fontSize='xl'> Posts 25 </Box>

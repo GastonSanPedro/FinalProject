@@ -56,7 +56,9 @@ const Profile = () => {
         bgSize="cover"
       />
 
-      <UserCard />
+      <UserCard 
+      site="profile"
+      />
 
 
 

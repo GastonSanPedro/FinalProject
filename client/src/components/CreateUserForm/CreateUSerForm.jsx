@@ -13,10 +13,14 @@ import {
   InputRightElement,
   Text,
   Flex,
+  Image,
 } from '@chakra-ui/react';
 import jwt_decode from 'jwt-decode';
 import { useDispatch, useSelector } from 'react-redux';
+import logo from '../../assets/logo.jpg';
 import imgBackground from '../../assets/landing-pic.jpg';
+
+const logoLeafme = logo;
 const imagenB = imgBackground;
 
 const CreateUser = ({ logOrSign, setlogOrSign }) => {
@@ -35,6 +39,9 @@ const CreateUser = ({ logOrSign, setlogOrSign }) => {
     setUser(userObject);
     //dispatch(authUser(userObject.email, null, true));
   };
+  const handleClickLog = (event) => {
+    setlogOrSign('log');
+  };
   useEffect(() => {
     /* global google */
     dispatch(getUsers());
@@ -51,22 +58,20 @@ const CreateUser = ({ logOrSign, setlogOrSign }) => {
       });
     });
   }, [dispatch]);
-
-  const handleClickLog = (event) => {
-    setlogOrSign('log');
-  };
   
   const valEmail = (inputValueEmail) => {
     const emailF = allUsers.filter((user) => inputValueEmail === user.email);
-    console.log(allUsers)
-      if(emailF[0])return true;
-      else return false;
-      }
-  const valUsername = (inputValueUsername) => {
-    const usernameF = allUsers.filter(user=> inputValueUsername === user.userName);
-    if(usernameF[0]) return true;
+    console.log(allUsers);
+    if (emailF[0]) return true;
     else return false;
-  }
+  };
+  const valUsername = (inputValueUsername) => {
+    const usernameF = allUsers.filter(
+      (user) => inputValueUsername === user.userName
+    );
+    if (usernameF[0]) return true;
+    else return false;
+  };
   return (
     <>
       <Formik
@@ -146,12 +151,24 @@ const CreateUser = ({ logOrSign, setlogOrSign }) => {
           }) => (
             <Flex
               flexDir={'column'}
+              position={'absolute'}
+              right={'0%'}
               w={'500px'}
               h={'100%'}
               p={5}
               backgroundColor={'white'}
             >
-              <Box w="400px" ml={'30px'} position={'absolute'} top={'25%'}>
+              <Image
+                alignSelf={'center'}
+                boxSize={300}
+                objectFit={'contain'}
+                position={'absolute'}
+                right={'20%'}
+                top={'-5%'}
+                src={logoLeafme}
+                alt="logo"
+              />
+              <Box w="400px" ml={'30px'} position={'absolute'} top={'27%'}>
                 <Box
                   height={'10vh'}
                   width={'3vw'}
