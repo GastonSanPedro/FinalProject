@@ -7,23 +7,20 @@ import {
   Button,
   Text,
   Select,
-  Stack
+  Stack,
 } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createUserPost, getUser, UploadPic } from '../../redux/action';
 import { useNavigate } from 'react-router-dom';
-import { Radio, RadioGroup } from '@chakra-ui/react'
+import { Radio, RadioGroup } from '@chakra-ui/react';
 import { createNonNullExpression } from 'typescript';
 
-
-
 const CreatePost = ({ posteos, email, site }) => {
-
   const [input, setInput] = useState({
     description: '',
     pics: '',
   });
-  const [TypePost, setTypePost] = useState("text");
+  const [TypePost, setTypePost] = useState('text');
 
   const dispatch = useDispatch();
 
@@ -62,46 +59,43 @@ const CreatePost = ({ posteos, email, site }) => {
     });
   };
 
-
   return (
     <>
-
       <Box
         p={3}
         m={3}
-        h={site === "feed" ? "180px" : "300px"}
-        w={site === "feed" ? "100%" : "65%"}
+        mt={'4vh'}
+        h={site === 'feed' ? '180px' : '300px'}
+        w={site === 'feed' ? '100%' : '65%'}
         display={'flex'}
         backgroundColor={'withe'}
-        mb={site === "profile" ? "50px" : null}
+        mb={site === 'profile' ? '50px' : null}
       >
-        {site === 'feed' ?
+        {site === 'feed' ? (
           <Avatar
             ml="3"
             size="xl"
             name="usuario"
-            src='https://images.unsplash.com/photo-1619946794135-5bc917a27793?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9'
-          /> : null}
+            src="https://images.unsplash.com/photo-1619946794135-5bc917a27793?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9"
+          />
+        ) : null}
 
         <Box
-          fontWeight='semibold'
+          fontWeight="semibold"
           width={'9%'}
           h={'6vh'}
           position={'absolute'}
-          top={site  === "profile" ? "40.5%" : "22%"}
-          mb={site  === "profile" ? "50px" : null}
-          ml = {site  === "profile" ? "40px" : null}
+          top={site === 'profile' ? '45.5%' : '24%'}
+          mb={site === 'profile' ? '50px' : null}
+          ml={site === 'profile' ? '40px' : null}
         >
-          <RadioGroup
-            onChange={setTypePost}
-            value={TypePost}>
-            <Stack direction='row'>
+          <RadioGroup onChange={setTypePost} value={TypePost}>
+            <Stack direction="row">
               <Radio value="text">Text</Radio>
               <Radio value="pics">Pics</Radio>
             </Stack>
           </RadioGroup>
         </Box>
-
 
         <Box ml={8} w="90%">
           {/* <Input
@@ -117,7 +111,7 @@ const CreatePost = ({ posteos, email, site }) => {
               }} */}
           <Textarea
             w={'100%'}
-            h={site === "profile" ? "200px" : null}
+            h={site === 'profile' ? '200px' : null}
             type="textarea"
             backgroundColor={'white'}
             placeholder="Write something..."
@@ -134,8 +128,8 @@ const CreatePost = ({ posteos, email, site }) => {
             display={'inline-flex'}
             position={'relative'}
             left={site === 'feed' ? '-10%' : '0%'}
-            ml={site  === "feed" ? 0 : "150px"}
-            mt={site  === "feed" ? 0 : "10px"}
+            ml={site === 'feed' ? 0 : '150px'}
+            mt={site === 'feed' ? 0 : '10px'}
           >
             <Button
               colorScheme={'gray'}
