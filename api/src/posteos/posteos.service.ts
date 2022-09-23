@@ -22,23 +22,6 @@ export class PosteosService {
     private readonly posteoModel: Model<Posteo>,
   ) {}
 
-  posteos: IPost[] = [
-    {
-      ID: '1234',
-      user_ID: '2',
-      pics: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ72fpGI7YV8NGxMPIRbD_OZQ9dl6m8AcC6Cg&usqp=CAU',
-      description: 'esta es la imagen de nest',
-      createdAt: Date.now(),
-    },
-    {
-      ID: '12345',
-      user_ID: '3',
-      pics: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ72fpGI7YV8NGxMPIRbD_OZQ9dl6m8AcC6Cg&usqp=CAU',
-      description: 'esta es otra imagen de nest',
-      createdAt: Date.now(),
-    },
-  ];
-
   async create(createPosteoDto: CreatePosteoDto) {
     createPosteoDto.description = createPosteoDto.description.toLowerCase();
     createPosteoDto.createdAt = Date.now()

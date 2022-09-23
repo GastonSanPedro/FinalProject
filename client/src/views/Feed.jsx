@@ -25,7 +25,9 @@ const Feed = () => {
         ml={'18%'}
         mr={'7%'}
       >
-        <TextPostContainer />
+        <TextPostContainer
+          site="feed"
+        />
       </Box>
     </>
 
