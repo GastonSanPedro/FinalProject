@@ -1,17 +1,12 @@
-import { Box, Wrap, Image, Avatar, Center, VStack } from '@chakra-ui/react';
+import { Box } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import CreatePost from '../components/CreatePost/CreatePost';
-import FriendsContainer from '../components/Friends/FriendsContainer';
-import Navbar from '../components/navbar/Navbar';
-import ProfileDetail from '../components/ProfileDetail/ProfileDetail';
 import UserCard from '../components/UserCard/UserCard';
-import UserPost from '../components/UserPosts/UserPost';
 import SidebarWithHeader from '../components/Sidebar-Navbar/SideBar';
-import portada1 from '../assets/portada1.jpg'
-import portada2 from '../assets/portada2.jpg'
-import portada3 from '../assets/portada3.png'
-import port1 from '../assets/port1.png'
+import portada1 from '../assets/portada1.jpg';
+import portada2 from '../assets/portada2.jpg';
+import portada3 from '../assets/portada3.png';
+import port1 from '../assets/port1.png';
 import TextPostContainer from '../components/TextPost/TextPostContainer';
 import '../index.css';
 import { getMyUser, getPosts, getUsers } from '../redux/action';
@@ -45,9 +40,11 @@ const Profile = () => {
   return (
     <>
       <SidebarWithHeader />
-      <Box mt="20"
+      <Box
+        mt={'10vh'}
         ml="15%"
-        h="210"
+        minH={'28vh'}
+        maxH={'28vh'}
         width="85%"
         position={'absolute'}
         backgroundImage={port1}
@@ -56,11 +53,7 @@ const Profile = () => {
         bgSize="cover"
       />
 
-      <UserCard 
-      site="profile"
-      />
-
-
+      <UserCard site="profile" fullName={user?.fullName} />
 
       {/* <Box ml="80%" mt="13%" h="420px" w="250px" position={'absolute'} bgColor="rgba(140, 161, 116, .9)"  >
         <Center>
@@ -114,12 +107,8 @@ const Profile = () => {
         ml={'18%'}
         mr={'7%'}
       >
-        <TextPostContainer
-          site="profile"
-        />
+        <TextPostContainer site="profile" email={user?.email} />
       </Box>
-
-
 
       {/* <Box display="flex" dir="row">
         <Box m={10} width={'60%'} position={'absolute'} left={'5%'} backgroundImage={port}>

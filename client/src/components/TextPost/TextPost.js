@@ -79,10 +79,6 @@ export default function TextPost(props) {
         position={'relative'}
         ml={'1vw'}
         bg={useColorModeValue('white', 'gray.800')}
-        onClick={() => {
-          setOverlay(<OverlayOne />);
-          onOpen();
-        }}
         _after={{
           content: '""',
           position: 'absolute',
@@ -143,6 +139,10 @@ export default function TextPost(props) {
               bg={'none'}
               h={30}
               icon={<BiMessage />}
+              onClick={() => {
+                setOverlay(<OverlayOne />);
+                onOpen();
+              }}
               _hover={{
                 bg: 'white',
               }}
