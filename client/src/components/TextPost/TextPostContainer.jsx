@@ -37,10 +37,11 @@ export default function TextPostContainer({ site, word, email }) {
     return {
       fullName: user.fullName,
       image: user.image,
-      email: user.email,
+      userName: user.userName,
       posteos: user.posteos.map((posteo) => posteo.description),
     };
   });
+  
 
   const post = posteosUser.map((user) => {
     if (
@@ -49,7 +50,7 @@ export default function TextPostContainer({ site, word, email }) {
       return {
         fullName: user.fullName,
         image: user.image,
-        email: user.email,
+        userName: user.userName,
         post: user.posteos.find((post) =>
           post.includes(site === 'search' ? word : ' ')
         ),
@@ -67,7 +68,7 @@ export default function TextPostContainer({ site, word, email }) {
   const [currentEnd, setCurrentEnd] = useState(8);
 
   const renderPosts = post.length > 8 ? post?.slice(currentStart, currentEnd) : post;
-
+  
   const handleClickMore = () => {
     setCurrentEnd(currentEnd + 8);
   };
@@ -91,6 +92,7 @@ export default function TextPostContainer({ site, word, email }) {
         >
           {post ? (
             renderPosts.map((user, index) => {
+              
               if (user?.fullName && user?.post) {
                 return (
                   <SlideFade in={onToggle} offsetY="20px">
@@ -101,7 +103,7 @@ export default function TextPostContainer({ site, word, email }) {
                         description={user?.post}
                         background={`logo.${Math.random(1, 2, 3)}`}
                         id={index}
-                        email={user?.email}
+                        userName={user?.userName}
                       />
                     </Box>
                   </SlideFade>
@@ -156,6 +158,7 @@ export default function TextPostContainer({ site, word, email }) {
                         description={user?.post}
                         background={`logo.${Math.random(1, 2, 3)}`}
                         id={index}
+                        userName={user.userName}
                       />
                     </Box>
                   </SlideFade>
