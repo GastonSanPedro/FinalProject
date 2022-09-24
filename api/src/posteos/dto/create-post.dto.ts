@@ -8,7 +8,7 @@ import {
 import { Types } from 'mongoose';
 
   
-export class CreatePosteoDto {
+export class CreatePostDto {
 
     @ApiProperty({
         description: 'User picture',

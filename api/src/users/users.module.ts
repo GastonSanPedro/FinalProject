@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { Posteo, PosteoSchema } from 'src/posteos/entities/posteo.entity';
-import { User, UserSchema } from './entities/user.entity';
+import { Post, PostSchema } from 'src/posteos/schema/post-schema';
+import { User, UserSchema } from './schema/user-schema';
 import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
 
@@ -15,8 +15,8 @@ import { UsersService } from './users.service';
         schema: UserSchema,
       },
       {
-        name: Posteo.name,
-        schema: PosteoSchema,
+        name: Post.name,
+        schema: PostSchema,
       }
     ])
   ],

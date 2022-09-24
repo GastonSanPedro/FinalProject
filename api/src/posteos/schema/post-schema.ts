@@ -1,12 +1,14 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Schema as MongooseSchema, Types } from 'mongoose';
-import { Comment, CommentSchema } from 'src/schemas/comment.schema';
+import { Document, Schema as MongooseSchema, Types } from 'mongoose';
+import { Comment, CommentSchema } from 'src/schemas/comment-schema';
 
 @Schema()
-export class Posteo  {
+export class Post extends Document  {
     @Prop({
         index:true
     })
+
+    @Prop()
     description: string;
 
     @Prop()
@@ -22,4 +24,4 @@ export class Posteo  {
     author: Types.ObjectId
 }
 
-export const PosteoSchema = SchemaFactory.createForClass(Posteo);
+export const PostSchema = SchemaFactory.createForClass(Post);

@@ -6,7 +6,7 @@ export type FriendDocument = Friend & Document ;
 @Schema()
 export class Friend{     
   @Prop([{ type: MongooseSchema.Types.ObjectId, ref: 'User' }])
-  idFriend: Types.ObjectId
+  friend: Types.ObjectId
 }
 
 export const FriendSchema = SchemaFactory.createForClass(Friend)

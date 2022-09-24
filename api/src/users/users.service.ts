@@ -3,7 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { isValidObjectId, Model } from 'mongoose';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { User } from './entities/user.entity';
+import { User } from './schema/user-schema';
 
 
 
@@ -19,10 +19,12 @@ export class UsersService {
     createUserDto.userName = createUserDto.userName.toLowerCase();
     createUserDto.bio= "";
     createUserDto.fullName = `${createUserDto.firstName} ${createUserDto.lastName}`;
+   
     try {
       const user:User = await this.userModel.create(createUserDto);
       return user;
-    } catch (error) {
+
+    } catch (error) {  
       console.log(error);
       if(error.code === 11000){ //si consologeamos el error nos va a mostrar tanto la propiedad code, como la propiedad keyValue
         throw new BadRequestException(`User exist in db ${JSON.stringify(error.keyValue)}`)
@@ -35,7 +37,7 @@ export class UsersService {
   async findAll() {
     return await this.userModel
     .find()
-    .populate({ path: 'friends.idFriend'})
+    .populate({ path: 'friends.friend'})
     .exec()
   }
 
@@ -44,16 +46,25 @@ export class UsersService {
         term = term.toLowerCase()
         //Busco por mail
         if(term.includes("@")){
-          userFinded = await this.userModel.findOne({email : term})
+          userFinded = await this.userModel
+          .findOne({email : term})
+          .populate({ path: 'friends.friend'})
+          .exec()
         }
 
         //Busco por MongoId
         if(isValidObjectId(term)){
-          userFinded =  await this.userModel.findById(term)
+          userFinded =  await this.userModel
+          .findById(term)
+          .populate({ path: 'friends.friend'})
+          .exec()
         }
         //Si no hay nada hasta este punto busco por UserName
         if(!userFinded){
-          userFinded =  await this.userModel.findOne({userName: term})
+          userFinded =  await this.userModel
+          .findOne({userName: term})
+          .populate({ path: 'friends.friend'})
+          .exec()
         }
         //Si no encontro nada arroja error
         if (!userFinded) throw new NotFoundException(`El usuario con el id, username or email ${term} no existe`);
@@ -66,7 +77,7 @@ export class UsersService {
     if(updateUserDto.userName) {updateUserDto.userName = updateUserDto.userName.toLowerCase()};
     //si no lo pongo en true nunca va a ser el nuevo objeto siempre sera el old
     await user.updateOne(updateUserDto) 
-    return {...user.toJSON(),...updateUserDto};
+    return {...user.toJSON(), ...updateUserDto};
   }
 
   async remove(id: string) {
@@ -77,16 +88,21 @@ export class UsersService {
 
   async findByName(term: string) {
     let userFinded:User[];
-    term = term.toLowerCase()
+    //term = term.toLowerCase()
     //Busco por firstName, lastName y fullName
   
-      userFinded = await this.userModel.find(
+      userFinded = await this.userModel
+      .find(
         {$or:[
           {firstName: {$regex: term, $options: "$i"} },
           {lastName: {$regex: term, $options: "$i"} },
-          {fullName: {$regex: term, $options: "$i"} }
+          {fullName: {$regex: term, $options: "$i"} },
+          {userName: {$regex: term, $options: "$i"} }
         ]})
-        if(userFinded.length === 0) throw new NotFoundException(`El usuario con el First Name, Last Name or Full Name ${term} no existe`)
+        .populate({ path: 'friends.friend'})
+        .exec()
+        
+        if(userFinded.length === 0) throw new NotFoundException(`El usuario con el First Name, Last Name, Username or Full Name ${term} no existe`)
       return userFinded
   }
 

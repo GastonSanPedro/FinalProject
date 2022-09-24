@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
-import { Posteo, PosteoSchema } from 'src/posteos/entities/posteo.entity';
-import { Friend, FriendSchema } from 'src/schemas/friend.schema';
+import { Post, PostSchema } from 'src/posteos/schema/post-schema';
+import { Friend, FriendSchema } from 'src/schemas/friend-schema';
 //toque el importe del posteSchema
 
 @Schema()
@@ -42,17 +42,11 @@ export class User extends Document {
   bio?: string;
 
   //toque un poco esto nada mas dentro de la prop 
-  @Prop([PosteoSchema]) //({})
-  posts: Posteo[]  
+  @Prop([PostSchema]) //({})
+  posts: Post[]  
 
   @Prop([FriendSchema])
   friends: Friend[]
-
-
-  // @Prop()
-  // friends: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User'}]
-  // @Prop({})
-  // comments
 
 }
 

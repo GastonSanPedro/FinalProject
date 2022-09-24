@@ -8,7 +8,7 @@ import {
   IsString,
   MinLength
 } from 'class-validator';
-import { User } from '../entities/user.entity';
+import { User } from '../schema/user-schema';
 
 export class CreateUserDto {
   @ApiProperty()

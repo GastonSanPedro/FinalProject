@@ -6,6 +6,6 @@ import { ObjectId } from 'mongoose';
 
 export class AddFriendDto {
     @IsNotEmpty()
-    idFriend: ObjectId;
+    friend: ObjectId;
     
 }

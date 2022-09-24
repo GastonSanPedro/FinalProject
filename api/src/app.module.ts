@@ -5,7 +5,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
 
 import { UsersModule } from './users/users.module';
-import { PosteosModule } from './posteos/posteos.module';
+import { PosteosModule } from './posteos/post.module';
 import { SeedModule } from './seed/seed.module';
 import { EnvConfiguration } from './config/env.config';
 import { JoiValidationSchena } from './config/joi.validation';
