@@ -3,16 +3,13 @@ import {
   Avatar,
   Box,
   Textarea,
-  Input,
   Button,
   Text,
-  Select,
   Stack,
 } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createUserPost, getMyUser } from '../../redux/action';
 import { Radio, RadioGroup } from '@chakra-ui/react';
-import { createNonNullExpression } from 'typescript';
 
 const CreatePost = ({ email, site }) => {
   const [input, setInput] = useState({

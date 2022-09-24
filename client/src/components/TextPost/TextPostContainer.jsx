@@ -38,6 +38,7 @@ export default function TextPostContainer({ site, word, email }) {
     return {
       fullName: user.fullName,
       image: user.image,
+      email: user.email,
       posteos: user.posteos.map((posteo) => posteo.description),
     };
   });
@@ -49,6 +50,7 @@ export default function TextPostContainer({ site, word, email }) {
       return {
         fullName: user.fullName,
         image: user.image,
+        email: user.email,
         post: user.posteos.find((post) =>
           post.includes(site === 'search' ? word : ' ')
         ),
@@ -75,12 +77,12 @@ export default function TextPostContainer({ site, word, email }) {
   if (site === 'anyProfile') {
     return (
       <Flex
+        bg={'rgba(229, 191, 124, 0.3)'}
         pr={'2%'}
         pl={'2%'}
         textAlign={'center'}
         justifyContent={'center'}
         direction={'column'}
-        bg={'rgba(229, 191, 124, 0.2)'}
         borderRadius={2}
         mt={site === 'feed' ? '0vh' : '4vh'}
       >
@@ -131,19 +133,15 @@ export default function TextPostContainer({ site, word, email }) {
     return (
       <Flex
         pr={'2%'}
+        pt={'2%'}
         pl={'2%'}
         textAlign={'center'}
         justifyContent={'center'}
         direction={'column'}
-        bg={'rgba(229, 191, 124, 0.2)'}
         borderRadius={2}
         mt={site === 'feed' ? '0vh' : '4vh'}
+        bg={'rgba(229, 191, 124, 0.3)'}
       >
-        {site === 'search' ? (
-          <UserSearchContainer word={word} />
-        ) : (
-          <CreatePost site={site} email={email} />
-        )}
         <SimpleGrid columns={{ base: 1, xl: 2 }} spacing={'10'} mt={2} mr={5}>
           {post ? (
             renderPosts.map((user, index) => {

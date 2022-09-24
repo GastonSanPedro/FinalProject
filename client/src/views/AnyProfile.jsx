@@ -7,6 +7,7 @@ import TextPostContainer from '../components/TextPost/TextPostContainer';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUser } from '../redux/action';
 import { useParams } from 'react-router-dom';
+import ContainerPost from '../components/ContainerPost/ContainerPost';
 
 export default function AnyProfile() {
   const dispatch = useDispatch();
@@ -46,7 +47,7 @@ export default function AnyProfile() {
         ml={'18%'}
         mr={'7%'}
       >
-        <TextPostContainer site="anyProfile" />
+        <ContainerPost site="anyProfile" />
       </Box>
     </>
   );

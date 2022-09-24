@@ -3,16 +3,13 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import UserCard from '../components/UserCard/UserCard';
 import SidebarWithHeader from '../components/Sidebar-Navbar/SideBar';
-import portada1 from '../assets/portada1.jpg';
-import portada2 from '../assets/portada2.jpg';
-import portada3 from '../assets/portada3.png';
 import port1 from '../assets/port1.png';
-import TextPostContainer from '../components/TextPost/TextPostContainer';
 import '../index.css';
 import { getMyUser, getPosts, getUsers } from '../redux/action';
+import ContainerPost from '../components/ContainerPost/ContainerPost';
 
 const Profile = () => {
-  const [User, setUser] = useState(
+  const [User, /*setUser*/] = useState(
     useState(JSON.parse(localStorage.getItem('user')))
   );
   const dispatch = useDispatch();
@@ -107,7 +104,7 @@ const Profile = () => {
         ml={'18%'}
         mr={'7%'}
       >
-        <TextPostContainer site="profile" email={user?.email} />
+        <ContainerPost site="profile" email={user?.email} />
       </Box>
 
       {/* <Box display="flex" dir="row">
