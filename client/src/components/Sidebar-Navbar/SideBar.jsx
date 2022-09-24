@@ -1,46 +1,42 @@
-import React, { ReactNode, useState, useEffect } from 'react';
 import {
-  IconButton,
   Avatar,
   Box,
   CloseButton,
-  Flex,
-  HStack,
-  VStack,
-  Icon,
-  useColorModeValue,
-  Link,
   Drawer,
   DrawerContent,
-  Text,
-  useDisclosure,
-  BoxProps,
-  FlexProps,
+  Flex,
+  HStack,
+  Icon,
+  IconButton,
+  Image,
+  Link,
   Menu,
   MenuButton,
   MenuDivider,
   MenuItem,
   MenuList,
-  Image
+  Text,
+  useColorModeValue,
+  useDisclosure,
+  VStack,
 } from '@chakra-ui/react';
+import React, { useEffect, useState } from 'react';
 import {
-  FiHome,
-  FiTrendingUp,
-  FiCompass,
-  FiStar,
-  FiSettings,
-  FiMenu,
   FiBell,
   FiChevronDown,
+  FiCompass,
+  FiHome,
+  FiMenu,
+  FiSettings,
+  FiStar,
+  FiTrendingUp,
 } from 'react-icons/fi';
-import logo from '../../assets/logo.jpg';
-import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { logOut, getMyUser } from '../../redux/action';
-import { Link as ReactLink } from 'react-router-dom';
-import Searchbar from '../Searchbar/SearchBar';
+import { Link as ReactLink, useNavigate } from 'react-router-dom';
+import logo from '../../assets/logo.jpg';
+import { getMyUser, logOut } from '../../redux/action';
 import Friends from '../Friends/FriendsDrawer';
-import PaymentDrawer from '../PaymentDrawer/PaymentDrawer';
+import Searchbar from '../Searchbar/SearchBar';
 
 const LinkItems = [
   { name: 'Home', icon: FiHome },
@@ -75,10 +71,7 @@ export default function SidebarWithHeader({ children }) {
   //---------------------------------------
 
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const auth = useSelector((state) => state.auth);
-  const navigate = useNavigate();
   const dispatch = useDispatch();
-
   const [User, setUser] = useState(
     useState(JSON.parse(localStorage.getItem('user')))
   );
@@ -156,9 +149,6 @@ const SidebarContent = ({ onClose, ...rest }) => {
             {link.name}
           </NavItem>
         ))}
-      </Box>
-      <Box pos={'fixed'} top={'80%'}>
-        <PaymentDrawer />
       </Box>
       <Box pos={'fixed'} top={'89%'}>
         <Friends />
@@ -371,7 +361,9 @@ const MobileNav = ({ onOpen, ...rest }) => {
                 <MenuItem>Profile</MenuItem>
               </Link>
               <MenuItem>Settings</MenuItem>
-              <Link as={ReactLink} to="/payments" ><MenuItem>Payments</MenuItem></Link>
+              <Link as={ReactLink} to="/payments">
+                <MenuItem>Payments</MenuItem>
+              </Link>
               <MenuDivider />
               <MenuItem onClick={() => handleClickLogOut()}>Sign out</MenuItem>
             </MenuList>

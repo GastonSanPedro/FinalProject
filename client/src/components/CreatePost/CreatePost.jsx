@@ -1,12 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {
-  Avatar,
-  Box,
-  Textarea,
-  Button,
-  Text,
-  Stack,
-} from '@chakra-ui/react';
+import { Avatar, Box, Textarea, Button, Text, Stack } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createUserPost, getMyUser } from '../../redux/action';
 import { Radio, RadioGroup } from '@chakra-ui/react';
@@ -53,7 +46,7 @@ const CreatePost = ({ email, site }) => {
     setInput({ ...input, [event.target.name]: event.target.value });
 
   const handleSubmit = () => {
-    console.log(posteos);
+    console.log(email);
     let post = { posteos: [...posteos, input] };
     dispatch(createUserPost(email, post));
     setInput({

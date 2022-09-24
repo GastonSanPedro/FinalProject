@@ -81,7 +81,7 @@ export function createUserPost(user, payload) {
       console.log(info.data);
       return dispatch({
         type: CREATE_USER_POST,
-        payload: info.data.posteos,
+        payload: info.data,
       });
     } catch (error) {
       console.log(error);

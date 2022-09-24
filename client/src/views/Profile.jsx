@@ -9,7 +9,7 @@ import { getMyUser, getPosts, getUsers } from '../redux/action';
 import ContainerPost from '../components/ContainerPost/ContainerPost';
 
 const Profile = () => {
-  const [User, /*setUser*/] = useState(
+  const [User /*setUser*/] = useState(
     useState(JSON.parse(localStorage.getItem('user')))
   );
   const dispatch = useDispatch();
@@ -17,7 +17,7 @@ const Profile = () => {
   const user = useSelector((state) => state.myUser);
   const posts = useSelector((state) => state.posts);
   const neededEmail = User[0].email;
-  console.log(neededEmail);
+  //console.log(neededEmail);
   // const logUser = JSON.parse(localStorage.getItem('user'));
   // const loggedUser = JSON.parse(logUser.User);
   // console.log(loggedUser);
@@ -104,7 +104,7 @@ const Profile = () => {
         ml={'18%'}
         mr={'7%'}
       >
-        <ContainerPost site="profile" email={user?.email} />
+        <ContainerPost site="profile" email={neededEmail} />
       </Box>
 
       {/* <Box display="flex" dir="row">
