@@ -1,6 +1,8 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger/dist';
 import { ApiResponse } from '@nestjs/swagger/dist/decorators/api-response.decorator';
+import { ParseObjectIdPipe } from 'src/utilities/parse-object-id-pipe.pipe';
+import { CreateCommentDto } from './dto/add-comment-dto';
 import { CreatePosteoDto } from './dto/create-posteo.dto';
 import { UpdatePosteoDto } from './dto/update-posteo.dto';
 import { PosteosService } from './posteos.service';
@@ -35,4 +37,13 @@ export class PosteosController {
   remove(@Param('id') id: string) {
     return this.posteosService.remove(+id);
   }
+
+  @Post('/comment/:id')
+  async addComment(
+    @Param('id', ParseObjectIdPipe) id:string,
+    @Body() comment: CreateCommentDto 
+  ){
+    return this.posteosService.addComment(id, comment)
+  }
+
 }

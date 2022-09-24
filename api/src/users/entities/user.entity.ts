@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document, PromiseProvider } from 'mongoose';
-import { Iposteos } from 'src/seed/interfaces/user-response.interface';
-import { PosteoSchema } from 'src/posteos/entities/posteo.entity';
+import { Document } from 'mongoose';
+import { Posteo, PosteoSchema } from 'src/posteos/entities/posteo.entity';
+import { Friend, FriendSchema } from 'src/schemas/friend.schema';
 //toque el importe del posteSchema
 
 @Schema()
@@ -34,15 +34,26 @@ export class User extends Document {
   @Prop({})
   birthDate?: string;
 
-  //toque un poco esto nada mas dentro de la prop 
-  @Prop([PosteoSchema]) //({})
-  posteos?: Iposteos[]
-
+  
   @Prop({})
   fullName: string;
-
+  
   @Prop({})
   bio?: string;
+
+  //toque un poco esto nada mas dentro de la prop 
+  @Prop([PosteoSchema]) //({})
+  posts: Posteo[]  
+
+  @Prop([FriendSchema])
+  friends: Friend[]
+
+
+  // @Prop()
+  // friends: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User'}]
+  // @Prop({})
+  // comments
+
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

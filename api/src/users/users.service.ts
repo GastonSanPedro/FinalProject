@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable, NotFoundException, InternalServerErrorException } from '@nestjs/common';
+import { BadRequestException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { isValidObjectId, Model } from 'mongoose';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -14,16 +14,17 @@ export class UsersService {
     private readonly userModel: Model<User>,
   ) {}
 
-  async create(createUserDto: CreateUserDto) {
+  async create(createUserDto: CreateUserDto): Promise<User> {
     createUserDto.email = createUserDto.email.toLowerCase();
-    createUserDto.userName = createUserDto.firstName.toLowerCase();
+    createUserDto.userName = createUserDto.userName.toLowerCase();
     createUserDto.bio= "";
     createUserDto.fullName = `${createUserDto.firstName} ${createUserDto.lastName}`;
     try {
       const user:User = await this.userModel.create(createUserDto);
       return user;
     } catch (error) {
-      if(error.code === 11000){//si consologeamos el error nos va a mostrar tanto la propiedad code, como la propiedad keyValue
+      console.log(error);
+      if(error.code === 11000){ //si consologeamos el error nos va a mostrar tanto la propiedad code, como la propiedad keyValue
         throw new BadRequestException(`User exist in db ${JSON.stringify(error.keyValue)}`)
       }
       console.log(error);
@@ -32,7 +33,10 @@ export class UsersService {
   }
 
   async findAll() {
-    return await this.userModel.find();
+    return await this.userModel
+    .find()
+    .populate({ path: 'friends.idFriend'})
+    .exec()
   }
 
   async findOne(term: string) {
@@ -86,6 +90,11 @@ export class UsersService {
       return userFinded
   }
 
-  
+  async addFriend(id:string, friend:any) {
+    let user: User = await this.userModel.findById(id);
+    user.friends.push(friend)
+    user.save()
+    return user
+  }
 
 }

@@ -5,6 +5,7 @@ import {
   IsOptional,
   IsString
 } from 'class-validator';
+import { Types } from 'mongoose';
 
   
 export class CreatePosteoDto {
@@ -18,7 +19,7 @@ export class CreatePosteoDto {
     pics: string;
 
     @ApiProperty({
-      minLength: 1,
+    minLength: 1,
     })
     @IsString()
     @IsNotEmpty()
@@ -29,4 +30,10 @@ export class CreatePosteoDto {
     @IsOptional()
     createdAt: number;
     
+    @ApiProperty()
+    @IsNotEmpty()
+    author: Types.ObjectId
+
+    @IsOptional()
+    comments?: Types.ObjectId[]
 }
