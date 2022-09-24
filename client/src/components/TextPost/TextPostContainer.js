@@ -13,10 +13,7 @@ import TextPost from './TextPost';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPosts, getUsers } from '../../redux/action';
-import CreatePost from '../CreatePost/CreatePost';
-import UserSearchContainer from '../UserSearch/UserSearchContainer';
-import { bottom } from '@popperjs/core';
-import ImgPost from '../ImgPost/ImgPost';
+
 
 //--------- Lógica socket --------
 // const [socket, setSocket] = useState(null)
@@ -31,6 +28,8 @@ import ImgPost from '../ImgPost/ImgPost';
 //--------------------------------
 
 export default function TextPostContainer({ site, word, email }) {
+  
+  
   const dispatch = useDispatch();
   const { isOpen, onToggle } = useDisclosure();
   const users = useSelector((state) => state.users);
@@ -38,6 +37,7 @@ export default function TextPostContainer({ site, word, email }) {
     return {
       fullName: user.fullName,
       image: user.image,
+      email: user.email,
       posteos: user.posteos.map((posteo) => posteo.description),
     };
   });
@@ -49,14 +49,13 @@ export default function TextPostContainer({ site, word, email }) {
       return {
         fullName: user.fullName,
         image: user.image,
+        email: user.email,
         post: user.posteos.find((post) =>
           post.includes(site === 'search' ? word : ' ')
         ),
       };
     }
   });
-
-  const postImg = []
 
   useEffect(() => {
     dispatch(getUsers());
@@ -80,7 +79,6 @@ export default function TextPostContainer({ site, word, email }) {
         textAlign={'center'}
         justifyContent={'center'}
         direction={'column'}
-        bg={'rgba(229, 191, 124, 0.2)'}
         borderRadius={2}
         mt={site === 'feed' ? '0vh' : '4vh'}
       >
@@ -102,6 +100,7 @@ export default function TextPostContainer({ site, word, email }) {
                         description={user?.post}
                         background={`logo.${Math.random(1, 2, 3)}`}
                         id={index}
+                        email={user?.email}
                       />
                     </Box>
                   </SlideFade>
@@ -137,15 +136,10 @@ export default function TextPostContainer({ site, word, email }) {
         textAlign={'center'}
         justifyContent={'center'}
         direction={'column'}
-        bg={'rgba(229, 191, 124, 0.2)'}
         borderRadius={2}
         mt={site === 'feed' ? '0vh' : '4vh'}
       >
-        {site === 'search' ? (
-          <UserSearchContainer word={word} />
-        ) : (
-          <CreatePost site={site} email={email} />
-        )}
+
         <SimpleGrid columns={{ base: 1, xl: 2 }} spacing={'10'} mt={2} mr={5}>
           {post ? (
             renderPosts.map((user, index) => {

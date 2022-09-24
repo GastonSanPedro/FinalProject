@@ -20,6 +20,7 @@ import {
 import { BiMessage } from 'react-icons/bi';
 import { BsSun } from 'react-icons/bs';
 import Quotes from '../../assets/comillas.svg';
+import { Link } from 'react-router-dom';
 
 function randomNumber(min, max) {
   let a = Math.random() * (max - min) + min;
@@ -54,7 +55,7 @@ const OverlayOne = () => (
 export default function TextPost(props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [overlay, setOverlay] = useState(<OverlayOne />);
-  const { fullName, description, avatar, index, role, background } = props;
+  const { fullName, description, avatar, index, email } = props;
   return (
     <>
       <Modal isCentered isOpen={isOpen} onClose={onClose}>
@@ -122,6 +123,7 @@ export default function TextPost(props) {
           justifyContent={'center'}
           minW={'35%'}
         >
+          <Link to={`/user/${email}`}></Link>
           <Avatar
             size={'xl'}
             src={avatar}

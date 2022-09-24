@@ -10,6 +10,7 @@ import port1 from '../assets/port1.png';
 import TextPostContainer from '../components/TextPost/TextPostContainer';
 import '../index.css';
 import { getMyUser, getPosts, getUsers } from '../redux/action';
+import ContainerPost from '../components/ContainerPost/ContainerPost';
 
 const Profile = () => {
   const [User, setUser] = useState(
@@ -107,7 +108,7 @@ const Profile = () => {
         ml={'18%'}
         mr={'7%'}
       >
-        <TextPostContainer site="profile" email={user?.email} />
+        <ContainerPost site="profile" email={user?.email} />
       </Box>
 
       {/* <Box display="flex" dir="row">
