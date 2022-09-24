@@ -2,7 +2,6 @@ import React from 'react'
 import { Box, Avatar, Text, Stack, Center, HStack, VStack } from '@chakra-ui/react'
 import { StarIcon } from '@chakra-ui/icons';
 import { useState } from 'react';
-import { useEffect } from 'react';
 
 const PostSearch = ({ fullName, image, posteos, socket, user }) => {
 

@@ -1,7 +1,7 @@
 import { Form, Formik } from 'formik';
 import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { authUser, createUser, getUsers } from '../../redux/action';
+import { createUser, getUsers } from '../../redux/action';
 import {
   Box,
   Button,

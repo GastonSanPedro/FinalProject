@@ -1,8 +1,6 @@
 import React from 'react';
-import { Box, Button, Flex } from '@chakra-ui/react';
-import { useState } from 'react';
+import { Box } from '@chakra-ui/react';
 import SidebarWithHeader from '../components/Sidebar-Navbar/SideBar';
-import TextPostContainer from '../components/TextPost/TextPostContainer';
 import ContainerPost from '../components/ContainerPost/ContainerPost';
 
 const Feed = () => {

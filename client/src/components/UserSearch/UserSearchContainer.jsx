@@ -35,9 +35,11 @@ const UserSearchContainer = () => {
         direction='row' 
         maxW='100%' 
         mt={'2%'}
-        mb={'2%'}
+        mb={'3%'}
         justifyContent='center'
-        borderRadius={3}>
+        borderRadius={3}
+        bg={'rgba(229, 191, 124, 0.3)'}
+        minH={280}>
         <Stack direction='row'>
         {
             searchUsers.length > 6 

@@ -1,7 +1,6 @@
-import { Box,Text } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import React from "react";
 import { useSelector } from "react-redux";
-import UserSearchContainer from "../components/UserSearch/UserSearchContainer";
 import SidebarWithHeader from "../components/Sidebar-Navbar/SideBar";
 import ContainerPost from "../components/ContainerPost/ContainerPost";
 

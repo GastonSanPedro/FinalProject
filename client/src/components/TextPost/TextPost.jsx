@@ -4,7 +4,6 @@ import {
   chakra,
   Flex,
   useColorModeValue,
-  Box,
   IconButton,
   ModalOverlay,
   useDisclosure,

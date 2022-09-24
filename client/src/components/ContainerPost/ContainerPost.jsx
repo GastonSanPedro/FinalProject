@@ -37,12 +37,14 @@ const ContainerPost = ({site, word, email}) => {
               site === 'feed' ?
                (<CreatePost site={site} email={email} /> ) : null
                 )}
+            <Divider/>
 
             <Flex
             dir='row'
             align={'center'}
             justify={'center'}
             mb={'2%'}
+            mt={'2%'}
             >
             <Button
               onClick={()=>{handleClickImg()}}
@@ -51,11 +53,11 @@ const ContainerPost = ({site, word, email}) => {
               borderRadius='none'
               _hover={{
                 bg: 'none',
-                borderBottom: '3px solid black'
+                borderBottom: '2px solid black'
                 }}
               _focus={{
                 bg: 'none',
-                borderBottom: '3px solid black'
+                borderBottom: '2px solid black'
                 }}>
               Images
             </Button>
@@ -67,11 +69,11 @@ const ContainerPost = ({site, word, email}) => {
               borderRadius='none'
               _hover={{
                 bg: 'none',
-                borderBottom: '3px solid black'
+                borderBottom: '2px solid black'
                 }}
               _focus={{
                 bg: 'none',
-                borderBottom: '3px solid black'
+                borderBottom: '2px solid black'
                 }}>
               Text
             </Button>

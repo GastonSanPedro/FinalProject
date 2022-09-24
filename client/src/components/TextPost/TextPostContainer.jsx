@@ -12,7 +12,7 @@ import {
 import TextPost from './TextPost';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getPosts, getUsers } from '../../redux/action';
+import { getUsers } from '../../redux/action';
 
 
 //--------- Lógica socket --------
@@ -44,7 +44,7 @@ export default function TextPostContainer({ site, word, email }) {
 
   const post = posteosUser.map((user) => {
     if (
-      user.posteos.some((post) => post.includes(site === 'search' ? word : ' '))
+      user.posteos.some((post) =>  post.includes(site === 'search' ? word : ' '))
     ) {
       return {
         fullName: user.fullName,
