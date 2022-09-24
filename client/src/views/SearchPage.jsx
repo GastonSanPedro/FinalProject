@@ -3,7 +3,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import UserSearchContainer from "../components/UserSearch/UserSearchContainer";
 import SidebarWithHeader from "../components/Sidebar-Navbar/SideBar";
-import TextPostContainer from "../components/TextPost/TextPostContainer";
+import ContainerPost from "../components/ContainerPost/ContainerPost";
 
 
 
@@ -24,10 +24,10 @@ const SearchPage = () =>{
            mt={'7%'}
            ml={'18%'}
            mr={'7%'}>
-        
-        <TextPostContainer
+        <ContainerPost
         word={word}
-        site={'search'}/>
+        site={'search'}
+        />
         </Box>
         {/* <Navbar/>
         <Box display='flex' dir='column' pt={10} pr={10} pl={10} >

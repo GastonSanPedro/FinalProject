@@ -123,7 +123,7 @@ export default function TextPost(props) {
           justifyContent={'center'}
           minW={'35%'}
         >
-          <Link to={`/user/${email}`}></Link>
+          <Link to={`/user/${email}`}>
           <Avatar
             size={'xl'}
             src={avatar}
@@ -135,6 +135,7 @@ export default function TextPost(props) {
             mb={'18%'}
             ml={'3%'}
           />
+          </Link>
           <Flex align={'flex-end'} justify={'center'}>
             <IconButton
               size={'lg'}

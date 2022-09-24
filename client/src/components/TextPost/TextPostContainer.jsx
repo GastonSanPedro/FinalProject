@@ -74,6 +74,7 @@ export default function TextPostContainer({ site, word, email }) {
   if (site === 'anyProfile') {
     return (
       <Flex
+        bg={'rgba(229, 191, 124, 0.3)'}
         pr={'2%'}
         pl={'2%'}
         textAlign={'center'}
@@ -132,12 +133,14 @@ export default function TextPostContainer({ site, word, email }) {
     return (
       <Flex
         pr={'2%'}
+        pt={'2%'}
         pl={'2%'}
         textAlign={'center'}
         justifyContent={'center'}
         direction={'column'}
         borderRadius={2}
         mt={site === 'feed' ? '0vh' : '4vh'}
+        bg={'rgba(229, 191, 124, 0.3)'}
       >
 
         <SimpleGrid columns={{ base: 1, xl: 2 }} spacing={'10'} mt={2} mr={5}>

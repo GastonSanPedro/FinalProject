@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, Button } from "@chakra-ui/react";
+import { Flex, Button, Divider } from "@chakra-ui/react";
 import UserSearchContainer from "../UserSearch/UserSearchContainer";
 import CreatePost from "../CreatePost/CreatePost";
 import ImgPostContainer from "../ImgPost/ImgPostContainer";
@@ -26,15 +26,18 @@ const ContainerPost = ({site, word, email}) => {
             textAlign={'center'}
             justifyContent={'center'}
             direction={'column'}
-            bg={'rgba(229, 191, 124, 0.3)'}
+            
             borderRadius={2}
             mt={site === 'feed' ? '0vh' : '4vh'}
             >
             {   
               site === 'search' ? (
               <UserSearchContainer word={word} />
-              ) : (<CreatePost site={site} email={email} />
-            )}
+              ) : (
+              site === 'feed' ?
+               (<CreatePost site={site} email={email} /> ) : null
+                )}
+
             <Flex
             dir='row'
             align={'center'}
@@ -43,7 +46,7 @@ const ContainerPost = ({site, word, email}) => {
             >
             <Button
               onClick={()=>{handleClickImg()}}
-              size={'lg'}
+              size={'md'}
               bg={'none'}
               borderRadius='none'
               _hover={{
@@ -59,7 +62,7 @@ const ContainerPost = ({site, word, email}) => {
             <Button
               onClick={()=>{handleClickText()}}
               name={'text'}
-              size={'lg'}
+              size={'md'}
               bg={'none'}
               borderRadius='none'
               _hover={{
