@@ -54,8 +54,8 @@ const OverlayOne = () => (
 export default function TextPost(props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [overlay, setOverlay] = useState(<OverlayOne />);
-  const { fullName, description, avatar, index, email } = props;
-  console.log(email);
+  const { fullName, description, avatar, index, userName } = props;
+
   return (
     <>
       <Modal isCentered isOpen={isOpen} onClose={onClose}>
@@ -123,7 +123,7 @@ export default function TextPost(props) {
           justifyContent={'center'}
           minW={'35%'}
         >
-          <Link to={`/user/${email}`}>
+          <Link to={`/user/${userName}`}>
             <Avatar
               size={'xl'}
               src={avatar}

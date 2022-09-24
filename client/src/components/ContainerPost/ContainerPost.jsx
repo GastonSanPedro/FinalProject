@@ -29,7 +29,7 @@ const ContainerPost = ({ site, word, email }) => {
       >
         {site === 'search' ? (
           <UserSearchContainer word={word} />
-        ) : site === 'feed' ? (
+        ) : site === 'feed' || site === 'profile' ? (
           <CreatePost site={site} email={email} />
         ) : null}
         <Divider />

@@ -38,10 +38,11 @@ export default function TextPostContainer({ site, word, email }) {
     return {
       fullName: user.fullName,
       image: user.image,
-      email: user.email,
+      userName: user.userName,
       posteos: user.posteos.map((posteo) => posteo.description),
     };
   });
+  
 
   const post = posteosUser.map((user) => {
     if (
@@ -50,7 +51,7 @@ export default function TextPostContainer({ site, word, email }) {
       return {
         fullName: user.fullName,
         image: user.image,
-        email: user.email,
+        userName: user.userName,
         post: user.posteos.find((post) =>
           post.includes(site === 'search' ? word : ' ')
         ),
@@ -68,9 +69,8 @@ export default function TextPostContainer({ site, word, email }) {
   const [currentStart, setCurrentStart] = useState(0);
   const [currentEnd, setCurrentEnd] = useState(8);
 
-  const renderPosts =
-    post.length > 8 ? post?.slice(currentStart, currentEnd) : post;
-
+  const renderPosts = post.length > 8 ? post?.slice(currentStart, currentEnd) : post;
+  
   const handleClickMore = () => {
     setCurrentEnd(currentEnd + 8);
   };
@@ -92,21 +92,25 @@ export default function TextPostContainer({ site, word, email }) {
           mt={'40vh'}
           mr={5}
         >
-          {user ? (
-            user?.posteos?.map((p, index) => {
-              return (
-                <SlideFade in={onToggle} offsetY="20px">
-                  <Box key={index}>
-                    <TextPost
-                      fullName={user?.fullName}
-                      image={user?.image}
-                      description={p.description}
-                      background={`logo.${Math.random(1, 2, 3)}`}
-                      id={index}
-                    />
-                  </Box>
-                </SlideFade>
-              );
+          {post ? (
+            renderPosts.map((user, index) => {
+              
+              if (user?.fullName && user?.post) {
+                return (
+                  <SlideFade in={onToggle} offsetY="20px">
+                    <Box key={index}>
+                      <TextPost
+                        fullName={user?.fullName}
+                        image={user?.image}
+                        description={user?.post}
+                        background={`logo.${Math.random(1, 2, 3)}`}
+                        id={index}
+                        userName={user?.userName}
+                      />
+                    </Box>
+                  </SlideFade>
+                );
+              }
             })
           ) : (
             <Box>
@@ -155,6 +159,7 @@ export default function TextPostContainer({ site, word, email }) {
                         description={user?.post}
                         background={`logo.${Math.random(1, 2, 3)}`}
                         id={index}
+                        userName={user.userName}
                       />
                     </Box>
                   </SlideFade>
