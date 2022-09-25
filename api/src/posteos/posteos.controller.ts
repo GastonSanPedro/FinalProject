@@ -1,13 +1,17 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { PosteosService } from './posteos.service';
+import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger/dist';
+import { ApiResponse } from '@nestjs/swagger/dist/decorators/api-response.decorator';
 import { CreatePosteoDto } from './dto/create-posteo.dto';
 import { UpdatePosteoDto } from './dto/update-posteo.dto';
+import { PosteosService } from './posteos.service';
 
+@ApiTags('Posteos')
 @Controller('posteos')
 export class PosteosController {
   constructor(private readonly posteosService: PosteosService) {}
 
   @Post()
+  @ApiResponse({status: 201, description: 'The record has been successfully created.'})
   create(@Body() createPosteoDto: CreatePosteoDto) {
     return this.posteosService.create(createPosteoDto);
   }

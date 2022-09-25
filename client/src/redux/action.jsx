@@ -15,7 +15,7 @@ export const GET_MY_USER = 'GET_MY_USER';
 export function getUsers() {
   return async function (dispatch) {
     try {
-      let info = await axios.get('http://localhost:3001/users', {});
+      let info = await axios.get('/users', {});
 
       dispatch({
         type: GET_USERS,
@@ -30,7 +30,7 @@ export function getUsers() {
 export function getUser(email) {
   return async function (dispatch) {
     try {
-      let info = await axios.get(`http://localhost:3001/users/${email}`, {});
+      let info = await axios.get(`/users/${email}`, {});
 
       dispatch({
         type: GET_USER,
@@ -45,7 +45,7 @@ export function getUser(email) {
 export function getMyUser(email) {
   return async function (dispatch) {
     try {
-      let info = await axios.get(`http://localhost:3001/users/${email}`, {});
+      let info = await axios.get(`/users/${email}`, {});
 
       dispatch({
         type: GET_MY_USER,
@@ -60,7 +60,7 @@ export function getMyUser(email) {
 export function getPosts(email) {
   return async function (dispatch) {
     try {
-      let info = await axios.get(`http://localhost:3001/users/${email}`, {});
+      let info = await axios.get(`/users/${email}`, {});
       //console.log(info.data.posteos);
       dispatch({
         type: GET_POSTS,
@@ -76,10 +76,10 @@ export function createUserPost(user, payload) {
   return async function (dispatch) {
     try {
       var json = await axios.patch(
-        `http://localhost:3001/users/${user}`,
+        `/users/${user}`,
         payload
       );
-      let info = await axios.get(`http://localhost:3001/users/${user}`);
+      let info = await axios.get(`/${user}`);
       return dispatch({
         type: CREATE_USER_POST,
         payload: info.data.posteos,
@@ -93,7 +93,7 @@ export function createUserPost(user, payload) {
 export function createUser(payload) {
   return async function () {
     try {
-      var json = await axios.post('http://localhost:3001/users', payload);
+      var json = await axios.post('/users', payload);
       return json.info;
     } catch (error) {
       console.log(error);
@@ -104,9 +104,7 @@ export function createUser(payload) {
 export function searchUser(searcher) {
   return async function (dispatch) {
     try {
-      var json = await axios.get(
-        `http://localhost:3001/users/name/${searcher}`
-      );
+      var json = await axios.get(`/users/name/${searcher}`);
       return dispatch({
         type: SEARCH_USER,
         payload: json.data,
@@ -137,7 +135,7 @@ export const authUser = (mail, password, google) => {
   return async function (dispatch) {
     try {
       if (google === false) {
-        var user = await axios.get(`http://localhost:3001/users/${mail}`);
+        var user = await axios.get(`/users/${mail}`);
         let formatUser = user.data;
         //console.log(formatUser);
         if (formatUser.password !== password) {
@@ -152,7 +150,7 @@ export const authUser = (mail, password, google) => {
           });
         }
       } else {
-        var user = await axios.get(`http://localhost:3001/users/${mail}`);
+        var user = await axios.get(`/users/${mail}`);
         let formatUser = user.data;
         return dispatch({
           type: AUTH_USER,
@@ -177,11 +175,11 @@ export function changeDataProfile(payload, email) {
   return async function (dispatch) {
     try {
       var user = await axios.patch(
-        `http://localhost:3001/users/${email}`,
+        `/users/${email}`,
         payload
       );
       console.log(user);
-      let info = await axios.get(`http://localhost:3001/users/${email}`);
+      let info = await axios.get(`/users/${email}`);
       return dispatch({
         type: CHANGE_DATA_PROFILE,
         payload: info.data,
@@ -205,38 +203,3 @@ export function logOut() {
   };
 }
 
-//----------TYPSCRIPT FUNCIONALpor si las dudas---------
-// export const getPosts = (): any => async (dispatch: any): Promise<any> => {
-
-//     try {
-
-//         var jsona = await axios.get('http://localhost:3001/posteos')
-//         let json = await jsona.data
-
-//         dispatch({
-//             type: 'GET_POSTS',
-//             payload: json
-//         });
-
-//     } catch (error) {
-//         console.log(error, 'error al llamar a la api');
-//     }
-// }
-
-//----------TYPSCRIPT FUNCIONALpor si las dudas---------
-// export const getPosts = (): any => async (dispatch: any): Promise<any> => {
-
-//     try {
-
-//         var jsona = await axios.get('http://localhost:3001/posteos')
-//         let json = await jsona.data
-
-//         dispatch({
-//             type: 'GET_POSTS',
-//             payload: json
-//         });
-
-//     } catch (error) {
-//         console.log(error, 'error al llamar a la api');
-//     }
-// }

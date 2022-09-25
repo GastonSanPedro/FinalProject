@@ -1,17 +1,35 @@
 import { Box,Text } from "@chakra-ui/react";
 import React from "react";
-import HashtagContainer from "../components/HashtagSearch/HashtagContainer";
+import { useSelector } from "react-redux";
 import UserSearchContainer from "../components/UserSearch/UserSearchContainer";
-import Navbar from '../components/navbar/Navbar'
-import UserCard from '../components/UserCard/UserCard'
-import FriendsContainer from "../components/Friends/FriendsContainer";
-import PostSearchContainer from "../components/PostSearch/ContainerPostSearch";
+import SidebarWithHeader from "../components/Sidebar-Navbar/SideBar";
+import TextPostContainer from "../components/TextPost/TextPostContainer";
+
 
 
 const SearchPage = () =>{
+    const word = useSelector((state) => state.searchPost)
     return(
         <>
-        <Navbar/>
+        <SidebarWithHeader/>
+        <Box
+           pos={'absolute'}
+           top={'20%'}
+           left={'0%'}
+           textAlign={'center'}
+           justifyContent={'center'}
+           direction={'column'}
+           width={'79vw'}
+           height={'80vh'}
+           mt={'7%'}
+           ml={'18%'}
+           mr={'7%'}>
+        
+        <TextPostContainer
+        word={word}
+        site={'search'}/>
+        </Box>
+        {/* <Navbar/>
         <Box display='flex' dir='column' pt={10} pr={10} pl={10} >
         
         <Box>
@@ -25,7 +43,7 @@ const SearchPage = () =>{
          <PostSearchContainer/>
         <FriendsContainer/>
         </Box>
-        
+         */}
         </>
     )
 }

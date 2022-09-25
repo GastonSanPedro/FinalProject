@@ -1,7 +1,7 @@
 import { Avatar, Box, Stack, Text, Wrap, Center } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getPosts, getUser } from '../../redux/actions';
+import { getPosts, getUser } from '../../redux/action';
 
 const UserPost = ({ posteos, name, email }) => {
   return (

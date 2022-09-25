@@ -10,7 +10,7 @@ import {
   EditablePreview,
 } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeDataProfile, getMyUser } from '../../redux/actions';
+import { changeDataProfile, getMyUser } from '../../redux/action';
 
 const ProfileDetail = ({
   userEmail,
@@ -71,10 +71,10 @@ const ProfileDetail = ({
         p={8}
         mt={2}
         mb={4}
-        w="90%"
+        w="100%"
         h="34vh"
         display={'flex'}
-        borderRadius={7}
+        
         backgroundColor={'gray.300'}
       >
         <Avatar

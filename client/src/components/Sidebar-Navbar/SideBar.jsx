@@ -22,7 +22,7 @@ import {
   MenuItem,
   MenuList,
   Image,
-  Button
+  Button,
 } from '@chakra-ui/react';
 import {
   FiHome,
@@ -34,16 +34,16 @@ import {
   FiBell,
   FiChevronDown,
 } from 'react-icons/fi';
-//import { IconType } from 'react-icons';
+import { IconType } from 'react-icons';
 import { ReactText } from 'react';
-import logo from '../../assets/logo.jpg'
+import logo from '../../assets/logo.jpg';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { logOut, getMyUser } from '../../redux/actions';
-import { Link as ReactLink } from 'react-router-dom'
+import { logOut, getMyUser } from '../../redux/action';
+import { Link as ReactLink } from 'react-router-dom';
 import Searchbar from '../navbar/SearchBar';
-
-
+import Friends from '../Friends/FriendsDrawer';
+import PaymentDrawer from '../PaymentDrawer/PaymentDrawer';
 
 const LinkItems = [
   { name: 'Home', icon: FiHome },
@@ -54,7 +54,6 @@ const LinkItems = [
 ];
 
 export default function SidebarWithHeader({ children }) {
-
   //----------Lógica notificaciones-------
   // const [notifications, setNotifications] = useState([])
   // const [open, setOpen] = useState(false)
@@ -83,21 +82,26 @@ export default function SidebarWithHeader({ children }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-
   const [User, setUser] = useState(
     useState(JSON.parse(localStorage.getItem('user')))
   );
 
-  const myUser = useSelector((state) => state.myUser);
   const neededEmail = User[0].email;
 
   useEffect(() => {
-    dispatch(getMyUser(neededEmail));
+    setTimeout(function () {
+      dispatch(getMyUser(neededEmail));
+    }, 300);
   }, [dispatch, neededEmail]);
 
-
   return (
-    <Box minH="100vh" bg={useColorModeValue('gray.100', 'gray.900')}>
+    <Box
+      pos={'fixed'}
+      zIndex={'10'}
+      maxW={'15%'}
+      minH="100vh"
+      bg={useColorModeValue('gray.100', 'gray.900')}
+    >
       <SidebarContent
         onClose={() => onClose}
         display={{ base: 'none', md: 'block' }}
@@ -109,7 +113,8 @@ export default function SidebarWithHeader({ children }) {
         onClose={onClose}
         returnFocusOnClose={false}
         onOverlayClick={onClose}
-        size="full">
+        size="full"
+      >
         <DrawerContent>
           <SidebarContent onClose={onClose} />
         </DrawerContent>
@@ -122,7 +127,7 @@ export default function SidebarWithHeader({ children }) {
     </Box>
   );
 }
-
+/*--------------- BARRA LATERAL----------------------*/
 const SidebarContent = ({ onClose, ...rest }) => {
   return (
     <Box
@@ -130,11 +135,14 @@ const SidebarContent = ({ onClose, ...rest }) => {
       bg={useColorModeValue('white', 'gray.900')}
       borderRight="1px"
       borderRightColor={useColorModeValue('gray.200', 'gray.700')}
+      minW={'18%'}
+      maxW={'18%'}
       w={{ base: 'full', md: 60 }}
       pos="fixed"
       h="full"
-      {...rest}>
-      <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
+      {...rest}
+    >
+      <Flex h={'20'} alignItems="center" mx="8" justifyContent="space-between">
         <Box mt={14}>
           <Image src={logo} />
         </Box>
@@ -142,19 +150,33 @@ const SidebarContent = ({ onClose, ...rest }) => {
       </Flex>
       <Box mt={14}>
         {LinkItems.map((link) => (
-          <NavItem key={link.name} icon={link.icon}>
+          <NavItem
+            textDecoration={'none'}
+            link={link}
+            key={link.name}
+            icon={link.icon}
+          >
             {link.name}
           </NavItem>
-
         ))}
+      </Box>
+      <Box pos={'fixed'} top={'80%'}>
+        <PaymentDrawer />
+      </Box>
+      <Box pos={'fixed'} top={'89%'}>
+        <Friends />
       </Box>
     </Box>
   );
 };
 
-const NavItem = ({ icon, children, ...rest }) => {
+const NavItem = ({ icon, link, children, ...rest }) => {
   return (
-    <Link href="#" style={{ textDecoration: 'none' }} _focus={{ boxShadow: 'none' }}>
+    <Link
+      href={`/${link.name}`}
+      style={{ textDecoration: 'none' }}
+      _focus={{ boxShadow: 'none' }}
+    >
       <Flex
         align="center"
         p="4"
@@ -166,7 +188,8 @@ const NavItem = ({ icon, children, ...rest }) => {
           bg: '#8ea26f',
           color: 'white',
         }}
-        {...rest}>
+        {...rest}
+      >
         {icon && (
           <Icon
             mr="4"
@@ -184,26 +207,33 @@ const NavItem = ({ icon, children, ...rest }) => {
 };
 
 const MobileNav = ({ onOpen, ...rest }) => {
-
+  const myUser = useSelector((state) => state.myUser);
+  const google = (window.google = window.google ? window.google : {});
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleClickLogOut = () => {
     localStorage.removeItem('user');
     dispatch(logOut());
+    google.accounts.id.disableAutoSelect();
     navigate('/landing-page');
   };
 
   return (
     <Flex
+      //pos={'absolute'}
+      minH={'12%'}
+      maxH={'12%'}
       ml={{ base: 0, md: 60 }}
       px={{ base: 4, md: 4 }}
-      height="20"
+      height={'11.5vh'}
+      w={'86vw'}
       alignItems="center"
       bg={useColorModeValue('white', 'gray.900')}
       borderBottomWidth="1px"
       borderBottomColor={useColorModeValue('gray.200', 'gray.700')}
       justifyContent={{ base: 'space-between', md: 'flex-end' }}
-      {...rest}>
+      {...rest}
+    >
       <Searchbar />
       <IconButton
         display={{ base: 'flex', md: 'none' }}
@@ -212,35 +242,81 @@ const MobileNav = ({ onOpen, ...rest }) => {
         aria-label="open menu"
         icon={<FiMenu />}
       />
-
+      <Menu>
+        <MenuButton
+          as={IconButton}
+          justifyContent={'center'}
+          alignContent={'center'}
+          borderRadius={2}
+          bg={'white'}
+          p={2}
+          icon={<FiBell />}
+          _hover={{
+            bg: 'logo.3',
+            color: 'white',
+          }}
+          _active={{ bg: 'rgba(140, 161, 116, 0.5)' }}
+        />
+        <Icon
+          viewBox="0 0 200 200"
+          color="red.500"
+          boxSize={3}
+          position={'relative'}
+          top={'-15%'}
+          right={'1.2%'}
+        >
+          <path
+            fill="currentColor"
+            d="M 100, 100 m -75, 0 a 75,75 0 1,0 150,0 a 75,75 0 1,0 -150,0"
+          />
+        </Icon>
+        <MenuList>
+          <MenuItem
+            _hover={{
+              bg: 'logo.3',
+              color: 'white',
+            }}
+          >
+            A Nacho le gusta tu post
+          </MenuItem>
+          <MenuItem
+            _hover={{
+              bg: 'logo.3',
+              color: 'white',
+            }}
+          >
+            A Ari le gusta tu post
+          </MenuItem>
+          <MenuItem
+            color={'red'}
+            _hover={{
+              bg: 'logo.3',
+              color: 'white',
+            }}
+          >
+            Alirio lee el readme
+          </MenuItem>
+          <MenuItem
+            _hover={{
+              bg: 'logo.3',
+              color: 'white',
+            }}
+          >
+            Keki aceptó tu solicitud de amistad
+          </MenuItem>
+        </MenuList>
+      </Menu>
       <Box
         display={{ base: 'flex', md: 'none' }}
         fontSize="2xl"
         fontFamily="monospace"
-        fontWeight="bold">
+        fontWeight="bold"
+        mr={'2vw'}
+      >
         <Image src={logo} />
       </Box>
 
       <HStack spacing={{ base: '0', md: '6' }}>
-
-
-
-        <Menu>
-          <MenuButton as={Button} p={0} pr={2.5} rightIcon={<FiBell />} />
-          <Icon viewBox='0 0 200 200' color='red.500' boxSize={5} position="absolute" top="5" right="195px" >
-            <path
-              fill='currentColor'
-              d='M 100, 100 m -75, 0 a 75,75 0 1,0 150,0 a 75,75 0 1,0 -150,0'
-            />
-          </Icon>
-          <MenuList >
-            <MenuItem>A Nacho le gusta tu post</MenuItem>
-            <MenuItem>A Ari le gusta tu post</MenuItem>
-            <MenuItem>Alirio quiere ser tu amigo</MenuItem>
-            <MenuItem>Keki aceptó tu solicitud de amistad</MenuItem>
-          </MenuList>
-        </Menu>
-
         {/*   Lógica socket.io
         <Box>
           <BellIcon onClick={() => setOpen(!open)} />
@@ -256,12 +332,13 @@ const MobileNav = ({ onOpen, ...rest }) => {
             </VStack>)}
         </Box> */}
 
-        <Flex alignItems={'center'}>
+        <Flex alignItems={'center'} mr={12} ml={5}>
           <Menu>
             <MenuButton
               py={2}
               transition="all 0.3s"
-              _focus={{ boxShadow: 'none' }}>
+              _focus={{ boxShadow: 'none' }}
+            >
               <HStack>
                 <Avatar
                   size={'sm'}
@@ -273,8 +350,13 @@ const MobileNav = ({ onOpen, ...rest }) => {
                   display={{ base: 'none', md: 'flex' }}
                   alignItems="flex-start"
                   spacing="1px"
-                  ml="2">
-                  <Text fontSize="sm">Ariadna Ruvini</Text>
+                  ml="2"
+                >
+                  <Text fontSize="sm">
+                    {myUser.firstName
+                      ? myUser.firstName + ' ' + myUser.lastName
+                      : 'Loading'}
+                  </Text>
                   <Text fontSize="xs" color="gray.600">
                     Admin
                   </Text>
@@ -286,12 +368,15 @@ const MobileNav = ({ onOpen, ...rest }) => {
             </MenuButton>
             <MenuList
               bg={useColorModeValue('white', 'gray.900')}
-              borderColor={useColorModeValue('gray.200', 'gray.700')}>
-              <Link as={ReactLink} to='/profile'><MenuItem>Profile</MenuItem></Link>
+              borderColor={useColorModeValue('gray.200', 'gray.700')}
+            >
+              <Link as={ReactLink} to="/profile">
+                <MenuItem>Profile</MenuItem>
+              </Link>
               <MenuItem>Settings</MenuItem>
-              <MenuItem>Payments</MenuItem>
+              <Link as={ReactLink} to="/payments" ><MenuItem>Payments</MenuItem></Link>
               <MenuDivider />
-              <MenuItem onClick={() => handleClickLogOut()} >Sign out</MenuItem>
+              <MenuItem onClick={() => handleClickLogOut()}>Sign out</MenuItem>
             </MenuList>
           </Menu>
         </Flex>
@@ -299,4 +384,3 @@ const MobileNav = ({ onOpen, ...rest }) => {
     </Flex>
   );
 };
-
