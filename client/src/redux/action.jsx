@@ -75,11 +75,10 @@ export function getPosts(email) {
 export function createUserPost(user, payload) {
   return async function (dispatch) {
     try {
-      var json = await axios.patch(
-        `/users/${user}`,
-        payload
-      );
-      let info = await axios.get(`/${user}`);
+      //console.log(payload);
+      var json = await axios.patch(`/users/${user}`, payload);
+      let info = await axios.get(`/users/${user}`);
+      console.log(info.data);
       return dispatch({
         type: CREATE_USER_POST,
         payload: info.data.posteos,
@@ -174,10 +173,7 @@ export const authUser = (mail, password, google) => {
 export function changeDataProfile(payload, email) {
   return async function (dispatch) {
     try {
-      var user = await axios.patch(
-        `/users/${email}`,
-        payload
-      );
+      var user = await axios.patch(`/users/${email}`, payload);
       console.log(user);
       let info = await axios.get(`/users/${email}`);
       return dispatch({
@@ -202,4 +198,3 @@ export function logOut() {
     }
   };
 }
-

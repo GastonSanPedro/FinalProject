@@ -1,13 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import CreatePost from '../components/CreatePost/CreatePost';
-import FriendsContainer from '../components/Friends/FriendsContainer';
-import Navbar from '../components/navbar/Navbar';
-import ProfileDetail from '../components/ProfileDetail/ProfileDetail';
-import UserCard from '../components/UserCard/UserCard';
-import UserPost from '../components/UserPosts/UserPost';
-import { Button, Flex, Avatar, Wrap, Badge, Box, Text } from '@chakra-ui/react';
-
+import { Flex, Avatar, Badge, Box, Text } from '@chakra-ui/react';
 import '../index.css';
 import { getMyUser, getPosts, getUsers } from '../redux/action';
 
@@ -37,7 +30,7 @@ const AdminProfile = () => {
 
     return (
         <>
-            <Navbar></Navbar>
+            
 
             <Box display="flex" dir="row">
                 <Box m={3} width={'78%'} position={'absolute'} left={'5%'}>
@@ -71,10 +64,8 @@ const AdminProfile = () => {
 
 
                 <Box position={'absolute'} right={'3%'}>
-                    <UserCard />
-                    {allUsers.length > 1 ? (
-                        <FriendsContainer allUsers={allUsers} />
-                    ) : null}
+                    
+                    
                 </Box>
             </Box>
         </>

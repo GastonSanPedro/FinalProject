@@ -3,27 +3,29 @@ import {
   Avatar,
   Box,
   Textarea,
-  Input,
   Button,
   Text,
-  Select,
   Stack,
 } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
-import { createUserPost, getUser, UploadPic } from '../../redux/action';
-import { useNavigate } from 'react-router-dom';
+import { createUserPost, getMyUser } from '../../redux/action';
 import { Radio, RadioGroup } from '@chakra-ui/react';
-import { createNonNullExpression } from 'typescript';
 
-const CreatePost = ({ posteos, email, site }) => {
+const CreatePost = ({ email, site }) => {
   const [input, setInput] = useState({
     description: '',
     pics: '',
   });
   const [TypePost, setTypePost] = useState('text');
-
   const dispatch = useDispatch();
+  const myUser = useSelector((state) => state.myUser);
+  useEffect(() => {
+    setTimeout(function () {
+      dispatch(getMyUser(email));
+    });
+  }, [dispatch, email]);
 
+  const posteos = myUser?.posteos;
   const handleInputImage = (event) => {
     var myWidget = window.cloudinary.createUploadWidget(
       {
@@ -51,6 +53,7 @@ const CreatePost = ({ posteos, email, site }) => {
     setInput({ ...input, [event.target.name]: event.target.value });
 
   const handleSubmit = () => {
+    console.log(posteos);
     let post = { posteos: [...posteos, input] };
     dispatch(createUserPost(email, post));
     setInput({

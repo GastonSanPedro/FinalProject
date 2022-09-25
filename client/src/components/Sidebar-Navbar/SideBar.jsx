@@ -21,8 +21,7 @@ import {
   MenuDivider,
   MenuItem,
   MenuList,
-  Image,
-  Button,
+  Image
 } from '@chakra-ui/react';
 import {
   FiHome,
@@ -34,14 +33,12 @@ import {
   FiBell,
   FiChevronDown,
 } from 'react-icons/fi';
-import { IconType } from 'react-icons';
-import { ReactText } from 'react';
 import logo from '../../assets/logo.jpg';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logOut, getMyUser } from '../../redux/action';
 import { Link as ReactLink } from 'react-router-dom';
-import Searchbar from '../navbar/SearchBar';
+import Searchbar from '../Searchbar/SearchBar';
 import Friends from '../Friends/FriendsDrawer';
 import PaymentDrawer from '../PaymentDrawer/PaymentDrawer';
 

@@ -1,14 +1,11 @@
 import React from 'react';
-import PostSearch from '../components/PostSearch/PostSearch';
-import Navbar from '../components/navbar/Navbar';
-import CreatePost from '../components/CreatePost/CreatePost';
-import { HStack, VStack, Wrap, Box, Text, Button } from '@chakra-ui/react';
-import { useState } from 'react';
+import { Box } from '@chakra-ui/react';
 import SidebarWithHeader from '../components/Sidebar-Navbar/SideBar';
-
-import TextPostContainer from '../components/TextPost/TextPostContainer';
+import ContainerPost from '../components/ContainerPost/ContainerPost';
 
 const Feed = () => {
+
+
   return (
     <>
       <SidebarWithHeader />
@@ -25,9 +22,9 @@ const Feed = () => {
         ml={'18%'}
         mr={'7%'}
       >
-        <TextPostContainer
-          site="feed"
-        />
+      <ContainerPost
+        site={'feed'}
+        word/>
       </Box>
     </>
 

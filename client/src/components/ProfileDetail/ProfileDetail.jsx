@@ -4,13 +4,10 @@ import {
   Avatar,
   Button,
   Input,
-  Text,
-  Editable,
-  EditableInput,
-  EditablePreview,
+  Text
 } from '@chakra-ui/react';
-import { useDispatch, useSelector } from 'react-redux';
-import { changeDataProfile, getMyUser } from '../../redux/action';
+import { useDispatch } from 'react-redux';
+import { changeDataProfile } from '../../redux/action';
 
 const ProfileDetail = ({
   userEmail,
