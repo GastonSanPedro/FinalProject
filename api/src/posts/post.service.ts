@@ -65,13 +65,16 @@ export class PostsService {
   }
 
   async update(id: string, updatePostDto: UpdatePostDto) {
-    return `This action updates a #${id} post`;
+    updatePostDto.updatedAt = Date.now()
+    const post:Post = await this.findById(id);
+    await post.updateOne(updatePostDto) 
+    return {...post.toJSON(), ...updatePostDto};
   }
 
   async remove(id: string) {
     const postDelete:Post = await this.findById(id);
     await postDelete.deleteOne()
-    return `User ${id} has been deleted`;
+    return `Post ${id} has been deleted`;
   }
 
   async addComment(id:string, comment:any) {
@@ -80,5 +83,6 @@ export class PostsService {
     post.save()
     return post
   }
+
   
 }
