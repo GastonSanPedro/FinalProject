@@ -32,7 +32,7 @@ const LogInForm = ({ logOrsign, setlogOrSign }) => {
     pass: '',
   });
   const auth = useSelector((state) => state.auth);
-  const User = useSelector((state) => state.user);
+  // const User = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleShowClick = () => setShow(!show);

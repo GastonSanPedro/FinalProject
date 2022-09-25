@@ -46,7 +46,6 @@ export function getMyUser(email) {
   return async function (dispatch) {
     try {
       let info = await axios.get(`/users/${email}`, {});
-
       dispatch({
         type: GET_MY_USER,
         payload: info.data,
@@ -72,16 +71,13 @@ export function getPosts(email) {
   };
 }
 
-export function createUserPost(user, payload) {
+export function createUserPost(inputPost) {
   return async function (dispatch) {
     try {
-      //console.log(payload);
-      var json = await axios.patch(`/users/${user}`, payload);
-      let info = await axios.get(`/users/${user}`);
-      console.log(info.data);
+      const {data} = await axios.post('/posts', inputPost )
       return dispatch({
         type: CREATE_USER_POST,
-        payload: info.data.posteos,
+        payload: data,
       });
     } catch (error) {
       console.log(error);
@@ -90,10 +86,14 @@ export function createUserPost(user, payload) {
 }
 
 export function createUser(payload) {
-  return async function () {
+  return async function (dispatch) {
     try {
       var json = await axios.post('/users', payload);
-      return json.info;
+      console.log({userPost : json.data})
+      return dispatch({
+        type: CREATE_USER,
+        payload: json.data,
+      });
     } catch (error) {
       console.log(error);
     }

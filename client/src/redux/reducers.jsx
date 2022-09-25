@@ -59,7 +59,7 @@ export default function rootReducer(state = initialState, action) {
     case CREATE_USER_POST:
       return {
         ...state,
-        posts: action.payload,
+        posts: [...state.posts, action.payload],
       };
     case CREATE_USER:
       return {

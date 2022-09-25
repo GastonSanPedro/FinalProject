@@ -7,10 +7,8 @@ import TextPostContainer from '../TextPost/TextPostContainer';
 import { useState } from 'react';
 
 
-const ContainerPost = ({site, word, email}) => {
- 
+const ContainerPost = ({site, word, email, myUser, user}) => {
   const [typePost, setTypePost] = useState('img')
-
   const handleClickImg = () => {
     setTypePost('img')
   }
@@ -26,7 +24,6 @@ const ContainerPost = ({site, word, email}) => {
             textAlign={'center'}
             justifyContent={'center'}
             direction={'column'}
-            
             borderRadius={2}
             mt={site === 'feed' ? '0vh' : '4vh'}
             >
@@ -35,7 +32,7 @@ const ContainerPost = ({site, word, email}) => {
               <UserSearchContainer word={word} />
               ) : (
               site === 'feed'|| site === 'profile' ?
-               (<CreatePost site={site} email={email} /> ) : null
+               (<CreatePost site={site} email={email} myUser={myUser}/> ) : null
                 )}
             <Divider/>
 
@@ -82,12 +79,16 @@ const ContainerPost = ({site, word, email}) => {
             typePost === 'text' ?
                 (<TextPostContainer
                     site={site}
+                    myUser={myUser}
+                    user= {user}
                   />
                 ):(
                  <ImgPostContainer
-                    site={site}/> 
+                    site={site}
+                    myUser={myUser}
+                    user= {user}
+                    /> 
                 )
-              
           }
           </Flex>
         </>
