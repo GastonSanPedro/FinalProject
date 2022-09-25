@@ -8,6 +8,7 @@ import {
   IsString,
   MinLength
 } from 'class-validator';
+import { User } from '../schema/user-schema';
 
 export class CreateUserDto {
   @ApiProperty()
@@ -59,4 +60,7 @@ export class CreateUserDto {
   @IsString()
   @IsOptional()
   fullName: string;
+
+  @IsOptional()
+  friends?: User[];
 }
