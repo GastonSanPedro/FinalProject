@@ -42,7 +42,6 @@ export default function TextPostContainer({ site, word, email }) {
       posteos: user.posteos.map((posteo) => posteo.description),
     };
   });
-  
 
   const post = posteosUser.map((user) => {
     if (
@@ -58,19 +57,20 @@ export default function TextPostContainer({ site, word, email }) {
       };
     }
   });
-
+  console.log(email);
   useEffect(() => {
     dispatch(getUsers());
     dispatch(getUser(email));
   }, [dispatch]);
 
   //--------- Lógica de ver mas --------
-
+  console.log(user);
   const [currentStart, setCurrentStart] = useState(0);
   const [currentEnd, setCurrentEnd] = useState(8);
 
-  const renderPosts = post.length > 8 ? post?.slice(currentStart, currentEnd) : post;
-  
+  const renderPosts =
+    post.length > 8 ? post?.slice(currentStart, currentEnd) : post;
+
   const handleClickMore = () => {
     setCurrentEnd(currentEnd + 8);
   };
@@ -92,25 +92,22 @@ export default function TextPostContainer({ site, word, email }) {
           mt={'40vh'}
           mr={5}
         >
-          {post ? (
-            renderPosts.map((user, index) => {
-              
-              if (user?.fullName && user?.post) {
-                return (
-                  <SlideFade in={onToggle} offsetY="20px">
-                    <Box key={index}>
-                      <TextPost
-                        fullName={user?.fullName}
-                        image={user?.image}
-                        description={user?.post}
-                        background={`logo.${Math.random(1, 2, 3)}`}
-                        id={index}
-                        userName={user?.userName}
-                      />
-                    </Box>
-                  </SlideFade>
-                );
-              }
+          {user ? (
+            user?.posts?.map((user, index) => {
+              return (
+                <SlideFade in={onToggle} offsetY="20px">
+                  <Box key={index}>
+                    <TextPost
+                      fullName={user?.fullName}
+                      image={user?.image}
+                      description={user?.post}
+                      background={`logo.${Math.random(1, 2, 3)}`}
+                      id={index}
+                      userName={user?.userName}
+                    />
+                  </Box>
+                </SlideFade>
+              );
             })
           ) : (
             <Box>
