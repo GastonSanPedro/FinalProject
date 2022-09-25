@@ -64,7 +64,7 @@ export class PostsService {
     }
   }
 
-  async update(id: string, updatePosteoDto: UpdatePostDto) {
+  async update(id: string, updatePostDto: UpdatePostDto) {
     return `This action updates a #${id} post`;
   }
 

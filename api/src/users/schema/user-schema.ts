@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
-import { Post, PostSchema } from 'src/posteos/schema/post-schema';
+import { Post, PostSchema } from 'src/posts/schema/post-schema';
 import { Friend, FriendSchema } from 'src/schemas/friend-schema';
 //toque el importe del posteSchema
 
