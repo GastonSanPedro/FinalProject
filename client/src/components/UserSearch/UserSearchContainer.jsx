@@ -30,7 +30,16 @@ const UserSearchContainer = () => {
 
     return(
         <>
-        <Stack position={'fixed'} top={'15%'} left={'18%'} direction='row' w='80%' maxW={'79%'} display='flex' justifyContent='space-between' p={3} m={3} backgroundColor={'rgba(229, 191, 124, 0.1)'} borderRadius={3}>
+        <Stack
+        display='flex'  
+        direction='row' 
+        maxW='100%' 
+        mt={'2%'}
+        mb={'3%'}
+        justifyContent='center'
+        borderRadius={3}
+        bg={'rgba(229, 191, 124, 0.3)'}
+        minH={280}>
         <Stack direction='row'>
         {
             searchUsers.length > 6 
@@ -42,7 +51,6 @@ const UserSearchContainer = () => {
                 disabled={button1} 
                 onClick={() => handleClickBackward()} 
                 h={10} 
-                mr={0.7} 
                 w={0} 
                 fontSize='sm'
                 _hover={{

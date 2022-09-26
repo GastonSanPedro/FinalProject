@@ -1,19 +1,33 @@
-import { Box,Text } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import React from "react";
-import HashtagContainer from "../components/HashtagSearch/HashtagContainer";
-import UserSearchContainer from "../components/UserSearch/UserSearchContainer";
-import Navbar from '../components/navbar/Navbar'
-import UserCard from '../components/UserCard/UserCard'
-import FriendsContainer from "../components/Friends/FriendsContainer";
-import PostSearchContainer from "../components/PostSearch/ContainerPostSearch";
+import { useSelector } from "react-redux";
 import SidebarWithHeader from "../components/Sidebar-Navbar/SideBar";
+import ContainerPost from "../components/ContainerPost/ContainerPost";
+
 
 
 const SearchPage = () =>{
+    const word = useSelector((state) => state.searchPost)
     return(
         <>
         <SidebarWithHeader/>
-        <UserSearchContainer/>
+        <Box
+           pos={'absolute'}
+           top={'20%'}
+           left={'0%'}
+           textAlign={'center'}
+           justifyContent={'center'}
+           direction={'column'}
+           width={'79vw'}
+           height={'80vh'}
+           mt={'7%'}
+           ml={'18%'}
+           mr={'7%'}>
+        <ContainerPost
+        word={word}
+        site={'search'}
+        />
+        </Box>
         {/* <Navbar/>
         <Box display='flex' dir='column' pt={10} pr={10} pl={10} >
         

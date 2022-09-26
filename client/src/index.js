@@ -15,15 +15,16 @@ import { Provider } from 'react-redux';
 import store from './redux/store';
 import { createRoot } from 'react-dom/client';
 import AnyProfile from './views/AnyProfile';
+import AdminProfile from './views/AdminProfile';
 import axios from 'axios'
-
+import Payments from './views/Payments'
 // const Dotenv = require('dotenv-webpack');
 
 // require('dotenv').config();
 
 // import dotenv from 'dotenv'
 // dotenv.config();
-
+console.log(process.env.REACT_APP_API)
 axios.defaults.baseURL = process.env.REACT_APP_API || "http://localhost:3001";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -36,12 +37,14 @@ root.render(
           <Routes>
             {/* <Route path="/" element={<App/>}/> */}
             <Route path="/profile" element={<Profile />} />
+            <Route path="/admin" element={<AdminProfile/>} />
             <Route path="/landing-page" element={<Landing />}></Route>
             <Route path="/sign-in" element={<SignIn />}></Route>
             <Route path="/search-page" element={<SearchPage />}></Route>
             <Route path="/home" element={<Feed />}></Route>
             <Route exact path="/user/:email" element={<AnyProfile />} />
             <Route path="*" element={<Landing />} />
+            <Route path='/payments' element={<Payments/>}/>
           </Routes>
         </BrowserRouter>
       </ChakraProvider>
