@@ -37,7 +37,6 @@ export default function rootReducer(state = initialState, action) {
         allUsers: action.payload,
       };
     case GET_USER:
-      console.log({reducer: action.payload})
       return {
         ...state,
         user: action.payload,
@@ -63,9 +62,9 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         posts: [...state.posts, action.payload],
         myUser: {
-          ...state.myUser, 
-          posts: [...state.myUser.posts, action.payload]
-        }
+          ...state.myUser,
+          posts: [...state.myUser.posts, action.payload],
+        },
       };
     case CREATE_USER:
       return {
@@ -101,13 +100,10 @@ export default function rootReducer(state = initialState, action) {
         myUser: action.payload,
       };
     case ADD_FRIEND:
-      return{
+      return {
         ...state,
-        myUser: {
-          ...state.myUser, 
-          friends: [...state.myUser.friends, action.payload]
-        }
-      }
+        myUser: action.payload,
+      };
     default:
       return state;
   }
