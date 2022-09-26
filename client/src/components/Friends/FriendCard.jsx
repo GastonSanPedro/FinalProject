@@ -5,6 +5,8 @@ const userImg =
 
 
 export const FriendCard = ({ image, link,firstName, lastName, email }) => {
+  console.log(firstName)
+  console.log(lastName)
     return (
       <Link
         href={'/user/' + email}
@@ -30,7 +32,7 @@ export const FriendCard = ({ image, link,firstName, lastName, email }) => {
             src={image? image : userImg}
             />
             <Text pl={2} fontSize={'1vw'} fontWeight={'bold'}> 
-            {firstName[0].toUpperCase()+ firstName.substring(1)} {lastName[0].toUpperCase()+ lastName.substring(1)}
+            {firstName} {lastName}
             </Text>      
           
         </Flex>

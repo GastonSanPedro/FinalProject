@@ -3,7 +3,7 @@ import { IoExitOutline } from 'react-icons/io5'
 import { AiOutlineUserAdd } from 'react-icons/ai'
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { logOut } from '../../redux/action';
+import { logOut, addFriend } from '../../redux/action';
 import {  useNavigate } from 'react-router-dom';
 
 const UserCard = ({ site, myUser, user}) => {
@@ -15,7 +15,7 @@ const UserCard = ({ site, myUser, user}) => {
     navigate('/landing-page');
   };
   const handleClickFollow = () => {
-      // dispatch(addFriend(myUserId, idProfile))
+      dispatch(addFriend(myUser._id, user._id))
       alert('ok')
   }
   
@@ -71,12 +71,12 @@ const UserCard = ({ site, myUser, user}) => {
           <Box
             align={'center'}>
           <Text fontSize="lg" fontWeight={'semibold'}>Friends</Text>
-          <Text fontSize='md'>{setUserToSite(site)?.friends.length}</Text>
+          <Text fontSize='md'>{setUserToSite(site)?.friends?.length}</Text>
           </Box>
           <Box
            align={'center'}>
           <Text fontSize="lg" fontWeight={'semibold'}>Posts</Text>
-          <Text fontSize='md'>{setUserToSite(site)?.posts.length}</Text>
+          <Text fontSize='md'>{setUserToSite(site)?.posts?.length}</Text>
           </Box>
           </HStack>
           </Stack>
