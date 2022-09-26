@@ -33,7 +33,7 @@ export class PostsService {
   async findAll() {
     return await this.postModel
     .find()
-    .populate({ path: 'author', select: 'firstName lastName'})
+    .populate({ path: 'author'})
     .populate({ path: 'comments'})
     .setOptions({ sanitizeFilter: true })
     .exec();
@@ -43,7 +43,7 @@ export class PostsService {
 
     const posts:Post[] = await this.postModel
     .find({description: {$regex: term, $options: "$i"}  })
-    .populate({ path: 'author', select: 'firstName lastName'})
+    .populate({ path: 'author'})
     .populate({ path: 'comments'})
     .setOptions({ sanitizeFilter: true })
     .exec();
@@ -56,7 +56,7 @@ export class PostsService {
     if(isValidObjectId(id)){
       const post =  await this.postModel
       .findById(id)
-      .populate({ path: 'author', select: 'firstName lastName'})
+      .populate({ path: 'author'})
       .populate({ path: 'comments'})
       .setOptions({ sanitizeFilter: true })
       .exec()

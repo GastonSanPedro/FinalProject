@@ -6,7 +6,7 @@ import {
   Stack,
   Avatar,
   useColorModeValue,
-  Image
+  Image,
 } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 
@@ -15,7 +15,16 @@ function randomNumber(min, max) {
   return Math.floor(a);
 }
 
-export default function ImgPost({image, user, description, date}) {
+export default function ImgPost({
+  image,
+  fullName,
+  description,
+  date,
+  avatar,
+  userName,
+  email
+}) {
+
   return (
     <Center py={6}>
       <Box
@@ -26,41 +35,35 @@ export default function ImgPost({image, user, description, date}) {
         p={6}
         overflow={'hidden'}
         _hover={{
-          bg:`logo.${randomNumber(1,4)}`
+          bg: `logo.${randomNumber(1, 4)}`,
         }}
-        >
-        <Box
-          h={'210px'}
-          mt={-6}
-          mx={-6}
-          mb={6}
-          pos={'relative'}>
+      >
+        <Box h={'210px'} mt={-6} mx={-6} mb={6} pos={'relative'}>
           <Image
             src={image}
             layout={'cover'}
+            boxSize="30vh"
+            width={'100%'}
+            objectFit={'cover'}
           />
         </Box>
         <Stack>
           <Heading
             color={useColorModeValue('gray.700', 'white')}
-            textTransform='uppercase'
+            textTransform="uppercase"
             fontSize={'2xl'}
-            fontFamily={'body'}>
-           {user.userName}
+            fontFamily={'body'}
+          >
+            {userName}
           </Heading>
-          <Text color={'gray.500'}>
-            {description}
-          </Text>
+          <Text color={'gray.500'}>{description}</Text>
         </Stack>
         <Stack mt={6} direction={'row'} spacing={4} align={'center'}>
-          <Link to={`user/${user.userName}`}>
-            <Avatar
-            src={user.img}
-            alt={'Author'}
-          />
+          <Link to={`/user/${email}`}>
+            <Avatar src={avatar} name={fullName} alt={'Author'} />
           </Link>
           <Stack direction={'column'} spacing={0} fontSize={'sm'}>
-            <Text fontWeight={600}>{user.fullName}</Text>
+            <Text fontWeight={600}>{fullName}</Text>
             <Text color={'gray.500'}>{date}</Text>
           </Stack>
         </Stack>

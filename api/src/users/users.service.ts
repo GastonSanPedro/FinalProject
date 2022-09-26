@@ -48,7 +48,7 @@ export class UsersService {
         if(term.includes("@")){
           userFinded = await this.userModel
           .findOne({email : term})
-          .populate({ path: 'friends.friend'})
+          .populate({ path: 'friends.friend' })
           .exec()
         }
 
