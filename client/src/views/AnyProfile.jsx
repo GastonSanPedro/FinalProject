@@ -3,21 +3,24 @@ import { Box } from '@chakra-ui/react';
 import UserCard from '../components/UserCard/UserCard';
 import SidebarWithHeader from '../components/Sidebar-Navbar/SideBar';
 import port1 from '../assets/port1.png';
-import TextPostContainer from '../components/TextPost/TextPostContainer';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUser } from '../redux/action';
 import { useParams } from 'react-router-dom';
 import ContainerPost from '../components/ContainerPost/ContainerPost';
 
 export default function AnyProfile() {
+
   const dispatch = useDispatch();
   let { email } = useParams();
+
+  const user = useSelector((state) => state.user);
+  const myUser = useSelector((state)=> state.myUser)
+  
+
   useEffect(() => {
       dispatch(getUser(email));
   }, [dispatch, email]);
-  const user = useSelector((state) => state.user);
-  console.log({user})
-
+  
   return (
     <>
       <SidebarWithHeader />
@@ -32,7 +35,7 @@ export default function AnyProfile() {
         // bgPosition="center"
         bgSize="cover"
       />
-      <UserCard site="anyProfile" user={user} />
+      <UserCard site="anyProfile" user={user}  myUser={myUser}/>
       <Box
         pos={'absolute'}
         top={'20%'}
@@ -46,7 +49,7 @@ export default function AnyProfile() {
         ml={'18%'}
         mr={'7%'}
       >
-        <ContainerPost site="anyProfile" user={user}/>
+        <ContainerPost site="anyProfile" user={user} myUser={myUser} />
       </Box>
     </>
   );
