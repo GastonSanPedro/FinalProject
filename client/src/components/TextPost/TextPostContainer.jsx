@@ -17,6 +17,7 @@ import CreatePost from '../CreatePost/CreatePost';
 import UserSearchContainer from '../UserSearch/UserSearchContainer';
 
 export default function TextPostContainer({ site, word, myUser, user }) {
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getUsers());
@@ -63,8 +64,8 @@ export default function TextPostContainer({ site, word, myUser, user }) {
       mt={site === 'feed' ? '0vh' : '4vh'}
     >
       <SimpleGrid columns={{ base: 1, xl: 2 }} spacing={'10'} mt={2} mr={5}>
-        {arrayUserPosts(site).posts.length !== 0 ? (
-          arrayUserPosts(site).posts.map((post, index) => {
+        {arrayUserPosts(site)?.posts?.length !== 0 ? (
+          arrayUserPosts(site)?.posts?.map((post, index) => {
             return (
               <SlideFade in={onToggle} offsetY="20px">
                 <Box key={index}>
