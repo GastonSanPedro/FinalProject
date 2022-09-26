@@ -16,7 +16,7 @@ import {
   	return Math.floor(a)
 } 
   
-  export default function SearchUserCard({firstName, lastName, image, email}) {
+  export default function SearchUserCard({image,fullName,firstName,lastName, email}) {
     return (
       <Center >
         <Box
@@ -35,7 +35,8 @@ import {
             <Avatar
               size={'lg'}
               mt={'18%'}
-              src={image?image:userImg}
+              src={image}
+              name={fullName}
               alt={'Author'}
               css={{
                 border: '2px solid white',

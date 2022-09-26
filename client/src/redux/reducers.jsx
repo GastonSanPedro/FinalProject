@@ -36,12 +36,12 @@ export default function rootReducer(state = initialState, action) {
         allUsers: action.payload,
       };
     case GET_USER:
+      console.log({reducer: action.payload})
       return {
         ...state,
         user: action.payload,
       };
     case GET_MY_USER:
-      console.log('reducer')
       return {
         ...state,
         myUser: action.payload,

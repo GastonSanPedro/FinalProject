@@ -125,7 +125,7 @@ export default function TextPost({fullName, description, image, background, user
           <Link to={`/user/${userName}`}>
           <Avatar
             size={'xl'}
-            //TODO: aca deberia llegar la imagen de cada usuario... src={image} 
+            src={image} 
             name={fullName}
             height={'100px'}
             width={'100px'}

@@ -12,6 +12,7 @@ const UserSearchContainer = () => {
     const searchUsers = useSelector((state)=> state.searchUser)
     const first6 = searchUsers.length > 6 ? searchUsers?.slice(currentStart,currentEnd) : searchUsers
 
+
      const handleClickFoward = () =>{
 
         if(currentStart >= 0) setButton1(false)
@@ -67,8 +68,9 @@ const UserSearchContainer = () => {
                         <UserSearchCard
                             firstName={user.firstName}
                             lastName={user.lastName}
-                            img={user.image}
-                            email={user.email}/>
+                            image={user.image}
+                            email={user.email}
+                            fullName={user.fullName}/>
                 )
                 })
             : <Center h={10}><Text justifySelf={'center'} fontSize='md' color={'black'}>Ups... The user you are looking for does not exist</Text></Center>}

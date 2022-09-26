@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, Button, Divider } from "@chakra-ui/react";
+import { Flex, Button, Divider, Box } from "@chakra-ui/react";
 import UserSearchContainer from "../UserSearch/UserSearchContainer";
 import CreatePost from "../CreatePost/CreatePost";
 import ImgPostContainer from "../ImgPost/ImgPostContainer";
@@ -32,7 +32,18 @@ const ContainerPost = ({site, word, email, myUser, user}) => {
               <UserSearchContainer word={word} />
               ) : (
               site === 'feed'|| site === 'profile' ?
-               (<CreatePost site={site} email={email} myUser={myUser}/> ) : null
+               (<CreatePost site={site} email={email} myUser={myUser}/> ) : 
+               <Box
+               p={3}
+               m={3}
+               mt={'4vh'}
+               h={site === 'feed' ? '22vh' : '36vh'}
+               w={site === 'feed' ? '100%' : '65%'}
+               display={'flex'}
+               backgroundColor={'withe'}
+               mb={site === 'profile' ? '50px' : null}
+             >
+            </Box>
                 )}
             <Divider/>
 

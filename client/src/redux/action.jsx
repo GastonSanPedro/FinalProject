@@ -30,8 +30,7 @@ export function getUsers() {
 export function getUser(email) {
   return async function (dispatch) {
     try {
-      let info = await axios.get(`/users/${email}`, {});
-
+      let info = await axios.get(`/users/${email}`);
       dispatch({
         type: GET_USER,
         payload: info.data,
