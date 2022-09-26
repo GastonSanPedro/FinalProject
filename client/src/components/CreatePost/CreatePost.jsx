@@ -8,7 +8,7 @@ import {
   Stack,
 } from '@chakra-ui/react';
 import { useDispatch } from 'react-redux';
-import { createUserPost  } from '../../redux/action';
+import { createUserPost, getMyUser  } from '../../redux/action';
 import { Radio, RadioGroup } from '@chakra-ui/react';
 import { setIn } from 'formik';
 
@@ -34,7 +34,7 @@ const CreatePost = ({ email, site, myUser }) => {
     });
     console.log('Post added successfully')
   };
-  
+
   const handleInputImage = (event) => {
     var myWidget = window.cloudinary.createUploadWidget(
       {

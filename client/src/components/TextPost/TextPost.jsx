@@ -51,10 +51,9 @@ const OverlayOne = () => (
 //{liked ? (<StarIcon color="yellow" />
 //) : (<StarIcon color="black" onClick={handleNotification}/>)}
 //----------------------------------
-export default function TextPost(props) {
+export default function TextPost({fullName, description, image, background, userName }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [overlay, setOverlay] = useState(<OverlayOne />);
-  const { fullName, description, avatar, index, userName } = props;
   
   return (
     <>
@@ -126,7 +125,8 @@ export default function TextPost(props) {
           <Link to={`/user/${userName}`}>
           <Avatar
             size={'xl'}
-            src={avatar}
+            //TODO: aca deberia llegar la imagen de cada usuario... src={image} 
+            name={fullName}
             height={'100px'}
             width={'100px'}
             justifySelf={'center'}

@@ -9,7 +9,12 @@ import { getMyUser, getPosts, getUsers } from '../redux/action';
 import ContainerPost from '../components/ContainerPost/ContainerPost';
 
 const Profile = () => {
-  const myUser = useSelector((state) => state.myUser);
+  const myUser = useSelector((state)=> state.myUser)
+  // const [myOwnUser, setMyOwnUser]= useState(myUser)
+
+  useEffect(()=>{
+  },[myUser])
+  
   return (
     <>
       <SidebarWithHeader />

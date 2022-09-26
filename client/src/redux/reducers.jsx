@@ -41,6 +41,7 @@ export default function rootReducer(state = initialState, action) {
         user: action.payload,
       };
     case GET_MY_USER:
+      console.log('reducer')
       return {
         ...state,
         myUser: action.payload,
@@ -60,6 +61,10 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         posts: [...state.posts, action.payload],
+        myUser: {
+          ...state.myUser, 
+          posts: [...state.myUser.posts, action.payload]
+        }
       };
     case CREATE_USER:
       return {

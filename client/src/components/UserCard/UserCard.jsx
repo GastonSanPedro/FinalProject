@@ -1,7 +1,7 @@
 import { Box, Avatar, Center, Stack, Text, HStack, Button } from '@chakra-ui/react';
 import { IoExitOutline } from 'react-icons/io5'
 import { AiOutlineUserAdd } from 'react-icons/ai'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { logOut } from '../../redux/action';
 import {  useNavigate } from 'react-router-dom';
