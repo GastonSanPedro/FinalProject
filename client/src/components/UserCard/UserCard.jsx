@@ -14,7 +14,8 @@ const UserCard = ({ site, myUser, user}) => {
     dispatch(logOut());
     navigate('/landing-page');
   };
-  const handleClickFollow = () => {
+  const handleClickFollow = (e) => {
+     e.preventDefault()
       dispatch(addFriend(myUser._id, user._id))
       alert('ok')
   }
@@ -107,7 +108,7 @@ const UserCard = ({ site, myUser, user}) => {
               color: 'black',
               bg: 'white'
             }}
-            onClick={()=>handleClickFollow()}>FOLLOW</Button>
+            onClick={(e)=>handleClickFollow(e)}>FOLLOW</Button>
         )
       }
     </Box>

@@ -23,6 +23,7 @@ export default function Friends() {
     const myUser = useSelector((state) => state.myUser);
     const [size, setSize] = useState('');
     const { isOpen, onOpen, onClose } = useDisclosure();
+
     const handleClick = () => {
       onOpen()
     }
@@ -32,12 +33,13 @@ export default function Friends() {
     }, [dispatch]);
 
     console.log({myUser})
+    // console.log({objeto: myUser?.friends[0].friend[0].firstName})
     // let myFriends = myUser.friends.slice(0,15)
     // // let friends = users.slice(0, 15);
-  
+
+
     return (
       <>
-        
           <Flex
             onClick={() => handleClick()}
             key={'friends'}
@@ -72,18 +74,16 @@ export default function Friends() {
             <DrawerBody>
              {
                 myUser?.friends?.length > 0? 
-                myUser.friends.map( (friend, index) => {
+                myUser?.friends?.map( (friend, index) => {
                     return(
                       <Box
                       key={index}>
                         <FriendCard
-                        id={friend.friend[0]._id}
-                        firstName={friend.friend[0].firstName}
-                        lastName={friend.friend[0].lastName}
-                        email={friend.friend[0].email}
+                        firstName={friend?.friend[0]?.firstName}
+                        lastName={friend?.friend[0]?.lastName}
+                        email={friend?.friend[0]?.email}
                         />
                       </Box>         
-                        
                     )})
                 : <p>Maybe you can try being more sociable</p> }
             </DrawerBody>
