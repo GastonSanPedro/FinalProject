@@ -1,7 +1,7 @@
 import { Form, Formik } from 'formik';
 import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { authUser, createUser, getUsers } from '../../redux/action';
+import { createUser, getUsers } from '../../redux/action';
 import {
   Box,
   Button,
@@ -25,6 +25,7 @@ const imagenB = imgBackground;
 
 const CreateUser = ({ logOrSign, setlogOrSign }) => {
   const google = window.google;
+
   const dispatch = useDispatch();
   const allUsers = useSelector((state) => state.allUsers);
   const user = useSelector((state) => state.user);
@@ -59,9 +60,9 @@ const CreateUser = ({ logOrSign, setlogOrSign }) => {
     });
   }, [dispatch]);
 
+
   const valEmail = (inputValueEmail) => {
     const emailF = allUsers.filter((user) => inputValueEmail === user.email);
-    console.log(allUsers);
     if (emailF[0]) return true;
     else return false;
   };
@@ -72,6 +73,7 @@ const CreateUser = ({ logOrSign, setlogOrSign }) => {
     if (usernameF[0]) return true;
     else return false;
   };
+
   return (
     <>
       <Box
@@ -146,13 +148,14 @@ const CreateUser = ({ logOrSign, setlogOrSign }) => {
               };
               dispatch(createUser(googleUser), []);
               localStorage.setItem('user', JSON.stringify(googleUser));
-              navigate(`/home`);
               console.log('Formulario Enviado');
+              navigate(`/home`);
             } else {
               dispatch(createUser(values), []);
+              
               localStorage.setItem('user', JSON.stringify(values));
-              navigate(`/home`);
               console.log('Formulario Enviado');
+              navigate(`/home`);
             }
           }}
         >

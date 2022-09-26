@@ -7,17 +7,17 @@ import TextPostContainer from '../components/TextPost/TextPostContainer';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUser } from '../redux/action';
 import { useParams } from 'react-router-dom';
+import ContainerPost from '../components/ContainerPost/ContainerPost';
 
 export default function AnyProfile() {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user);
   let { email } = useParams();
-
   useEffect(() => {
-    setTimeout(function () {
       dispatch(getUser(email));
-    });
   }, [dispatch, email]);
+  const user = useSelector((state) => state.user);
+  console.log({user})
+
   return (
     <>
       <SidebarWithHeader />
@@ -32,7 +32,7 @@ export default function AnyProfile() {
         // bgPosition="center"
         bgSize="cover"
       />
-      <UserCard site="anyProfile" fullName={user?.fullName} />
+      <UserCard site="anyProfile" user={user} />
       <Box
         pos={'absolute'}
         top={'20%'}
@@ -46,7 +46,7 @@ export default function AnyProfile() {
         ml={'18%'}
         mr={'7%'}
       >
-        <TextPostContainer site="anyProfile" />
+        <ContainerPost site="anyProfile" user={user}/>
       </Box>
     </>
   );

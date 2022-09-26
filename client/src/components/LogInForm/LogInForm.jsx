@@ -1,6 +1,6 @@
 /* global google */
 import React, { useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import {  useNavigate } from 'react-router-dom';
 import {
   Tooltip,
   Center,
@@ -12,12 +12,11 @@ import {
   InputRightElement,
   Button,
   Flex,
-  Image,
   Text,
 } from '@chakra-ui/react';
 import { Formik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
-import { authUser, logOut } from '../../redux/action';
+import { authUser } from '../../redux/action';
 import imgBackground from '../../assets/landing-pic.jpg';
 import logo from '../../assets/logo.jpg';
 import jwt_decode from 'jwt-decode';
@@ -33,7 +32,7 @@ const LogInForm = ({ logOrsign, setlogOrSign }) => {
     pass: '',
   });
   const auth = useSelector((state) => state.auth);
-  const User = useSelector((state) => state.user);
+  // const User = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleShowClick = () => setShow(!show);

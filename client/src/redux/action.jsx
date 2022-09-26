@@ -30,8 +30,7 @@ export function getUsers() {
 export function getUser(email) {
   return async function (dispatch) {
     try {
-      let info = await axios.get(`/users/${email}`, {});
-
+      let info = await axios.get(`/users/${email}`);
       dispatch({
         type: GET_USER,
         payload: info.data,
@@ -46,7 +45,6 @@ export function getMyUser(email) {
   return async function (dispatch) {
     try {
       let info = await axios.get(`/users/${email}`, {});
-
       dispatch({
         type: GET_MY_USER,
         payload: info.data,
@@ -72,17 +70,13 @@ export function getPosts(email) {
   };
 }
 
-export function createUserPost(user, payload) {
+export function createUserPost(inputPost) {
   return async function (dispatch) {
     try {
-      var json = await axios.patch(
-        `/users/${user}`,
-        payload
-      );
-      let info = await axios.get(`/${user}`);
+      const {data} = await axios.post('/posts', inputPost )
       return dispatch({
         type: CREATE_USER_POST,
-        payload: info.data.posteos,
+        payload: data,
       });
     } catch (error) {
       console.log(error);
@@ -91,10 +85,13 @@ export function createUserPost(user, payload) {
 }
 
 export function createUser(payload) {
-  return async function () {
+  return async function (dispatch) {
     try {
       var json = await axios.post('/users', payload);
-      return json.info;
+      return dispatch({
+        type: CREATE_USER,
+        payload: json.data,
+      });
     } catch (error) {
       console.log(error);
     }
@@ -174,10 +171,7 @@ export const authUser = (mail, password, google) => {
 export function changeDataProfile(payload, email) {
   return async function (dispatch) {
     try {
-      var user = await axios.patch(
-        `/users/${email}`,
-        payload
-      );
+      var user = await axios.patch(`/users/${email}`, payload);
       console.log(user);
       let info = await axios.get(`/users/${email}`);
       return dispatch({
@@ -202,4 +196,3 @@ export function logOut() {
     }
   };
 }
-

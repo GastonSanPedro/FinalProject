@@ -4,7 +4,6 @@ import {
   chakra,
   Flex,
   useColorModeValue,
-  Box,
   IconButton,
   ModalOverlay,
   useDisclosure,
@@ -20,6 +19,7 @@ import {
 import { BiMessage } from 'react-icons/bi';
 import { BsSun } from 'react-icons/bs';
 import Quotes from '../../assets/comillas.svg';
+import { Link } from 'react-router-dom';
 
 function randomNumber(min, max) {
   let a = Math.random() * (max - min) + min;
@@ -51,10 +51,10 @@ const OverlayOne = () => (
 //{liked ? (<StarIcon color="yellow" />
 //) : (<StarIcon color="black" onClick={handleNotification}/>)}
 //----------------------------------
-export default function TextPost(props) {
+export default function TextPost({fullName, description, image, background, userName }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [overlay, setOverlay] = useState(<OverlayOne />);
-  const { fullName, description, avatar, index, role, background } = props;
+  
   return (
     <>
       <Modal isCentered isOpen={isOpen} onClose={onClose}>
@@ -122,9 +122,11 @@ export default function TextPost(props) {
           justifyContent={'center'}
           minW={'35%'}
         >
+          <Link to={`/user/${userName}`}>
           <Avatar
             size={'xl'}
-            src={avatar}
+            src={image} 
+            name={fullName}
             height={'100px'}
             width={'100px'}
             justifySelf={'center'}
@@ -133,6 +135,7 @@ export default function TextPost(props) {
             mb={'18%'}
             ml={'3%'}
           />
+          </Link>
           <Flex align={'flex-end'} justify={'center'}>
             <IconButton
               size={'lg'}

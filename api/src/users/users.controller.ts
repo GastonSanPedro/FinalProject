@@ -8,6 +8,8 @@ import {
   Post
 } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger/dist';
+import { ParseObjectIdPipe } from 'src/utilities/parse-object-id-pipe.pipe';
+import { AddFriendDto } from './dto/add-friend-dto';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UsersService } from './users.service';
@@ -48,4 +50,13 @@ export class UsersController {
   remove(@Param('id') id: string) {
     return this.usersService.remove(id);
   }
+
+  @Post('/friend/:id')
+  async addFriend(
+    @Param('id', ParseObjectIdPipe) id:string,
+    @Body() friend: AddFriendDto
+  ){
+    return this.usersService.addFriend(id, friend)
+  }
+
 }

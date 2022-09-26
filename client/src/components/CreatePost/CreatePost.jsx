@@ -3,26 +3,37 @@ import {
   Avatar,
   Box,
   Textarea,
-  Input,
   Button,
   Text,
-  Select,
   Stack,
 } from '@chakra-ui/react';
-import { useDispatch, useSelector } from 'react-redux';
-import { createUserPost, getUser, UploadPic } from '../../redux/action';
-import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { createUserPost, getMyUser  } from '../../redux/action';
 import { Radio, RadioGroup } from '@chakra-ui/react';
-import { createNonNullExpression } from 'typescript';
+import { setIn } from 'formik';
 
-const CreatePost = ({ posteos, email, site }) => {
+const CreatePost = ({ email, site, myUser }) => {
+
   const [input, setInput] = useState({
     description: '',
     pics: '',
   });
   const [TypePost, setTypePost] = useState('text');
-
   const dispatch = useDispatch();
+  
+  const handleInputChange = (event) =>{
+  setInput({ ...input, [event.target.name]: event.target.value 
+  })};
+
+  const handleSubmit = () => {
+    const inputPost = {author: myUser._id, ...input}
+    dispatch(createUserPost(inputPost));
+    setInput({
+      description: '',
+      pics: '',
+    });
+    console.log('Post added successfully')
+  };
 
   const handleInputImage = (event) => {
     var myWidget = window.cloudinary.createUploadWidget(
@@ -46,19 +57,6 @@ const CreatePost = ({ posteos, email, site }) => {
     // dispatch(UploadPic(event.target.files));
     // setInput({ ...input, [event.target.name]: event.target.files });
   };
-
-  const handleInputChange = (event) =>
-    setInput({ ...input, [event.target.name]: event.target.value });
-
-  const handleSubmit = () => {
-    let post = { posteos: [...posteos, input] };
-    dispatch(createUserPost(email, post));
-    setInput({
-      description: '',
-      pics: '',
-    });
-  };
-
   return (
     <>
       <Box
@@ -75,8 +73,8 @@ const CreatePost = ({ posteos, email, site }) => {
           <Avatar
             ml="3"
             size="xl"
-            name="usuario"
-            src="https://images.unsplash.com/photo-1619946794135-5bc917a27793?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9"
+            name={myUser.fullName}
+            src={myUser.image}
           />
         ) : null}
 
@@ -98,17 +96,6 @@ const CreatePost = ({ posteos, email, site }) => {
         </Box>
 
         <Box ml={8} w="90%">
-          {/* <Input
-              type="text"
-              placeholder="Url de la imagen"
-              name="pics"
-              value={input.pics}
-              size={'sm'}
-              w={'60%'}
-              onChange={(e) => {
-                handleInputChange(e);
-                />
-              }} */}
           <Textarea
             w={'100%'}
             h={site === 'profile' ? '200px' : null}
@@ -174,3 +161,15 @@ const CreatePost = ({ posteos, email, site }) => {
 };
 
 export default CreatePost;
+
+                {/* <Input
+                    type="text"
+                    placeholder="Url de la imagen"
+                    name="pics"
+                    value={input.pics}
+                    size={'sm'}
+                    w={'60%'}
+                    onChange={(e) => {
+                      handleInputChange(e);
+                      />
+                    }} */}
