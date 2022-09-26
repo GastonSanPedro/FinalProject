@@ -11,6 +11,7 @@ export const AUTH_USER = 'AUTH_USER';
 export const LOG_OUT = 'LOG_OUT';
 export const CHANGE_DATA_PROFILE = 'CHANGE_DATA_PROFILE';
 export const GET_MY_USER = 'GET_MY_USER';
+export const ADD_FRIEND= 'ADD_FRIEND';
 
 export function getUsers() {
   return async function (dispatch) {
@@ -195,4 +196,20 @@ export function logOut() {
       console.log(error);
     }
   };
+}
+
+export function addFriend(myUserid, anyUserId){
+  const idAnyUser = {friend:anyUserId}
+  return async function(dispatch){
+    try{
+      let info= await axios.post(`/users/friend/${myUserid}`, idAnyUser)
+      let {data} = await axios.get(`/users/${myUserid}`)
+      return dispatch({
+        type: ADD_FRIEND,
+        payload: data,
+      });
+    }catch(error){
+      console.log(error)
+    }
+  }
 }
