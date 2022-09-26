@@ -1,108 +1,85 @@
-import { Flex, Box, SlideFade, SimpleGrid, useDisclosure,Text } from "@chakra-ui/react";
-import UserSearchContainer from "../UserSearch/UserSearchContainer";
-import CreatePost from "../CreatePost/CreatePost";
-import ImgPost from "./ImgPost";
+import {
+  Flex,
+  Box,
+  SlideFade,
+  SimpleGrid,
+  useDisclosure,
+  Text,
+} from '@chakra-ui/react';
+import { useState, useEffect } from 'react';
+import UserSearchContainer from '../UserSearch/UserSearchContainer';
+import CreatePost from '../CreatePost/CreatePost';
+import ImgPost from './ImgPost';
+import { useDispatch, useSelector } from 'react-redux';
+import { getPosts, getUsers, getUser } from '../../redux/action';
 
-const ImgPostContainer = ({site}) =>{
+const ImgPostContainer = ({ site, myUser, email, user }) => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getUsers());
+    dispatch(getUser(email));
+  }, [dispatch]);
+
   const { isOpen, onToggle } = useDisclosure();
-    const postImg  = [
-      {
-        user: {
-          fullName: 'Carlos Fudi',
-          userName: 'CarFudi',
-          img: 'https://i.scdn.co/image/ab6761610000e5ebd471aab52533508e4bcf9ba4'
-        },
-        description: 'Lluvia de hojitas',
-        image: 'https://www.escapadah.com/u/fotografias/m/2022/8/1/f720x404-8020_49592_5050.png'
-      },
-      {
-        user: {
-          fullName: 'Carlos Fudi',
-          userName: 'CarFudi',
-          img: 'https://i.scdn.co/image/ab6761610000e5ebd471aab52533508e4bcf9ba4'
-        },
-        description: 'Lluvia de hojitas',
-        image: 'https://www.escapadah.com/u/fotografias/m/2022/8/1/f720x404-8020_49592_5050.png'
-      },
-      {
-        user: {
-          fullName: 'Carlos Fudi',
-          userName: 'CarFudi',
-          img: 'https://i.scdn.co/image/ab6761610000e5ebd471aab52533508e4bcf9ba4'
-        },
-        description: 'Lluvia de hojitas',
-        image: 'https://www.escapadah.com/u/fotografias/m/2022/8/1/f720x404-8020_49592_5050.png'
-      },
-      {
-        user: {
-          fullName: 'Carlos Fudi',
-          userName: 'CarFudi',
-          img: 'https://i.scdn.co/image/ab6761610000e5ebd471aab52533508e4bcf9ba4'
-        },
-        description: 'Lluvia de hojitas',
-        image: 'https://www.escapadah.com/u/fotografias/m/2022/8/1/f720x404-8020_49592_5050.png'
-      },
-      {
-        user: {
-          fullName: 'Carlos Fudi',
-          userName: 'CarFudi',
-          img: 'https://i.scdn.co/image/ab6761610000e5ebd471aab52533508e4bcf9ba4'
-        },
-        description: 'Lluvia de hojitas',
-        image: 'https://www.escapadah.com/u/fotografias/m/2022/8/1/f720x404-8020_49592_5050.png'
-      },
-      {
-        user: {
-          fullName: 'Carlos Fudi',
-          userName: 'CarFudi',
-          img: 'https://i.scdn.co/image/ab6761610000e5ebd471aab52533508e4bcf9ba4'
-        },
-        description: 'Lluvia de hojitas',
-        image: 'https://www.escapadah.com/u/fotografias/m/2022/8/1/f720x404-8020_49592_5050.png'
-      }
-    ]
+  const users = useSelector((state) => state.users);
+  //const user = useSelector((state) => state.user);
 
+  const arrayUserPosts = (site) => {
+    if (site === 'profile') {
+      return myUser;
+    }
+    if (site === 'anyProfile') {
+      return user;
+    }
+    if (site === 'search' || site === 'feed') {
+      return users;
+    }
+  };
+  console.log(site);
+  console.log(arrayUserPosts(site));
+  console.log(arrayUserPosts(site).posts);
 
-    return(
-        <>
-         <Flex
-            pr={'2%'}
-            pl={'2%'}
-            textAlign={'center'}
-            justifyContent={'center'}
-            direction={'column'}
-            borderRadius={2}
-            mt={site === 'feed' ? '0vh' : '4vh'}
-            bg={'rgba(229, 191, 124, 0.3)'}
-            >
+  return (
+    <>
+      <Flex
+        pr={'2%'}
+        pl={'2%'}
+        textAlign={'center'}
+        justifyContent={'center'}
+        direction={'column'}
+        borderRadius={2}
+        mt={site === 'feed' ? '0vh' : '4vh'}
+        bg={'rgba(229, 191, 124, 0.3)'}
+      >
         {
-        <SimpleGrid columns={{ base: 1, xl: 3 }} spacing={'10'} mt={2} mr={5}>
-          {postImg ? (
-            postImg.map((post, index) => {
-              return (
+          <SimpleGrid columns={{ base: 1, xl: 3 }} spacing={'10'} mt={2} mr={5}>
+            {arrayUserPosts(site).posts.length !== 0 ? (
+              arrayUserPosts(site).posts.map((post, index) => {
+                return (
                   <SlideFade in={onToggle} offsetY="20px">
                     <Box key={index}>
                       <ImgPost
-                        user={post.user}
-                        image={post.image}
+                        userName={arrayUserPosts(site)?.userName}
+                        fullName={arrayUserPosts(site)?.fullName}
+                        image={post.pics}
+                        avatar={arrayUserPosts(site)?.image}
                         description={post.description}
-                        date={post.date}
+                        date={post.createdAt}
                       />
                     </Box>
                   </SlideFade>
                 );
-              }
-            
-          )) : (
-            <Box>
-              <Text>no hay posteos</Text>{' '}
-            </Box>
-          )}
-        </SimpleGrid>
+              })
+            ) : (
+              <Box>
+                <Text>no hay posteos</Text>{' '}
+              </Box>
+            )}
+          </SimpleGrid>
         }
-        </Flex>
-        </>
-    )
-}
+      </Flex>
+    </>
+  );
+};
 
-export default ImgPostContainer
+export default ImgPostContainer;
