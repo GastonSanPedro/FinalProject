@@ -29,7 +29,7 @@ export default function Friends() {
     dispatch(getMyUser(myUser.email));
   }, [dispatch]);
 
-  console.log({ myUser });
+
   // let myFriends = myUser.friends.slice(0,15)
   // // let friends = users.slice(0, 15);
 

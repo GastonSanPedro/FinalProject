@@ -56,14 +56,14 @@ export function getMyUser(email) {
   };
 }
 
-export function getPosts(email) {
+export function getPosts() {
   return async function (dispatch) {
     try {
-      let info = await axios.get(`/users/${email}`, {});
-      //console.log(info.data.posteos);
+      let info = await axios.get(`/posts/`);
+    console.log({info})
       dispatch({
         type: GET_POSTS,
-        payload: info.data.posteos,
+        payload: info.data,
       });
     } catch (error) {
       console.log(error, 'Error al llamar a la api');
@@ -132,7 +132,7 @@ export function searchPost(searcher) {
 export const authUser = (mail, password, google) => {
   return async function (dispatch) {
     try {
-      if (google === false) {
+      if (google === undefined) {
         var user = await axios.get(`/users/${mail}`);
         let formatUser = user.data;
         //console.log(formatUser);

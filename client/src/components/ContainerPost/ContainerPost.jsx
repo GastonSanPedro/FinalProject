@@ -1,4 +1,3 @@
-import React from 'react';
 import { Flex, Button, Divider, Box } from "@chakra-ui/react";
 import UserSearchContainer from "../UserSearch/UserSearchContainer";
 import CreatePost from "../CreatePost/CreatePost";
@@ -7,8 +6,11 @@ import TextPostContainer from '../TextPost/TextPostContainer';
 import { useState } from 'react';
 
 
-const ContainerPost = ({site, word, email, myUser, user}) => {
+
+const ContainerPost = ({site, word, email, myUser, user, posts}) => {
+
   const [typePost, setTypePost] = useState('img')
+
   const handleClickImg = () => {
     setTypePost('img')
   }
@@ -89,12 +91,14 @@ const ContainerPost = ({site, word, email, myUser, user}) => {
           {
             typePost === 'text' ?
                 (<TextPostContainer
+                    posts={posts}
                     site={site}
                     myUser={myUser}
-                    user= {user}
+                    user={user}
                   />
                 ):(
                  <ImgPostContainer
+                    posts={posts}
                     site={site}
                     myUser={myUser}
                     user= {user}
