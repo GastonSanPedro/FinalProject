@@ -16,7 +16,7 @@ export default function AnyProfile() {
       dispatch(getUser(email));
   }, [dispatch, email]);
   const user = useSelector((state) => state.user);
-  console.log({user})
+  const myUser = useSelector((state)=> state.myUser)
 
   return (
     <>
@@ -32,7 +32,7 @@ export default function AnyProfile() {
         // bgPosition="center"
         bgSize="cover"
       />
-      <UserCard site="anyProfile" user={user} />
+      <UserCard site="anyProfile" user={user}  myUser={myUser}/>
       <Box
         pos={'absolute'}
         top={'20%'}
@@ -46,7 +46,7 @@ export default function AnyProfile() {
         ml={'18%'}
         mr={'7%'}
       >
-        <ContainerPost site="anyProfile" user={user}/>
+        <ContainerPost site="anyProfile" user={user} myUser={myUser} />
       </Box>
     </>
   );

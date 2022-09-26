@@ -11,6 +11,7 @@ import {
   SEARCH_POST,
   SEARCH_USER,
   CHANGE_DATA_PROFILE,
+  ADD_FRIEND,
 } from './action';
 
 const initialState = {
@@ -36,7 +37,7 @@ export default function rootReducer(state = initialState, action) {
         allUsers: action.payload,
       };
     case GET_USER:
-      console.log({reducer: action.payload})
+      console.log({ reducer: action.payload });
       return {
         ...state,
         user: action.payload,
@@ -62,9 +63,9 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         posts: [...state.posts, action.payload],
         myUser: {
-          ...state.myUser, 
-          posts: [...state.myUser.posts, action.payload]
-        }
+          ...state.myUser,
+          posts: [...state.myUser.posts, action.payload],
+        },
       };
     case CREATE_USER:
       return {
@@ -95,6 +96,11 @@ export default function rootReducer(state = initialState, action) {
         searchPost: action.payload,
       };
     case CHANGE_DATA_PROFILE:
+      return {
+        ...state,
+        myUser: action.payload,
+      };
+    case ADD_FRIEND:
       return {
         ...state,
         myUser: action.payload,
