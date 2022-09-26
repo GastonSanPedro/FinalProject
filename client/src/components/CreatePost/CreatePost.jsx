@@ -8,7 +8,7 @@ import {
   Stack,
 } from '@chakra-ui/react';
 import { useDispatch } from 'react-redux';
-import { createUserPost  } from '../../redux/action';
+import { createUserPost, getMyUser  } from '../../redux/action';
 import { Radio, RadioGroup } from '@chakra-ui/react';
 import { setIn } from 'formik';
 
@@ -34,7 +34,7 @@ const CreatePost = ({ email, site, myUser }) => {
     });
     console.log('Post added successfully')
   };
-  
+
   const handleInputImage = (event) => {
     var myWidget = window.cloudinary.createUploadWidget(
       {
@@ -73,8 +73,8 @@ const CreatePost = ({ email, site, myUser }) => {
           <Avatar
             ml="3"
             size="xl"
-            name="usuario"
-            src="https://images.unsplash.com/photo-1619946794135-5bc917a27793?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9"
+            name={myUser.fullName}
+            src={myUser.image}
           />
         ) : null}
 

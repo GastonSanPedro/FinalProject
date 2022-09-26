@@ -30,8 +30,7 @@ export function getUsers() {
 export function getUser(email) {
   return async function (dispatch) {
     try {
-      let info = await axios.get(`/users/${email}`, {});
-
+      let info = await axios.get(`/users/${email}`);
       dispatch({
         type: GET_USER,
         payload: info.data,
@@ -89,7 +88,6 @@ export function createUser(payload) {
   return async function (dispatch) {
     try {
       var json = await axios.post('/users', payload);
-      console.log({userPost : json.data})
       return dispatch({
         type: CREATE_USER,
         payload: json.data,

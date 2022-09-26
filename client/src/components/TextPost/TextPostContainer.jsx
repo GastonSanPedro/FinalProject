@@ -41,6 +41,7 @@ export default function TextPostContainer({ site, word, email, myUser }) {
   }
   console.log(site)
   console.log(arrayUserPosts(site))
+  console.log(arrayUserPosts(site).posts)
 
 
   //--------- Lógica de ver mas --------
@@ -181,16 +182,17 @@ export default function TextPostContainer({ site, word, email, myUser }) {
         mt={site === 'feed' ? '0vh' : '4vh'}
       >
         <SimpleGrid columns={{ base: 1, xl: 2 }} spacing={'10'} mt={2} mr={5}>
-          {arrayUserPosts(site).posts.length === 0? 
+          {arrayUserPosts(site).posts.length !== 0? 
           (
-            arrayUserPosts(site)?.posts.map((post, index) => {
+            arrayUserPosts(site).posts.map((post, index) => {
               return (
                 <SlideFade in={onToggle} offsetY="20px">
                   <Box key={index}>
                     <TextPost
-                      fullName={arrayUserPosts()?.fullName}
-                      image={arrayUserPosts()?.image}
+                      fullName={arrayUserPosts(site)?.fullName}
+                      image={arrayUserPosts(site)?.image}
                       description={post.description}
+                      userName={arrayUserPosts(site)?.userName}
                       background={`logo.${Math.random(1, 2, 3)}`}
                     />
                   </Box>

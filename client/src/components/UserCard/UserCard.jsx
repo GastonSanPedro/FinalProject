@@ -1,7 +1,7 @@
 import { Box, Avatar, Center, Stack, Text, HStack, Button } from '@chakra-ui/react';
 import { IoExitOutline } from 'react-icons/io5'
 import { AiOutlineUserAdd } from 'react-icons/ai'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { logOut } from '../../redux/action';
 import {  useNavigate } from 'react-router-dom';
@@ -17,6 +17,15 @@ const UserCard = ({ site, myUser, user}) => {
   const handleClickFollow = () => {
       // dispatch(addFriend(myUserId, idProfile))
       alert('ok')
+  }
+  
+  const setUserToSite = (site)=>{
+    if(site === "profile"){
+      return myUser
+    }
+    if(site === "anyProfile"){
+      return user
+    }
   }
 
   return (
@@ -41,9 +50,8 @@ const UserCard = ({ site, myUser, user}) => {
             border={'7px solid white'}
             mt="-55%"
             mb={'10%'}
-            src={
-              'https://images.unsplash.com/photo-1619946794135-5bc917a27793?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9'
-            }
+            src={setUserToSite(site)?.image}
+            name={setUserToSite(site)?.fullName}
           ></Avatar>
           <Stack
             display={'flex'}
@@ -56,19 +64,19 @@ const UserCard = ({ site, myUser, user}) => {
             fontSize="3xl"
             textAlign={'center'}
           >
-            {myUser.fullName}
+            {setUserToSite(site)?.fullName}
           </Text>
           <HStack
             justify={'space-evenly'}>
           <Box
             align={'center'}>
           <Text fontSize="lg" fontWeight={'semibold'}>Friends</Text>
-          <Text fontSize='md'>{myUser.friends?.length}</Text>
+          <Text fontSize='md'>{setUserToSite(site)?.friends.length}</Text>
           </Box>
           <Box
            align={'center'}>
           <Text fontSize="lg" fontWeight={'semibold'}>Posts</Text>
-          <Text fontSize='md'>{myUser.posts?.length}</Text>
+          <Text fontSize='md'>{setUserToSite(site)?.posts.length}</Text>
           </Box>
           </HStack>
           </Stack>
