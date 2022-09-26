@@ -39,8 +39,7 @@ export default function TextPostContainer({ site, word, email, myUser }) {
       return users
     }
   }
-  console.log(site)
-  console.log(arrayUserPosts(site))
+
 
 
   //--------- Lógica de ver mas --------
@@ -53,7 +52,6 @@ export default function TextPostContainer({ site, word, email, myUser }) {
   const handleClickMore = () => {
     // setCurrentEnd(currentEnd + 8);
   };
-
 
   // if (site === 'anyProfile') {
   //   return (
@@ -169,7 +167,9 @@ export default function TextPostContainer({ site, word, email, myUser }) {
   //     </Flex>
   //   );
   // } else {
+
     return (
+     
       <Flex
         pr={'2%'}
         pl={'2%'}

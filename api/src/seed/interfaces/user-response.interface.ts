@@ -15,7 +15,7 @@ export interface IUser {
     password:  string;
     image:     string;
     birthdate: string;
-    posteos?: Iposteos[];
+    posts?: Iposteos[];
     bio?: string;
     
 }

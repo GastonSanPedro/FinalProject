@@ -23,9 +23,9 @@ export class SeedService {
 
       const usersToInsert: IUser[] = []
       
-      userDBFull.forEach(({ firstName, lastName, userName, email, password, image, birthdate, posteos, fullName, bio }) => {
+      userDBFull.forEach(({ firstName, lastName, userName, email, password, image, birthdate, posts, fullName, bio }) => {
 
-      usersToInsert.push({ firstName, lastName, userName: userName.toLowerCase(), email: email.toLowerCase(), password, image, birthdate, posteos, fullName: fullName.toLowerCase(), bio })  
+      usersToInsert.push({ firstName, lastName, userName: userName.toLowerCase(), email: email.toLowerCase(), password, image, birthdate, posts, fullName: fullName.toLowerCase(), bio })  
       });
     
    await this.userModel.insertMany(usersToInsert)
@@ -33,32 +33,3 @@ export class SeedService {
    return 'SEED executed'
 }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // const { data } = await this.axios.get<UserResponse>('http://localhost:3005/users');
-
-      // const usersToInsert: {
-      //    firstName: string;
-      //    lastName:  string;
-      //    userName:  string;
-      //    email:     string;
-      //    password:  string;
-      //    image:     string;
-      //    birthdate: string;
-      // }[] = []
-
-      // data.users.forEach(({ firstName, lastName, userName, email, password, image, birthdate }) => {
-
-      // usersToInsert.push({ firstName, lastName, userName, email, password, image, birthdate })  
-      // });
