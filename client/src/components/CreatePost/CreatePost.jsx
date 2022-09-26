@@ -73,8 +73,8 @@ const CreatePost = ({ email, site, myUser }) => {
           <Avatar
             ml="3"
             size="xl"
-            name={myUser.fullName}
-            src={myUser.image}
+            name={myUser?.fullName}
+            src={myUser?.image}
           />
         ) : null}
 
