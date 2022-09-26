@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import SidebarWithHeader from '../components/Sidebar-Navbar/SideBar';
-import { Flex, Avatar, Badge, Box, Text } from '@chakra-ui/react';
+
 import '../index.css';
 import { getMyUser, getPosts, getUsers } from '../redux/action';
 import { Box, Heading, HStack, VStack, Text, Center, StatGroup, Stat, StatLabel, StatNumber, StatHelpText, StatArrow } from '@chakra-ui/react';
