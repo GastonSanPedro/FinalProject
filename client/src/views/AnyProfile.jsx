@@ -49,7 +49,7 @@ export default function AnyProfile() {
         ml={'18%'}
         mr={'7%'}
       >
-        <ContainerPost site="anyProfile" user={user} myUser={myUser} />
+        <ContainerPost site="anyProfile" user={user} myUser={myUser} email={email} />
       </Box>
     </>
   );

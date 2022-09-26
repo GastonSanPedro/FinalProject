@@ -22,7 +22,9 @@ export default function ImgPost({
   date,
   avatar,
   userName,
+  email
 }) {
+
   return (
     <Center py={6}>
       <Box
@@ -57,7 +59,7 @@ export default function ImgPost({
           <Text color={'gray.500'}>{description}</Text>
         </Stack>
         <Stack mt={6} direction={'row'} spacing={4} align={'center'}>
-          <Link to={`user/${fullName}`}>
+          <Link to={`/user/${email}`}>
             <Avatar src={avatar} name={fullName} alt={'Author'} />
           </Link>
           <Stack direction={'column'} spacing={0} fontSize={'sm'}>
