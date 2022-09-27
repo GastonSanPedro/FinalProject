@@ -45,10 +45,9 @@ export class PostsService {
     .find({description: {$regex: term, $options: "$i"}  })
     .populate({ path: 'author'})
     .populate({ path: 'comments'})
-    .setOptions({ sanitizeFilter: true })
     .exec();
 
-    if (!posts) throw new NotFoundException(`No post includes: ${term}`);
+    if (!posts) throw new NotFoundException(`Any post includes: ${term}`);
     return posts;
   }
 

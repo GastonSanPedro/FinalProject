@@ -4,12 +4,17 @@ import { User, UserSchema } from 'src/users/schema/user-schema';
 import { Post, PostSchema } from './schema/post-schema';
 import { PostsController } from './post.controller';
 import { PostsService } from './post.service';
+import { Comment, CommentSchema } from '../comments/schema/comment-schema'
 
 @Module({
   controllers: [PostsController],
   providers: [PostsService],
   imports:[
     MongooseModule.forFeature([
+      {
+        name: Comment.name,
+        schema: CommentSchema,
+      },
       {
         name: Post.name,
         schema: PostSchema,

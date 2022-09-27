@@ -3,7 +3,7 @@ import { Document, Schema as MongooseSchema, Types, ObjectId } from 'mongoose';
 
 
 @Schema()
-export class Comment extends Document {
+export class Comment {
 
     @Prop()
     title?: string;
