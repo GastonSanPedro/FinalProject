@@ -7,7 +7,10 @@ import ContainerPost from "../components/ContainerPost/ContainerPost";
 
 
 const SearchPage = () =>{
+
     const word = useSelector((state) => state.searchPost)
+    const allPosts = useSelector((state) => state.posts )
+
     return(
         <>
         <SidebarWithHeader/>
@@ -26,23 +29,9 @@ const SearchPage = () =>{
         <ContainerPost
         word={word}
         site={'search'}
+        posts={allPosts}
         />
         </Box>
-        {/* <Navbar/>
-        <Box display='flex' dir='column' pt={10} pr={10} pl={10} >
-        
-        <Box>
-        <UserSearchContainer/>
-        <HashtagContainer/>
-        </Box>
-        <UserCard /> 
-        
-        </Box>
-        <Box display='flex' dir='column' pt={5} pr={10} pl={10}  >
-         <PostSearchContainer/>
-        <FriendsContainer/>
-        </Box>
-         */}
         </>
     )
 }

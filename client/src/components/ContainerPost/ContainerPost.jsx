@@ -17,6 +17,21 @@ const ContainerPost = ({site, word, email, myUser, user, posts}) => {
   const handleClickText = () => {
     setTypePost('text')
   }
+
+    //--------- funcion filtro posteos amigos --------
+
+    const friendsPosts = (myUser, posts) => {
+      let friends = myUser?.friends?.map(friend => friend.friend[0]._id)
+      let friendsPost = posts?.filter(post => {
+        if(friends?.includes(post.author._id)){
+           return post}
+        })
+      
+      return friendsPost
+    }
+
+    let filterFriendPost = friendsPosts(myUser, posts)
+
     return(
         <>
           <Flex
@@ -92,6 +107,7 @@ const ContainerPost = ({site, word, email, myUser, user, posts}) => {
             typePost === 'text' ?
                 (<TextPostContainer
                     posts={posts}
+                    friendsPost = {filterFriendPost}
                     site={site}
                     myUser={myUser}
                     user={user}
@@ -100,6 +116,7 @@ const ContainerPost = ({site, word, email, myUser, user, posts}) => {
                 ):(
                  <ImgPostContainer
                     posts={posts}
+                    friendsPost = {filterFriendPost}
                     site={site}
                     myUser={myUser}
                     user= {user}

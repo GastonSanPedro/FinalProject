@@ -10,13 +10,11 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 import TextPost from './TextPost';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getPosts, getUsers, getUser } from '../../redux/action';
-import CreatePost from '../CreatePost/CreatePost';
-import UserSearchContainer from '../UserSearch/UserSearchContainer';
+import { getUsers } from '../../redux/action';
 
-export default function TextPostContainer({ site, word, myUser, user, posts }) {
+export default function TextPostContainer({ site, word, myUser, user, posts, friendsPost }) {
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -33,8 +31,11 @@ export default function TextPostContainer({ site, word, myUser, user, posts }) {
     if (site === 'anyProfile') {
       return user;
     }
-    if (site === 'search' || site === 'feed') {
+    if (site === 'search' ) {
       return posts;
+    }
+    if(site === 'feed'){
+      return friendsPost
     }
   };
 
@@ -48,10 +49,10 @@ export default function TextPostContainer({ site, word, myUser, user, posts }) {
   const handleClickMore = () => {
     // setCurrentEnd(currentEnd + 8);
   };
-  if(site === 'feed') {
+
+  if(site === 'feed' || site === 'search') {
 
     return (
-      
       <>
         <Flex
           pr={'2%'}
@@ -63,10 +64,10 @@ export default function TextPostContainer({ site, word, myUser, user, posts }) {
           mt={site === 'feed' ? '0vh' : '4vh'}
           bg={'rgba(229, 191, 124, 0.3)'}
         >
-          {
+          { 
             <SimpleGrid columns={{ base: 1, xl: 3 }} spacing={'10'} mt={2} mr={5}>
               {arrayUserPosts(site)?.length !== 0 ? (
-                arrayUserPosts(site)?.map((post, index) => {
+                arrayUserPosts(site).map((post, index) => {
                   return (
                     <SlideFade in={onToggle} key={index} offsetY="20px">
                         <TextPost
@@ -86,7 +87,7 @@ export default function TextPostContainer({ site, word, myUser, user, posts }) {
                   <Text>no hay posteos</Text>{' '}
                 </Box>
               )}
-            </SimpleGrid>
+            </SimpleGrid> 
           }
         </Flex>
       </>
