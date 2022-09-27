@@ -32,12 +32,15 @@ const ImgPostContainer = ({ site, myUser, email, user, posts, friendsPost }) => 
     if (site === 'anyProfile') {
       return user;
     }
-    if (site === 'search' || site === 'feed') {
+    if (site === 'search' ) {
       return posts;
+    }
+    if(site === 'feed'){
+      return friendsPost
     }
   };
 
-if(site === 'feed') {
+if(site === 'feed' || site === 'search') {
 
   return (
     
@@ -54,8 +57,8 @@ if(site === 'feed') {
       >
         {
           <SimpleGrid columns={{ base: 1, xl: 3 }} spacing={'10'} mt={2} mr={5}>
-            {friendsPost.length !== 0 ? (
-              friendsPost.map((post, index) => {
+            {arrayUserPosts(site).length !== 0 ? (
+              arrayUserPosts(site).map((post, index) => {
                 return (
                   <SlideFade in={onToggle} key={index} offsetY="20px">
                       <ImgPost

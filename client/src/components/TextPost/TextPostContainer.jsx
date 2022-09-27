@@ -31,8 +31,11 @@ export default function TextPostContainer({ site, word, myUser, user, posts, fri
     if (site === 'anyProfile') {
       return user;
     }
-    if (site === 'search' || site === 'feed') {
+    if (site === 'search' ) {
       return posts;
+    }
+    if(site === 'feed'){
+      return friendsPost
     }
   };
 
@@ -47,7 +50,7 @@ export default function TextPostContainer({ site, word, myUser, user, posts, fri
     // setCurrentEnd(currentEnd + 8);
   };
 
-  if(site === 'feed') {
+  if(site === 'feed' || site === 'search') {
 
     return (
       <>
@@ -61,10 +64,10 @@ export default function TextPostContainer({ site, word, myUser, user, posts, fri
           mt={site === 'feed' ? '0vh' : '4vh'}
           bg={'rgba(229, 191, 124, 0.3)'}
         >
-          {
+          { 
             <SimpleGrid columns={{ base: 1, xl: 3 }} spacing={'10'} mt={2} mr={5}>
-              {friendsPost?.length !== 0 ? (
-                friendsPost.map((post, index) => {
+              {arrayUserPosts(site)?.length !== 0 ? (
+                arrayUserPosts(site).map((post, index) => {
                   return (
                     <SlideFade in={onToggle} key={index} offsetY="20px">
                         <TextPost
@@ -84,7 +87,7 @@ export default function TextPostContainer({ site, word, myUser, user, posts, fri
                   <Text>no hay posteos</Text>{' '}
                 </Box>
               )}
-            </SimpleGrid>
+            </SimpleGrid> 
           }
         </Flex>
       </>
