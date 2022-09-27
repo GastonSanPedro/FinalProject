@@ -7,13 +7,11 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { useState, useEffect } from 'react';
-import UserSearchContainer from '../UserSearch/UserSearchContainer';
-import CreatePost from '../CreatePost/CreatePost';
 import ImgPost from './ImgPost';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPosts, getUsers, getUser } from '../../redux/action';
 
-const ImgPostContainer = ({ site, myUser, email, user, posts }) => {
+const ImgPostContainer = ({ site, myUser, email, user, posts, friendsPost }) => {
 
     const dispatch = useDispatch();
     const { isOpen, onToggle } = useDisclosure();
@@ -38,7 +36,7 @@ const ImgPostContainer = ({ site, myUser, email, user, posts }) => {
       return posts;
     }
   };
-  console.log(arrayUserPosts(site))
+
 if(site === 'feed') {
 
   return (
@@ -56,8 +54,8 @@ if(site === 'feed') {
       >
         {
           <SimpleGrid columns={{ base: 1, xl: 3 }} spacing={'10'} mt={2} mr={5}>
-            {arrayUserPosts(site)?.length !== 0 ? (
-              arrayUserPosts(site)?.map((post, index) => {
+            {friendsPost.length !== 0 ? (
+              friendsPost.map((post, index) => {
                 return (
                   <SlideFade in={onToggle} key={index} offsetY="20px">
                       <ImgPost

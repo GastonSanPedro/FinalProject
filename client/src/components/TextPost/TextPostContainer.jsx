@@ -10,13 +10,11 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 import TextPost from './TextPost';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getPosts, getUsers, getUser } from '../../redux/action';
-import CreatePost from '../CreatePost/CreatePost';
-import UserSearchContainer from '../UserSearch/UserSearchContainer';
+import { getUsers } from '../../redux/action';
 
-export default function TextPostContainer({ site, word, myUser, user, posts }) {
+export default function TextPostContainer({ site, word, myUser, user, posts, friendsPost }) {
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -48,10 +46,10 @@ export default function TextPostContainer({ site, word, myUser, user, posts }) {
   const handleClickMore = () => {
     // setCurrentEnd(currentEnd + 8);
   };
+
   if(site === 'feed') {
 
     return (
-      
       <>
         <Flex
           pr={'2%'}
@@ -65,8 +63,8 @@ export default function TextPostContainer({ site, word, myUser, user, posts }) {
         >
           {
             <SimpleGrid columns={{ base: 1, xl: 3 }} spacing={'10'} mt={2} mr={5}>
-              {arrayUserPosts(site)?.length !== 0 ? (
-                arrayUserPosts(site)?.map((post, index) => {
+              {friendsPost?.length !== 0 ? (
+                friendsPost.map((post, index) => {
                   return (
                     <SlideFade in={onToggle} key={index} offsetY="20px">
                         <TextPost
