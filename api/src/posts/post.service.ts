@@ -18,7 +18,8 @@ export class PostsService {
 
   async create(createPostDto: CreatePostDto) {
     createPostDto.description = createPostDto.description.toLowerCase();
-    createPostDto.createdAt = Date.now()
+    createPostDto.createdAt = Date.now();
+    createPostDto.reported = false;
     try {
       const post:Post = await this.postModel.create(createPostDto);
       let user: User = await this.userModel.findById(createPostDto.author);
@@ -34,7 +35,7 @@ export class PostsService {
   async findAll() {
     return await this.postModel
     .find()
-    .populate({ path: 'author'})
+    .populate({ path: 'author', select:'-posts -password -friends -email -bio'})
     .populate({ path: 'comments', populate:{ path : 'idUser'} })
     .setOptions({ sanitizeFilter: true })
     .exec();
@@ -44,7 +45,7 @@ export class PostsService {
 
     const posts = await this.postModel
     .find({description: {$regex: term, $options: "$i"}})
-    .populate({ path: 'author'})
+    .populate({ path: 'author', select:'-posts -password -friends -email -bio'})
     .populate({ path: 'comments', populate:{ path : 'idUser'} })
     .exec();
     if (!posts) throw new NotFoundException(`Any post includes: ${term}`);
@@ -55,7 +56,7 @@ export class PostsService {
     if(isValidObjectId(id)){
       const post =  await this.postModel
       .findById(id)
-      .populate({ path: 'author'})
+      .populate({ path: 'author', select:'-posts -password -friends -email -bio'})
       .populate({ path: 'comments', populate:{ path : 'idUser'} })
       .exec()
       return post

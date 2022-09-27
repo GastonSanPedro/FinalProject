@@ -25,6 +25,9 @@ export class Post extends Document  {
 
     @Prop()
     updatedAt: Date;
+
+    @Prop()
+    reported: boolean;
 }
 
 export const PostSchema = SchemaFactory.createForClass(Post);

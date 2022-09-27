@@ -37,4 +37,8 @@ export class CreatePostDto {
     @ApiProperty()
     @IsOptional()
     comments?: Types.ObjectId[]
+
+    @ApiProperty()
+    @IsOptional()
+    reported?: boolean;
 }
