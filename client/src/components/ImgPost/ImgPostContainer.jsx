@@ -63,10 +63,11 @@ if(site === 'feed') {
                       <ImgPost
                         userName={post.author?.userName}
                         fullName={post.author?.fullName}
-                        image={post.pics}
-                        avatar={post.author?.image}
-                        description={post.description}
-                        date={post.createdAt}
+                        image={post?.pics}
+                        email={post?.author?.email}
+                        avatar={post?.author?.image}
+                        description={post?.description}
+                        date={post?.createdAt}
                       />
                   </SlideFade>
                 );

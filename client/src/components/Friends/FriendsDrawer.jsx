@@ -26,7 +26,7 @@ export default function Friends() {
   };
   useEffect(() => {
     dispatch(getUsers());
-    dispatch(getMyUser(myUser.email));
+    dispatch(getMyUser(myUser?.email));
   }, [dispatch]);
 
   return (

@@ -95,6 +95,7 @@ const ContainerPost = ({site, word, email, myUser, user, posts}) => {
                     site={site}
                     myUser={myUser}
                     user={user}
+                    email={email}
                   />
                 ):(
                  <ImgPostContainer
@@ -102,6 +103,7 @@ const ContainerPost = ({site, word, email, myUser, user, posts}) => {
                     site={site}
                     myUser={myUser}
                     user= {user}
+                    email={email}
                     /> 
                 )
           }
