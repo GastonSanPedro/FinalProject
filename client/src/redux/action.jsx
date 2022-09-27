@@ -11,6 +11,7 @@ export const AUTH_USER = 'AUTH_USER';
 export const LOG_OUT = 'LOG_OUT';
 export const CHANGE_DATA_PROFILE = 'CHANGE_DATA_PROFILE';
 export const GET_MY_USER = 'GET_MY_USER';
+export const ADD_FRIEND = 'ADD_FRIEND';
 
 export function getUsers() {
   return async function (dispatch) {
@@ -30,8 +31,7 @@ export function getUsers() {
 export function getUser(email) {
   return async function (dispatch) {
     try {
-      let info = await axios.get(`/users/${email}`, {});
-
+      let info = await axios.get(`/users/${email}`);
       dispatch({
         type: GET_USER,
         payload: info.data,
@@ -56,14 +56,14 @@ export function getMyUser(email) {
   };
 }
 
-export function getPosts(email) {
+export function getPosts() {
   return async function (dispatch) {
     try {
-      let info = await axios.get(`/users/${email}`, {});
-      //console.log(info.data.posteos);
+      let info = await axios.get(`/posts/`);
+    console.log({info})
       dispatch({
         type: GET_POSTS,
-        payload: info.data.posteos,
+        payload: info.data,
       });
     } catch (error) {
       console.log(error, 'Error al llamar a la api');
@@ -74,7 +74,7 @@ export function getPosts(email) {
 export function createUserPost(inputPost) {
   return async function (dispatch) {
     try {
-      const {data} = await axios.post('/posts', inputPost )
+      const { data } = await axios.post('/posts', inputPost);
       return dispatch({
         type: CREATE_USER_POST,
         payload: data,
@@ -89,7 +89,6 @@ export function createUser(payload) {
   return async function (dispatch) {
     try {
       var json = await axios.post('/users', payload);
-      console.log({userPost : json.data})
       return dispatch({
         type: CREATE_USER,
         payload: json.data,
@@ -133,7 +132,7 @@ export function searchPost(searcher) {
 export const authUser = (mail, password, google) => {
   return async function (dispatch) {
     try {
-      if (google === false) {
+      if (google === undefined) {
         var user = await axios.get(`/users/${mail}`);
         let formatUser = user.data;
         //console.log(formatUser);
@@ -192,6 +191,23 @@ export function logOut() {
       return dispatch({
         type: LOG_OUT,
         payload: { auth: false },
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
+
+export function addFriend(myUserid, anyUserId) {
+  const idAnyUser = { friend: anyUserId };
+  return async function (dispatch) {
+    try {
+      let info = await axios.post(`/users/friend/${myUserid}`, idAnyUser);
+      let { data } = await axios.get(`/users/${myUserid}`);
+      console.log(data);
+      return dispatch({
+        type: ADD_FRIEND,
+        payload: data,
       });
     } catch (error) {
       console.log(error);
