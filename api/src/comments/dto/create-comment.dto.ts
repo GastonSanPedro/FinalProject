@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsOptional } from 'class-validator';
+import { IsDate, IsNotEmpty, IsOptional } from 'class-validator';
 import { ObjectId } from 'mongoose';
 
 
@@ -19,6 +19,16 @@ export class CreateCommentDto {
     
     @ApiProperty()
     @IsNotEmpty()
-    idUser: ObjectId;
+    idPost: ObjectId;
+
+    @ApiProperty()
+    @IsOptional()
+    reported: boolean
+
+    @ApiProperty()
+    @IsOptional()
+    @IsDate()
+    createdAt: number
+
 
 }

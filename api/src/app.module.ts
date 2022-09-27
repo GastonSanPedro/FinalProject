@@ -9,6 +9,7 @@ import { PosteosModule } from './posts/post.module';
 import { SeedModule } from './seed/seed.module';
 import { EnvConfiguration } from './config/env.config';
 import { JoiValidationSchena } from './config/joi.validation';
+import { CommentsModule } from './comments/comments.module';
 
 @Module({
   imports: [
@@ -21,7 +22,7 @@ import { JoiValidationSchena } from './config/joi.validation';
       }),
     MongooseModule.forRoot(process.env.MONGODB),
     UsersModule, 
-    PosteosModule, SeedModule
+    PosteosModule, SeedModule, CommentsModule
   ],
   controllers: [],
   providers: [],

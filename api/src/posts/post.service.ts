@@ -2,7 +2,6 @@ import { Injectable, InternalServerErrorException, NotFoundException } from '@ne
 import { InjectModel } from '@nestjs/mongoose';
 import { isValidObjectId, Model, ObjectId } from 'mongoose';
 import { User } from 'src/users/schema/user-schema';
-import { CreateCommentDto } from './dto/add-comment-dto';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { Post } from './schema/post-schema';
@@ -88,17 +87,5 @@ export class PostsService {
     await postDelete.deleteOne()
     return `Post ${id} has been deleted`;
   }
-
-  // // async addComment(comment:any) {
-  // //   let post: Post = await this.postModel.findById(comment.idPost);
-  // //   post.comments.push(comment)
-  // //   post.save()
-  // //   return post
-  // }
-
-  // async removeComment(ids:ICommentDelete){
-  //   const postWithCommentToDelete:Post = await this.findById(ids.idPost);
-  //   console.log(postWithCommentToDelete)
-  // }
   
 }

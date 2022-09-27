@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Schema as MongooseSchema, Types } from 'mongoose';
-import { Comment, CommentSchema } from 'src/schemas/comment-schema';
+import { Comment, CommentSchema } from '../../comments/schema/comment-schema'
 
 @Schema()
 export class Post extends Document  {
