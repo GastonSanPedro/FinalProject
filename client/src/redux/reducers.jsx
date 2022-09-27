@@ -3,6 +3,8 @@ import {
   CREATE_USER_POST,
   GET_MY_USER,
   GET_POSTS,
+  SINGLE_POST,
+  CLEAN_SINGLE_POST,
   GET_USER,
   GET_USERS,
   CREATE_USER,
@@ -20,6 +22,7 @@ const initialState = {
   user: [],
   myUser: [],
   posts: [],
+  singlePost: [],
   auth: {
     auth: '',
   },
@@ -52,7 +55,16 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         posts: action.payload,
       };
-
+    case SINGLE_POST:
+      return {
+        ...state,
+        singlePost: action.payload,
+      };
+    case CLEAN_SINGLE_POST:
+      return {
+        ...state,
+        singlePost: action.payload,
+      };
     case POST_USER:
       return {
         ...state,

@@ -15,11 +15,15 @@ import {
   ModalBody,
   ModalFooter,
   Text,
+  Box,
+  Input,
 } from '@chakra-ui/react';
 import { BiMessage } from 'react-icons/bi';
 import { BsSun } from 'react-icons/bs';
 import Quotes from '../../assets/comillas.svg';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { getSinglePosts, cleanSinglePost } from '../../redux/action';
 
 function randomNumber(min, max) {
   let a = Math.random() * (max - min) + min;
@@ -51,22 +55,63 @@ const OverlayOne = () => (
 //{liked ? (<StarIcon color="yellow" />
 //) : (<StarIcon color="black" onClick={handleNotification}/>)}
 //----------------------------------
-export default function TextPost({fullName, description, image, background, userName }) {
+export default function TextPost({
+  fullName,
+  description,
+  image,
+  background,
+  userName,
+  postId,
+  singlePost,
+}) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [overlay, setOverlay] = useState(<OverlayOne />);
-  
+  //console.log(postId);
+  const dispatch = useDispatch();
+  const handleClick = () => {
+    setOverlay(<OverlayOne />);
+    onOpen();
+    dispatch(getSinglePosts(postId));
+  };
+  console.log(singlePost);
   return (
     <>
       <Modal isCentered isOpen={isOpen} onClose={onClose}>
         {overlay}
         <ModalContent ml={'15vw'}>
-          <ModalHeader>{fullName}</ModalHeader>
+          <ModalHeader>{singlePost?.author?.fullName}</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Text>{description}</Text>
+            <Text>{singlePost?.description}</Text>
+            <Box bg={'orange.300'}>
+              <Text>Comentarios</Text>
+              <Box>
+                {singlePost?.comments?.length > 0 ? (
+                  singlePost?.comments.map((comment) => {
+                    return (
+                      <Box>
+                        <Text>{comment.fullName}</Text>
+                        <Text>{comment.description}</Text>
+                        <Text>{comment.title}</Text>
+                      </Box>
+                    );
+                  })
+                ) : (
+                  <Text>Aun no hay comentarios</Text>
+                )}
+              </Box>
+            </Box>
+            <Input placeholder="Comment here"></Input>
           </ModalBody>
           <ModalFooter>
-            <Button onClick={onClose}>Close</Button>
+            <Button
+              onClick={(e) => {
+                onClose();
+                dispatch(cleanSinglePost());
+              }}
+            >
+              Close
+            </Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
@@ -123,18 +168,18 @@ export default function TextPost({fullName, description, image, background, user
           minW={'35%'}
         >
           <Link to={`/user/${userName}`}>
-          <Avatar
-            size={'xl'}
-            src={image} 
-            name={fullName}
-            height={'100px'}
-            width={'100px'}
-            justifySelf={'center'}
-            alignSelf={'center'}
-            mt={'10%'}
-            mb={'18%'}
-            ml={'3%'}
-          />
+            <Avatar
+              size={'xl'}
+              src={image}
+              name={fullName}
+              height={'100px'}
+              width={'100px'}
+              justifySelf={'center'}
+              alignSelf={'center'}
+              mt={'10%'}
+              mb={'18%'}
+              ml={'3%'}
+            />
           </Link>
           <Flex align={'flex-end'} justify={'center'}>
             <IconButton
@@ -143,8 +188,7 @@ export default function TextPost({fullName, description, image, background, user
               h={30}
               icon={<BiMessage />}
               onClick={() => {
-                setOverlay(<OverlayOne />);
-                onOpen();
+                handleClick();
               }}
               _hover={{
                 bg: 'white',

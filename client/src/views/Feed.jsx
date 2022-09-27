@@ -1,23 +1,19 @@
-import React from 'react';
 import { Box } from '@chakra-ui/react';
-import SidebarWithHeader from '../components/Sidebar-Navbar/SideBar';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import ContainerPost from '../components/ContainerPost/ContainerPost';
-import { useSelector, useDispatch } from 'react-redux';
-import { useState, useEffect } from 'react';
+import SidebarWithHeader from '../components/Sidebar-Navbar/SideBar';
 import { getPosts } from '../redux/action';
 
-
 const Feed = () => {
-  const myUser = useSelector((state) => state.myUser)
-  const allPosts = useSelector((state) => state.posts)
-  
+  const myUser = useSelector((state) => state.myUser);
+  const allPosts = useSelector((state) => state.posts);
+  const singlePost = useSelector((state) => state.singlePost);
   const dispatch = useDispatch();
-
 
   useEffect(() => {
     dispatch(getPosts());
-  }, [dispatch]);
-  
+  }, [dispatch, singlePost]);
 
   return (
     <>
@@ -35,15 +31,16 @@ const Feed = () => {
         ml={'18%'}
         mr={'7%'}
       >
-      <ContainerPost 
-        myUser={myUser}
-        posts={allPosts}
-        site={'feed'}
-        word/>
+        <ContainerPost
+          myUser={myUser}
+          posts={allPosts}
+          singlePost={singlePost}
+          site={'feed'}
+          word
+        />
       </Box>
     </>
-
-);
+  );
 };
 
 export default Feed;
