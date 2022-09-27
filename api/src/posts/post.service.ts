@@ -1,7 +1,8 @@
 import { Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { isValidObjectId, Model } from 'mongoose';
+import { isValidObjectId, Model, ObjectId } from 'mongoose';
 import { User } from 'src/users/schema/user-schema';
+import { CreateCommentDto } from './dto/add-comment-dto';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { Post } from './schema/post-schema';
@@ -34,21 +35,19 @@ export class PostsService {
     return await this.postModel
     .find()
     .populate({ path: 'author'})
-    .populate({ path: 'comments'})
+    .populate({ path: 'comments', populate:{ path : 'idUser'} })
     .setOptions({ sanitizeFilter: true })
     .exec();
   }
 
-  async findByDescription(term: string) {       // esta ruta rompe
+  async findByDescription(term: string) {
 
-    const posts:Post[] = await this.postModel
-    .find({description: {$regex: term, $options: "$i"}  })
+    const posts = await this.postModel
+    .find({description: {$regex: term, $options: "$i"}})
     .populate({ path: 'author'})
-    .populate({ path: 'comments'})
-    .setOptions({ sanitizeFilter: true })
+    .populate({ path: 'comments', populate:{ path : 'idUser'} })
     .exec();
-
-    if (!posts) throw new NotFoundException(`No post includes: ${term}`);
+    if (!posts) throw new NotFoundException(`Any post includes: ${term}`);
     return posts;
   }
 
@@ -57,8 +56,7 @@ export class PostsService {
       const post =  await this.postModel
       .findById(id)
       .populate({ path: 'author'})
-      .populate({ path: 'comments'})
-      .setOptions({ sanitizeFilter: true })
+      .populate({ path: 'comments', populate:{ path : 'idUser'} })
       .exec()
       return post
     }
@@ -66,23 +64,40 @@ export class PostsService {
 
   async update(id: string, updatePostDto: UpdatePostDto) {
     updatePostDto.updatedAt = Date.now()
-    const post:Post = await this.findById(id);
-    await post.updateOne(updatePostDto) 
-    return {...post.toJSON(), ...updatePostDto};
+    const postUpdate:Post = await this.findById(id);
+
+    let user: User = await this.userModel.findById(postUpdate.author._id);
+    user.posts = user.posts.filter(post=> post._id.toString() !== id)
+
+    await postUpdate.updateOne(updatePostDto) 
+    const updatedPost:Post = await this.findById(id);
+
+    user.posts.push(updatedPost)
+    user.save()
+    return `Update Successfully`;
   }
 
   async remove(id: string) {
     const postDelete:Post = await this.findById(id);
+
+    let user: User = await this.userModel.findById(postDelete.author._id);
+    user.posts = user.posts.filter(post=> post._id.toString() !== id)
+    user.save()
+
     await postDelete.deleteOne()
     return `Post ${id} has been deleted`;
   }
 
-  async addComment(id:string, comment:any) {
-    let post: Post = await this.postModel.findById(id);
-    post.comments.push(comment)
-    post.save()
-    return post
-  }
+  // // async addComment(comment:any) {
+  // //   let post: Post = await this.postModel.findById(comment.idPost);
+  // //   post.comments.push(comment)
+  // //   post.save()
+  // //   return post
+  // }
 
+  // async removeComment(ids:ICommentDelete){
+  //   const postWithCommentToDelete:Post = await this.findById(ids.idPost);
+  //   console.log(postWithCommentToDelete)
+  // }
   
 }

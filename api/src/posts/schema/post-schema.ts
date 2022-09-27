@@ -22,6 +22,9 @@ export class Post extends Document  {
 
     @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'User' })
     author: Types.ObjectId
+
+    @Prop()
+    updatedAt: Date;
 }
 
 export const PostSchema = SchemaFactory.createForClass(Post);
