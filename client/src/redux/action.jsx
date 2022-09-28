@@ -107,10 +107,12 @@ export function cleanSinglePost() {
 export function postComment(payload, id) {
   return async function (dispatch) {
     try {
-      const info = await axios.post(`/posts/comment/${id}`);
+      const info = await axios.post(`/comments`, payload);
+      let data = await axios.get(`/posts/id/${id}`);
+      //console.log(data.data);
       return dispatch({
         type: POST_COMMENT,
-        payload: info.data,
+        payload: data.data,
       });
     } catch (error) {
       console.log(error);

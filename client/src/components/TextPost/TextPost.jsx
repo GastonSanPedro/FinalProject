@@ -16,14 +16,21 @@ import {
   ModalFooter,
   Text,
   Box,
+  Image,
   Input,
+  InputGroup,
+  InputRightElement,
 } from '@chakra-ui/react';
 import { BiMessage } from 'react-icons/bi';
 import { BsSun } from 'react-icons/bs';
 import Quotes from '../../assets/comillas.svg';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getSinglePosts, cleanSinglePost } from '../../redux/action';
+import {
+  getSinglePosts,
+  cleanSinglePost,
+  postComment,
+} from '../../redux/action';
 
 function randomNumber(min, max) {
   let a = Math.random() * (max - min) + min;
@@ -63,9 +70,15 @@ export default function TextPost({
   userName,
   postId,
   singlePost,
+  loggedUser,
 }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [overlay, setOverlay] = useState(<OverlayOne />);
+  const [input, setInput] = useState({
+    idUser: loggedUser,
+    idPost: postId,
+    description: '',
+  });
   //console.log(postId);
   const dispatch = useDispatch();
   const handleClick = () => {
@@ -73,27 +86,69 @@ export default function TextPost({
     onOpen();
     dispatch(getSinglePosts(postId));
   };
+  const handleChange = (e) => {
+    setInput({ ...input, [e.target.name]: e.target.value });
+  };
+  const handleSubmit = (e) => {
+    dispatch(postComment(input, postId));
+    setInput({ idUser: loggedUser, idPost: postId, description: '' });
+  };
   console.log(singlePost);
   return (
     <>
-      <Modal isCentered isOpen={isOpen} onClose={onClose}>
+      <Modal
+        isCentered
+        isOpen={isOpen}
+        onClose={onClose}
+        scrollBehavior={'inside'}
+      >
         {overlay}
         <ModalContent ml={'15vw'}>
-          <ModalHeader>{singlePost?.author?.fullName}</ModalHeader>
-          <ModalCloseButton />
+          <ModalHeader>{fullName}</ModalHeader>
+          <ModalCloseButton
+            onClick={(e) => {
+              onClose();
+              dispatch(cleanSinglePost());
+            }}
+          />
           <ModalBody>
-            <Text>{singlePost?.description}</Text>
-            <Box bg={'orange.300'}>
-              <Text>Comentarios</Text>
+            <Text textAlign={'center'}>{description}</Text>
+            <Box bg={'gray.200'} mt={'2vh'} borderRadius={'4vh'}>
+              <Text textAlign={'center'}>Comentarios</Text>
               <Box>
                 {singlePost?.comments?.length > 0 ? (
-                  singlePost?.comments.map((comment) => {
+                  singlePost?.comments?.map((comment) => {
                     return (
-                      <Box>
-                        <Text>{comment.fullName}</Text>
-                        <Text>{comment.description}</Text>
-                        <Text>{comment.title}</Text>
-                      </Box>
+                      <Flex
+                        bg={'gray.200'}
+                        p={'1vh'}
+                        display={'block'}
+                        dir={'column'}
+                        borderRadius={'2vw'}
+                      >
+                        <Box
+                          width={'100%'}
+                          height={'2.75vh'}
+                          display={'flex'}
+                          mb={'1vh'}
+                        >
+                          <Box width={'50%'} textAlign={'left'}>
+                            <Link>
+                              <Text color={'orange.300'}>
+                                {comment.idUser.fullName}
+                              </Text>
+                            </Link>
+                          </Box>
+                          <Box width={'50%'} textAlign={'right'}>
+                            <Text fontSize={'1.4vh'} pt={'0.7vh'}>
+                              {comment.createdAt}
+                            </Text>
+                          </Box>
+                        </Box>
+                        <Flex width={'100%'} maxH={'auto'} minH={'4.75vh'}>
+                          <Text pl={'1vw'}>{comment.description}</Text>
+                        </Flex>
+                      </Flex>
                     );
                   })
                 ) : (
@@ -101,18 +156,36 @@ export default function TextPost({
                 )}
               </Box>
             </Box>
-            <Input placeholder="Comment here"></Input>
+            <InputGroup>
+              <Input
+                placeholder="Comment here"
+                type="text"
+                name="description"
+                value={input.description}
+                mt={'2vh'}
+                onChange={(e) => {
+                  handleChange(e);
+                }}
+              />
+              <InputRightElement
+                w={'6vw'}
+                pointerEvents="painted"
+                children={
+                  <Button
+                    bg={'orange.200'}
+                    mt={'4vh'}
+                    w={'100%'}
+                    onClick={(e) => {
+                      handleSubmit(e);
+                    }}
+                  >
+                    Send
+                  </Button>
+                }
+              />
+            </InputGroup>
           </ModalBody>
-          <ModalFooter>
-            <Button
-              onClick={(e) => {
-                onClose();
-                dispatch(cleanSinglePost());
-              }}
-            >
-              Close
-            </Button>
-          </ModalFooter>
+          <ModalFooter></ModalFooter>
         </ModalContent>
       </Modal>
       <Flex

@@ -18,6 +18,7 @@ const ImgPostContainer = ({
   user,
   posts,
   friendsPost,
+  singlePost,
 }) => {
   const dispatch = useDispatch();
   const { isOpen, onToggle } = useDisclosure();
@@ -77,6 +78,7 @@ const ImgPostContainer = ({
                         date={post?.createdAt}
                         postId={post?._id}
                         loggedUser={myUser?._id}
+                        singlePost={singlePost}
                       />
                     </SlideFade>
                   );
@@ -122,6 +124,9 @@ const ImgPostContainer = ({
                         avatar={arrayUserPosts(site)?.image}
                         description={post.description}
                         date={post.createdAt}
+                        postId={post?._id}
+                        loggedUser={myUser?._id}
+                        singlePost={singlePost}
                       />
                     </SlideFade>
                   );

@@ -115,6 +115,7 @@ export default function ContainerPost({
             myUser={myUser}
             user={user}
             email={email}
+            singlePost={singlePost}
           />
         ) : (
           <ImgPostContainer
@@ -124,6 +125,7 @@ export default function ContainerPost({
             myUser={myUser}
             user={user}
             email={email}
+            singlePost={singlePost}
           />
         )}
       </Flex>

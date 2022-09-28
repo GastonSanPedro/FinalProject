@@ -20,6 +20,8 @@ import {
   Button,
   Input,
   ModalCloseButton,
+  InputRightElement,
+  InputGroup,
 } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import { BiMessage } from 'react-icons/bi';
@@ -63,7 +65,7 @@ export default function ImgPost({
   const [overlay, setOverlay] = useState(<OverlayOne />);
   const [input, setInput] = useState({
     idUser: loggedUser,
-    title: 'Soy el titulo',
+    idPost: postId,
     description: '',
   });
   const dispatch = useDispatch();
@@ -74,15 +76,22 @@ export default function ImgPost({
     dispatch(getSinglePosts(postId));
   };
   const handleChange = (e) => {
-    setInput({ [e.target.name]: e.target.value });
+    setInput({ ...input, [e.target.name]: e.target.value });
   };
   const handleSubmit = (e) => {
     dispatch(postComment(input, postId));
-    setInput({ idUser: loggedUser, title: 'Soy el titulito', description: '' });
+    setInput({ idUser: loggedUser, idPost: postId, description: '' });
   };
+  //console.log(loggedUser, postId);
+  // console.log(singlePost);
   return (
     <Center py={6}>
-      <Modal isCentered isOpen={isOpen} onClose={onClose}>
+      <Modal
+        isCentered
+        isOpen={isOpen}
+        onClose={onClose}
+        scrollBehavior={'inside'}
+      >
         {overlay}
         <ModalContent ml={'15vw'}>
           <ModalHeader>{fullName}</ModalHeader>
@@ -90,17 +99,41 @@ export default function ImgPost({
           <ModalBody>
             <Image src={image} width={'100%'} />
             <Text textAlign={'center'}>{description}</Text>
-            <Box bg={'orange.300'} mt={'2vh'}>
-              <Text>Comentarios</Text>
+            <Box bg={'gray.200'} mt={'2vh'} borderRadius={'4vh'}>
+              <Text textAlign={'center'}>Comentarios</Text>
               <Box>
                 {singlePost?.comments?.length > 0 ? (
-                  singlePost?.comments.map((comment) => {
+                  singlePost?.comments?.map((comment) => {
                     return (
-                      <Box>
-                        <Text>{comment.fullName}</Text>
-                        <Text>{comment.description}</Text>
-                        <Text>{comment.title}</Text>
-                      </Box>
+                      <Flex
+                        bg={'gray.200'}
+                        p={'1vh'}
+                        display={'block'}
+                        dir={'column'}
+                      >
+                        <Box
+                          width={'100%'}
+                          height={'2.75vh'}
+                          display={'flex'}
+                          mb={'1vh'}
+                        >
+                          <Box width={'50%'} textAlign={'left'}>
+                            <Link>
+                              <Text color={'orange.300'}>
+                                {comment.idUser.fullName}
+                              </Text>
+                            </Link>
+                          </Box>
+                          <Box width={'50%'} textAlign={'right'}>
+                            <Text fontSize={'1.4vh'} pt={'0.7vh'}>
+                              {comment.createdAt}
+                            </Text>
+                          </Box>
+                        </Box>
+                        <Flex width={'100%'} maxH={'auto'} minH={'4.75vh'}>
+                          <Text pl={'1vw'}>{comment.description}</Text>
+                        </Flex>
+                      </Flex>
                     );
                   })
                 ) : (
@@ -108,22 +141,34 @@ export default function ImgPost({
                 )}
               </Box>
             </Box>
-            <Input
-              placeholder="Comment here"
-              type="text"
-              name="description"
-              value={input.description}
-              onChange={(e) => {
-                handleChange(e);
-              }}
-            />
-            <Button
-              onClick={(e) => {
-                handleSubmit(e);
-              }}
-            >
-              Send
-            </Button>
+            <InputGroup>
+              <Input
+                placeholder="Comment here"
+                type="text"
+                name="description"
+                value={input.description}
+                mt={'2vh'}
+                onChange={(e) => {
+                  handleChange(e);
+                }}
+              />
+              <InputRightElement
+                w={'6vw'}
+                pointerEvents="painted"
+                children={
+                  <Button
+                    bg={'orange.200'}
+                    mt={'4vh'}
+                    w={'100%'}
+                    onClick={(e) => {
+                      handleSubmit(e);
+                    }}
+                  >
+                    Send
+                  </Button>
+                }
+              />
+            </InputGroup>
           </ModalBody>
           <ModalFooter>
             <Button

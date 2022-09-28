@@ -90,6 +90,7 @@ export default function TextPostContainer({
                         avatar={post?.author?.image}
                         description={post?.description}
                         date={post?.createdAt}
+                        loggedUser={myUser?._id}
                       />
                     </SlideFade>
                   );
@@ -129,6 +130,7 @@ export default function TextPostContainer({
                       image={arrayUserPosts(site)?.image}
                       description={post.description}
                       userName={arrayUserPosts(site)?.userName}
+                      loggedUser={myUser?._id}
                       background={`logo.${Math.random(1, 2, 3)}`}
                     />
                   </Box>
