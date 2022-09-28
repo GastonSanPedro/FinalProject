@@ -35,7 +35,7 @@ export class PostsService {
     return await this.postModel
     .find()
     .populate({ path: 'author', select:'-posts -password -friends -email -bio'})
-    .populate({ path: 'comments', populate:{ path : 'idUser'} })
+    .populate({ path: 'comments', populate:{ path : 'idUser', select:'-posts -password -friends -email -bio'}  })
     .setOptions({ sanitizeFilter: true })
     .exec();
   }
