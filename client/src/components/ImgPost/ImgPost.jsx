@@ -45,7 +45,7 @@ const OverlayOne = () => (
     h={'90vh'}
     position={'fixed'}
     mt={'10.5vh'}
-    left={'17%'}
+    left={'18%'}
   />
 );
 
@@ -60,6 +60,7 @@ export default function ImgPost({
   singlePost,
   postId,
   loggedUser,
+  loggedEmail,
 }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [overlay, setOverlay] = useState(<OverlayOne />);
@@ -93,7 +94,7 @@ export default function ImgPost({
         scrollBehavior={'inside'}
       >
         {overlay}
-        <ModalContent ml={'15vw'}>
+        <ModalContent ml={'15vw'} mt={'20vh'} h={'84vh'}>
           <ModalHeader>{fullName}</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
@@ -104,12 +105,18 @@ export default function ImgPost({
               <Box>
                 {singlePost?.comments?.length > 0 ? (
                   singlePost?.comments?.map((comment) => {
+                    const date = new Date(comment.createdAt);
+                    const formatedDate =
+                      date.toLocaleTimeString('es-ES').slice(0, -3) +
+                      ' ' +
+                      date.toLocaleDateString('es-ES');
                     return (
                       <Flex
                         bg={'gray.200'}
                         p={'1vh'}
                         display={'block'}
                         dir={'column'}
+                        borderRadius={'2vw'}
                       >
                         <Box
                           width={'100%'}
@@ -118,7 +125,7 @@ export default function ImgPost({
                           mb={'1vh'}
                         >
                           <Box width={'50%'} textAlign={'left'}>
-                            <Link>
+                            <Link to={`/user/${loggedEmail}`}>
                               <Text color={'orange.300'}>
                                 {comment.idUser.fullName}
                               </Text>
@@ -126,7 +133,7 @@ export default function ImgPost({
                           </Box>
                           <Box width={'50%'} textAlign={'right'}>
                             <Text fontSize={'1.4vh'} pt={'0.7vh'}>
-                              {comment.createdAt}
+                              {formatedDate}
                             </Text>
                           </Box>
                         </Box>

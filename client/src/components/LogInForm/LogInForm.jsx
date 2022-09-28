@@ -1,6 +1,6 @@
 /* global google */
 import React, { useEffect } from 'react';
-import {  useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import {
   Tooltip,
   Center,
@@ -74,6 +74,7 @@ const LogInForm = ({ logOrsign, setlogOrSign }) => {
   const isUserValidate = () => {
     if (auth.auth === true) {
       localStorage.setItem('user', JSON.stringify(auth.user));
+      localStorage.setItem('email', JSON.stringify(auth.user.email));
       navigate(`/profile`);
     } else if (auth.reason) {
       alert(auth.reason);

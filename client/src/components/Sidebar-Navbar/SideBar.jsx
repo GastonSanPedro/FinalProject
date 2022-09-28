@@ -21,7 +21,7 @@ import {
   MenuDivider,
   MenuItem,
   MenuList,
-  Image
+  Image,
 } from '@chakra-ui/react';
 import {
   FiHome,
@@ -210,6 +210,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
   const dispatch = useDispatch();
   const handleClickLogOut = () => {
     localStorage.removeItem('user');
+    localStorage.removeItem('email');
     dispatch(logOut());
     google.accounts.id.disableAutoSelect();
     navigate('/landing-page');
@@ -371,7 +372,9 @@ const MobileNav = ({ onOpen, ...rest }) => {
                 <MenuItem>Profile</MenuItem>
               </Link>
               <MenuItem>Settings</MenuItem>
-              <Link as={ReactLink} to="/payments" ><MenuItem>Payments</MenuItem></Link>
+              <Link as={ReactLink} to="/payments">
+                <MenuItem>Payments</MenuItem>
+              </Link>
               <MenuDivider />
               <MenuItem onClick={() => handleClickLogOut()}>Sign out</MenuItem>
             </MenuList>

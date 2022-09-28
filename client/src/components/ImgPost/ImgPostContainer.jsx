@@ -78,6 +78,7 @@ const ImgPostContainer = ({
                         date={post?.createdAt}
                         postId={post?._id}
                         loggedUser={myUser?._id}
+                        loggedEmail={myUser?.email}
                         singlePost={singlePost}
                       />
                     </SlideFade>
@@ -126,6 +127,7 @@ const ImgPostContainer = ({
                         date={post.createdAt}
                         postId={post?._id}
                         loggedUser={myUser?._id}
+                        loggedEmail={myUser?.email}
                         singlePost={singlePost}
                       />
                     </SlideFade>
