@@ -1,5 +1,6 @@
 import {
   AUTH_USER,
+  CLEAN_AUTH_USER,
   CREATE_USER_POST,
   GET_MY_USER,
   GET_POSTS,
@@ -94,6 +95,12 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         auth: action.payload,
         myUser: action.payload.user,
+      };
+    case CLEAN_AUTH_USER:
+      return {
+        ...state,
+        auth: action.payload,
+        myUser: [],
       };
     case LOG_OUT:
       return {

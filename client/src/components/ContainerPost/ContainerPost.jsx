@@ -3,7 +3,7 @@ import UserSearchContainer from '../UserSearch/UserSearchContainer';
 import CreatePost from '../CreatePost/CreatePost';
 import ImgPostContainer from '../ImgPost/ImgPostContainer';
 import TextPostContainer from '../TextPost/TextPostContainer';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 
 export default function ContainerPost({
   site,
@@ -15,6 +15,11 @@ export default function ContainerPost({
   singlePost,
 }) {
   const [typePost, setTypePost] = useState('img');
+  const ref = useRef();
+  const handleClickRef = () => {
+    console.log(ref);
+    ref.current.focus();
+  };
 
   const handleClickImg = () => {
     setTypePost('img');
@@ -53,7 +58,12 @@ export default function ContainerPost({
         {site === 'search' ? (
           <UserSearchContainer word={word} />
         ) : site === 'feed' || site === 'profile' ? (
-          <CreatePost site={site} email={email} myUser={myUser} />
+          <CreatePost
+            site={site}
+            email={email}
+            myUser={myUser}
+            createdRef={ref}
+          />
         ) : (
           <Box
             p={3}
@@ -116,6 +126,7 @@ export default function ContainerPost({
             user={user}
             email={email}
             singlePost={singlePost}
+            handleClickRef={handleClickRef}
           />
         ) : (
           <ImgPostContainer
@@ -126,6 +137,7 @@ export default function ContainerPost({
             user={user}
             email={email}
             singlePost={singlePost}
+            handleClickRef={handleClickRef}
           />
         )}
       </Flex>

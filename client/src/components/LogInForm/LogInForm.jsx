@@ -13,6 +13,7 @@ import {
   Button,
   Flex,
   Text,
+  useToast,
 } from '@chakra-ui/react';
 import { Formik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
@@ -31,6 +32,7 @@ const LogInForm = ({ logOrsign, setlogOrSign }) => {
     email: '',
     pass: '',
   });
+  const toast = useToast();
   const auth = useSelector((state) => state.auth);
   // const User = useSelector((state) => state.user);
   const dispatch = useDispatch();
@@ -44,7 +46,13 @@ const LogInForm = ({ logOrsign, setlogOrSign }) => {
     console.log('Encoded JWT ID token:' + response.credential);
     var userObject = jwt_decode(response.credential);
     console.log(userObject);
-    dispatch(authUser(userObject.email, null, true));
+    dispatch(
+      authUser(userObject.email, null, {
+        email: userObject.email,
+        given_name: userObject.given_name,
+        family_name: userObject.family_name,
+      })
+    );
   };
 
   useEffect(() => {
@@ -71,13 +79,42 @@ const LogInForm = ({ logOrsign, setlogOrSign }) => {
     setlogOrSign('sign');
   };
 
+  const handleNavigation = () => {
+    setTimeout(function () {
+      navigate(`/profile`);
+    }, 2000);
+  };
   const isUserValidate = () => {
     if (auth.auth === true) {
       localStorage.setItem('user', JSON.stringify(auth.user));
       localStorage.setItem('email', JSON.stringify(auth.user.email));
-      navigate(`/profile`);
+      toast({
+        title: 'Sucess',
+        description: 'Redirecting to your feed',
+        status: 'success',
+        duration: 2000,
+        isClosable: true,
+        onCloseComplete: handleNavigation(),
+      });
+      //navigate(`/Home`);
     } else if (auth.reason) {
-      alert(auth.reason);
+      //alert(auth.reason);
+      toast({
+        title: 'Error',
+        description: auth.reason,
+        status: 'error',
+        duration: 2000,
+        isClosable: true,
+      });
+    } else if (auth.auth === 'unregistered') {
+      toast({
+        title: 'Account not created yet',
+        description: 'Complete your password and username to proceed',
+        status: 'info',
+        duration: 2000,
+        isClosable: true,
+      });
+      setlogOrSign('sign');
     }
   };
 

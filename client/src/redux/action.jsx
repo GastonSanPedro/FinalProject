@@ -11,6 +11,7 @@ export const CREATE_USER = 'CREATE_USER';
 export const SEARCH_USER = 'SEARCH_USER';
 export const SEARCH_POST = 'SEARCH_POST';
 export const AUTH_USER = 'AUTH_USER';
+export const CLEAN_AUTH_USER = 'CLEAN_AUTH_USER';
 export const LOG_OUT = 'LOG_OUT';
 export const CHANGE_DATA_PROFILE = 'CHANGE_DATA_PROFILE';
 export const GET_MY_USER = 'GET_MY_USER';
@@ -183,7 +184,7 @@ export const authUser = (mail, password, google) => {
       if (google === undefined) {
         var user = await axios.get(`/users/${mail}`);
         let formatUser = user.data;
-        //console.log(formatUser);
+        console.log(formatUser);
         if (formatUser.password !== password) {
           return dispatch({
             type: AUTH_USER,
@@ -195,26 +196,44 @@ export const authUser = (mail, password, google) => {
             payload: { auth: true, user: formatUser },
           });
         }
-      } else {
+      } else if (google) {
         var user = await axios.get(`/users/${mail}`);
-        let formatUser = user.data;
-        return dispatch({
-          type: AUTH_USER,
-          payload: { auth: true, user: formatUser },
-        });
+        if (user) {
+          console.log(google);
+          let formatUser = user.data;
+          return dispatch({
+            type: AUTH_USER,
+            payload: { auth: true, user: formatUser },
+          });
+        }
       }
     } catch (error) {
       if (error.response.data.statusCode === 404) {
-        console.log(error);
-        return dispatch({
-          type: AUTH_USER,
-          payload: { auth: false, reason: 'Usuario o contraseña no válidos' },
-        });
+        if (!google) {
+          console.log(error);
+          return dispatch({
+            type: AUTH_USER,
+            payload: { auth: false, reason: 'Usuario o contraseña no válidos' },
+          });
+        } else {
+          console.log(google);
+          return dispatch({
+            type: AUTH_USER,
+            payload: { auth: 'unregistered', user: google },
+          });
+        }
       }
     }
   };
 };
-
+export function cleanAuthUser() {
+  return async function (dispatch) {
+    return dispatch({
+      type: CLEAN_AUTH_USER,
+      payload: { auth: '' },
+    });
+  };
+}
 //reason: error.response.data.message
 
 export function changeDataProfile(payload, email) {

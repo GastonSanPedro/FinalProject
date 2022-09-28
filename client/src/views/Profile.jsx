@@ -11,6 +11,7 @@ import ContainerPost from '../components/ContainerPost/ContainerPost';
 const Profile = () => {
   const myUser = useSelector((state) => state.myUser);
   const singlePost = useSelector((state) => state.singlePost);
+
   // const [myOwnUser, setMyOwnUser]= useState(myUser)
 
   useEffect(() => {}, [myUser, singlePost]);

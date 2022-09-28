@@ -22,6 +22,7 @@ import {
   ModalCloseButton,
   InputRightElement,
   InputGroup,
+  useToast,
 } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import { BiMessage } from 'react-icons/bi';
@@ -70,7 +71,7 @@ export default function ImgPost({
     description: '',
   });
   const dispatch = useDispatch();
-
+  const toast = useToast();
   const handleClick = () => {
     setOverlay(<OverlayOne />);
     onOpen();
@@ -82,6 +83,13 @@ export default function ImgPost({
   const handleSubmit = (e) => {
     dispatch(postComment(input, postId));
     setInput({ idUser: loggedUser, idPost: postId, description: '' });
+    toast({
+      title: 'Sucess',
+      description: 'Comment added successfully',
+      status: 'success',
+      duration: 2000,
+      isClosable: true,
+    });
   };
   //console.log(loggedUser, postId);
   // console.log(singlePost);

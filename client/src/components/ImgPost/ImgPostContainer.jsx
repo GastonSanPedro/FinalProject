@@ -5,6 +5,8 @@ import {
   SimpleGrid,
   useDisclosure,
   Text,
+  Button,
+  Center,
 } from '@chakra-ui/react';
 import { useState, useEffect } from 'react';
 import ImgPost from './ImgPost';
@@ -19,6 +21,7 @@ const ImgPostContainer = ({
   posts,
   friendsPost,
   singlePost,
+  handleClickRef,
 }) => {
   const dispatch = useDispatch();
   const { isOpen, onToggle } = useDisclosure();
@@ -28,6 +31,10 @@ const ImgPostContainer = ({
   useEffect(() => {
     dispatch(getUsers());
   }, [dispatch]);
+
+  const handleClickMore = () => {
+    // setCurrentEnd(currentEnd + 8);
+  };
 
   const arrayUserPosts = (site) => {
     if (site === 'profile') {
@@ -135,11 +142,31 @@ const ImgPostContainer = ({
                 })
               ) : (
                 <Box>
-                  <Text>no hay posteos</Text>{' '}
+                  {site === 'profile' ? (
+                    <Text w={'40vw'} ml={'15vw'}>
+                      You haven't create any posts. Click here to create your
+                      first one <Button onClick={handleClickRef}>Create</Button>
+                    </Text>
+                  ) : (
+                    <Text>This user has no posts yet</Text>
+                  )}
                 </Box>
               )}
             </SimpleGrid>
           }
+          <Center>
+            <Button
+              onClick={() => handleClickMore()}
+              h="50px"
+              w="200px"
+              mr="50"
+              fontSize="sm"
+              mt="50px"
+              mb="50px"
+            >
+              Ver más
+            </Button>
+          </Center>
         </Flex>
       </>
     );

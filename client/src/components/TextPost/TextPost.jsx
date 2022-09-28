@@ -20,6 +20,7 @@ import {
   Input,
   InputGroup,
   InputRightElement,
+  useToast,
 } from '@chakra-ui/react';
 import { BiMessage } from 'react-icons/bi';
 import { BsSun } from 'react-icons/bs';
@@ -81,6 +82,7 @@ export default function TextPost({
   });
   //console.log(postId);
   const dispatch = useDispatch();
+  const toast = useToast();
   const handleClick = () => {
     setOverlay(<OverlayOne />);
     onOpen();
@@ -92,7 +94,15 @@ export default function TextPost({
   const handleSubmit = (e) => {
     dispatch(postComment(input, postId));
     setInput({ idUser: loggedUser, idPost: postId, description: '' });
+    toast({
+      title: 'Sucess',
+      description: 'Comment added successfully',
+      status: 'success',
+      duration: 2000,
+      isClosable: true,
+    });
   };
+
   console.log(singlePost);
   return (
     <>

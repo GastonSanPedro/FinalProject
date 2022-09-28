@@ -10,7 +10,7 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 import TextPost from './TextPost';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUsers } from '../../redux/action';
 
@@ -22,6 +22,7 @@ export default function TextPostContainer({
   posts,
   friendsPost,
   singlePost,
+  handleClickRef,
 }) {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -30,7 +31,6 @@ export default function TextPostContainer({
 
   const { isOpen, onToggle } = useDisclosure();
   const users = useSelector((state) => state.users);
-
   const arrayUserPosts = (site) => {
     if (site === 'profile') {
       return myUser;
@@ -97,7 +97,7 @@ export default function TextPostContainer({
                 })
               ) : (
                 <Box>
-                  <Text>no hay posteos</Text>{' '}
+                  <Text>Follow other users to see updates!</Text>{' '}
                 </Box>
               )}
             </SimpleGrid>
@@ -139,7 +139,14 @@ export default function TextPostContainer({
             })
           ) : (
             <Box>
-              <Text>no hay posteos</Text>{' '}
+              {site === 'profile' ? (
+                <Text w={'40vw'} ml={'15vw'}>
+                  You haven't create any posts. Click here to create your first
+                  one <Button onClick={handleClickRef}>Create</Button>
+                </Text>
+              ) : (
+                <Text>This user has no posts yet</Text>
+              )}
             </Box>
           )}
         </SimpleGrid>
