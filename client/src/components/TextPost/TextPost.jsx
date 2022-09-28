@@ -113,7 +113,7 @@ export default function TextPost({
         scrollBehavior={'inside'}
       >
         {overlay}
-        <ModalContent ml={'15vw'}>
+        <ModalContent ml={'15vw'} mt={'20vh'} maxh={'84vh'}>
           <ModalHeader>{fullName}</ModalHeader>
           <ModalCloseButton
             onClick={(e) => {

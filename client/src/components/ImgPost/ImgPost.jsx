@@ -102,7 +102,7 @@ export default function ImgPost({
         scrollBehavior={'inside'}
       >
         {overlay}
-        <ModalContent ml={'15vw'} mt={'20vh'} h={'84vh'}>
+        <ModalContent ml={'15vw'} mt={'20vh'} maxh={'84vh'}>
           <ModalHeader>{fullName}</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
@@ -185,16 +185,7 @@ export default function ImgPost({
               />
             </InputGroup>
           </ModalBody>
-          <ModalFooter>
-            <Button
-              onClick={(e) => {
-                onClose();
-                dispatch(cleanSinglePost());
-              }}
-            >
-              Close
-            </Button>
-          </ModalFooter>
+          <ModalFooter> </ModalFooter>
         </ModalContent>
       </Modal>
       <Box
