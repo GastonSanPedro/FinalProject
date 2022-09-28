@@ -14,6 +14,15 @@ export class CreateCommentDto {
     likes?: number;
 
     @ApiProperty()
+    @IsOptional()
+    reported?: boolean
+    
+    @ApiProperty()
+    @IsOptional()
+    @IsDate()
+    createdAt?: number
+    
+    @ApiProperty()
     @IsNotEmpty()
     description: string;
     
@@ -22,13 +31,7 @@ export class CreateCommentDto {
     idPost: ObjectId;
 
     @ApiProperty()
-    @IsOptional()
-    reported: boolean
-
-    @ApiProperty()
-    @IsOptional()
-    @IsDate()
-    createdAt: number
-
-
+    @IsNotEmpty()
+    idUser: ObjectId;
+    
 }
