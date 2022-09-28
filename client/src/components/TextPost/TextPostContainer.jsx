@@ -62,12 +62,12 @@ export default function TextPostContainer({
         <Flex
           pr={'2%'}
           pl={'2%'}
+          w={'100%'}
           textAlign={'center'}
           justifyContent={'center'}
           direction={'column'}
           borderRadius={2}
           mt={site === 'feed' ? '0vh' : '4vh'}
-          bg={'rgba(229, 191, 124, 0.3)'}
         >
           {
             <SimpleGrid

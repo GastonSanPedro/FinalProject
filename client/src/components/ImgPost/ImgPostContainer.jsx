@@ -6,10 +6,10 @@ import {
   useDisclosure,
   Text,
 } from '@chakra-ui/react';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import ImgPost from './ImgPost';
 import { useDispatch, useSelector } from 'react-redux';
-import { getPosts, getUsers, getUser } from '../../redux/action';
+import { getUsers } from '../../redux/action';
 
 const ImgPostContainer = ({
   site,
@@ -55,8 +55,7 @@ const ImgPostContainer = ({
           direction={'column'}
           borderRadius={2}
           mt={site === 'feed' ? '0vh' : '4vh'}
-          bg={'rgba(229, 191, 124, 0.3)'}
-        >
+          >
           {
             <SimpleGrid
               columns={{ base: 1, xl: 3 }}
@@ -64,8 +63,8 @@ const ImgPostContainer = ({
               mt={2}
               mr={5}
             >
-              {arrayUserPosts(site).length !== 0 ? (
-                arrayUserPosts(site).map((post, index) => {
+              {arrayUserPosts(site)?.length !== 0 ? (
+                arrayUserPosts(site)?.map((post, index) => {
                   return (
                     <SlideFade in={onToggle} key={index} offsetY="20px">
                       <ImgPost
