@@ -29,10 +29,6 @@ export default function Friends() {
     dispatch(getMyUser(myUser?.email));
   }, [dispatch]);
 
-
-  // let myFriends = myUser.friends.slice(0,15)
-  // // let friends = users.slice(0, 15);
-
   return (
     <>
       <Flex

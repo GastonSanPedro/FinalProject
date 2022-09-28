@@ -61,6 +61,7 @@ export class CreateUserDto {
   @IsOptional()
   fullName: string;
 
+  @ApiProperty()
   @IsOptional()
   friends?: User[];
 }

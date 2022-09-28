@@ -10,11 +10,9 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 import TextPost from './TextPost';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getPosts, getUsers, getUser } from '../../redux/action';
-import CreatePost from '../CreatePost/CreatePost';
-import UserSearchContainer from '../UserSearch/UserSearchContainer';
+import { getUsers } from '../../redux/action';
 
 export default function TextPostContainer({
   site,
@@ -22,6 +20,7 @@ export default function TextPostContainer({
   myUser,
   user,
   posts,
+  friendsPost,
   singlePost,
 }) {
   const dispatch = useDispatch();
@@ -39,8 +38,11 @@ export default function TextPostContainer({
     if (site === 'anyProfile') {
       return user;
     }
-    if (site === 'search' || site === 'feed') {
+    if (site === 'search') {
       return posts;
+    }
+    if (site === 'feed') {
+      return friendsPost;
     }
   };
   //--------- Lógica de ver mas --------
@@ -53,7 +55,8 @@ export default function TextPostContainer({
   const handleClickMore = () => {
     // setCurrentEnd(currentEnd + 8);
   };
-  if (site === 'feed') {
+
+  if (site === 'feed' || site === 'search') {
     return (
       <>
         <Flex
@@ -74,8 +77,7 @@ export default function TextPostContainer({
               mr={5}
             >
               {arrayUserPosts(site)?.length !== 0 ? (
-                arrayUserPosts(site)?.map((post, index) => {
-                  //console.log(post._id);
+                arrayUserPosts(site).map((post, index) => {
                   return (
                     <SlideFade in={onToggle} key={index} offsetY="20px">
                       <TextPost

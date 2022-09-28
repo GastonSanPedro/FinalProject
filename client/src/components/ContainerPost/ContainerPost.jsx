@@ -5,7 +5,7 @@ import ImgPostContainer from '../ImgPost/ImgPostContainer';
 import TextPostContainer from '../TextPost/TextPostContainer';
 import { useState } from 'react';
 
-const ContainerPost = ({
+export default function ContainerPost({
   site,
   word,
   email,
@@ -13,7 +13,7 @@ const ContainerPost = ({
   user,
   posts,
   singlePost,
-}) => {
+}) {
   const [typePost, setTypePost] = useState('img');
 
   const handleClickImg = () => {
@@ -22,6 +22,22 @@ const ContainerPost = ({
   const handleClickText = () => {
     setTypePost('text');
   };
+
+  //--------- funcion filtro posteos amigos --------
+
+  const friendsPosts = (myUser, posts) => {
+    let friends = myUser?.friends?.map((friend) => friend.friend[0]._id);
+    let friendsPost = posts?.filter((post) => {
+      if (friends?.includes(post.author._id)) {
+        return post;
+      }
+    });
+
+    return friendsPost;
+  };
+
+  let filterFriendPost = friendsPosts(myUser, posts);
+
   return (
     <>
       <Flex
@@ -94,26 +110,23 @@ const ContainerPost = ({
         {typePost === 'text' ? (
           <TextPostContainer
             posts={posts}
+            friendsPost={filterFriendPost}
             site={site}
             myUser={myUser}
             user={user}
             email={email}
-            word={word}
-            singlePost={singlePost}
           />
         ) : (
           <ImgPostContainer
             posts={posts}
+            friendsPost={filterFriendPost}
             site={site}
             myUser={myUser}
             user={user}
             email={email}
-            word={word}
           />
         )}
       </Flex>
     </>
   );
-};
-
-export default ContainerPost;
+}
