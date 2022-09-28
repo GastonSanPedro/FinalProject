@@ -104,7 +104,19 @@ export function cleanSinglePost() {
     }
   };
 }
-// export function
+export function postComment(payload, id) {
+  return async function (dispatch) {
+    try {
+      const info = await axios.post(`/posts/comment/${id}`);
+      return dispatch({
+        type: POST_COMMENT,
+        payload: info.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
 export function createUserPost(inputPost) {
   return async function (dispatch) {
     try {

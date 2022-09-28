@@ -68,6 +68,7 @@ const ImgPostContainer = ({ site, myUser, email, user, posts }) => {
                         description={post?.description}
                         date={post?.createdAt}
                         postId={post?._id}
+                        loggedUser={myUser?._id}
                       />
                     </SlideFade>
                   );

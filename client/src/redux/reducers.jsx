@@ -4,6 +4,7 @@ import {
   GET_MY_USER,
   GET_POSTS,
   SINGLE_POST,
+  POST_COMMENT,
   CLEAN_SINGLE_POST,
   GET_USER,
   GET_USERS,
@@ -56,6 +57,11 @@ export default function rootReducer(state = initialState, action) {
         posts: action.payload,
       };
     case SINGLE_POST:
+      return {
+        ...state,
+        singlePost: action.payload,
+      };
+    case POST_COMMENT:
       return {
         ...state,
         singlePost: action.payload,

@@ -24,7 +24,11 @@ import {
 import { Link } from 'react-router-dom';
 import { BiMessage } from 'react-icons/bi';
 import { BsSun } from 'react-icons/bs';
-import { getSinglePosts, cleanSinglePost } from '../../redux/action';
+import {
+  getSinglePosts,
+  cleanSinglePost,
+  postComment,
+} from '../../redux/action';
 import { useDispatch, useSelector } from 'react-redux';
 
 function randomNumber(min, max) {
@@ -53,20 +57,29 @@ export default function ImgPost({
   email,
   singlePost,
   postId,
+  loggedUser,
 }) {
-  const [Input, setInput] = useState({
-    idUser: '',
-    title: '',
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [overlay, setOverlay] = useState(<OverlayOne />);
+  const [input, setInput] = useState({
+    idUser: loggedUser,
+    title: 'Soy el titulo',
     description: '',
   });
   const dispatch = useDispatch();
+
   const handleClick = () => {
     setOverlay(<OverlayOne />);
     onOpen();
     dispatch(getSinglePosts(postId));
   };
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const [overlay, setOverlay] = useState(<OverlayOne />);
+  const handleChange = (e) => {
+    setInput({ [e.target.name]: e.target.value });
+  };
+  const handleSubmit = (e) => {
+    dispatch(postComment(input, postId));
+    setInput({ idUser: loggedUser, title: 'Soy el titulito', description: '' });
+  };
   return (
     <Center py={6}>
       <Modal isCentered isOpen={isOpen} onClose={onClose}>
@@ -95,7 +108,22 @@ export default function ImgPost({
                 )}
               </Box>
             </Box>
-            <Input placeholder="Comment here"></Input>
+            <Input
+              placeholder="Comment here"
+              type="text"
+              name="description"
+              value={input.description}
+              onChange={(e) => {
+                handleChange(e);
+              }}
+            />
+            <Button
+              onClick={(e) => {
+                handleSubmit(e);
+              }}
+            >
+              Send
+            </Button>
           </ModalBody>
           <ModalFooter>
             <Button
