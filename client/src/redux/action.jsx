@@ -2,6 +2,9 @@ import axios from 'axios';
 export const GET_USERS = 'GET_USERS';
 export const GET_USER = 'GET_USER';
 export const GET_POSTS = 'GET_POSTS';
+export const SINGLE_POST = 'SINGLE_POST';
+export const CLEAN_SINGLE_POST = 'CLEAN_SINGLE_POST';
+export const POST_COMMENT = 'POST_COMMENT';
 export const POST_USER = 'POST_USER';
 export const CREATE_USER_POST = 'CREATE_USER_POST';
 export const CREATE_USER = 'CREATE_USER';
@@ -60,7 +63,7 @@ export function getPosts() {
   return async function (dispatch) {
     try {
       let info = await axios.get(`/posts/`);
-    console.log({info})
+      //      console.log({ info });
       dispatch({
         type: GET_POSTS,
         payload: info.data,
@@ -70,7 +73,52 @@ export function getPosts() {
     }
   };
 }
-
+export function getSinglePosts(id) {
+  return async function (dispatch) {
+    try {
+      let info = await axios.get(`/posts/id/${id}`);
+      // let data = info.data.comments.map(async (comment) => {
+      //   //console.log(comment);
+      //   let user = await axios.get(`/users/${comment.idUser}`);
+      //   comment.fullName = user.data.fullName;
+      // });
+      //console.log(data);
+      dispatch({
+        type: SINGLE_POST,
+        payload: info.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
+export function cleanSinglePost() {
+  return async function (dispatch) {
+    try {
+      dispatch({
+        type: SINGLE_POST,
+        payload: [],
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
+export function postComment(payload, id) {
+  return async function (dispatch) {
+    try {
+      const info = await axios.post(`/comments`, payload);
+      let data = await axios.get(`/posts/id/${id}`);
+      //console.log(data.data);
+      return dispatch({
+        type: POST_COMMENT,
+        payload: data.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
 export function createUserPost(inputPost) {
   return async function (dispatch) {
     try {

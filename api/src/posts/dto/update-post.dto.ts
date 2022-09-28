@@ -1,11 +1,12 @@
 import { ApiProperty, PartialType } from '@nestjs/swagger';
 import {
-  IsDate
+  IsDate, IsOptional
 } from 'class-validator';
 import { CreatePostDto } from './create-post.dto';
 
 export class UpdatePostDto extends PartialType(CreatePostDto) {
   @ApiProperty()  
   @IsDate()
-    updatedAt?: number;
+  @IsOptional()
+  updatedAt?: number;
 }
