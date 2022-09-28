@@ -15,7 +15,7 @@ const AdminProfile = () => {
     const dispatch = useDispatch();
     const allUsers = useSelector((state) => state.users);
     const user = useSelector((state) => state.myUser);
-    const posts = useSelector((state) => state.posts);
+    const posts = useSelector((state) => state.posts); 
     const neededEmail = User[0].email;
 
     useEffect(() => {
