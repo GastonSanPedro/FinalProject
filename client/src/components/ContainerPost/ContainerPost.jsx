@@ -1,7 +1,7 @@
-import { Flex, Button, Divider, Box } from '@chakra-ui/react';
-import UserSearchContainer from '../UserSearch/UserSearchContainer';
-import CreatePost from '../CreatePost/CreatePost';
-import ImgPostContainer from '../ImgPost/ImgPostContainer';
+import { Flex, Button, Divider, Box } from "@chakra-ui/react";
+import UserSearchContainer from "../UserSearch/NOUserSearchContainer";
+import CreatePost from "../CreatePost/CreatePost";
+import ImgPostContainer from "../ImgPost/ImgPostContainer";
 import TextPostContainer from '../TextPost/TextPostContainer';
 import { useState, useRef } from 'react';
 
@@ -56,7 +56,7 @@ export default function ContainerPost({
         mt={site === 'feed' ? '0vh' : '4vh'}
       >
         {site === 'search' ? (
-          <UserSearchContainer word={word} />
+         null
         ) : site === 'feed' || site === 'profile' ? (
           <CreatePost
             site={site}

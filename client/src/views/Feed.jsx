@@ -15,6 +15,8 @@ const Feed = () => {
     dispatch(getPosts());
   }, [dispatch, singlePost]);
 
+
+    console.log({allPosts})
   return (
     <>
       <SidebarWithHeader />
@@ -25,11 +27,11 @@ const Feed = () => {
         textAlign={'center'}
         justifyContent={'center'}
         direction={'column'}
-        width={'79vw'}
+        width={'81vw'}
         height={'80vh'}
-        mt={'7%'}
+        mt={'5.5%'}
         ml={'18%'}
-        mr={'7%'}
+
       >
         <ContainerPost
           myUser={myUser}

@@ -39,6 +39,7 @@ const UserCard = ({ site, myUser, user }) => {
 
   return (
     <Box
+      zIndex={10}
       className="BackGroundImage"
       display={'flex'}
       flexDir={'column'}
