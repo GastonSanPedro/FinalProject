@@ -54,6 +54,11 @@ export default function ImgPost({
   singlePost,
   postId,
 }) {
+  const [Input, setInput] = useState({
+    idUser: '',
+    title: '',
+    description: '',
+  });
   const dispatch = useDispatch();
   const handleClick = () => {
     setOverlay(<OverlayOne />);

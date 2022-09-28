@@ -4,6 +4,7 @@ export const GET_USER = 'GET_USER';
 export const GET_POSTS = 'GET_POSTS';
 export const SINGLE_POST = 'SINGLE_POST';
 export const CLEAN_SINGLE_POST = 'CLEAN_SINGLE_POST';
+export const POST_COMMENT = 'POST_COMMENT';
 export const POST_USER = 'POST_USER';
 export const CREATE_USER_POST = 'CREATE_USER_POST';
 export const CREATE_USER = 'CREATE_USER';
@@ -103,7 +104,7 @@ export function cleanSinglePost() {
     }
   };
 }
-
+// export function
 export function createUserPost(inputPost) {
   return async function (dispatch) {
     try {
