@@ -11,31 +11,27 @@ export class CreateCommentDto {
 
     @ApiProperty()
     @IsOptional()
-    @IsDate()
-    createdAt: number
-
+    likes?: number;
+    
     @ApiProperty()
     @IsOptional()
-    likes?: number;
-
-
+    @IsDate()
+    createdAt?: number
+    
     @ApiProperty()
     @IsNotEmpty()
     description: string;
+    
+    @ApiProperty()
+    @IsOptional()
+    reported: boolean
     
     @ApiProperty()
     @IsNotEmpty()
     idPost: ObjectId;
 
     @ApiProperty()
-    @IsOptional()
-    reported: boolean
-
-  
-    //probando
-    @ApiProperty()
     @IsNotEmpty()
     idUser:ObjectId
-
 
 }

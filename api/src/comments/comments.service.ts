@@ -38,8 +38,14 @@ export class CommentsService {
   }
 
 
-  findAll() {
-    return `This action returns all comments`;
+  async findAll() {
+    const allComments = await this.CommentModel.find()
+    console.log(allComments)
+    return allComments
+    // .populate({ path: 'author', select:'-posts -password -friends -email -bio'})
+    // // .populate({ path: 'comments', populate:{ path : 'idUser'} })
+    // // .setOptions({ sanitizeFilter: true })
+    // .exec();
   }
 
   findOne(id: number) {
@@ -54,30 +60,6 @@ export class CommentsService {
     return `This action removes a #${id} comment`;
   }
 }
-
-
-
- 
-  // createCommentDto.createdAt = Date.now();
-  // createPostDto.reported = false;
-  //   return 'This action adds a new comment';
-  // }
- // createPostDto.createdAt = Date.now();
-    // createPostDto.reported = false;
-    // try {
-    //   const post:Post = await this.postModel.create(createPostDto);
-    //   let user: User = await this.userModel.findById(createPostDto.author);
-    //   user.posts.push(post)
-    //   user.save()
-    //   return post;
-    // } catch (error) {
-    //   console.log(error);
-    //   throw new InternalServerErrorException(`Can't create this post - check server logs`)
-    // }
-
-
-
-
 
 
   // // async addComment(comment:any) {

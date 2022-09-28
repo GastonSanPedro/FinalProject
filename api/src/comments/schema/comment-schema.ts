@@ -12,21 +12,21 @@ export class Comment extends Document {
 
     @Prop()
     description: string;
+    
+    @Prop()
+    reported: boolean
+    
+    @Prop()
+    createdAt: Date;
+    
+    @Prop()
+    updatedAt: Date;
 
     @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'Post' }) 
     idPost: Types.ObjectId ; 
 
-    @Prop()
-    reported: boolean
-
-    @Prop()
-    createdAt: Date;
-
-    @Prop()
-    updatedAt: Date;
-
-    @Prop({type:MongooseSchema.Types.ObjectId, ref:"User"})
-    idUser:Types.ObjectId;
+    @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'User' }) 
+    idUser: Types.ObjectId ; 
 }
 
 export const CommentSchema = SchemaFactory.createForClass(Comment)
