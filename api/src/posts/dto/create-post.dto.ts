@@ -34,11 +34,8 @@ export class CreatePostDto {
     @IsNotEmpty()
     author: Types.ObjectId
 
-    @ApiProperty()
-    @IsOptional()
-    comments?: Types.ObjectId[]
 
     @ApiProperty()
     @IsOptional()
-    reported?: boolean;
+    reported:boolean
 }

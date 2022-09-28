@@ -24,6 +24,9 @@ export class Comment extends Document {
 
     @Prop()
     updatedAt: Date;
+
+    @Prop({type:MongooseSchema.Types.ObjectId, ref:"User"})
+    idUser:Types.ObjectId;
 }
 
 export const CommentSchema = SchemaFactory.createForClass(Comment)
