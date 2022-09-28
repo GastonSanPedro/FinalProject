@@ -31,7 +31,6 @@ export class PostsController {
     findById(@Param('id') id: string){
       return this.postsService.findById(id)
   }
-  
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updatePostDto: UpdatePostDto) {

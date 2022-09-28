@@ -1,6 +1,6 @@
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import { Injectable, InternalServerErrorException, BadRequestException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { isValidObjectId, Model } from 'mongoose';
 import { User } from 'src/users/schema/user-schema';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { UpdateCommentDto } from './dto/update-comment.dto';
@@ -37,27 +37,43 @@ export class CommentsService {
     
   }
 
-
   async findAll() {
     const allComments = await this.CommentModel.find()
-    console.log(allComments)
     return allComments
-    // .populate({ path: 'author', select:'-posts -password -friends -email -bio'})
     // // .populate({ path: 'comments', populate:{ path : 'idUser'} })
     // // .setOptions({ sanitizeFilter: true })
     // .exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} comment`;
+  async findById(id: string) {
+    if(!isValidObjectId(id)) throw new BadRequestException(`Id is not an MongoId`)
+      const comment =  await this.CommentModel.findById(id)
+      return comment
   }
 
-  update(id: number, updateCommentDto: UpdateCommentDto) {
-    return `This action updates a #${id} comment`;
+  async update(id: string, updateCommentDto: UpdateCommentDto) {
+    updateCommentDto.updatedAt = Date.now();
+    const commentUpdate:Comment = await this.findById(id);
+
+    let post: Post = await this.postModel.findById(commentUpdate.idPost);
+    post.comments = post.comments.filter(post=> post._id.toString() !== id)
+
+    await commentUpdate.updateOne(updateCommentDto)
+    const updatedComment:Comment = await this.findById(id)
+
+    post.comments.push(updatedComment)
+    post.save()
+
+    return `Comment Post Successfully`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} comment`;
+  async remove(id: string) {
+    const commentDelete:Comment = await this.findById(id);
+    let post:Post = await this.postModel.findById(commentDelete.idPost)
+    post.comments = post.comments.filter(comment=> comment._id.toString() !== id)
+    post.save()
+    await commentDelete.deleteOne()
+    return `Post ${id} has been deleted`;
   }
 }
 

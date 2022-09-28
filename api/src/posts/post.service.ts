@@ -74,18 +74,15 @@ export class PostsService {
 
     user.posts.push(updatedPost)
     user.save()
-    return `Update Successfully`;
+    return `Update Post Successfully`;
   }
 
   async remove(id: string) {
     const postDelete:Post = await this.findById(id);
-
     let user: User = await this.userModel.findById(postDelete.author._id);
     user.posts = user.posts.filter(post=> post._id.toString() !== id)
     user.save()
-
     await postDelete.deleteOne()
     return `Post ${id} has been deleted`;
   }
-  
 }
