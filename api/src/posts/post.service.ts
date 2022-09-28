@@ -2,7 +2,6 @@ import { Injectable, InternalServerErrorException, NotFoundException } from '@ne
 import { InjectModel } from '@nestjs/mongoose';
 import { isValidObjectId, Model, ObjectId } from 'mongoose';
 import { User } from 'src/users/schema/user-schema';
-import { CreateCommentDto } from './dto/add-comment-dto';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { Post } from './schema/post-schema';
@@ -36,7 +35,7 @@ export class PostsService {
     return await this.postModel
     .find()
     .populate({ path: 'author', select:'-posts -password -friends -email -bio'})
-    .populate({ path: 'comments', populate:{ path : 'idUser'} })
+    .populate({ path: 'comments', populate:{ path : 'idUser', select:'-posts -password -friends -email -bio'}  })
     .setOptions({ sanitizeFilter: true })
     .exec();
   }
@@ -75,30 +74,15 @@ export class PostsService {
 
     user.posts.push(updatedPost)
     user.save()
-    return `Update Successfully`;
+    return `Update Post Successfully`;
   }
 
   async remove(id: string) {
     const postDelete:Post = await this.findById(id);
-
     let user: User = await this.userModel.findById(postDelete.author._id);
     user.posts = user.posts.filter(post=> post._id.toString() !== id)
     user.save()
-
     await postDelete.deleteOne()
     return `Post ${id} has been deleted`;
   }
-
-  // // async addComment(comment:any) {
-  // //   let post: Post = await this.postModel.findById(comment.idPost);
-  // //   post.comments.push(comment)
-  // //   post.save()
-  // //   return post
-  // }
-
-  // async removeComment(ids:ICommentDelete){
-  //   const postWithCommentToDelete:Post = await this.findById(ids.idPost);
-  //   console.log(postWithCommentToDelete)
-  // }
-  
 }

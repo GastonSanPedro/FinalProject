@@ -16,7 +16,16 @@ export class CreatePostDto {
     })
     @IsString()
     @IsOptional()
-    pics: string;
+    pics?: string;
+    
+    @ApiProperty()
+    @IsDate()
+    @IsOptional()
+    createdAt?: number;
+
+    @ApiProperty()
+    @IsOptional()
+    reported?: boolean;
 
     @ApiProperty({
     minLength: 1,
@@ -24,21 +33,9 @@ export class CreatePostDto {
     @IsString()
     @IsNotEmpty()
     description: string;
-
-    @ApiProperty()
-    @IsDate()
-    @IsOptional()
-    createdAt: number;
     
     @ApiProperty()
     @IsNotEmpty()
     author: Types.ObjectId
-
-    @ApiProperty()
-    @IsOptional()
-    comments?: Types.ObjectId[]
-
-    @ApiProperty()
-    @IsOptional()
-    reported?: boolean;
+    
 }
