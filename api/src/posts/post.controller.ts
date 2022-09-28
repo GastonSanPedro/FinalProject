@@ -2,7 +2,6 @@ import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/commo
 import { ApiTags } from '@nestjs/swagger/dist';
 import { ApiResponse } from '@nestjs/swagger/dist/decorators/api-response.decorator';
 import { ParseObjectIdPipe } from 'src/utilities/parse-object-id-pipe.pipe';
-import { CreateCommentDto } from './dto/add-comment-dto';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { PostsService } from './post.service';
@@ -32,24 +31,24 @@ export class PostsController {
     findById(@Param('id') id: string){
       return this.postsService.findById(id)
   }
-  
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updatePostDto: UpdatePostDto) {
     return this.postsService.update(id, updatePostDto);
   }
 
-  @Delete('/id/:id')
+  @Delete(':id')
   remove(@Param('id') id: string) {
     return this.postsService.remove(id);
   }
 
-  @Post('/comment/:id')
-  addComment(
-    @Param('id', ParseObjectIdPipe) id:string,
-    @Body() comment: CreateCommentDto 
-  ){
-    return this.postsService.addComment(id, comment)
-  }
+  
+  // @Post('/comment/:id')
+  // addComment(
+  //   @Param('id', ParseObjectIdPipe) id:string,
+  //   @Body() comment: CreateCommentDto 
+  // ){
+  //   return this.postsService.addComment(id, comment)
+  // }
 
 }

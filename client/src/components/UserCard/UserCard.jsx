@@ -35,9 +35,11 @@ const UserCard = ({ site, myUser, user }) => {
       return user;
     }
   };
+  const followValidator = JSON.parse(localStorage.getItem('email'));
 
   return (
     <Box
+      zIndex={10}
       className="BackGroundImage"
       display={'flex'}
       flexDir={'column'}
@@ -121,6 +123,9 @@ const UserCard = ({ site, myUser, user }) => {
           mt={'4%'}
           bg={'none'}
           borderRadius={2}
+          display={
+            setUserToSite(site)?.email === followValidator ? 'none' : 'block'
+          }
           _hover={{
             color: 'black',
             bg: 'white',

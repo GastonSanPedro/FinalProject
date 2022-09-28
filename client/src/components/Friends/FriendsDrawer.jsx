@@ -26,12 +26,8 @@ export default function Friends() {
   };
   useEffect(() => {
     dispatch(getUsers());
-    dispatch(getMyUser(myUser.email));
+    dispatch(getMyUser(myUser?.email));
   }, [dispatch]);
-
-  console.log({ myUser });
-  // let myFriends = myUser.friends.slice(0,15)
-  // // let friends = users.slice(0, 15);
 
   return (
     <>

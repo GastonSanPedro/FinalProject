@@ -1,11 +1,22 @@
-import React from 'react';
 import { Box } from '@chakra-ui/react';
-import SidebarWithHeader from '../components/Sidebar-Navbar/SideBar';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import ContainerPost from '../components/ContainerPost/ContainerPost';
-import { useSelector } from 'react-redux';
+import SidebarWithHeader from '../components/Sidebar-Navbar/SideBar';
+import { getPosts } from '../redux/action';
 
 const Feed = () => {
-  const myUser = useSelector((state) => state.myUser)
+  const myUser = useSelector((state) => state.myUser);
+  const allPosts = useSelector((state) => state.posts);
+  const singlePost = useSelector((state) => state.singlePost);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getPosts());
+  }, [dispatch, singlePost]);
+
+
+    console.log({allPosts})
   return (
     <>
       <SidebarWithHeader />
@@ -16,44 +27,22 @@ const Feed = () => {
         textAlign={'center'}
         justifyContent={'center'}
         direction={'column'}
-        width={'79vw'}
+        width={'81vw'}
         height={'80vh'}
-        mt={'7%'}
+        mt={'5.5%'}
         ml={'18%'}
-        mr={'7%'}
+
       >
-      <ContainerPost 
-        myUser={myUser}
-        site={'feed'}
-        word/>
+        <ContainerPost
+          myUser={myUser}
+          posts={allPosts}
+          singlePost={singlePost}
+          site={'feed'}
+          word
+        />
       </Box>
     </>
-
-);
+  );
 };
 
 export default Feed;
-
-// <>
-// <Navbar />
-//   <Box display={'flex'} dir={'row'} >
-//     <Box m={3}>
-//       <CreatePost />
-//         <Wrap justify={'center'} spacing={30} w='980px' borderRadius='7px' p={8} m={3} backgroundColor={"gray.300"}>
-//           {/* <Box mr="300"><Button >Ver más</Button></Box> */}
-//
-//           <HStack>
-//             <Button onClick={() => handleClickMore()} h='50px' w="200px" mr="50" fontSize='sm'>Ver más</Button>
-//           </HStack>
-//         </Wrap>
-//     </Box>
-//     <Box>
-//       <UserCard />
-//         {allUsers.length > 1 ?
-//           <FriendsContainer
-//             allUsers={allUsers}
-//                 /> : null}
-//     </Box>
-//     </Box>
-
-// </>

@@ -1,16 +1,16 @@
 import React, { useState } from "react";
-import UserSearchCard from "./UserCardSearch";
-import { Stack, Button, Text, Center } from "@chakra-ui/react";
+import UserSearchCard from "./NOUserCardSearch";
+import { Stack, Button, Text, Center, Box } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
 
 const UserSearchContainer = () => {
     const [currentStart, setCurrentStart] = useState(0)
-    const [currentEnd, setCurrentEnd] = useState(6)
+    const [currentEnd, setCurrentEnd] = useState(5)
     const [ button1, setButton1] = useState(true)
     const [ button2, setButton2] = useState(false)
    
     const searchUsers = useSelector((state)=> state.searchUser)
-    const first6 = searchUsers.length > 6 ? searchUsers?.slice(currentStart,currentEnd) : searchUsers
+    const first6 = searchUsers.length > 5 ? searchUsers?.slice(currentStart,currentEnd) : searchUsers
 
 
      const handleClickFoward = () =>{
@@ -36,7 +36,7 @@ const UserSearchContainer = () => {
         direction='row' 
         maxW='100%' 
         mt={'2%'}
-        mb={'3%'}
+        mb={'1%'}
         justifyContent='center'
         borderRadius={3}
         bg={'rgba(229, 191, 124, 0.3)'}

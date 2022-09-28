@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import {
   Avatar,
   Box,
@@ -6,33 +6,40 @@ import {
   Button,
   Text,
   Stack,
+  useToast,
 } from '@chakra-ui/react';
 import { useDispatch } from 'react-redux';
-import { createUserPost, getMyUser  } from '../../redux/action';
+import { createUserPost, getMyUser } from '../../redux/action';
 import { Radio, RadioGroup } from '@chakra-ui/react';
 import { setIn } from 'formik';
 
-const CreatePost = ({ email, site, myUser }) => {
-
+const CreatePost = ({ email, site, myUser, createdRef }) => {
   const [input, setInput] = useState({
     description: '',
     pics: '',
   });
   const [TypePost, setTypePost] = useState('text');
   const dispatch = useDispatch();
-  
-  const handleInputChange = (event) =>{
-  setInput({ ...input, [event.target.name]: event.target.value 
-  })};
+  const toast = useToast();
+  const handleInputChange = (event) => {
+    setInput({ ...input, [event.target.name]: event.target.value });
+  };
 
   const handleSubmit = () => {
-    const inputPost = {author: myUser._id, ...input}
+    const inputPost = { author: myUser._id, ...input };
     dispatch(createUserPost(inputPost));
     setInput({
       description: '',
       pics: '',
     });
-    console.log('Post added successfully')
+    toast({
+      title: 'Sucess',
+      description: 'Post created successfully',
+      status: 'success',
+      duration: 2000,
+      isClosable: true,
+    });
+    console.log('Post added successfully');
   };
 
   const handleInputImage = (event) => {
@@ -73,8 +80,8 @@ const CreatePost = ({ email, site, myUser }) => {
           <Avatar
             ml="3"
             size="xl"
-            name={myUser.fullName}
-            src={myUser.image}
+            name={myUser?.fullName}
+            src={myUser?.image}
           />
         ) : null}
 
@@ -99,6 +106,7 @@ const CreatePost = ({ email, site, myUser }) => {
           <Textarea
             w={'100%'}
             h={site === 'profile' ? '200px' : null}
+            ref={createdRef}
             type="textarea"
             backgroundColor={'white'}
             placeholder="Write something..."
@@ -162,7 +170,8 @@ const CreatePost = ({ email, site, myUser }) => {
 
 export default CreatePost;
 
-                {/* <Input
+{
+  /* <Input
                     type="text"
                     placeholder="Url de la imagen"
                     name="pics"
@@ -172,4 +181,5 @@ export default CreatePost;
                     onChange={(e) => {
                       handleInputChange(e);
                       />
-                    }} */}
+                    }} */
+}

@@ -1,8 +1,12 @@
 import {
   AUTH_USER,
+  CLEAN_AUTH_USER,
   CREATE_USER_POST,
   GET_MY_USER,
   GET_POSTS,
+  SINGLE_POST,
+  POST_COMMENT,
+  CLEAN_SINGLE_POST,
   GET_USER,
   GET_USERS,
   CREATE_USER,
@@ -20,6 +24,7 @@ const initialState = {
   user: [],
   myUser: [],
   posts: [],
+  singlePost: [],
   auth: {
     auth: '',
   },
@@ -37,7 +42,6 @@ export default function rootReducer(state = initialState, action) {
         allUsers: action.payload,
       };
     case GET_USER:
-      console.log({ reducer: action.payload });
       return {
         ...state,
         user: action.payload,
@@ -53,7 +57,21 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         posts: action.payload,
       };
-
+    case SINGLE_POST:
+      return {
+        ...state,
+        singlePost: action.payload,
+      };
+    case POST_COMMENT:
+      return {
+        ...state,
+        singlePost: action.payload,
+      };
+    case CLEAN_SINGLE_POST:
+      return {
+        ...state,
+        singlePost: action.payload,
+      };
     case POST_USER:
       return {
         ...state,
@@ -77,6 +95,12 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         auth: action.payload,
         myUser: action.payload.user,
+      };
+    case CLEAN_AUTH_USER:
+      return {
+        ...state,
+        auth: action.payload,
+        myUser: [],
       };
     case LOG_OUT:
       return {

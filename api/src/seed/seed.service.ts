@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { Post } from 'src/posts/schema/post-schema';
 
 import { User } from 'src/users/schema/user-schema';
 import { IUser } from '../seed/interfaces/user-response.interface';
@@ -16,10 +17,14 @@ export class SeedService {
    constructor(
 
     @InjectModel( User.name )
-    private readonly userModel: Model<User>){}
+    private readonly userModel: Model<User>,
+
+    @InjectModel( Post.name )
+    private readonly postModel: Model<Post>){}
 
     async populateDB(){
       await this.userModel.deleteMany({});
+      await this.postModel.deleteMany({});
 
       const usersToInsert: IUser[] = []
       

@@ -1,13 +1,19 @@
 import { Box } from "@chakra-ui/react";
-import React from "react";
+import React, {useState} from "react";
 import { useSelector } from "react-redux";
 import SidebarWithHeader from "../components/Sidebar-Navbar/SideBar";
-import ContainerPost from "../components/ContainerPost/ContainerPost";
+import NavbarSerch from "../components/NavbarSearch/NavbarSearch";
+import ContainerSearchCard from "../components/UserSearch/ContainerSearchCard";
+import PostSearchContainer from "../components/PostSearch/ContainerPostSearch";
+
 
 
 
 const SearchPage = () =>{
-    const word = useSelector((state) => state.searchPost)
+
+    const myUser = useSelector((state)=> state.myUser)
+    const [state, setState ] = useState('users')
+
     return(
         <>
         <SidebarWithHeader/>
@@ -23,26 +29,22 @@ const SearchPage = () =>{
            mt={'7%'}
            ml={'18%'}
            mr={'7%'}>
-        <ContainerPost
-        word={word}
-        site={'search'}
-        />
+        <NavbarSerch
+            state={state}
+            setState={setState}/>
+        {
+            state === 'users' || state === 'friends' ? (
+                <ContainerSearchCard
+                state={state}
+                myUser={myUser}/>
+            ):(
+                <PostSearchContainer
+                    state={state}
+                />
+            )
+        }
+      
         </Box>
-        {/* <Navbar/>
-        <Box display='flex' dir='column' pt={10} pr={10} pl={10} >
-        
-        <Box>
-        <UserSearchContainer/>
-        <HashtagContainer/>
-        </Box>
-        <UserCard /> 
-        
-        </Box>
-        <Box display='flex' dir='column' pt={5} pr={10} pl={10}  >
-         <PostSearchContainer/>
-        <FriendsContainer/>
-        </Box>
-         */}
         </>
     )
 }
