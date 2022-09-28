@@ -57,12 +57,12 @@ export default function TextPostContainer({ site, word, myUser, user, posts, fri
         <Flex
           pr={'2%'}
           pl={'2%'}
+          w={'100%'}
           textAlign={'center'}
           justifyContent={'center'}
           direction={'column'}
           borderRadius={2}
           mt={site === 'feed' ? '0vh' : '4vh'}
-          bg={'rgba(229, 191, 124, 0.3)'}
         >
           { 
             <SimpleGrid columns={{ base: 1, xl: 3 }} spacing={'10'} mt={2} mr={5}>
@@ -100,7 +100,6 @@ export default function TextPostContainer({ site, word, myUser, user, posts, fri
       textAlign={'center'}
       justifyContent={'center'}
       direction={'column'}
-      bg={'rgba(229, 191, 124, 0.2)'}
       borderRadius={2}
       mt={site === 'feed' ? '0vh' : '4vh'}
     >

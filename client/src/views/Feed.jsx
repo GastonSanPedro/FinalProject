@@ -8,17 +8,17 @@ import { getPosts } from '../redux/action';
 
 
 const Feed = () => {
-  const myUser = useSelector((state) => state.myUser)
-  const allPosts = useSelector((state) => state.posts)
-  
-  const dispatch = useDispatch();
 
+  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getPosts());
   }, [dispatch]);
-  
 
+  const myUser = useSelector((state) => state.myUser)
+  const allPosts = useSelector((state) => state.posts)
+
+    console.log({allPosts})
   return (
     <>
       <SidebarWithHeader />
@@ -29,11 +29,11 @@ const Feed = () => {
         textAlign={'center'}
         justifyContent={'center'}
         direction={'column'}
-        width={'79vw'}
+        width={'81vw'}
         height={'80vh'}
-        mt={'7%'}
+        mt={'5.5%'}
         ml={'18%'}
-        mr={'7%'}
+
       >
       <ContainerPost 
         myUser={myUser}

@@ -1,5 +1,5 @@
 import { Flex, Button, Divider, Box } from "@chakra-ui/react";
-import UserSearchContainer from "../UserSearch/UserSearchContainer";
+import UserSearchContainer from "../UserSearch/NOUserSearchContainer";
 import CreatePost from "../CreatePost/CreatePost";
 import ImgPostContainer from "../ImgPost/ImgPostContainer";
 import TextPostContainer from '../TextPost/TextPostContainer';
@@ -35,18 +35,19 @@ const ContainerPost = ({site, word, email, myUser, user, posts}) => {
     return(
         <>
           <Flex
-            ml={'2%'}
+            bg={'whitesmoke'}
+            w={'full'}
             pr={'2%'}
             pl={'2%'}
             textAlign={'center'}
             justifyContent={'center'}
             direction={'column'}
-            borderRadius={2}
             mt={site === 'feed' ? '0vh' : '4vh'}
             >
             {   
               site === 'search' ? (
-              <UserSearchContainer word={word} />
+                null
+              // <UserSearchContainer word={word} />
               ) : (
               site === 'feed'|| site === 'profile' ?
                (<CreatePost site={site} email={email} myUser={myUser}/> ) : 
@@ -57,7 +58,7 @@ const ContainerPost = ({site, word, email, myUser, user, posts}) => {
                h={site === 'feed' ? '22vh' : '36vh'}
                w={site === 'feed' ? '100%' : '65%'}
                display={'flex'}
-               backgroundColor={'withe'}
+               backgroundColor={'white'}
                mb={site === 'profile' ? '50px' : null}
              >
             </Box>
