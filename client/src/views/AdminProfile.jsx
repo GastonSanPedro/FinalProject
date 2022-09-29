@@ -20,7 +20,7 @@ import {
 import '../index.css';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getPosts } from '../redux/action';
+import { getPosts, deletePost } from '../redux/action';
 import SidebarWithHeader from '../components/Sidebar-Navbar/SideBar';
 import UserStats from '../components/Stats/UsersStats';
 import ContainerPost from '../components/ContainerPost/ContainerPost';
@@ -31,13 +31,14 @@ const AdminProfile = () => {
 
     const posts = useSelector((state) => state.posts);
     const myUser = useSelector((state) => state.myUser);
-    
 
-    useEffect(() => { }, [myUser,posts]);
-    // useEffect(() => { }, [posts]);
     useEffect(() => {
         dispatch(getPosts());
-    }, [dispatch]);
+    }, [posts]);
+
+    const handleDelete = (id) => {
+        dispatch(deletePost(id))
+    }
 
     return (
         <>
@@ -111,10 +112,11 @@ const AdminProfile = () => {
                                 myUser={myUser}
                                 posts={posts}
                                 site="admin"
+                                handleDelete={handleDelete}
                             />
                         </AccordionPanel>
                     </AccordionItem>
-                    
+
                 </Accordion>
             </Box>
         </>

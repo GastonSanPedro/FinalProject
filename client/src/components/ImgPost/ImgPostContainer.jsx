@@ -22,6 +22,7 @@ const ImgPostContainer = ({
   singlePost,
   handleClickRef,
   reportedPosts,
+  handleDelete
 }) => {
   const dispatch = useDispatch();
   const { isOpen, onToggle } = useDisclosure();
@@ -89,6 +90,7 @@ const ImgPostContainer = ({
                         loggedEmail={myUser?.email}
                         singlePost={singlePost}
                         site={site}
+                        handleDelete={handleDelete}
                       />
                     </SlideFade>
                   );

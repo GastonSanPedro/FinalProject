@@ -11,8 +11,9 @@ export default function ContainerPost({
   user,
   posts,
   singlePost,
+  handleDelete
 }) {
-  
+
   const [typePost, setTypePost] = useState('img');
   const ref = useRef();
   const handleClickRef = () => {
@@ -137,6 +138,7 @@ export default function ContainerPost({
             email={email}
             singlePost={singlePost}
             reportedPosts={reportedPosts}
+            handleDelete={handleDelete}
             handleClickRef={handleClickRef}
           />
         )}

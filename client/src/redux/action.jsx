@@ -122,6 +122,7 @@ export function postComment(payload, id) {
     }
   };
 }
+
 export function createUserPost(inputPost) {
   return async function (dispatch) {
     try {
@@ -301,11 +302,10 @@ export function reportPost(id) {
 export function deletePost(id) {
   return async function (dispatch) {
     try {
-      await axios.delete(`/posts/${id}`)
-      let info = await axios.get(`/posts`)
+      const { data } = await axios.delete(`/posts/${id}`)
+      console.log(data)
       return dispatch({
         type: DELETE_POST,
-        payload: info.data
       })
     }
     catch (error) {
@@ -313,4 +313,5 @@ export function deletePost(id) {
     }
   }
 }
+
 

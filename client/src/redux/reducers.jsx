@@ -135,11 +135,15 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
       }
-      case DELETE_POST:
+    case DELETE_POST:
       return {
         ...state,
-        post:action.payload
-      }
+        posts: [...state.posts],
+        myUser: {
+          ...state.myUser,
+          posts: [...state.myUser.posts],
+        },
+      };
     default:
       return state;
   }

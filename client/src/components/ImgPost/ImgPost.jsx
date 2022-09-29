@@ -70,6 +70,7 @@ export default function ImgPost({
   loggedUser,
   loggedEmail,
   site,
+  handleDelete
 }) {
 
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -108,9 +109,9 @@ export default function ImgPost({
     dispatch(reportPost(postId))
   }
 
-  const handleDelete = () => {
-    dispatch(deletePost(postId))
-  }
+  // const handleDelete = () => {
+  //   dispatch(deletePost(postId))
+  // }
   
 
   return (
@@ -304,7 +305,7 @@ export default function ImgPost({
         </Box>
       </Center>
       {site === 'admin' ?
-        <Button onClick={() => handleDelete()}>Eliminar</Button>
+        <Button onClick={() => handleDelete(postId)}>Eliminar</Button>
         : null}
     </>
   );
