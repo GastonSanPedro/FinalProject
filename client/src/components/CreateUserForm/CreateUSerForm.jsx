@@ -330,17 +330,12 @@ const CreateUser = ({ logOrSign, setlogOrSign }) => {
                   )}
 
                   <Link to="/">
-                    <Button mt="10px" ml={'0.5vw'}>
-                      Back
-                    </Button>
                   </Link>
                   <Button
                     mt="10px"
                     ml={'0.5vw'}
                     onClick={(e) => {
-                      dispatch(cleanAuthUser());
                       setUser('');
-                      setlogOrSign('log');
                     }}
                   >
                     Clean
