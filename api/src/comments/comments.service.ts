@@ -51,16 +51,15 @@ export class CommentsService {
       return comment
   }
 
-  async update(updateCommentDto: UpdateCommentDto) {
+  async update(id: string , updateCommentDto: UpdateCommentDto) {
     updateCommentDto.updatedAt = Date.now();
-    const idComment = updateCommentDto.idComment.toString()
-    const commentUpdate:Comment = await this.findById(idComment);
+    const commentUpdate:Comment = await this.findById(id);
 
     let post: Post = await this.postModel.findById(commentUpdate.idPost);
-    post.comments = post.comments.filter(post=> post._id.toString() !== idComment)
+    post.comments = post.comments.filter(post=> post._id.toString() !== id)
 
     await commentUpdate.updateOne(updateCommentDto)
-    const updatedComment:Comment = await this.findById(idComment)
+    const updatedComment:Comment = await this.findById(id)
 
     post.comments.push(updatedComment)
     post.save()

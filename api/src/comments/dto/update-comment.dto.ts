@@ -9,10 +9,5 @@ export class UpdateCommentDto extends PartialType(CreateCommentDto) {
     @IsDate()
     @IsOptional()
     updatedAt?: number;
-
-    @ApiProperty()
-    @IsNotEmpty()
-    idComment: Types.ObjectId
-
 }
 

@@ -9,4 +9,6 @@ export class Friend{
   friend: Types.ObjectId
 }
 
+
+
 export const FriendSchema = SchemaFactory.createForClass(Friend)
