@@ -10,9 +10,11 @@ import ContainerPost from '../components/ContainerPost/ContainerPost';
 
 const Profile = () => {
   const myUser = useSelector((state) => state.myUser);
+  const singlePost = useSelector((state) => state.singlePost);
+
   // const [myOwnUser, setMyOwnUser]= useState(myUser)
 
-  useEffect(() => {}, [myUser]);
+  useEffect(() => {}, [myUser, singlePost]);
 
   return (
     <>
@@ -44,7 +46,7 @@ const Profile = () => {
         ml={'18%'}
         mr={'7%'}
       >
-        <ContainerPost site="profile" myUser={myUser} />
+        <ContainerPost site="profile" myUser={myUser} singlePost={singlePost} />
       </Box>
     </>
   );

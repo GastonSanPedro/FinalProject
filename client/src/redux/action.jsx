@@ -2,12 +2,16 @@ import axios from 'axios';
 export const GET_USERS = 'GET_USERS';
 export const GET_USER = 'GET_USER';
 export const GET_POSTS = 'GET_POSTS';
+export const SINGLE_POST = 'SINGLE_POST';
+export const CLEAN_SINGLE_POST = 'CLEAN_SINGLE_POST';
+export const POST_COMMENT = 'POST_COMMENT';
 export const POST_USER = 'POST_USER';
 export const CREATE_USER_POST = 'CREATE_USER_POST';
 export const CREATE_USER = 'CREATE_USER';
 export const SEARCH_USER = 'SEARCH_USER';
 export const SEARCH_POST = 'SEARCH_POST';
 export const AUTH_USER = 'AUTH_USER';
+export const CLEAN_AUTH_USER = 'CLEAN_AUTH_USER';
 export const LOG_OUT = 'LOG_OUT';
 export const CHANGE_DATA_PROFILE = 'CHANGE_DATA_PROFILE';
 export const GET_MY_USER = 'GET_MY_USER';
@@ -60,7 +64,7 @@ export function getPosts() {
   return async function (dispatch) {
     try {
       let info = await axios.get(`/posts/`);
-    console.log({info})
+      //      console.log({ info });
       dispatch({
         type: GET_POSTS,
         payload: info.data,
@@ -70,7 +74,52 @@ export function getPosts() {
     }
   };
 }
-
+export function getSinglePosts(id) {
+  return async function (dispatch) {
+    try {
+      let info = await axios.get(`/posts/id/${id}`);
+      // let data = info.data.comments.map(async (comment) => {
+      //   //console.log(comment);
+      //   let user = await axios.get(`/users/${comment.idUser}`);
+      //   comment.fullName = user.data.fullName;
+      // });
+      //console.log(data);
+      dispatch({
+        type: SINGLE_POST,
+        payload: info.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
+export function cleanSinglePost() {
+  return async function (dispatch) {
+    try {
+      dispatch({
+        type: SINGLE_POST,
+        payload: [],
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
+export function postComment(payload, id) {
+  return async function (dispatch) {
+    try {
+      const info = await axios.post(`/comments`, payload);
+      let data = await axios.get(`/posts/id/${id}`);
+      //console.log(data.data);
+      return dispatch({
+        type: POST_COMMENT,
+        payload: data.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
 export function createUserPost(inputPost) {
   return async function (dispatch) {
     try {
@@ -135,7 +184,7 @@ export const authUser = (mail, password, google) => {
       if (google === undefined) {
         var user = await axios.get(`/users/${mail}`);
         let formatUser = user.data;
-        //console.log(formatUser);
+        console.log(formatUser);
         if (formatUser.password !== password) {
           return dispatch({
             type: AUTH_USER,
@@ -147,26 +196,44 @@ export const authUser = (mail, password, google) => {
             payload: { auth: true, user: formatUser },
           });
         }
-      } else {
+      } else if (google) {
         var user = await axios.get(`/users/${mail}`);
-        let formatUser = user.data;
-        return dispatch({
-          type: AUTH_USER,
-          payload: { auth: true, user: formatUser },
-        });
+        if (user) {
+          console.log(google);
+          let formatUser = user.data;
+          return dispatch({
+            type: AUTH_USER,
+            payload: { auth: true, user: formatUser },
+          });
+        }
       }
     } catch (error) {
       if (error.response.data.statusCode === 404) {
-        console.log(error);
-        return dispatch({
-          type: AUTH_USER,
-          payload: { auth: false, reason: 'Usuario o contraseña no válidos' },
-        });
+        if (!google) {
+          console.log(error);
+          return dispatch({
+            type: AUTH_USER,
+            payload: { auth: false, reason: 'Usuario o contraseña no válidos' },
+          });
+        } else {
+          console.log(google);
+          return dispatch({
+            type: AUTH_USER,
+            payload: { auth: 'unregistered', user: google },
+          });
+        }
       }
     }
   };
 };
-
+export function cleanAuthUser() {
+  return async function (dispatch) {
+    return dispatch({
+      type: CLEAN_AUTH_USER,
+      payload: { auth: '' },
+    });
+  };
+}
 //reason: error.response.data.message
 
 export function changeDataProfile(payload, email) {
