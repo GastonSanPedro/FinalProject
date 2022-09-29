@@ -42,6 +42,9 @@ export default function ContainerPost({
   //------------------------------------------------
 
   let reportedPosts = posts?.filter((post) => (post.reported === true))
+  
+
+
 
   return (
     <>
@@ -55,7 +58,7 @@ export default function ContainerPost({
         borderRadius={2}
         mt={site === 'feed' ? '0vh' : '4vh'}
       >
-        {site === 'search' || site === 'admin' ? (
+        {site === 'search' || site === 'admin' || site === 'explore' ? (
           null
         ) : site === 'feed' || site === 'profile' ? (
           <CreatePost
@@ -76,7 +79,8 @@ export default function ContainerPost({
             mb={site === 'profile' ? '50px' : null}
           ></Box>
         )}
-        <Divider />
+        {site === 'explore' ? null :
+          <Divider />}
 
         <Flex dir="row" align={'center'} justify={'center'} mb={'2%'} mt={'2%'}>
           <Button

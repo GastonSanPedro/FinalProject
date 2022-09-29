@@ -22,7 +22,7 @@ const ImgPostContainer = ({
   singlePost,
   handleClickRef,
   reportedPosts,
-  handleDelete
+  handleDelete,
 }) => {
   const dispatch = useDispatch();
   const { isOpen, onToggle } = useDisclosure();
@@ -42,7 +42,7 @@ const ImgPostContainer = ({
     if (site === 'anyProfile') {
       return user;
     }
-    if (site === 'search') {
+    if (site === 'search' || site === 'explore') {
       return posts;
     }
     if (site === 'feed') {
@@ -53,7 +53,7 @@ const ImgPostContainer = ({
     }
   };
 
-  if (site === 'feed' || site === 'search' || site === 'admin' ) {
+  if (site === 'feed' || site === 'search' || site === 'admin' || site === 'explore') {
     return (
       <>
         <Flex
@@ -64,7 +64,7 @@ const ImgPostContainer = ({
           direction={'column'}
           borderRadius={2}
           mt={site === 'feed' ? '0vh' : '4vh'}
-          >
+        >
           {
             <SimpleGrid
               columns={{ base: 1, xl: 3 }}
