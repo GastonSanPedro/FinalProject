@@ -31,8 +31,10 @@ const AdminProfile = () => {
 
     const posts = useSelector((state) => state.posts);
     const myUser = useSelector((state) => state.myUser);
+    
 
     useEffect(() => { }, [myUser]);
+    useEffect(() => { }, [posts]);
     useEffect(() => {
         dispatch(getPosts());
     }, [dispatch]);
@@ -94,12 +96,12 @@ const AdminProfile = () => {
 
             </Box>
             <Box pos="absolute" mt="40%" ml="20%" bg={'rgba(229, 191, 124, 0.2)'} h="auto" w='75%'>
-                <Accordion defaultIndex={[0]} allowMultiple>
+                <Accordion defaultIndex={[1]} allowMultiple>
                     <AccordionItem>
                         <h2>
                             <AccordionButton>
                                 <Box flex='1' textAlign='left'>
-                                    Section 1 title
+                                    Posteos reportados
                                 </Box>
                                 <AccordionIcon />
                             </AccordionButton>

@@ -286,7 +286,7 @@ export function addFriend(myUserid, anyUserId) {
 export function reportPost(id) {
   return async function () {
     try {
-      return axios.patch(`/posts/${id}`, { reported: true })
+      return axios.patch(`/posts/${id}`, {reported: true })
     }
     catch (error) {
       console.log(error);

@@ -206,7 +206,7 @@ const NavItem = ({ icon, link, children, ...rest }) => {
 
 const MobileNav = ({ onOpen, ...rest }) => {
   const myUser = useSelector((state) => state.myUser);
-  console.log(myUser)
+  
   const google = (window.google = window.google ? window.google : {});
   const navigate = useNavigate();
   const dispatch = useDispatch();
