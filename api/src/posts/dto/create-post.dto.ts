@@ -27,6 +27,10 @@ export class CreatePostDto {
     @IsOptional()
     reported?: boolean;
 
+    @ApiProperty()
+    @IsOptional()
+    premium?: boolean;
+
     @ApiProperty({
     minLength: 1,
     })

@@ -26,6 +26,9 @@ export class Post extends Document  {
     @Prop()
     reported: boolean;
 
+    @Prop()
+    premium: boolean;
+
     @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'User' })
     author: Types.ObjectId
 }

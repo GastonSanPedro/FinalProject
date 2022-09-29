@@ -16,7 +16,7 @@ export class CreateCommentDto {
     @ApiProperty()
     @IsOptional()
     @IsDate()
-    createdAt?: number
+    createdAt: number
     
     @ApiProperty()
     @IsNotEmpty()
@@ -28,10 +28,10 @@ export class CreateCommentDto {
     
     @ApiProperty()
     @IsNotEmpty()
-    idPost: ObjectId;
+    idPost: Types.ObjectId;
 
     @ApiProperty()
     @IsNotEmpty()
-    idUser:ObjectId
+    idUser:Types.ObjectId
 
 }
