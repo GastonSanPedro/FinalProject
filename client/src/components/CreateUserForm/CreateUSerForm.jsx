@@ -82,8 +82,8 @@ const CreateUser = ({ logOrSign, setlogOrSign }) => {
       >
         <Formik
           initialValues={{
-            firstName: User ? User?.given_name : '',
-            lastName: User ? User?.family_name : '',
+            firstName: '',
+            lastName: '',
             password: '',
             email: User ? User?.email : '',
             userName: '',
@@ -237,7 +237,7 @@ const CreateUser = ({ logOrSign, setlogOrSign }) => {
                     id="firstName"
                     name="firstName"
                     placeholder="First name"
-                    value={User ? User?.given_name : values.firstName}
+                    value={ values.firstName }
                     onChange={handleChange}
                     onBlur={handleBlur}
                   />
@@ -254,7 +254,7 @@ const CreateUser = ({ logOrSign, setlogOrSign }) => {
                       id="lastName"
                       name="lastName"
                       placeholder="Last Name"
-                      value={User ? User?.family_name : values.lastName}
+                      value={ values.lastName }
                       onChange={handleChange}
                       onBlur={handleBlur}
                     />
@@ -338,7 +338,9 @@ const CreateUser = ({ logOrSign, setlogOrSign }) => {
                     mt="10px"
                     ml={'0.5vw'}
                     onClick={(e) => {
+                      dispatch(cleanAuthUser());
                       setUser('');
+                      setlogOrSign('log');
                     }}
                   >
                     Clean
