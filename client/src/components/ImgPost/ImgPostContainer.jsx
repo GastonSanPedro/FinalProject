@@ -22,6 +22,7 @@ const ImgPostContainer = ({
   friendsPost,
   singlePost,
   handleClickRef,
+  reportedPosts,
 }) => {
   const dispatch = useDispatch();
   const { isOpen, onToggle } = useDisclosure();
@@ -49,9 +50,12 @@ const ImgPostContainer = ({
     if (site === 'feed') {
       return friendsPost;
     }
+    if (site === 'admin') {
+      return reportedPosts;
+    }
   };
 
-  if (site === 'feed' || site === 'search') {
+  if (site === 'feed' || site === 'search' || site === 'admin' ) {
     return (
       <>
         <Flex
@@ -83,9 +87,11 @@ const ImgPostContainer = ({
                         description={post?.description}
                         date={post?.createdAt}
                         postId={post?._id}
+                        reported={post?.reported}
                         loggedUser={myUser?._id}
                         loggedEmail={myUser?.email}
                         singlePost={singlePost}
+                        
                       />
                     </SlideFade>
                   );

@@ -23,14 +23,20 @@ import {
   InputRightElement,
   InputGroup,
   useToast,
+  MenuList,
+  MenuItem,
+  Menu,
+  MenuButton,
 } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import { BiMessage } from 'react-icons/bi';
 import { BsSun } from 'react-icons/bs';
+import { FiMoreVertical } from 'react-icons/fi';
 import {
   getSinglePosts,
   cleanSinglePost,
   postComment,
+  reportPost,
 } from '../../redux/action';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -62,7 +68,9 @@ export default function ImgPost({
   postId,
   loggedUser,
   loggedEmail,
+  reported
 }) {
+
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [overlay, setOverlay] = useState(<OverlayOne />);
   const [input, setInput] = useState({
@@ -72,14 +80,17 @@ export default function ImgPost({
   });
   const dispatch = useDispatch();
   const toast = useToast();
+
   const handleClick = () => {
     setOverlay(<OverlayOne />);
     onOpen();
     dispatch(getSinglePosts(postId));
   };
+
   const handleChange = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
+
   const handleSubmit = (e) => {
     dispatch(postComment(input, postId));
     setInput({ idUser: loggedUser, idPost: postId, description: '' });
@@ -91,8 +102,11 @@ export default function ImgPost({
       isClosable: true,
     });
   };
-  //console.log(loggedUser, postId);
-  // console.log(singlePost);
+
+  const handleReport = () =>{
+    dispatch(reportPost(postId))
+  }
+  
   return (
     <Center py={6}>
       <Modal
@@ -258,6 +272,27 @@ export default function ImgPost({
               color: 'logo.3',
             }}
           />
+          <Menu>
+            <MenuButton
+              as={IconButton}
+              position="absolute"
+              ml="20%"
+              siz={'lg'}
+              h={30}
+              bg={'none'}
+              icon={<FiMoreVertical />}
+              _hover={{
+                bg: 'white',
+              }}
+              _active={{
+                bg: 'white',
+                color: 'logo.3',
+              }}
+            />
+            <MenuList>
+              <MenuItem onClick={() => handleReport()}>Report post</MenuItem>
+            </MenuList>
+          </Menu>
         </Flex>
       </Box>
     </Center>

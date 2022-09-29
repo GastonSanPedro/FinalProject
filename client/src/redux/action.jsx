@@ -16,6 +16,7 @@ export const LOG_OUT = 'LOG_OUT';
 export const CHANGE_DATA_PROFILE = 'CHANGE_DATA_PROFILE';
 export const GET_MY_USER = 'GET_MY_USER';
 export const ADD_FRIEND = 'ADD_FRIEND';
+export const REPORT_POST = 'REPORT_POST';
 
 export function getUsers() {
   return async function (dispatch) {
@@ -280,4 +281,15 @@ export function addFriend(myUserid, anyUserId) {
       console.log(error);
     }
   };
+}
+
+export function reportPost(id) {
+  return async function () {
+    try {
+      return axios.patch(`/posts/${id}`, { reported: true })
+    }
+    catch (error) {
+      console.log(error);
+    }
+  }
 }

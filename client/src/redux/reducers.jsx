@@ -16,6 +16,7 @@ import {
   SEARCH_USER,
   CHANGE_DATA_PROFILE,
   ADD_FRIEND,
+  REPORT_POST,
 } from './action';
 
 const initialState = {
@@ -129,6 +130,10 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         myUser: action.payload,
       };
+    case REPORT_POST:
+      return {
+        ...state
+      }
     default:
       return state;
   }

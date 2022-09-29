@@ -42,6 +42,8 @@ export default function ContainerPost({
   };
 
   let filterFriendPost = friendsPosts(myUser, posts);
+  let reportedPosts = posts?.map((post) => (post.reported === true))
+  console.log(reportedPosts)
 
   return (
     <>
@@ -55,8 +57,8 @@ export default function ContainerPost({
         borderRadius={2}
         mt={site === 'feed' ? '0vh' : '4vh'}
       >
-        {site === 'search' ? (
-         null
+        {site === 'search' || site === 'admin' ? (
+          null
         ) : site === 'feed' || site === 'profile' ? (
           <CreatePost
             site={site}
@@ -137,6 +139,7 @@ export default function ContainerPost({
             user={user}
             email={email}
             singlePost={singlePost}
+            reportedPosts={reportedPosts}
             handleClickRef={handleClickRef}
           />
         )}
