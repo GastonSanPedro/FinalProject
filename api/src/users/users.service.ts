@@ -113,4 +113,11 @@ export class UsersService {
     return user
   }
 
+  // async removeFriend(id:string, friend:any) {
+  //   let user: User = await this.userModel.findById(id);
+  //   user.friends.filter(friend => friend.friend.toString() !== id)
+  //   user.save()
+  //   return user
+  // }
+
 }
