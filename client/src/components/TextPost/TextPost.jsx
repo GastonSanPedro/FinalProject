@@ -16,16 +16,16 @@ import {
   ModalFooter,
   Text,
   Box,
-  Image,
   Input,
   InputGroup,
   InputRightElement,
+  useToast,
 } from '@chakra-ui/react';
 import { BiMessage } from 'react-icons/bi';
 import { BsSun } from 'react-icons/bs';
 import Quotes from '../../assets/comillas.svg';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import {
   getSinglePosts,
   cleanSinglePost,
@@ -45,7 +45,7 @@ const OverlayOne = () => (
     h={'90vh'}
     position={'fixed'}
     mt={'10.5vh'}
-    left={'17%'}
+    left={'18%'}
   />
 );
 //--------- Lógica socket.io --------
@@ -81,6 +81,7 @@ export default function TextPost({
   });
 
   const dispatch = useDispatch();
+  const toast = useToast();
   const handleClick = () => {
     setOverlay(<OverlayOne />);
     onOpen();
@@ -92,6 +93,13 @@ export default function TextPost({
   const handleSubmit = (e) => {
     dispatch(postComment(input, postId));
     setInput({ idUser: loggedUser, idPost: postId, description: '' });
+    toast({
+      title: 'Sucess',
+      description: 'Comment added successfully',
+      status: 'success',
+      duration: 2000,
+      isClosable: true,
+    });
   };
 
   return (
@@ -103,7 +111,7 @@ export default function TextPost({
         scrollBehavior={'inside'}
       >
         {overlay}
-        <ModalContent ml={'15vw'}>
+        <ModalContent ml={'15vw'} mt={'20vh'} maxh={'84vh'}>
           <ModalHeader>{fullName}</ModalHeader>
           <ModalCloseButton
             onClick={(e) => {
@@ -118,6 +126,11 @@ export default function TextPost({
               <Box>
                 {singlePost?.comments?.length > 0 ? (
                   singlePost?.comments?.map((comment) => {
+                    const date = new Date(comment.createdAt);
+                    const formatedDate =
+                      date.toLocaleTimeString('es-ES').slice(0, -3) +
+                      ' ' +
+                      date.toLocaleDateString('es-ES');
                     return (
                       <Flex
                         bg={'gray.200'}
@@ -141,7 +154,7 @@ export default function TextPost({
                           </Box>
                           <Box width={'50%'} textAlign={'right'}>
                             <Text fontSize={'1.4vh'} pt={'0.7vh'}>
-                              {comment.createdAt}
+                              {formatedDate}
                             </Text>
                           </Box>
                         </Box>

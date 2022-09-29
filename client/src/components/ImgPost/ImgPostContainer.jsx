@@ -5,6 +5,8 @@ import {
   SimpleGrid,
   useDisclosure,
   Text,
+  Button,
+  Center,
 } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import ImgPost from './ImgPost';
@@ -14,20 +16,24 @@ import { getUsers } from '../../redux/action';
 const ImgPostContainer = ({
   site,
   myUser,
-  email,
   user,
   posts,
   friendsPost,
   singlePost,
+  handleClickRef,
+  reportedPosts,
+  handleDelete
 }) => {
   const dispatch = useDispatch();
   const { isOpen, onToggle } = useDisclosure();
 
-  const users = useSelector((state) => state.users);
-
   useEffect(() => {
     dispatch(getUsers());
   }, [dispatch]);
+
+  const handleClickMore = () => {
+    // setCurrentEnd(currentEnd + 8);
+  };
 
   const arrayUserPosts = (site) => {
     if (site === 'profile') {
@@ -42,9 +48,12 @@ const ImgPostContainer = ({
     if (site === 'feed') {
       return friendsPost;
     }
+    if (site === 'admin') {
+      return reportedPosts;
+    }
   };
 
-  if (site === 'feed' || site === 'search') {
+  if (site === 'feed' || site === 'search' || site === 'admin' ) {
     return (
       <>
         <Flex
@@ -76,8 +85,12 @@ const ImgPostContainer = ({
                         description={post?.description}
                         date={post?.createdAt}
                         postId={post?._id}
+                        reported={post?.reported}
                         loggedUser={myUser?._id}
+                        loggedEmail={myUser?.email}
                         singlePost={singlePost}
+                        site={site}
+                        handleDelete={handleDelete}
                       />
                     </SlideFade>
                   );
@@ -125,6 +138,7 @@ const ImgPostContainer = ({
                         date={post.createdAt}
                         postId={post?._id}
                         loggedUser={myUser?._id}
+                        loggedEmail={myUser?.email}
                         singlePost={singlePost}
                       />
                     </SlideFade>
@@ -132,11 +146,31 @@ const ImgPostContainer = ({
                 })
               ) : (
                 <Box>
-                  <Text>no hay posteos</Text>{' '}
+                  {site === 'profile' ? (
+                    <Text w={'40vw'} ml={'15vw'}>
+                      You haven't create any posts. Click here to create your
+                      first one <Button onClick={handleClickRef}>Create</Button>
+                    </Text>
+                  ) : (
+                    <Text>This user has no posts yet</Text>
+                  )}
                 </Box>
               )}
             </SimpleGrid>
           }
+          <Center>
+            <Button
+              onClick={() => handleClickMore()}
+              h="50px"
+              w="200px"
+              mr="50"
+              fontSize="sm"
+              mt="50px"
+              mb="50px"
+            >
+              Ver más
+            </Button>
+          </Center>
         </Flex>
       </>
     );

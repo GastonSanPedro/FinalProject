@@ -19,6 +19,8 @@ export class PostsService {
     createPostDto.description = createPostDto.description.toLowerCase();
     createPostDto.createdAt = Date.now();
     createPostDto.reported = false;
+    createPostDto.premium = false;
+    
     try {
       const post:Post = await this.postModel.create(createPostDto);
       let user: User = await this.userModel.findById(createPostDto.author);
@@ -62,7 +64,7 @@ export class PostsService {
     }
   }
 
-  async update(id: string, updatePostDto: UpdatePostDto) {
+  async update(id:string, updatePostDto: UpdatePostDto) {
     updatePostDto.updatedAt = Date.now()
     const postUpdate:Post = await this.findById(id);
 

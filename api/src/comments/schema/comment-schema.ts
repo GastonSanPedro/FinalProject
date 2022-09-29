@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { Document, Schema as MongooseSchema, Types } from 'mongoose';
+import { IReactions } from "src/interfaces";
 
 @Schema()
 export class Comment extends Document {
@@ -8,7 +9,7 @@ export class Comment extends Document {
     title?: string;
 
     @Prop()
-    likes?: number;
+    likes?: IReactions[];
 
     @Prop()
     description: string;
@@ -20,7 +21,7 @@ export class Comment extends Document {
     createdAt: Date;
     
     @Prop()
-    updatedAt: Date;
+    updatedAt?: Date;
 
     @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'Post' }) 
     idPost: Types.ObjectId ; 

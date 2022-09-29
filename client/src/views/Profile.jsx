@@ -1,3 +1,4 @@
+import '../index.css';
 import { Box } from '@chakra-ui/react';
 import React, { useEffect } from 'react';
 import {  useSelector } from 'react-redux';
@@ -10,7 +11,6 @@ import ContainerPost from '../components/ContainerPost/ContainerPost';
 const Profile = () => {
   const myUser = useSelector((state) => state.myUser);
   const singlePost = useSelector((state) => state.singlePost);
-  // const [myOwnUser, setMyOwnUser]= useState(myUser)
 
   useEffect(() => {}, [myUser, singlePost]);
 
@@ -27,7 +27,6 @@ const Profile = () => {
         position={'absolute'}
         backgroundImage={port1}
         bgRepeat="no-repeat"
-        // bgPosition="center"
         bgSize="cover"
       />
       <UserCard site="profile" myUser={myUser} />

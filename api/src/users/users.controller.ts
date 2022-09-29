@@ -12,6 +12,7 @@ import { ParseObjectIdPipe } from 'src/utilities/parse-object-id-pipe.pipe';
 import { AddFriendDto } from './dto/add-friend-dto';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { User } from './schema/user-schema';
 import { UsersService } from './users.service';
 
 @ApiTags('Users')
@@ -52,11 +53,13 @@ export class UsersController {
   }
 
   @Post('/friend/:id')
-  async addFriend(
-    @Param('id', ParseObjectIdPipe) id:string,
-    @Body() friend: AddFriendDto
-  ){
+  addFriend(@Param('id', ParseObjectIdPipe) id:string, @Body() friend: AddFriendDto){
     return this.usersService.addFriend(id, friend)
   }
 
+  // @Delete('/friend/:id')
+  // removeFriend(@Param('id') id:string, @Body() friend: User){
+  //   return this.usersService.removeFriend(id, friend)
+  // }
+ 
 }

@@ -99,7 +99,7 @@ export class UsersService {
           {fullName: {$regex: term, $options: "$i"} },
           {userName: {$regex: term, $options: "$i"} }
         ]})
-        .populate({ path: 'friends.friend'})
+        .populate({ path: 'friends.friend', select:'-posts -password -friends -email -bio'})
         .exec()
         
         if(userFinded.length === 0) throw new NotFoundException(`El usuario con el First Name, Last Name, Username or Full Name ${term} no existe`)
@@ -112,5 +112,12 @@ export class UsersService {
     user.save()
     return user
   }
+
+  // async removeFriend(id:string, friend) {
+  //   let user: User = await this.userModel.findById(id);
+  //   user.friends.filter(friend => friend.friend.toString() !== friend.friend.toString())
+  //   user.save()
+  //   return user
+  // }
 
 }

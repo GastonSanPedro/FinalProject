@@ -25,7 +25,7 @@ import Settings from './views/Settings';
 
 // import dotenv from 'dotenv'
 // dotenv.config();
-console.log(process.env.REACT_APP_API);
+//console.log(process.env.REACT_APP_API);
 axios.defaults.baseURL = process.env.REACT_APP_API;
 //axios.defaults.baseURL = 'http://localhost:3001';
 

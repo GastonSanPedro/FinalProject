@@ -1,5 +1,6 @@
 import {
   AUTH_USER,
+  CLEAN_AUTH_USER,
   CREATE_USER_POST,
   GET_MY_USER,
   GET_POSTS,
@@ -15,6 +16,8 @@ import {
   SEARCH_USER,
   CHANGE_DATA_PROFILE,
   ADD_FRIEND,
+  REPORT_POST,
+  DELETE_POST,
 } from './action';
 
 const initialState = {
@@ -95,6 +98,12 @@ export default function rootReducer(state = initialState, action) {
         auth: action.payload,
         myUser: action.payload.user,
       };
+    case CLEAN_AUTH_USER:
+      return {
+        ...state,
+        auth: action.payload,
+        myUser: [],
+      };
     case LOG_OUT:
       return {
         ...state,
@@ -121,6 +130,19 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         myUser: action.payload,
+      };
+    case REPORT_POST:
+      return {
+        ...state,
+      }
+    case DELETE_POST:
+      return {
+        ...state,
+        posts: [...state.posts],
+        myUser: {
+          ...state.myUser,
+          posts: [...state.myUser.posts],
+        },
       };
     default:
       return state;

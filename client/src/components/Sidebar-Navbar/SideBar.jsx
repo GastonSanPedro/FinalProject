@@ -21,7 +21,7 @@ import {
   MenuDivider,
   MenuItem,
   MenuList,
-  Image
+  Image,
 } from '@chakra-ui/react';
 import {
   FiHome,
@@ -49,6 +49,7 @@ const LinkItems = [
   { name: 'Favourites', icon: FiStar },
   { name: 'Settings', icon: FiSettings },
 ];
+
 
 export default function SidebarWithHeader({ children }) {
   //----------Lógica notificaciones-------
@@ -205,11 +206,13 @@ const NavItem = ({ icon, link, children, ...rest }) => {
 
 const MobileNav = ({ onOpen, ...rest }) => {
   const myUser = useSelector((state) => state.myUser);
+  
   const google = (window.google = window.google ? window.google : {});
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleClickLogOut = () => {
     localStorage.removeItem('user');
+    localStorage.removeItem('email');
     dispatch(logOut());
     google.accounts.id.disableAutoSelect();
     navigate('/landing-page');
@@ -370,8 +373,13 @@ const MobileNav = ({ onOpen, ...rest }) => {
               <Link as={ReactLink} to="/profile">
                 <MenuItem>Profile</MenuItem>
               </Link>
+              <Link as={ReactLink} to="/admin">
+                <MenuItem>Admin panel</MenuItem>
+              </Link>
               <MenuItem>Settings</MenuItem>
-              <Link as={ReactLink} to="/payments" ><MenuItem>Payments</MenuItem></Link>
+              <Link as={ReactLink} to="/payments">
+                <MenuItem>Payments</MenuItem>
+              </Link>
               <MenuDivider />
               <MenuItem onClick={() => handleClickLogOut()}>Sign out</MenuItem>
             </MenuList>

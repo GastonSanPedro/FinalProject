@@ -1,7 +1,7 @@
 import { Form, Formik } from 'formik';
 import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { createUser, getUsers } from '../../redux/action';
+import { cleanAuthUser, createUser, getUsers } from '../../redux/action';
 import {
   Box,
   Button,
@@ -14,6 +14,7 @@ import {
   Text,
   Flex,
   Image,
+  useToast,
 } from '@chakra-ui/react';
 import jwt_decode from 'jwt-decode';
 import { useDispatch, useSelector } from 'react-redux';
@@ -24,11 +25,11 @@ const logoLeafme = logo;
 const imagenB = imgBackground;
 
 const CreateUser = ({ logOrSign, setlogOrSign }) => {
-  const google = window.google;
-
   const dispatch = useDispatch();
   const allUsers = useSelector((state) => state.allUsers);
   const user = useSelector((state) => state.user);
+  const auth = useSelector((state) => state.auth);
+  const toast = useToast();
   const navigate = useNavigate();
   const [show, setShow] = React.useState(false);
   const [User, setUser] = React.useState('');
@@ -41,26 +42,23 @@ const CreateUser = ({ logOrSign, setlogOrSign }) => {
     //dispatch(authUser(userObject.email, null, true));
   };
   const handleClickLog = (event) => {
+    dispatch(cleanAuthUser());
     setlogOrSign('log');
+  };
+  const handleNavigation = () => {
+    setTimeout(function () {
+      navigate(`/home`);
+    }, 2000);
   };
   useEffect(() => {
     /* global google */
     dispatch(getUsers());
-    setTimeout(function () {
-      google?.accounts.id.initialize({
-        client_id:
-          '239100653667-9cg4th0msle8b1fsvkgn7mbnae69msom.apps.googleusercontent.com',
-        callback: handleCallbackResponse,
-      });
-      google?.accounts.id.renderButton(document.getElementById('signInDiv'), {
-        theme: 'outlined',
-        type: 'icon',
-        size: 'large',
-      });
-    });
+    if (auth.auth === 'unregistered') {
+      setUser(auth.user);
+    }
   }, [dispatch]);
 
-
+  console.log(User);
   const valEmail = (inputValueEmail) => {
     const emailF = allUsers.filter((user) => inputValueEmail === user.email);
     if (emailF[0]) return true;
@@ -84,8 +82,8 @@ const CreateUser = ({ logOrSign, setlogOrSign }) => {
       >
         <Formik
           initialValues={{
-            firstName: User ? User?.given_name : '',
-            lastName: User ? User?.family_name : '',
+            firstName: '',
+            lastName: '',
             password: '',
             email: User ? User?.email : '',
             userName: '',
@@ -148,14 +146,30 @@ const CreateUser = ({ logOrSign, setlogOrSign }) => {
               };
               dispatch(createUser(googleUser), []);
               localStorage.setItem('user', JSON.stringify(googleUser));
-              console.log('Formulario Enviado');
-              navigate(`/home`);
+              toast({
+                title: 'Welcome',
+                description:
+                  'Your account has been created sucesfully.Redirecting to your feed',
+                status: 'success',
+                duration: 2000,
+                isClosable: true,
+                onCloseComplete: handleNavigation(),
+              });
+              //navigate(`/home`);
             } else {
               dispatch(createUser(values), []);
-              
+
               localStorage.setItem('user', JSON.stringify(values));
-              console.log('Formulario Enviado');
-              navigate(`/home`);
+              toast({
+                title: 'Welcome!',
+                description:
+                  'Your account has been created sucesfully.Redirecting to your feed',
+                status: 'success',
+                duration: 2000,
+                isClosable: true,
+                onCloseComplete: handleNavigation(),
+              });
+              //navigate(`/home`);
             }
           }}
         >
@@ -223,7 +237,7 @@ const CreateUser = ({ logOrSign, setlogOrSign }) => {
                     id="firstName"
                     name="firstName"
                     placeholder="First name"
-                    value={User ? User?.given_name : values.firstName}
+                    value={ values.firstName }
                     onChange={handleChange}
                     onBlur={handleBlur}
                   />
@@ -240,7 +254,7 @@ const CreateUser = ({ logOrSign, setlogOrSign }) => {
                       id="lastName"
                       name="lastName"
                       placeholder="Last Name"
-                      value={User ? User?.family_name : values.lastName}
+                      value={ values.lastName }
                       onChange={handleChange}
                       onBlur={handleBlur}
                     />
@@ -316,9 +330,6 @@ const CreateUser = ({ logOrSign, setlogOrSign }) => {
                   )}
 
                   <Link to="/">
-                    <Button mt="10px" ml={'0.5vw'}>
-                      Back
-                    </Button>
                   </Link>
                   <Button
                     mt="10px"
@@ -329,14 +340,6 @@ const CreateUser = ({ logOrSign, setlogOrSign }) => {
                   >
                     Clean
                   </Button>
-                  <div
-                    style={{
-                      position: 'absolute',
-                      bottom: '19.5%',
-                      left: '75%',
-                    }}
-                    id="signInDiv"
-                  ></div>
                   <hr
                     style={{
                       width: '60%',

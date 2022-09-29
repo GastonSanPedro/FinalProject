@@ -1,20 +1,25 @@
 import { Flex, Button, Divider, Box } from "@chakra-ui/react";
-import UserSearchContainer from "../UserSearch/NOUserSearchContainer";
 import CreatePost from "../CreatePost/CreatePost";
 import ImgPostContainer from "../ImgPost/ImgPostContainer";
 import TextPostContainer from '../TextPost/TextPostContainer';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 
 export default function ContainerPost({
   site,
-  word,
   email,
   myUser,
   user,
   posts,
   singlePost,
+  handleDelete
 }) {
+
   const [typePost, setTypePost] = useState('img');
+  const ref = useRef();
+  const handleClickRef = () => {
+    console.log(ref);
+    ref.current.focus();
+  };
 
   const handleClickImg = () => {
     setTypePost('img');
@@ -24,19 +29,19 @@ export default function ContainerPost({
   };
 
   //--------- funcion filtro posteos amigos --------
-
   const friendsPosts = (myUser, posts) => {
     let friends = myUser?.friends?.map((friend) => friend.friend[0]._id);
     let friendsPost = posts?.filter((post) => {
-      if (friends?.includes(post.author._id)) {
+      if (friends?.includes(post?.author?._id)) {
         return post;
       }
     });
-
     return friendsPost;
   };
-
   let filterFriendPost = friendsPosts(myUser, posts);
+  //------------------------------------------------
+
+  let reportedPosts = posts?.filter((post) => (post.reported === true))
 
   return (
     <>
@@ -50,10 +55,15 @@ export default function ContainerPost({
         borderRadius={2}
         mt={site === 'feed' ? '0vh' : '4vh'}
       >
-        {site === 'search' ? (
-         null
+        {site === 'search' || site === 'admin' ? (
+          null
         ) : site === 'feed' || site === 'profile' ? (
-          <CreatePost site={site} email={email} myUser={myUser} />
+          <CreatePost
+            site={site}
+            email={email}
+            myUser={myUser}
+            createdRef={ref}
+          />
         ) : (
           <Box
             p={3}
@@ -116,6 +126,7 @@ export default function ContainerPost({
             user={user}
             email={email}
             singlePost={singlePost}
+            handleClickRef={handleClickRef}
           />
         ) : (
           <ImgPostContainer
@@ -126,6 +137,9 @@ export default function ContainerPost({
             user={user}
             email={email}
             singlePost={singlePost}
+            reportedPosts={reportedPosts}
+            handleDelete={handleDelete}
+            handleClickRef={handleClickRef}
           />
         )}
       </Flex>
