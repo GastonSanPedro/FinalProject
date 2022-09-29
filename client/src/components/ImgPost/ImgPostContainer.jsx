@@ -16,7 +16,6 @@ import { getUsers } from '../../redux/action';
 const ImgPostContainer = ({
   site,
   myUser,
-  email,
   user,
   posts,
   friendsPost,
@@ -26,8 +25,6 @@ const ImgPostContainer = ({
 }) => {
   const dispatch = useDispatch();
   const { isOpen, onToggle } = useDisclosure();
-
-  const users = useSelector((state) => state.users);
 
   useEffect(() => {
     dispatch(getUsers());
@@ -91,7 +88,7 @@ const ImgPostContainer = ({
                         loggedUser={myUser?._id}
                         loggedEmail={myUser?.email}
                         singlePost={singlePost}
-                        
+                        site={site}
                       />
                     </SlideFade>
                   );

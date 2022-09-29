@@ -17,6 +17,7 @@ export const CHANGE_DATA_PROFILE = 'CHANGE_DATA_PROFILE';
 export const GET_MY_USER = 'GET_MY_USER';
 export const ADD_FRIEND = 'ADD_FRIEND';
 export const REPORT_POST = 'REPORT_POST';
+export const DELETE_POST = 'DELETE_POST'
 
 export function getUsers() {
   return async function (dispatch) {
@@ -284,12 +285,32 @@ export function addFriend(myUserid, anyUserId) {
 }
 
 export function reportPost(id) {
-  return async function () {
+  return async function (dispatch) {
     try {
-      return axios.patch(`/posts/${id}`, {reported: true })
+      await axios.patch(`/posts/${id}`, { reported: true })
+      return dispatch({
+        type: REPORT_POST,
+      })
     }
     catch (error) {
       console.log(error);
     }
   }
 }
+
+export function deletePost(id) {
+  return async function (dispatch) {
+    try {
+      await axios.delete(`/posts/${id}`)
+      let info = await axios.get(`/posts`)
+      return dispatch({
+        type: DELETE_POST,
+        payload: info.data
+      })
+    }
+    catch (error) {
+      console.log(error);
+    }
+  }
+}
+

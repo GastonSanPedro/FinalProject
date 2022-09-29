@@ -17,6 +17,7 @@ import {
   CHANGE_DATA_PROFILE,
   ADD_FRIEND,
   REPORT_POST,
+  DELETE_POST,
 } from './action';
 
 const initialState = {
@@ -132,7 +133,12 @@ export default function rootReducer(state = initialState, action) {
       };
     case REPORT_POST:
       return {
-        ...state
+        ...state,
+      }
+      case DELETE_POST:
+      return {
+        ...state,
+        post:action.payload
       }
     default:
       return state;

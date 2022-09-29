@@ -373,6 +373,9 @@ const MobileNav = ({ onOpen, ...rest }) => {
               <Link as={ReactLink} to="/profile">
                 <MenuItem>Profile</MenuItem>
               </Link>
+              <Link as={ReactLink} to="/admin">
+                <MenuItem>Admin panel</MenuItem>
+              </Link>
               <MenuItem>Settings</MenuItem>
               <Link as={ReactLink} to="/payments">
                 <MenuItem>Payments</MenuItem>

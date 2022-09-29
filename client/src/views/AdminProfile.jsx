@@ -33,8 +33,8 @@ const AdminProfile = () => {
     const myUser = useSelector((state) => state.myUser);
     
 
-    useEffect(() => { }, [myUser]);
-    useEffect(() => { }, [posts]);
+    useEffect(() => { }, [myUser,posts]);
+    // useEffect(() => { }, [posts]);
     useEffect(() => {
         dispatch(getPosts());
     }, [dispatch]);
