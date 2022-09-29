@@ -33,7 +33,7 @@ export default function ContainerPost({
   const friendsPosts = (myUser, posts) => {
     let friends = myUser?.friends?.map((friend) => friend.friend[0]._id);
     let friendsPost = posts?.filter((post) => {
-      if (friends?.includes(post.author._id)) {
+      if (friends?.includes(post?.author?._id)) {
         return post;
       }
     });
