@@ -2,7 +2,6 @@ import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { Document, Schema as MongooseSchema, Types } from 'mongoose';
 import { IReactions } from "src/interfaces";
 
-
 @Schema()
 export class Comment extends Document {
 
