@@ -64,16 +64,15 @@ export class PostsService {
     }
   }
 
-  async update(updatePostDto: UpdatePostDto) {
+  async update(id:string, updatePostDto: UpdatePostDto) {
     updatePostDto.updatedAt = Date.now()
-    const idPost = updatePostDto.idPost.toString()
-    const postUpdate:Post = await this.findById(idPost);
+    const postUpdate:Post = await this.findById(id);
 
     let user: User = await this.userModel.findById(postUpdate.author._id);
-    user.posts = user.posts.filter(post=> post._id.toString() !== idPost)
+    user.posts = user.posts.filter(post=> post._id.toString() !== id)
 
     await postUpdate.updateOne(updatePostDto) 
-    const updatedPost:Post = await this.findById(idPost);
+    const updatedPost:Post = await this.findById(id);
 
     user.posts.push(updatedPost)
     user.save()

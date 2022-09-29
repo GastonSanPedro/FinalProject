@@ -1,16 +1,6 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { Document, Schema as MongooseSchema, Types } from 'mongoose';
-
-export interface Icomment {
-   
-    suns: number;
-
-    happyLeaf: number;
-
-    heart: number;
-
-    confusedLeaf: number;
-}
+import { IReactions } from "src/interfaces";
 
 
 @Schema()
@@ -20,7 +10,7 @@ export class Comment extends Document {
     title?: string;
 
     @Prop()
-    likes?: Icomment[];
+    likes?: IReactions[];
 
     @Prop()
     description: string;

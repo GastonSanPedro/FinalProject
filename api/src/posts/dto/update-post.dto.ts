@@ -8,8 +8,4 @@ export class UpdatePostDto extends PartialType(CreatePostDto) {
   @IsDate()
   @IsOptional()
   updatedAt?: number;
-
-  @ApiProperty()
-  @IsNotEmpty()
-  idPost: Types.ObjectId
 }
