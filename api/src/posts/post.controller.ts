@@ -22,24 +22,24 @@ export class PostsController {
     return this.postsService.findAll();
   }
 
-  @Get(':term')
-  findByDescription(@Param('term') term: string) {
+  @Get('/term')
+  findByDescription(@Body('term') term: string) {
     return this.postsService.findByDescription(term);
   }
 
-  @Get('/id/:id')
-    findById(@Param('id') id: string){
-      return this.postsService.findById(id)
+  @Get('/id')
+    findById(@Body('idPost') idPost: string){
+      return this.postsService.findById(idPost)
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePostDto: UpdatePostDto) {
-    return this.postsService.update(id, updatePostDto);
+  @Patch()
+  update(@Body() updatePostDto: UpdatePostDto) {
+    return this.postsService.update( updatePostDto );
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.postsService.remove(id);
+  @Delete()
+  remove(@Body('idPost') idPost: string) {
+    return this.postsService.remove(idPost);
   }
 
   

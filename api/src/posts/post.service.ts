@@ -19,6 +19,8 @@ export class PostsService {
     createPostDto.description = createPostDto.description.toLowerCase();
     createPostDto.createdAt = Date.now();
     createPostDto.reported = false;
+    createPostDto.premium = false;
+    
     try {
       const post:Post = await this.postModel.create(createPostDto);
       let user: User = await this.userModel.findById(createPostDto.author);
@@ -62,15 +64,16 @@ export class PostsService {
     }
   }
 
-  async update(id: string, updatePostDto: UpdatePostDto) {
+  async update(updatePostDto: UpdatePostDto) {
     updatePostDto.updatedAt = Date.now()
-    const postUpdate:Post = await this.findById(id);
+    const idPost = updatePostDto.idPost.toString()
+    const postUpdate:Post = await this.findById(idPost);
 
     let user: User = await this.userModel.findById(postUpdate.author._id);
-    user.posts = user.posts.filter(post=> post._id.toString() !== id)
+    user.posts = user.posts.filter(post=> post._id.toString() !== idPost)
 
     await postUpdate.updateOne(updatePostDto) 
-    const updatedPost:Post = await this.findById(id);
+    const updatedPost:Post = await this.findById(idPost);
 
     user.posts.push(updatedPost)
     user.save()

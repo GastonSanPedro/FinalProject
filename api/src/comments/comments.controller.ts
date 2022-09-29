@@ -22,18 +22,18 @@ export class CommentsController {
     return this.commentsService.findAll();
   }
 
-  @Get(':id')
-  findById(@Param('id') id: string) {
-    return this.commentsService.findById(id);
+  @Get('/id')
+  findById(@Body('idComment') idComment: string) {
+    return this.commentsService.findById(idComment);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCommentDto: UpdateCommentDto) {
-    return this.commentsService.update(id, updateCommentDto);
+  @Patch()
+  update(@Body() updateCommentDto: UpdateCommentDto ) {
+    return this.commentsService.update(updateCommentDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.commentsService.remove(id);
+  @Delete()
+  remove(@Body('idComment') idComment: string) {
+    return this.commentsService.remove(idComment);
   }
 }
