@@ -10,6 +10,7 @@ import { SeedModule } from './seed/seed.module';
 import { EnvConfiguration } from './config/env.config';
 import { JoiValidationSchena } from './config/joi.validation';
 import { CommentsModule } from './comments/comments.module';
+import { MercadoPagoModule } from './mercado-pago/mercado-pago.module';
 
 @Module({
   imports: [
@@ -22,7 +23,7 @@ import { CommentsModule } from './comments/comments.module';
       }),
     MongooseModule.forRoot(process.env.MONGODB),
     UsersModule, 
-    PosteosModule, SeedModule, CommentsModule
+    PosteosModule, SeedModule, CommentsModule, MercadoPagoModule
   ],
   controllers: [],
   providers: [],
