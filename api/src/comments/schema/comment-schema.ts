@@ -12,7 +12,6 @@ export interface Icomment {
     confusedLeaf: number;
 }
 
-
 @Schema()
 export class Comment extends Document {
 
