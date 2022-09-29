@@ -20,7 +20,7 @@ export class Comment extends Document {
     createdAt: Date;
     
     @Prop()
-    updatedAt: Date;
+    updatedAt?: Date;
 
     @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'Post' }) 
     idPost: Types.ObjectId ; 

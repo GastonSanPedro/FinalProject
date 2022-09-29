@@ -6,6 +6,7 @@ import { Post } from 'src/posts/schema/post-schema';
 import { User } from 'src/users/schema/user-schema';
 import { IUser } from '../seed/interfaces/user-response.interface';
 import { userDBFull } from './users';
+import { Comment } from '../comments/schema/comment-schema';
 
 
 
@@ -20,11 +21,15 @@ export class SeedService {
     private readonly userModel: Model<User>,
 
     @InjectModel( Post.name )
-    private readonly postModel: Model<Post>){}
+    private readonly postModel: Model<Post>,
+
+    @InjectModel( Comment.name )
+    private readonly commentModel: Model<Comment>){}
 
     async populateDB(){
       await this.userModel.deleteMany({});
       await this.postModel.deleteMany({});
+      await this.commentModel.deleteMany({});
 
       const usersToInsert: IUser[] = []
       
