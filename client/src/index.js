@@ -18,6 +18,7 @@ import AnyProfile from './views/AnyProfile';
 import AdminProfile from './views/AdminProfile';
 import axios from 'axios';
 import Payments from './views/Payments';
+import Settings from './views/Settings';
 // const Dotenv = require('dotenv-webpack');
 
 // require('dotenv').config();
@@ -46,6 +47,7 @@ root.render(
             <Route exact path="/user/:email" element={<AnyProfile />} />
             <Route path="*" element={<Landing />} />
             <Route path="/payments" element={<Payments />} />
+            <Route path="/settings" element={<Settings />} />
           </Routes>
         </BrowserRouter>
       </ChakraProvider>

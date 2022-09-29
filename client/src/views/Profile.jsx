@@ -1,11 +1,10 @@
 import { Box } from '@chakra-ui/react';
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import {  useSelector } from 'react-redux';
 import UserCard from '../components/UserCard/UserCard';
 import SidebarWithHeader from '../components/Sidebar-Navbar/SideBar';
 import port1 from '../assets/port1.png';
 import '../index.css';
-import { getMyUser, getPosts, getUsers } from '../redux/action';
 import ContainerPost from '../components/ContainerPost/ContainerPost';
 
 const Profile = () => {

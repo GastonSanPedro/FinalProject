@@ -221,7 +221,6 @@ export function changeDataProfile(payload, email) {
   return async function (dispatch) {
     try {
       var user = await axios.patch(`/users/${email}`, payload);
-      console.log(user);
       let info = await axios.get(`/users/${email}`);
       return dispatch({
         type: CHANGE_DATA_PROFILE,
@@ -252,7 +251,7 @@ export function addFriend(myUserid, anyUserId) {
     try {
       let info = await axios.post(`/users/friend/${myUserid}`, idAnyUser);
       let { data } = await axios.get(`/users/${myUserid}`);
-      console.log(data);
+
       return dispatch({
         type: ADD_FRIEND,
         payload: data,

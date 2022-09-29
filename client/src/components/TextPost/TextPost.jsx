@@ -79,7 +79,7 @@ export default function TextPost({
     idPost: postId,
     description: '',
   });
-  //console.log(postId);
+
   const dispatch = useDispatch();
   const handleClick = () => {
     setOverlay(<OverlayOne />);
@@ -93,7 +93,7 @@ export default function TextPost({
     dispatch(postComment(input, postId));
     setInput({ idUser: loggedUser, idPost: postId, description: '' });
   };
-  console.log(singlePost);
+
   return (
     <>
       <Modal

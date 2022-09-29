@@ -5,6 +5,8 @@ import SidebarWithHeader from "../components/Sidebar-Navbar/SideBar";
 import NavbarSerch from "../components/NavbarSearch/NavbarSearch";
 import ContainerSearchCard from "../components/UserSearch/ContainerSearchCard";
 import PostSearchContainer from "../components/PostSearch/ContainerPostSearch";
+import { RiFileTextLine, RiUserSearchLine, RiUserFollowLine } from 'react-icons/ri'
+import { AiOutlinePicture } from 'react-icons/ai';
 
 
 
@@ -13,6 +15,35 @@ const SearchPage = () =>{
 
     const myUser = useSelector((state)=> state.myUser)
     const [state, setState ] = useState('users')
+
+    const NAV_ITEMS = [
+        {
+          label: 'Users',
+          icon: <RiUserSearchLine/>,
+          onClick: () => {
+            setState('users')}
+        },
+        {
+            label: 'Friends',
+            icon: <RiUserFollowLine/>,
+            onClick: () => {
+              setState('friends')
+            }
+          },
+        {
+          label: 'Images',
+          icon: <AiOutlinePicture/>,
+          onClick: () => {
+            setState('images')}
+        },
+        {
+          label: 'Text',
+          icon: <RiFileTextLine/>,
+          onClick: () => {
+            setState('text')}
+        }
+     
+      ];
 
     return(
         <>
@@ -31,7 +62,8 @@ const SearchPage = () =>{
            mr={'7%'}>
         <NavbarSerch
             state={state}
-            setState={setState}/>
+            setState={setState}
+            NAV_ITEMS={NAV_ITEMS}/>
         {
             state === 'users' || state === 'friends' ? (
                 <ContainerSearchCard
