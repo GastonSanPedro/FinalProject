@@ -17,6 +17,10 @@ import {
   SEARCH_USER,
   CHANGE_DATA_PROFILE,
   ADD_FRIEND,
+  REPORT_POST,
+  DELETE_POST,
+  GET_FRIENDS,
+  DELETE_FRIENDS
 } from './action';
 
 const initialState = {
@@ -32,6 +36,7 @@ const initialState = {
   searchUser: [],
   searchPost: [],
   uploadedImage: [],
+  friends: []
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -52,7 +57,6 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         myUser: action.payload,
       };
-
     case GET_POSTS:
       return {
         ...state,
@@ -119,7 +123,6 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         searchUser: action.payload,
       };
-
     case SEARCH_POST:
       return {
         ...state,
@@ -133,9 +136,33 @@ export default function rootReducer(state = initialState, action) {
     case ADD_FRIEND:
       return {
         ...state,
-        myUser: action.payload,
+        friends: action.payload,
       };
-    default:
+    case GET_FRIENDS:
+        return{
+          ...state,
+          friends: action.payload
+      };
+    case DELETE_FRIENDS:
+        return {
+          ...state,
+          friends: action.payload,
+        };
+    case REPORT_POST:
+      return {
+        ...state
+      };
+    case DELETE_POST:
+      return {
+        ...state,
+        posts: [...state.posts],
+        myUser: {
+          ...state.myUser,
+          posts: [...state.myUser.posts],
+        },
+      };
+
+      default:
       return state;
   }
 }

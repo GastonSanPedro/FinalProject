@@ -12,7 +12,7 @@ import { Post } from 'src/posts/schema/post-schema';
 export class CommentsService {
   constructor(
     @InjectModel(Comment.name)
-    private readonly CommentModel: Model<Comment>,
+    private readonly commentModel: Model<Comment>,
     @InjectModel(User.name)
     private readonly userModel: Model<User>,
     @InjectModel(Post.name)
@@ -20,12 +20,12 @@ export class CommentsService {
   ) {}
 
   async create( createCommentDto: CreateCommentDto) {
-    createCommentDto.description =createCommentDto.description.toLowerCase();
+    createCommentDto.description = createCommentDto.description.toLowerCase();
     createCommentDto.createdAt = Date.now();
-    createCommentDto.reported=false;
+    createCommentDto.reported = false;
 
     try{
-      const comment:Comment = await this.CommentModel.create(createCommentDto)
+      const comment:Comment = await this.commentModel.create(createCommentDto)
       let post:Post = await this.postModel.findById(createCommentDto.idPost)
       post.comments.push(comment)
       post.save()
@@ -38,20 +38,20 @@ export class CommentsService {
   }
 
   async findAll() {
-    const allComments = await this.CommentModel.find()
+    const allComments = await this.commentModel.find()
     return allComments
     // // .populate({ path: 'comments', populate:{ path : 'idUser'} })
     // // .setOptions({ sanitizeFilter: true })
     // .exec();
   }
 
-  async findById(id: string) {
-    if(!isValidObjectId(id)) throw new BadRequestException(`Id is not an MongoId`)
-      const comment =  await this.CommentModel.findById(id)
+  async findById(idComment: string) {
+    if(!isValidObjectId(idComment)) throw new BadRequestException(`Id is not an MongoId`)
+      const comment =  await this.commentModel.findById(idComment)
       return comment
   }
 
-  async update(id: string, updateCommentDto: UpdateCommentDto) {
+  async update(id: string , updateCommentDto: UpdateCommentDto) {
     updateCommentDto.updatedAt = Date.now();
     const commentUpdate:Comment = await this.findById(id);
 
@@ -64,16 +64,17 @@ export class CommentsService {
     post.comments.push(updatedComment)
     post.save()
 
-    return `Comment Post Successfully`;
+    return `Updated Comment succesfully`
+  
   }
 
-  async remove(id: string) {
-    const commentDelete:Comment = await this.findById(id);
+  async remove(idComment: string) {
+    const commentDelete:Comment = await this.findById(idComment);
     let post:Post = await this.postModel.findById(commentDelete.idPost)
-    post.comments = post.comments.filter(comment=> comment._id.toString() !== id)
+    post.comments = post.comments.filter(comment=> comment._id.toString() !== idComment)
     post.save()
     await commentDelete.deleteOne()
-    return `Post ${id} has been deleted`;
+    return `Comment ${idComment} has been deleted`;
   }
 }
 

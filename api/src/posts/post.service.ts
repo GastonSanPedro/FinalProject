@@ -19,6 +19,8 @@ export class PostsService {
     createPostDto.description = createPostDto.description.toLowerCase();
     createPostDto.createdAt = Date.now();
     createPostDto.reported = false;
+    createPostDto.premium = false;
+    
     try {
       const post:Post = await this.postModel.create(createPostDto);
       let user: User = await this.userModel.findById(createPostDto.author);
@@ -34,6 +36,7 @@ export class PostsService {
   async findAll() {
     return await this.postModel
     .find()
+    .sort({createdAt: -1})
     .populate({ path: 'author', select:'-posts -password -friends -email -bio'})
     .populate({ path: 'comments', populate:{ path : 'idUser', select:'-posts -password -friends -email -bio'}  })
     .setOptions({ sanitizeFilter: true })
@@ -44,6 +47,7 @@ export class PostsService {
 
     const posts = await this.postModel
     .find({description: {$regex: term, $options: "$i"}})
+    .sort({createdAt:-1})
     .populate({ path: 'author', select:'-posts -password -friends -email -bio'})
     .populate({ path: 'comments', populate:{ path : 'idUser'} })
     .exec();
@@ -62,7 +66,7 @@ export class PostsService {
     }
   }
 
-  async update(id: string, updatePostDto: UpdatePostDto) {
+  async update(id:string, updatePostDto: UpdatePostDto) {
     updatePostDto.updatedAt = Date.now()
     const postUpdate:Post = await this.findById(id);
 
@@ -84,5 +88,9 @@ export class PostsService {
     user.save()
     await postDelete.deleteOne()
     return `Post ${id} has been deleted`;
+  }
+
+  async findAllPostOfMyFriends (id: string){
+
   }
 }

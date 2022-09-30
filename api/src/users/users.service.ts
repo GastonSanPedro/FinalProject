@@ -37,7 +37,7 @@ export class UsersService {
   async findAll() {
     return await this.userModel
     .find()
-    .populate({ path: 'friends.friend'})
+    .populate({ path: 'friends.idFriend'})
     .exec()
   }
 
@@ -48,7 +48,7 @@ export class UsersService {
         if(term.includes("@")){
           userFinded = await this.userModel
           .findOne({email : term})
-          .populate({ path: 'friends.friend' })
+          .populate({ path: 'friends.idFriend' })
           .exec()
         }
 
@@ -56,14 +56,14 @@ export class UsersService {
         if(isValidObjectId(term)){
           userFinded =  await this.userModel
           .findById(term)
-          .populate({ path: 'friends.friend'})
+          .populate({ path: 'friends.idFriend'})
           .exec()
         }
         //Si no hay nada hasta este punto busco por UserName
         if(!userFinded){
           userFinded =  await this.userModel
           .findOne({userName: term})
-          .populate({ path: 'friends.friend'})
+          .populate({ path: 'friends.idFriend'})
           .exec()
         }
         //Si no encontro nada arroja error
@@ -99,18 +99,13 @@ export class UsersService {
           {fullName: {$regex: term, $options: "$i"} },
           {userName: {$regex: term, $options: "$i"} }
         ]})
-        .populate({ path: 'friends.friend'})
+        .populate({ path: 'friends.friend', select:'-posts -password -friends -email -bio'})
         .exec()
         
         if(userFinded.length === 0) throw new NotFoundException(`El usuario con el First Name, Last Name, Username or Full Name ${term} no existe`)
       return userFinded
   }
 
-  async addFriend(id:string, friend:any) {
-    let user: User = await this.userModel.findById(id);
-    user.friends.push(friend)
-    user.save()
-    return user
-  }
+
 
 }

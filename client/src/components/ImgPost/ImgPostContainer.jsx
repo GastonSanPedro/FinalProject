@@ -16,17 +16,16 @@ import { getUsers } from '../../redux/action';
 const ImgPostContainer = ({
   site,
   myUser,
-  email,
   user,
   posts,
   friendsPost,
   singlePost,
   handleClickRef,
+  reportedPosts,
+  handleDelete,
 }) => {
   const dispatch = useDispatch();
   const { isOpen, onToggle } = useDisclosure();
-
-  const users = useSelector((state) => state.users);
 
   useEffect(() => {
     dispatch(getUsers());
@@ -43,15 +42,18 @@ const ImgPostContainer = ({
     if (site === 'anyProfile') {
       return user;
     }
-    if (site === 'search') {
+    if (site === 'search' || site === 'explore') {
       return posts;
     }
     if (site === 'feed') {
       return friendsPost;
     }
+    if (site === 'admin') {
+      return reportedPosts;
+    }
   };
 
-  if (site === 'feed' || site === 'search') {
+  if (site === 'feed' || site === 'search' || site === 'admin' || site === 'explore') {
     return (
       <>
         <Flex
@@ -62,7 +64,7 @@ const ImgPostContainer = ({
           direction={'column'}
           borderRadius={2}
           mt={site === 'feed' ? '0vh' : '4vh'}
-          >
+        >
           {
             <SimpleGrid
               columns={{ base: 1, xl: 3 }}
@@ -83,9 +85,12 @@ const ImgPostContainer = ({
                         description={post?.description}
                         date={post?.createdAt}
                         postId={post?._id}
+                        reported={post?.reported}
                         loggedUser={myUser?._id}
                         loggedEmail={myUser?.email}
                         singlePost={singlePost}
+                        site={site}
+                        handleDelete={handleDelete}
                       />
                     </SlideFade>
                   );

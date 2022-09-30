@@ -1,4 +1,3 @@
-import React, { useState, useRef } from 'react';
 import {
   Avatar,
   Box,
@@ -8,12 +7,13 @@ import {
   Stack,
   useToast,
 } from '@chakra-ui/react';
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { createUserPost, getMyUser } from '../../redux/action';
+import { createUserPost } from '../../redux/action';
 import { Radio, RadioGroup } from '@chakra-ui/react';
-import { setIn } from 'formik';
 
-const CreatePost = ({ email, site, myUser, createdRef }) => {
+const CreatePost = ({ site, myUser, createdRef }) => {
+
   const [input, setInput] = useState({
     description: '',
     pics: '',

@@ -23,6 +23,7 @@ export default function TextPostContainer({
   friendsPost,
   singlePost,
   handleClickRef,
+  explorePosts,
 }) {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -38,7 +39,7 @@ export default function TextPostContainer({
     if (site === 'anyProfile') {
       return user;
     }
-    if (site === 'search') {
+    if (site === 'search' || site === 'explore') {
       return posts;
     }
     if (site === 'feed') {
@@ -48,15 +49,15 @@ export default function TextPostContainer({
   //--------- Lógica de ver mas --------
 
   // const [currentStart, setCurrentStart] = useState(0);
-  // const [currentEnd, setCurrentEnd] = useState(8);
+  // const [currentEnd, setCurrentEnd] = useState(9);
 
-  // // const renderPosts = post.length > 8 ? post?.slice(currentStart, currentEnd) : post;
+  // const renderPosts = arrayUserPosts(site)?.length > 8 ? post?.slice(currentStart, currentEnd) : post;
 
   const handleClickMore = () => {
-    // setCurrentEnd(currentEnd + 8);
+    // setCurrentEnd(currentEnd + 9);
   };
 
-  if (site === 'feed' || site === 'search') {
+  if (site === 'feed' || site === 'search'|| site === 'explore') {
     return (
       <>
         <Flex

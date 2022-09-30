@@ -1,5 +1,4 @@
 import { Flex, Button, Divider, Box } from '@chakra-ui/react';
-import UserSearchContainer from '../UserSearch/NOUserSearchContainer';
 import CreatePost from '../CreatePost/CreatePost';
 import ImgPostContainer from '../ImgPost/ImgPostContainer';
 import TextPostContainer from '../TextPost/TextPostContainer';
@@ -7,12 +6,12 @@ import { useState, useRef } from 'react';
 
 export default function ContainerPost({
   site,
-  word,
   email,
   myUser,
   user,
   posts,
   singlePost,
+  handleDelete,
 }) {
   const [typePost, setTypePost] = useState('img');
   const ref = useRef();
@@ -29,7 +28,6 @@ export default function ContainerPost({
   };
 
   //--------- funcion filtro posteos amigos --------
-
   const friendsPosts = (myUser, posts) => {
     let friends = myUser?.friends?.map((friend) => friend.friend[0]._id);
     let friendsPost = posts?.filter((post) => {
@@ -37,11 +35,12 @@ export default function ContainerPost({
         return post;
       }
     });
-
     return friendsPost;
   };
-
   let filterFriendPost = friendsPosts(myUser, posts);
+  //------------------------------------------------
+
+  let reportedPosts = posts?.filter((post) => post.reported === true);
 
   return (
     <>
@@ -55,7 +54,9 @@ export default function ContainerPost({
         borderRadius={2}
         mt={site === 'feed' ? '0vh' : '4vh'}
       >
-        {site === 'search' ? null : site === 'feed' || site === 'profile' ? (
+        {site === 'search' ||
+        site === 'admin' ||
+        site === 'explore' ? null : site === 'feed' || site === 'profile' ? (
           <CreatePost
             site={site}
             email={email}
@@ -74,7 +75,7 @@ export default function ContainerPost({
             mb={site === 'profile' ? '50px' : null}
           ></Box>
         )}
-        <Divider />
+        {site === 'explore' ? null : <Divider />}
 
         <Flex dir="row" align={'center'} justify={'center'} mb={'2%'} mt={'2%'}>
           <Button
@@ -135,6 +136,8 @@ export default function ContainerPost({
             user={user}
             email={email}
             singlePost={singlePost}
+            reportedPosts={reportedPosts}
+            handleDelete={handleDelete}
             handleClickRef={handleClickRef}
           />
         )}
