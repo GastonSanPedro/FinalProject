@@ -17,7 +17,7 @@ export class FriendsService {
 
   async create(addFriendDto: AddFriendDto): Promise<Friend> {
    try {
-      const friend:Friend = await this.friendModel.create(addFriendDto);
+      const friend:any = await this.friendModel.create(addFriendDto);
       let user: User = await this.userModel.findById(addFriendDto.idUser);
 
       user.friends.push(friend)
@@ -49,11 +49,10 @@ export class FriendsService {
       .populate({ path: 'friends.idFriend', select:'posts'})
       .exec() 
 
-      const friendsPost = user.friends.map(friend => friend.idFriend)
-      console.log(friendsPost)
-      // const friendsPostAll = friendsPost.map(friend => friend.posts)
-      //  console.log(friendsPostAll)
-    return friendsPost
+      const friendsPost: any = user.friends.map(friend => friend.idFriend)
+      const friendsPostAll = friendsPost.map(friend => friend.posts).flat()
+
+    return friendsPostAll
     } 
   }
 
