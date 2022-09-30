@@ -5,6 +5,7 @@ export const GET_POSTS = 'GET_POSTS';
 export const SINGLE_POST = 'SINGLE_POST';
 export const CLEAN_SINGLE_POST = 'CLEAN_SINGLE_POST';
 export const POST_COMMENT = 'POST_COMMENT';
+export const POST_REACTION = 'POST_REACTION';
 export const POST_USER = 'POST_USER';
 export const CREATE_USER_POST = 'CREATE_USER_POST';
 export const CREATE_USER = 'CREATE_USER';
@@ -113,6 +114,21 @@ export function postComment(payload, id) {
       //console.log(data.data);
       return dispatch({
         type: POST_COMMENT,
+        payload: data.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
+export function postReaction(payload, idPost, idComment) {
+  return async function (dispatch) {
+    try {
+      const info = await axios.post(`/comments/${idComment}`, payload);
+      let data = await axios.get(`/posts/id/${idPost}`);
+      //console.log(data.data);
+      return dispatch({
+        type: POST_REACTION,
         payload: data.data,
       });
     } catch (error) {

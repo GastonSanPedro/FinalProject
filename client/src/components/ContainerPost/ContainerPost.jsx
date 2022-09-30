@@ -1,7 +1,7 @@
-import { Flex, Button, Divider, Box } from "@chakra-ui/react";
-import UserSearchContainer from "../UserSearch/NOUserSearchContainer";
-import CreatePost from "../CreatePost/CreatePost";
-import ImgPostContainer from "../ImgPost/ImgPostContainer";
+import { Flex, Button, Divider, Box } from '@chakra-ui/react';
+import UserSearchContainer from '../UserSearch/NOUserSearchContainer';
+import CreatePost from '../CreatePost/CreatePost';
+import ImgPostContainer from '../ImgPost/ImgPostContainer';
 import TextPostContainer from '../TextPost/TextPostContainer';
 import { useState, useRef } from 'react';
 
@@ -33,7 +33,7 @@ export default function ContainerPost({
   const friendsPosts = (myUser, posts) => {
     let friends = myUser?.friends?.map((friend) => friend.friend[0]._id);
     let friendsPost = posts?.filter((post) => {
-      if (friends?.includes(post.author._id)) {
+      if (friends?.includes(post?.author?._id)) {
         return post;
       }
     });
@@ -55,9 +55,7 @@ export default function ContainerPost({
         borderRadius={2}
         mt={site === 'feed' ? '0vh' : '4vh'}
       >
-        {site === 'search' ? (
-         null
-        ) : site === 'feed' || site === 'profile' ? (
+        {site === 'search' ? null : site === 'feed' || site === 'profile' ? (
           <CreatePost
             site={site}
             email={email}

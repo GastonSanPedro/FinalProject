@@ -80,13 +80,14 @@ export default function TextPost({
     idPost: postId,
     description: '',
   });
+
   //console.log(postId);
   const dispatch = useDispatch();
   const toast = useToast();
   const handleClick = () => {
     setOverlay(<OverlayOne />);
-    onOpen();
     dispatch(getSinglePosts(postId));
+    onOpen();
   };
   const handleChange = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -117,13 +118,13 @@ export default function TextPost({
           <ModalHeader>{fullName}</ModalHeader>
           <ModalCloseButton
             onClick={(e) => {
-              onClose();
               dispatch(cleanSinglePost());
+              onClose();
             }}
           />
           <ModalBody>
             <Text textAlign={'center'}>{description}</Text>
-            <Box bg={'gray.200'} mt={'2vh'} borderRadius={'4vh'}>
+            <Box bg={'gray.200'} mt={'2vh'}>
               <Text textAlign={'center'}>Comentarios</Text>
               <Box>
                 {singlePost?.comments?.length > 0 ? (
@@ -139,7 +140,6 @@ export default function TextPost({
                         p={'1vh'}
                         display={'block'}
                         dir={'column'}
-                        borderRadius={'2vw'}
                       >
                         <Box
                           width={'100%'}
