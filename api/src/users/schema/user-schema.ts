@@ -3,6 +3,7 @@ import { BlobOptions } from 'buffer';
 import { Document } from 'mongoose';
 import { Post, PostSchema } from 'src/posts/schema/post-schema';
 import { Friend, FriendSchema } from 'src/friends/schema/friend-schema';
+import { softDeletePlugin, SoftDeleteModel } from 'soft-delete-plugin-mongoose';
 //toque el importe del posteSchema
 
 
@@ -50,9 +51,9 @@ export class User extends Document {
   @Prop([FriendSchema])
   friends: Friend[]
 
-  // @Prop()
-  // deleted: Boolean
+  @Prop()
+  isDeleted: Boolean
 
 }
 
-export const UserSchema = SchemaFactory.createForClass(User);
+export const UserSchema = SchemaFactory.createForClass(User).plugin(softDeletePlugin);

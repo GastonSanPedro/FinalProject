@@ -67,5 +67,5 @@ export class CreateUserDto {
 
   // @ApiProperty()
   // @IsNotEmpty()
-  // deleted: Boolean
+  // isDeleted: Boolean
 }
