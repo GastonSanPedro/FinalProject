@@ -65,6 +65,10 @@ export class CreateUserDto {
   @IsOptional()
   friends?: User[];
 
+  @ApiProperty()
+  @IsOptional()
+  followers?: User[];
+
   // @ApiProperty()
   // @IsNotEmpty()
   // deleted: Boolean

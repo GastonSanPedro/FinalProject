@@ -19,7 +19,9 @@ export class FriendsService {
    try {
       const friend:any = await this.friendModel.create(addFriendDto);
       let user: User = await this.userModel.findById(addFriendDto.idUser);
-
+      let userFriend : User = await this.userModel.findById(addFriendDto.idFriend)
+      userFriend.followers.push(user)
+      userFriend.save()
       user.friends.push(friend)
       user.save()
       return friend
@@ -43,6 +45,14 @@ export class FriendsService {
     }
   }
 
+  async findAllFollowersByUser(idUser: string) {
+    if(isValidObjectId(idUser)){
+      const user =  await this.userModel.findById(idUser)
+      return user.followers
+    }
+  }
+
+
   async findAllPostOfMyFriends (idUser: string){
     if(isValidObjectId(idUser)){
       const user =  await this.userModel.findById(idUser)
@@ -59,7 +69,10 @@ export class FriendsService {
   async removeFriend(idUser: string, updateFriendDto: UpdateFriendDto) {
     const idFriend = updateFriendDto.idFriend
     const user: User = await this.userModel.findById(idUser);
-    const friendDelete:Friend = await this.friendModel.findOne({idFriend});
+    // const friendDelete:Friend = await this.friendModel.findOne({idFriend});
+    const userFriend: User = await this. userModel.findById(idFriend)
+    userFriend.followers = userFriend.followers.filter(follower => follower._id.toString() !== idUser)
+    userFriend.save()
     user.friends = user.friends.filter(friend=> friend.idFriend.toString() !== idFriend.toString())
     user.save()
     // await friendDelete.deleteOne()
