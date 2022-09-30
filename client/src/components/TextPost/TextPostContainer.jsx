@@ -10,7 +10,7 @@ import {
 } from '@chakra-ui/react';
 import TextPost from './TextPost';
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { getUsers } from '../../redux/action';
 import InfiniteScroll from 'react-infinite-scroll-component'
 
@@ -18,9 +18,7 @@ import InfiniteScroll from 'react-infinite-scroll-component'
 export default function TextPostContainer({
   site,
   myUser,
-  user,
   posts,
-  friendsPost,
   singlePost,
   handleClickRef,
 }) {
@@ -32,37 +30,21 @@ export default function TextPostContainer({
   const handleClickMore = () => {
     setCurrentEnd(currentEnd + 9);
   };
+
+  let renderPosts = posts?.length > 9 ? posts?.slice(currentStart, currentEnd) : posts;
   //------------------------------------
 
   const dispatch = useDispatch();
   const { isOpen, onToggle } = useDisclosure();
-  const users = useSelector((state) => state.users);
 
   useEffect(() => {
     dispatch(getUsers());
   }, [dispatch]);
 
-  const arrayUserPosts = (site) => {
-    if (site === 'profile') {
-      let renderPosts = myUser?.posts?.length > 9 ? myUser?.posts?.slice(currentStart, currentEnd) : myUser?.posts;
-      return renderPosts;
-    }
-    if (site === 'anyProfile') {
-      let renderPosts = user?.posts?.length > 9 ? user?.posts?.slice(currentStart, currentEnd) : user?.posts;
-      return renderPosts;
-    }
-    if (site === 'search' || site === 'explore') {
-      return posts;
-    }
-    if (site === 'feed') {
-      return friendsPost;
-    }
-  };
-
   return (
     <>
       <InfiniteScroll
-        dataLength={arrayUserPosts(site)?.length || 9}
+        dataLength={renderPosts?.length || 9}
         hasMore={true}
         next={() => handleClickMore()}
         loader={<Divider w="20%" m={5} />}
@@ -88,19 +70,19 @@ export default function TextPostContainer({
             mt={2}
             mr={5}
           >
-            {arrayUserPosts(site)?.length !== 0 ? (
-              arrayUserPosts(site).map((post, index) => {
+            {renderPosts?.length !== 0 ? (
+              renderPosts?.map((post, index) => {
                 return (
                   <SlideFade in={onToggle} key={index} offsetY="20px">
                     <TextPost
                       userName={
-                        site === 'profile' || site === 'anyProfile' ? arrayUserPosts(site)?.userName
+                        site === 'profile' || site === 'anyProfile' ? renderPosts?.userName
                           : post.author?.userName}
                       fullName={
-                        site === 'profile' || site === 'anyProfile' ? arrayUserPosts(site)?.fullName
+                        site === 'profile' || site === 'anyProfile' ? renderPosts?.fullName
                           : post.author?.fullName}
                       avatar={
-                        site === 'profile' || site === 'anyProfile' ? arrayUserPosts(site)?.image
+                        site === 'profile' || site === 'anyProfile' ? renderPosts?.image
                           : post?.author?.image}
                       image={post?.pics}
                       email={post?.author?.email}
