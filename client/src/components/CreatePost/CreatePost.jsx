@@ -1,16 +1,17 @@
 import {
   Avatar,
   Box,
-  Textarea,
   Button,
-  Text,
+  Radio,
+  RadioGroup,
   Stack,
+  Text,
+  Textarea,
   useToast,
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { createUserPost } from '../../redux/action';
-import { Radio, RadioGroup } from '@chakra-ui/react';
 
 const CreatePost = ({ site, myUser, createdRef }) => {
   const [input, setInput] = useState({
@@ -25,29 +26,56 @@ const CreatePost = ({ site, myUser, createdRef }) => {
   };
 
   const handleSubmit = () => {
-    if (input.description === '' || input.pics === '') {
-      toast({
-        title: 'Error',
-        description: 'Add some description to the post',
-        status: 'error',
-        duration: 2000,
-        isClosable: true,
-      });
+    if (TypePost === 'text') {
+      if (input.description === '') {
+        toast({
+          title: 'Error',
+          description: 'Add some description to the post',
+          status: 'error',
+          duration: 2000,
+          isClosable: true,
+        });
+      } else {
+        const inputPost = { author: myUser._id, ...input };
+        dispatch(createUserPost(inputPost));
+        setInput({
+          description: '',
+          pics: '',
+        });
+        toast({
+          title: 'Sucess',
+          description: 'Post created successfully',
+          status: 'success',
+          duration: 2000,
+          isClosable: true,
+        });
+        console.log('Post added successfully');
+      }
     } else {
-      const inputPost = { author: myUser._id, ...input };
-      dispatch(createUserPost(inputPost));
-      setInput({
-        description: '',
-        pics: '',
-      });
-      toast({
-        title: 'Sucess',
-        description: 'Post created successfully',
-        status: 'success',
-        duration: 2000,
-        isClosable: true,
-      });
-      console.log('Post added successfully');
+      if (input.description === '' || input.pics === '') {
+        toast({
+          title: 'Error',
+          description: 'Add some description to the post',
+          status: 'error',
+          duration: 2000,
+          isClosable: true,
+        });
+      } else {
+        const inputPost = { author: myUser._id, ...input };
+        dispatch(createUserPost(inputPost));
+        setInput({
+          description: '',
+          pics: '',
+        });
+        toast({
+          title: 'Sucess',
+          description: 'Post created successfully',
+          status: 'success',
+          duration: 2000,
+          isClosable: true,
+        });
+        console.log('Post added successfully');
+      }
     }
   };
 
