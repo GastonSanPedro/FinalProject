@@ -34,7 +34,6 @@ export class FriendsService {
     }
   }
 
-
   async findAllFriendsByUser(idUser: string) {
     if(isValidObjectId(idUser)){
       const user =  await this.userModel.findById(idUser)
@@ -44,17 +43,29 @@ export class FriendsService {
     }
   }
 
+  async findAllPostOfMyFriends (idUser: string){
+    if(isValidObjectId(idUser)){
+      const user =  await this.userModel.findById(idUser)
+      .populate({ path: 'friends.idFriend', select:'posts'})
+      .exec() 
+
+      const friendsPost = user.friends.map(friend => friend.idFriend)
+      console.log(friendsPost)
+      // const friendsPostAll = friendsPost.map(friend => friend.posts)
+      //  console.log(friendsPostAll)
+    return friendsPost
+    } 
+  }
 
   async removeFriend(idUser: string, updateFriendDto: UpdateFriendDto) {
-  
     const idFriend = updateFriendDto.idFriend
     const user: User = await this.userModel.findById(idUser);
- 
     const friendDelete:Friend = await this.friendModel.findOne({idFriend});
     user.friends = user.friends.filter(friend=> friend.idFriend.toString() !== idFriend.toString())
     user.save()
     // await friendDelete.deleteOne()
     return `Friend ${idFriend} has been deleted`;
   }
+
 }
 

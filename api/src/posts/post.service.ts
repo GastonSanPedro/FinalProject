@@ -87,4 +87,8 @@ export class PostsService {
     await postDelete.deleteOne()
     return `Post ${id} has been deleted`;
   }
+
+  async findAllPostOfMyFriends (id: string){
+
+  }
 }
