@@ -3,7 +3,6 @@ import { BlobOptions } from 'buffer';
 import { Document } from 'mongoose';
 import { Post, PostSchema } from 'src/posts/schema/post-schema';
 import { Friend, FriendSchema } from 'src/friends/schema/friend-schema';
-//toque el importe del posteSchema
 
 @Schema()
 export class User extends Document {
@@ -42,12 +41,14 @@ export class User extends Document {
   @Prop({})
   bio?: string;
 
-  //toque un poco esto nada mas dentro de la prop 
-  @Prop([PostSchema]) //({})
+  @Prop([PostSchema]) 
   posts: Post[]  
 
   @Prop([FriendSchema])
   friends: Friend[]
+
+  @Prop()
+  followers: User[]
 
   // @Prop()
   // deleted: Boolean
