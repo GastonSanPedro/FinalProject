@@ -1,7 +1,12 @@
-import { Input, Flex, useEditableControls, ButtonGroup, IconButton, Editable, EditablePreview, EditableInput } from "@chakra-ui/react";
+import { Input, Flex, useEditableControls, ButtonGroup, IconButton, Editable, EditablePreview, EditableInput, Box } from "@chakra-ui/react";
 import { CloseIcon,EditIcon, CheckIcon } from "@chakra-ui/icons";
 import { useDispatch } from "react-redux";
 import { changeDataProfile } from "../../redux/action";
+
+function randomNumber(min, max) {
+  let a = Math.random() * (max - min) + min;
+  return Math.floor(a);
+}
 
 function EditableForm({val, input, setInput, name, email}) {
   
@@ -30,7 +35,8 @@ function EditableForm({val, input, setInput, name, email}) {
   return (
     <Editable
       textAlign='center'
-      defaultValue={val === '' ? 'Write a bit about your self' : val }
+      defaultValue={val}
+      placeholder={'Please write something about you'}
       fontSize='md'
       isPreviewFocusable={false}
       onSubmit={()=>{handleCheckButton()}}
@@ -38,7 +44,7 @@ function EditableForm({val, input, setInput, name, email}) {
       h={'100%'}
     >
       <EditablePreview color={'gray.500'} fontStyle={'italic'} />
-      <Input name={name} as={EditableInput} onChange={(e)=>{handleChangeInput(e)}} />
+      <Input placeholder={'Please write something about you'} name={name} as={EditableInput} onChange={(e)=>{handleChangeInput(e)}} />
       <EditableControls />
     </Editable>
   )
@@ -51,9 +57,8 @@ const UserBio = ({myUser, input, setInput}) => {
       <Flex 
           flexDir="column"  
           ml={'10%'} 
-          mt={'2%'}
           justify={'center'} 
-          w={'105vh'}>
+          w={'104.2vh'}>
               <Flex 
               borderRadius={2} 
               align={'center'}>
@@ -71,6 +76,10 @@ const UserBio = ({myUser, input, setInput}) => {
                     input={input} 
                     setInput={setInput}/>
                   </Flex>
+                  <Box 
+      bg={`logo.${randomNumber(1, 4)}`} 
+      w={10} 
+      h={'12.5vh'}></Box>
               </Flex>
       </Flex>        
     </>
