@@ -46,17 +46,7 @@ export default function TextPostContainer({
       return friendsPost;
     }
   };
-  //--------- Lógica de ver mas --------
-
-  // const [currentStart, setCurrentStart] = useState(0);
-  // const [currentEnd, setCurrentEnd] = useState(9);
-
-  // const renderPosts = arrayUserPosts(site)?.length > 8 ? post?.slice(currentStart, currentEnd) : post;
-
-  const handleClickMore = () => {
-    // setCurrentEnd(currentEnd + 9);
-  };
-
+  
   if (site === 'feed' || site === 'search'|| site === 'explore') {
     return (
       <>

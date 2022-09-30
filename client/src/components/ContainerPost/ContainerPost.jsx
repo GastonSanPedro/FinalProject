@@ -40,12 +40,8 @@ export default function ContainerPost({
   };
   let filterFriendPost = friendsPosts(myUser, posts);
   //------------------------------------------------
-
   let reportedPosts = posts?.filter((post) => (post.reported === true))
   
-
-
-
   return (
     <>
       <Flex
