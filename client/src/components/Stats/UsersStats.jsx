@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { HStack, VStack, Wrap, Box, Text, Button } from '@chakra-ui/react';
+import React, { useState } from 'react';
+import { Box } from '@chakra-ui/react';
 import { Doughnut } from "react-chartjs-2"
 import { Chart as ChartJS } from 'chart.js/auto'
 

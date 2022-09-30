@@ -6,6 +6,7 @@ import {
   GET_POSTS,
   SINGLE_POST,
   POST_COMMENT,
+  POST_REACTION,
   CLEAN_SINGLE_POST,
   GET_USER,
   GET_USERS,
@@ -18,6 +19,8 @@ import {
   ADD_FRIEND,
   REPORT_POST,
   DELETE_POST,
+  GET_FRIENDS,
+  DELETE_FRIENDS
 } from './action';
 
 const initialState = {
@@ -33,6 +36,7 @@ const initialState = {
   searchUser: [],
   searchPost: [],
   uploadedImage: [],
+  friends: []
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -53,7 +57,6 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         myUser: action.payload,
       };
-
     case GET_POSTS:
       return {
         ...state,
@@ -65,6 +68,11 @@ export default function rootReducer(state = initialState, action) {
         singlePost: action.payload,
       };
     case POST_COMMENT:
+      return {
+        ...state,
+        singlePost: action.payload,
+      };
+    case POST_REACTION:
       return {
         ...state,
         singlePost: action.payload,
@@ -115,7 +123,6 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         searchUser: action.payload,
       };
-
     case SEARCH_POST:
       return {
         ...state,
@@ -129,12 +136,22 @@ export default function rootReducer(state = initialState, action) {
     case ADD_FRIEND:
       return {
         ...state,
-        myUser: action.payload,
+        friends: action.payload,
       };
+    case GET_FRIENDS:
+        return{
+          ...state,
+          friends: action.payload
+      };
+    case DELETE_FRIENDS:
+        return {
+          ...state,
+          friends: action.payload,
+        };
     case REPORT_POST:
       return {
-        ...state,
-      }
+        ...state
+      };
     case DELETE_POST:
       return {
         ...state,
@@ -144,7 +161,8 @@ export default function rootReducer(state = initialState, action) {
           posts: [...state.myUser.posts],
         },
       };
-    default:
+
+      default:
       return state;
   }
 }

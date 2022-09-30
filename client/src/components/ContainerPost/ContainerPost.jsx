@@ -1,6 +1,6 @@
-import { Flex, Button, Divider, Box } from "@chakra-ui/react";
-import CreatePost from "../CreatePost/CreatePost";
-import ImgPostContainer from "../ImgPost/ImgPostContainer";
+import { Flex, Button, Divider, Box } from '@chakra-ui/react';
+import CreatePost from '../CreatePost/CreatePost';
+import ImgPostContainer from '../ImgPost/ImgPostContainer';
 import TextPostContainer from '../TextPost/TextPostContainer';
 import { useState, useRef } from 'react';
 
@@ -11,9 +11,8 @@ export default function ContainerPost({
   user,
   posts,
   singlePost,
-  handleDelete
+  handleDelete,
 }) {
-
   const [typePost, setTypePost] = useState('img');
   const ref = useRef();
   const handleClickRef = () => {
@@ -80,9 +79,9 @@ export default function ContainerPost({
         borderRadius={2}
         mt={site === 'feed' ? '0vh' : '4vh'}
       >
-        {site === 'search' || site === 'admin' || site === 'explore' ? (
-          null
-        ) : site === 'feed' || site === 'profile' ? (
+        {site === 'search' ||
+        site === 'admin' ||
+        site === 'explore' ? null : site === 'feed' || site === 'profile' ? (
           <CreatePost
             site={site}
             email={email}
@@ -101,8 +100,7 @@ export default function ContainerPost({
             mb={site === 'profile' ? '50px' : null}
           ></Box>
         )}
-        {site === 'explore' ? null :
-          <Divider />}
+        {site === 'explore' ? null : <Divider />}
 
         <Flex dir="row" align={'center'} justify={'center'} mb={'2%'} mt={'2%'}>
           <Button
