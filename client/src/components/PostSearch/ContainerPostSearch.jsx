@@ -1,6 +1,4 @@
-import React, { useState } from "react";
-import { Box, Wrap, Text, Button, HStack } from "@chakra-ui/react";
-import PostSearch from './PostSearch'
+import { Wrap} from "@chakra-ui/react";
 import { useSelector } from "react-redux";
 import TextPostContainer from "../TextPost/TextPostContainer";
 import ImgPostContainer from "../ImgPost/ImgPostContainer";

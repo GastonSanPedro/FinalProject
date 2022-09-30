@@ -1,6 +1,6 @@
-import { Flex, Button, Divider, Box } from "@chakra-ui/react";
-import CreatePost from "../CreatePost/CreatePost";
-import ImgPostContainer from "../ImgPost/ImgPostContainer";
+import { Flex, Button, Divider, Box } from '@chakra-ui/react';
+import CreatePost from '../CreatePost/CreatePost';
+import ImgPostContainer from '../ImgPost/ImgPostContainer';
 import TextPostContainer from '../TextPost/TextPostContainer';
 import { useState, useRef } from 'react';
 
@@ -11,9 +11,8 @@ export default function ContainerPost({
   user,
   posts,
   singlePost,
-  handleDelete
+  handleDelete,
 }) {
-
   const [typePost, setTypePost] = useState('img');
   const ref = useRef();
   const handleClickRef = () => {
@@ -28,23 +27,45 @@ export default function ContainerPost({
     setTypePost('text');
   };
 
-  //--------- funcion filtro posteos amigos --------
-  const friendsPosts = (myUser, posts) => {
-    let friends = myUser?.friends?.map((friend) => friend.friend[0]._id);
-    let friendsPost = posts?.filter((post) => {
-      if (friends?.includes(post?.author?._id)) {
-        return post;
-      }
-    });
-    return friendsPost;
+  const arrayUserPosts = (site) => {
+    if (site === 'profile') {
+      return myUser?.posts;
+    }
+    if (site === 'anyProfile') {
+      return user?.posts;
+    }
+    if (site === 'search' || site === 'explore') {
+      return posts;
+    }
+    if (site === 'feed') {
+      const friendsPosts = (myUser, posts) => {
+        let friends = myUser?.friends?.map((friend) => friend.friend[0]._id);
+        let friendsPost = posts?.filter((post) => {
+          if (friends?.includes(post?.author?._id)) {
+            return post;
+          }
+        });
+        return friendsPost;
+      };
+      let filterFriendPost = friendsPosts(myUser, posts);
+      return filterFriendPost
+    }
+    if (site === 'admin') {
+      let reportedPosts = posts?.filter((post) => (post.reported === true))
+      return reportedPosts;
+    }
   };
-  let filterFriendPost = friendsPosts(myUser, posts);
-  //------------------------------------------------
 
-  let reportedPosts = posts?.filter((post) => (post.reported === true))
-  
-
-
+  const typePosts = (typePost) => {
+    if (typePost === "text") {
+      let textPosts = arrayUserPosts(site)?.filter((p) => p?.pics?.length === 0)
+      return textPosts
+    }
+    if (typePost === "img") {
+      let imagePosts = arrayUserPosts(site)?.filter((p) => p?.pics?.length >= 1)
+      return imagePosts
+    }
+  }
 
   return (
     <>
@@ -58,9 +79,9 @@ export default function ContainerPost({
         borderRadius={2}
         mt={site === 'feed' ? '0vh' : '4vh'}
       >
-        {site === 'search' || site === 'admin' || site === 'explore' ? (
-          null
-        ) : site === 'feed' || site === 'profile' ? (
+        {site === 'search' ||
+        site === 'admin' ||
+        site === 'explore' ? null : site === 'feed' || site === 'profile' ? (
           <CreatePost
             site={site}
             email={email}
@@ -79,8 +100,7 @@ export default function ContainerPost({
             mb={site === 'profile' ? '50px' : null}
           ></Box>
         )}
-        {site === 'explore' ? null :
-          <Divider />}
+        {site === 'explore' ? null : <Divider />}
 
         <Flex dir="row" align={'center'} justify={'center'} mb={'2%'} mt={'2%'}>
           <Button
@@ -123,8 +143,7 @@ export default function ContainerPost({
         </Flex>
         {typePost === 'text' ? (
           <TextPostContainer
-            posts={posts}
-            friendsPost={filterFriendPost}
+            posts={typePosts('text')}
             site={site}
             myUser={myUser}
             user={user}
@@ -134,14 +153,12 @@ export default function ContainerPost({
           />
         ) : (
           <ImgPostContainer
-            posts={posts}
-            friendsPost={filterFriendPost}
+            posts={typePosts('img')}
             site={site}
             myUser={myUser}
             user={user}
             email={email}
             singlePost={singlePost}
-            reportedPosts={reportedPosts}
             handleDelete={handleDelete}
             handleClickRef={handleClickRef}
           />

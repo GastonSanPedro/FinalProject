@@ -237,7 +237,7 @@ const CreateUser = ({ logOrSign, setlogOrSign }) => {
                     id="firstName"
                     name="firstName"
                     placeholder="First name"
-                    value={ values.firstName }
+                    value={values.firstName}
                     onChange={handleChange}
                     onBlur={handleBlur}
                   />
@@ -254,7 +254,7 @@ const CreateUser = ({ logOrSign, setlogOrSign }) => {
                       id="lastName"
                       name="lastName"
                       placeholder="Last Name"
-                      value={ values.lastName }
+                      value={values.lastName}
                       onChange={handleChange}
                       onBlur={handleBlur}
                     />
@@ -330,11 +330,23 @@ const CreateUser = ({ logOrSign, setlogOrSign }) => {
                   )}
 
                   <Link to="/">
+                    <Button
+                      mt="10px"
+                      ml={'0.5vw'}
+                      onClick={(e) => {
+                        dispatch(cleanAuthUser());
+                        setUser('');
+                        setlogOrSign('log');
+                      }}
+                    >
+                      Back
+                    </Button>
                   </Link>
                   <Button
                     mt="10px"
                     ml={'0.5vw'}
                     onClick={(e) => {
+                      dispatch(cleanAuthUser());
                       setUser('');
                     }}
                   >

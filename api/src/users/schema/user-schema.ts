@@ -52,6 +52,9 @@ export class User extends Document {
   friends: Friend[]
 
   @Prop()
+  followers: User[]
+
+  @Prop()
   isDeleted: Boolean
 
 }
