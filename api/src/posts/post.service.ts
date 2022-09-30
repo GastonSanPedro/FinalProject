@@ -36,6 +36,7 @@ export class PostsService {
   async findAll() {
     return await this.postModel
     .find()
+    .sort({createdAt: -1})
     .populate({ path: 'author', select:'-posts -password -friends -email -bio'})
     .populate({ path: 'comments', populate:{ path : 'idUser', select:'-posts -password -friends -email -bio'}  })
     .setOptions({ sanitizeFilter: true })
@@ -46,6 +47,7 @@ export class PostsService {
 
     const posts = await this.postModel
     .find({description: {$regex: term, $options: "$i"}})
+    .sort({createdAt:-1})
     .populate({ path: 'author', select:'-posts -password -friends -email -bio'})
     .populate({ path: 'comments', populate:{ path : 'idUser'} })
     .exec();
@@ -86,5 +88,9 @@ export class PostsService {
     user.save()
     await postDelete.deleteOne()
     return `Post ${id} has been deleted`;
+  }
+
+  async findAllPostOfMyFriends (id: string){
+
   }
 }
