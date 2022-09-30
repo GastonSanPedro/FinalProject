@@ -52,14 +52,4 @@ export class UsersController {
     return this.usersService.remove(id);
   }
 
-  @Post('/friend/:id')
-  addFriend(@Param('id', ParseObjectIdPipe) id:string, @Body() friend: AddFriendDto){
-    return this.usersService.addFriend(id, friend)
-  }
-
-  // @Delete('/friend/:id')
-  // removeFriend(@Param('id') id:string, @Body() friend: User){
-  //   return this.usersService.removeFriend(id, friend)
-  // }
- 
 }

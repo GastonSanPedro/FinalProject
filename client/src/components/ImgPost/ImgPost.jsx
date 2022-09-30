@@ -109,11 +109,6 @@ export default function ImgPost({
     dispatch(reportPost(postId))
   }
 
-  // const handleDelete = () => {
-  //   dispatch(deletePost(postId))
-  // }
-  
-
   return (
     <>
       <Center py={6}>

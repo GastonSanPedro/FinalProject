@@ -23,6 +23,7 @@ export default function TextPostContainer({
   friendsPost,
   singlePost,
   handleClickRef,
+  explorePosts,
 }) {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -38,7 +39,7 @@ export default function TextPostContainer({
     if (site === 'anyProfile') {
       return user;
     }
-    if (site === 'search') {
+    if (site === 'search' || site === 'explore') {
       return posts;
     }
     if (site === 'feed') {
@@ -56,7 +57,7 @@ export default function TextPostContainer({
     // setCurrentEnd(currentEnd + 9);
   };
 
-  if (site === 'feed' || site === 'search') {
+  if (site === 'feed' || site === 'search'|| site === 'explore') {
     return (
       <>
         <Flex
