@@ -13,7 +13,6 @@ import { createUserPost } from '../../redux/action';
 import { Radio, RadioGroup } from '@chakra-ui/react';
 
 const CreatePost = ({ site, myUser, createdRef }) => {
-
   const [input, setInput] = useState({
     description: '',
     pics: '',
@@ -26,20 +25,30 @@ const CreatePost = ({ site, myUser, createdRef }) => {
   };
 
   const handleSubmit = () => {
-    const inputPost = { author: myUser._id, ...input };
-    dispatch(createUserPost(inputPost));
-    setInput({
-      description: '',
-      pics: '',
-    });
-    toast({
-      title: 'Sucess',
-      description: 'Post created successfully',
-      status: 'success',
-      duration: 2000,
-      isClosable: true,
-    });
-    console.log('Post added successfully');
+    if (input.description === '' || input.pics === '') {
+      toast({
+        title: 'Error',
+        description: 'Add some description to the post',
+        status: 'error',
+        duration: 2000,
+        isClosable: true,
+      });
+    } else {
+      const inputPost = { author: myUser._id, ...input };
+      dispatch(createUserPost(inputPost));
+      setInput({
+        description: '',
+        pics: '',
+      });
+      toast({
+        title: 'Sucess',
+        description: 'Post created successfully',
+        status: 'success',
+        duration: 2000,
+        isClosable: true,
+      });
+      console.log('Post added successfully');
+    }
   };
 
   const handleInputImage = (event) => {
@@ -56,6 +65,13 @@ const CreatePost = ({ site, myUser, createdRef }) => {
             pics:
               `https://res.cloudinary.com/duilsmrmx/image/upload/` +
               result.info.path,
+          });
+          toast({
+            title: 'Sucess',
+            description: 'Picture added successfully',
+            status: 'success',
+            duration: 2000,
+            isClosable: true,
           });
         }
       }
