@@ -5,7 +5,7 @@ import { Box, VStack, Text } from "@chakra-ui/react";
 export default function ContainerSearchCard ({state, myUser}) {
 
     const searchUsers = useSelector((state)=> state.searchUser)
-    const friends = myUser.friends?.map(friend=>friend.friend[0]._id)
+    const friends = useSelector((state)=> state.friends)
     const searchFriends = searchUsers.filter(user => friends?.includes(user._id))
     const changeInfo = () => {
         if(state === 'users') return searchUsers
