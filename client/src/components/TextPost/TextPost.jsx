@@ -16,7 +16,6 @@ import {
   ModalFooter,
   Text,
   Box,
-  Image,
   Input,
   InputGroup,
   InputRightElement,
@@ -26,7 +25,7 @@ import { BiMessage } from 'react-icons/bi';
 import { BsSun } from 'react-icons/bs';
 import Quotes from '../../assets/comillas.svg';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import {
   getSinglePosts,
   cleanSinglePost,
@@ -80,7 +79,7 @@ export default function TextPost({
     idPost: postId,
     description: '',
   });
-  //console.log(postId);
+
   const dispatch = useDispatch();
   const toast = useToast();
   const handleClick = () => {
@@ -103,7 +102,6 @@ export default function TextPost({
     });
   };
 
-  console.log(singlePost);
   return (
     <>
       <Modal

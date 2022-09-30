@@ -4,43 +4,9 @@ import {
     Button,
     Stack,
   } from '@chakra-ui/react';
-import { RiFileTextLine, RiUserSearchLine, RiUserFollowLine } from 'react-icons/ri'
-import { AiOutlinePicture } from 'react-icons/ai';
 
+  export default function NavbarSerch({NAV_ITEMS}) {
 
-
-  export default function NavbarSerch({state, setState}) {
-
-
-    const NAV_ITEMS = [
-      {
-        label: 'Users',
-        icon: <RiUserSearchLine/>,
-        onClick: () => {
-          setState('users')}
-      },
-      {
-          label: 'Friends',
-          icon: <RiUserFollowLine/>,
-          onClick: () => {
-            setState('friends')
-          }
-        },
-      {
-        label: 'Images',
-        icon: <AiOutlinePicture/>,
-        onClick: () => {
-          setState('images')}
-      },
-      {
-        label: 'Text',
-        icon: <RiFileTextLine/>,
-        onClick: () => {
-          setState('text')}
-      }
-   
-    ];
-    
     return (
       <Box>
         <Flex
@@ -62,7 +28,8 @@ import { AiOutlinePicture } from 'react-icons/ai';
               direction={'row'} 
               spacing={4} 
               alignContent={'center'}>
-                {NAV_ITEMS.map((navItem) => (
+                {NAV_ITEMS.map((navItem) => {
+                  return (
                   <Box 
                   key={navItem.label}>
                     <Button
@@ -90,7 +57,7 @@ import { AiOutlinePicture } from 'react-icons/ai';
                      {navItem.label}
                     </Button>
                   </Box>
-                  ))}
+                  )})}
               </Stack>
             </Flex>
           </Flex>

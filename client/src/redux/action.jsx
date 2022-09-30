@@ -16,8 +16,11 @@ export const LOG_OUT = 'LOG_OUT';
 export const CHANGE_DATA_PROFILE = 'CHANGE_DATA_PROFILE';
 export const GET_MY_USER = 'GET_MY_USER';
 export const ADD_FRIEND = 'ADD_FRIEND';
+export const GET_FRIENDS = 'GET_FRIENDS';
+export const DELETE_FRIENDS = 'DELETE_FRIENDS';
 export const REPORT_POST = 'REPORT_POST';
-export const DELETE_POST = 'DELETE_POST'
+export const DELETE_POST = 'DELETE_POST';
+
 
 export function getUsers() {
   return async function (dispatch) {
@@ -33,7 +36,6 @@ export function getUsers() {
     }
   };
 }
-
 export function getUser(email) {
   return async function (dispatch) {
     try {
@@ -47,7 +49,6 @@ export function getUser(email) {
     }
   };
 }
-
 export function getMyUser(email) {
   return async function (dispatch) {
     try {
@@ -61,7 +62,6 @@ export function getMyUser(email) {
     }
   };
 }
-
 export function getPosts() {
   return async function (dispatch) {
     try {
@@ -122,7 +122,6 @@ export function postComment(payload, id) {
     }
   };
 }
-
 export function createUserPost(inputPost) {
   return async function (dispatch) {
     try {
@@ -136,7 +135,6 @@ export function createUserPost(inputPost) {
     }
   };
 }
-
 export function createUser(payload) {
   return async function (dispatch) {
     try {
@@ -150,7 +148,6 @@ export function createUser(payload) {
     }
   };
 }
-
 export function searchUser(searcher) {
   return async function (dispatch) {
     try {
@@ -167,7 +164,6 @@ export function searchUser(searcher) {
     }
   };
 }
-
 export function searchPost(searcher) {
   return async function (dispatch) {
     try {
@@ -180,7 +176,6 @@ export function searchPost(searcher) {
     }
   };
 }
-
 export const authUser = (mail, password, google) => {
   return async function (dispatch) {
     try {
@@ -228,7 +223,7 @@ export const authUser = (mail, password, google) => {
       }
     }
   };
-};
+}
 export function cleanAuthUser() {
   return async function (dispatch) {
     return dispatch({
@@ -237,13 +232,10 @@ export function cleanAuthUser() {
     });
   };
 }
-//reason: error.response.data.message
-
 export function changeDataProfile(payload, email) {
   return async function (dispatch) {
     try {
       var user = await axios.patch(`/users/${email}`, payload);
-      console.log(user);
       let info = await axios.get(`/users/${email}`);
       return dispatch({
         type: CHANGE_DATA_PROFILE,
@@ -254,7 +246,6 @@ export function changeDataProfile(payload, email) {
     }
   };
 }
-
 export function logOut() {
   return async function (dispatch) {
     try {
@@ -267,14 +258,13 @@ export function logOut() {
     }
   };
 }
-
 export function addFriend(myUserid, anyUserId) {
   const idAnyUser = { friend: anyUserId };
   return async function (dispatch) {
     try {
       let info = await axios.post(`/users/friend/${myUserid}`, idAnyUser);
-      let { data } = await axios.get(`/users/${myUserid}`);
-      console.log(data);
+      let { data } = await axios.get(`/friends/${myUserid}`);
+
       return dispatch({
         type: ADD_FRIEND,
         payload: data,
@@ -284,7 +274,31 @@ export function addFriend(myUserid, anyUserId) {
     }
   };
 }
+export function getFriends(id){
+  return async function(dispatch){
+    var json = await axios.get('/friends/' + id)
+    return dispatch({
+      type: GET_FRIENDS,
+      payload: json.data
+    })
+  }
+}
+export function deleteFriend(myUserid, anyUserId) {
+  const idAnyUser = { friend: anyUserId };
+  return async function (dispatch) {
+    try {
+      let info = await axios.delete(`/users/friend/${myUserid}`, idAnyUser);
+      let { data } = await axios.get(`/friends/${myUserid}`);
 
+      return dispatch({
+        type: DELETE_FRIENDS,
+        payload: data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
 export function reportPost(id) {
   return async function (dispatch) {
     try {
@@ -298,7 +312,6 @@ export function reportPost(id) {
     }
   }
 }
-
 export function deletePost(id) {
   return async function (dispatch) {
     try {
@@ -313,5 +326,6 @@ export function deletePost(id) {
     }
   }
 }
+
 
 

@@ -12,21 +12,20 @@ import {
 import { useState, useEffect } from 'react';
 import { useDisclosure } from '@chakra-ui/react';
 import { FiUsers } from 'react-icons/fi';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { FriendCard } from './FriendCard';
-import { getMyUser, getUsers } from '../../redux/action';
+import { getFriends } from '../../redux/action';
 
-export default function Friends() {
+export default function Friends({myUser}) {
+  
   const dispatch = useDispatch();
-  const myUser = useSelector((state) => state.myUser);
   const [size, setSize] = useState('');
   const { isOpen, onOpen, onClose } = useDisclosure();
   const handleClick = () => {
     onOpen();
   };
   useEffect(() => {
-    dispatch(getUsers());
-    dispatch(getMyUser(myUser?.email));
+    dispatch(getFriends(myUser._id));
   }, [dispatch]);
 
   return (

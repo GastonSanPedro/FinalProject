@@ -18,6 +18,7 @@ import AnyProfile from './views/AnyProfile';
 import AdminProfile from './views/AdminProfile';
 import axios from 'axios';
 import Payments from './views/Payments';
+import Settings from './views/Settings';
 import Explore from './views/Explore';
 // const Dotenv = require('dotenv-webpack');
 
@@ -47,6 +48,7 @@ root.render(
             <Route exact path="/user/:email" element={<AnyProfile />} />
             <Route path="*" element={<Landing />} />
             <Route path="/payments" element={<Payments />} />
+            <Route path="/settings" element={<Settings />} />
             <Route path="/explore" element={<Explore />} />
           </Routes>
         </BrowserRouter>
