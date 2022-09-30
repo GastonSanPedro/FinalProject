@@ -1,9 +1,8 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { BlobOptions } from 'buffer';
 import { Document } from 'mongoose';
 import { Post, PostSchema } from 'src/posts/schema/post-schema';
-import { Friend, FriendSchema } from 'src/schemas/friend-schema';
-import { softDeletePlugin } from 'soft-delete-plugin-mongoose';
-
+import { Friend, FriendSchema } from 'src/friends/schema/friend-schema';
 //toque el importe del posteSchema
 
 
@@ -51,7 +50,8 @@ export class User extends Document {
   @Prop([FriendSchema])
   friends: Friend[]
 
-
+  // @Prop()
+  // deleted: Boolean
 
 }
 
