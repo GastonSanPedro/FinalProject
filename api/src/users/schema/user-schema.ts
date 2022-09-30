@@ -2,7 +2,10 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 import { Post, PostSchema } from 'src/posts/schema/post-schema';
 import { Friend, FriendSchema } from 'src/schemas/friend-schema';
+import { softDeletePlugin } from 'soft-delete-plugin-mongoose';
+
 //toque el importe del posteSchema
+
 
 @Schema()
 export class User extends Document {
@@ -47,6 +50,8 @@ export class User extends Document {
 
   @Prop([FriendSchema])
   friends: Friend[]
+
+
 
 }
 
