@@ -1,79 +1,146 @@
-import { Box, Button, Flex, Input, Text } from "@chakra-ui/react"
-import EditableForm from "./EditableForm"
-import { AiOutlineDelete } from "react-icons/ai"
+import { Box, Button, Flex, Text } from "@chakra-ui/react";
+import EditableForm from "./EditableForm";
+import { AiOutlineDelete } from "react-icons/ai";
 
 
-const UserSettings = ({myUser}) => {
+function randomNumber(min, max) {
+  let a = Math.random() * (max - min) + min;
+  return Math.floor(a);
+}
 
-    function randomNumber(min, max) {
-        let a = Math.random() * (max - min) + min;
-        return Math.floor(a);
-      }
+export const ColorBox = () => {
+  return(
+    <Box 
+      bg={`logo.${randomNumber(1, 4)}`} 
+      w={10} 
+      h={'6.1vh'}></Box>
+  )
+}
 
-    if(Object.entries(myUser).length){
+export const UserSettings = ({myUser, input, setInput}) => {
+
+  const {firstName, lastName, userName, password, email} = myUser
+    
+  if(Object.entries(myUser).length){
         return(
-            <>
-            <Flex flexDir="column"  ml={'5%'} mt={'5%'}justify={'center'} w={'50vh'}>
-               
-                <Flex borderRadius={2} align={'center'}>
-                <Box bg={`logo.${randomNumber(1, 4)}`} w={10} h={'6.1vh'}></Box>
-                <Flex   m={'2% 2% 2% 0%'} p={'1% 1% 1% 2%'} align={'center'} justify={'space-between'} w={'100%'} bg={'white'} >
+          <>
+          <Flex 
+          flexDir="column"  
+          ml={'2%'} 
+          mt={'2%'}
+          justify={'center'} 
+          w={'50vh'}>
+              <Flex 
+              borderRadius={2} 
+              align={'center'}>
+                  <Flex   
+                  m={'2% 0% 2% 2%'} 
+                  p={'1% 1% 1% 2%'} 
+                  align={'center'} 
+                  justify={'space-between'} 
+                  w={'100%'} 
+                  bg={'white'} >
                     <Text>First Name:</Text>
-                    <EditableForm value={myUser.firstName}/>
-                </Flex>
-                </Flex>
-                <Flex borderRadius={2} align={'center'}>
-                <Box bg={`logo.${randomNumber(1, 4)}`} w={10} h={'6.1vh'}></Box>
-                <Flex   m={'2% 2% 2% 0%'} p={'1% 1% 1% 2%'} align={'center'} justify={'space-between'} w={'100%'} bg={'white'} >
+                    <EditableForm 
+                    val={firstName} 
+                    name={'firstName'} 
+                    email={email} 
+                    input={input} 
+                    setInput={setInput}/>
+                  </Flex>
+                  <ColorBox/>
+              </Flex>
+              <Flex 
+              borderRadius={2} 
+              align={'center'}>
+                  <Flex   
+                  m={'2% 0% 2% 2%'}  
+                  p={'1% 1% 1% 2%'} 
+                  align={'center'} 
+                  justify={'space-between'} 
+                  w={'100%'} 
+                  bg={'white'} >
                     <Text>Last Name:</Text>
-                    <EditableForm value={myUser.lastName}/>
+                    <EditableForm 
+                    val={lastName} 
+                    name={'lastName'}
+                    email={email}  
+                    input={input} 
+                    setInput={setInput}/>
+                  </Flex>
+                  <ColorBox/>
                 </Flex>
-                </Flex>
-                <Flex borderRadius={2} align={'center'}>
-                <Box bg={`logo.${randomNumber(1, 4)}`} w={10} h={'6.1vh'}></Box>
-                <Flex   m={'2% 2% 2% 0%'} p={'1% 1% 1% 2%'} align={'center'} justify={'space-between'} w={'100%'} bg={'white'} >
+                <Flex 
+                borderRadius={2} 
+                align={'center'}>
+                    <Flex   
+                     m={'2% 0% 2% 2%'}  
+                    p={'1% 1% 1% 2%'} 
+                    align={'center'} 
+                    justify={'space-between'} 
+                    w={'100%'} 
+                    bg={'white'} 
+                    >
                     <Text>Username:</Text>
-                    <EditableForm value={myUser.userName}/>
+                    <EditableForm
+                    email={email}  
+                    val={userName} 
+                    input={input}
+                    name={'userName'} 
+                    setInput={setInput}/>
+                    </Flex>
+                    <ColorBox/>
                 </Flex>
-                </Flex>
-                <Flex borderRadius={2} align={'center'}>
-                <Box bg={`logo.${randomNumber(1, 4)}`} w={10} h={'6.1vh'}></Box>
-                <Flex  m={'2% 2% 2% 0%'} p={'1% 1% 1% 2%'} align={'center'} justify={'space-between'} w={'100%'} bg={'white'} >
+                <Flex 
+                borderRadius={2} 
+                align={'center'}>
+                    <Flex  
+                    m={'2% 0% 2% 2%'} 
+                    p={'1% 1% 1% 2%'} 
+                    align={'center'} 
+                    justify={'space-between'} 
+                    w={'100%'} 
+                    bg={'white'} 
+                    >
                     <Text>Password:</Text>
-                    <EditableForm value={myUser.password} />
+                    <EditableForm 
+                    val={password} 
+                    input={input}
+                    email={email}  
+                    setInput={setInput}
+                    name={'password'}  />
+                    </Flex>
+                    <ColorBox/>
                 </Flex>
-                </Flex>
-                <Flex borderRadius={2} align={'center'}>
-                <Box bg={`logo.3`} w={10} h={'7vh'}></Box>
-                <Flex  m={'2% 2% 2% 0%'} align={'center'} justify={'space-between'} w={'100%'} bg={'white'} >
-                    <Button
-                    rightIcon={<AiOutlineDelete/>} 
-                    w={'100%'}
-                    h={'7vh'} 
-                    bg={'none'}
-                    fontStyle={'none'}
-                    fontWeight={'normal'}
-                    borderRadius={2}
-                    _hover={{
+                <Flex 
+                borderRadius={2} 
+                align={'center'}>
+                    <Flex   
+                    m={'2% 0% 2% 2%'}  
+                    align={'center'} 
+                    justify={'space-between'} 
+                    w={'100%'} 
+                    bg={'white'} >
+                      <Button
+                      rightIcon={<AiOutlineDelete/>} 
+                      w={'100%'}
+                      h={'7vh'} 
+                      bg={'none'}
+                      fontStyle={'none'}
+                      fontWeight={'normal'}
+                      borderRadius={2}
+                      _hover={{
                         color: 'white',
                         bg: 'logo.3' 
                     }}>Delete your account?</Button>
                 </Flex>
+                <Box bg={`logo.3`} w={10} h={'7vh'}></Box>
                 </Flex>
                 </Flex>
             </>
         )
-    }else{
-        return(
+    }else return(
             <>
-            <p>Loading...
-            ESTO DESPUES SE VA A CAMBIAR POR UN COMPONENTE LOADING, ES MOMENTANEO
-            </p>
+            <p>Loading...</p>
             </>
-        )
-    }
-   
-    
-}
-
-export default UserSettings
+        )}

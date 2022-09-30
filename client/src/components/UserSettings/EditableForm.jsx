@@ -1,34 +1,39 @@
 import { useEditableControls } from "@chakra-ui/react"
-import { ButtonGroup, IconButton, Flex, Editable, EditablePreview, Input, EditableInput, Box } from "@chakra-ui/react"
+import { IconButton, Flex, Editable, EditablePreview, Input, EditableInput } from "@chakra-ui/react"
 import { CloseIcon,EditIcon, CheckIcon } from "@chakra-ui/icons"
+import { changeDataProfile } from "../../redux/action"
+import { useDispatch } from "react-redux"
 
 
-const EditableForm = ({value}) => {
+const EditableForm = ({val, input, setInput, name, email}) => {
+
+  const dispatch = useDispatch()
+  
+  const handleCheckButton = () => {dispatch(changeDataProfile(input, email ))}
+  const handleChangeInput = (e) => {setInput({[e.target.name] : e.target.value})}
 
   function EditableControls() {
     const {
       isEditing,
-      getSubmitButtonProps,
       getCancelButtonProps,
       getEditButtonProps,
+      getSubmitButtonProps
     } = useEditableControls()
 
     return isEditing ? (
-      <ButtonGroup
-     >
         <Flex align={'center'}>
         <IconButton 
           size='xs' 
           bg={'none'} 
-          icon={<CheckIcon />} 
-          {...getSubmitButtonProps()} />
+          icon={<CheckIcon />}
+          {...getSubmitButtonProps()} 
+           />
         <IconButton 
           size='xs' 
           bg={'none'} 
           icon={<CloseIcon />} 
           {...getCancelButtonProps()} />
         </Flex>
-      </ButtonGroup>
     ) : (
       <Flex justifyContent='center'>
         <IconButton 
@@ -43,11 +48,12 @@ const EditableForm = ({value}) => {
   return (
     <Editable 
       textAlign='center'
-      defaultValue={value}
+      defaultValue={val}
       fontSize='md'
       isPreviewFocusable={false}
-      
       justifyContent={'baseline'}
+      onSubmit={()=>{handleCheckButton()}}
+      w={'20vh'}
     >
       <Flex
       dir="row"
@@ -55,7 +61,7 @@ const EditableForm = ({value}) => {
       justifyContent={'space-evenly'}
       >
       <EditablePreview color={'gray.500'} fontStyle={'italic'} />
-      <Input  size={'SM'} as={EditableInput} />
+      <EditableInput name={name} onChange={(e) => handleChangeInput(e)} size={'SM'} />
       <EditableControls />
       </Flex>
 

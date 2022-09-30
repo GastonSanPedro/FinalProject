@@ -14,8 +14,6 @@ import {
   DrawerContent,
   Text,
   useDisclosure,
-  BoxProps,
-  FlexProps,
   Menu,
   MenuButton,
   MenuDivider,
@@ -47,7 +45,6 @@ const LinkItems = [
   { name: 'Trending', icon: FiTrendingUp },
   { name: 'Explore', icon: FiCompass },
   { name: 'Favourites', icon: FiStar },
-  { name: 'Settings', icon: FiSettings },
 ];
 
 
@@ -376,7 +373,9 @@ const MobileNav = ({ onOpen, ...rest }) => {
               <Link as={ReactLink} to="/admin">
                 <MenuItem>Admin panel</MenuItem>
               </Link>
+              <Link as={ReactLink} to="/settings">
               <MenuItem>Settings</MenuItem>
+              </Link>
               <Link as={ReactLink} to="/payments">
                 <MenuItem>Payments</MenuItem>
               </Link>

@@ -1,21 +1,23 @@
-import { Avatar, Box } from "@chakra-ui/react"
+import { Avatar, Box } from "@chakra-ui/react";
 
 
-const UserPics = ({myUser}) => {
+
+const UserPics = ({myUser, input, setInput}) => {
     const {image, fullName} = myUser
+    
     return (
         <>
         <Box 
         display={'flex'}
         ml={'10%'}
-        mt={'5%'}
+        mt={'2%'}
         w={'50vh'}
         alignItems={'center'}
         justifyContent={'center'}
-        pl={10}
-        pr={10}
-        pt={4}
-        pb={4}>
+        pl={'8vh'}
+        pr={'8vh'}
+        pt={'4vh'}
+        pb={'4vh'}>
         <Box
         w={'50%'}>
             

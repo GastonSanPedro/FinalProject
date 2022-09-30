@@ -1,13 +1,13 @@
 import { Box } from "@chakra-ui/react"
 import SidebarWithHeader from "../components/Sidebar-Navbar/SideBar"
-import UserSettings from "../components/UserSettings/UserSettings"
+import {UserSettings} from "../components/UserSettings/UserSettings"
 import UserPics from "../components/UserSettings/UserPics"
 import { useSelector } from "react-redux"
 import NavbarSerch from "../components/NavbarSearch/NavbarSearch"
 import { useState } from "react"
-import {  RiUserSettingsLine,RiFileTextLine, RiHistoryLine } from 'react-icons/ri'
-import { AiOutlinePicture } from "react-icons/ai"
+import {  RiUserSettingsLine, RiHistoryLine } from 'react-icons/ri'
 import {IoStatsChartOutline} from 'react-icons/io5'
+import UserBio from "../components/UserSettings/UserBio"
 
 
 
@@ -36,6 +36,17 @@ const Settings = () =>{
            setState('images')}
        }  
     ];
+    
+    const [input, setInput] = useState({
+    firstName: '',
+    lastName: '',
+    userName: '',
+    password:'',
+    image: '',
+    fullName: '',
+    bio: '',
+    })
+
  return(
     <>
     <SidebarWithHeader/>
@@ -54,8 +65,17 @@ const Settings = () =>{
    <NavbarSerch NAV_ITEMS={NAV_ITEMS}/> 
    <Box display={'flex'} flexDir={'row'}>
       <UserPics myUser={myUser} />
-      <UserSettings myUser={myUser}/>
+      <UserSettings 
+      input={input} 
+      setInput={setInput}
+      myUser={myUser} 
+      state={state} 
+      setState={setState}/>
     </Box>
+    <UserBio 
+    myUser={myUser}
+    input={input} 
+    setInput={setInput}/>
     </Box>
     </>
  )   
