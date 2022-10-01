@@ -12,7 +12,7 @@ import { MobileNav } from './MovileNav';
 import { SidebarContent } from './SidebarContent';
 
 
-export default function SidebarWithHeader({ children }) {
+export default function SidebarWithHeader({ children, myUser }) {
   //----------Lógica notificaciones-------
   // const [notifications, setNotifications] = useState([])
   // const [open, setOpen] = useState(false)
@@ -48,7 +48,7 @@ export default function SidebarWithHeader({ children }) {
       dispatch(getMyUser(neededEmail));
     }, 300);
   }, [dispatch, neededEmail]);
-  const myUser = useSelector((state) => state.myUser);
+
   return (
     <Box
       pos={'fixed'}

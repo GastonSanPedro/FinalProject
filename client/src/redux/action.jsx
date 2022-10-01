@@ -19,6 +19,7 @@ export const GET_MY_USER = 'GET_MY_USER';
 export const ADD_FRIEND = 'ADD_FRIEND';
 export const GET_FRIENDS = 'GET_FRIENDS';
 export const DELETE_FRIENDS = 'DELETE_FRIENDS';
+export const SEARCH_FRIENDS = 'SEARCH_FRIENDS';
 export const REPORT_POST = 'REPORT_POST';
 export const DELETE_POST = 'DELETE_POST';
 
@@ -113,7 +114,7 @@ export function postComment(payload, id) {
     try {
       const info = await axios.post(`/comments`, payload);
       let data = await axios.get(`/posts/id/${id}`);
-      //console.log(data.data);
+
       return dispatch({
         type: POST_COMMENT,
         payload: data.data,
@@ -128,7 +129,7 @@ export function postReaction(payload, idPost, idComment) {
     try {
       const info = await axios.post(`/comments/${idComment}`, payload);
       let data = await axios.get(`/posts/id/${idPost}`);
-      //console.log(data.data);
+
       return dispatch({
         type: POST_REACTION,
         payload: data.data,
@@ -292,13 +293,29 @@ export function addFriend(myUserid, anyUserId) {
     }
   };
 }
-export function getFriends(id){
+export function getFriends(myId){
+
   return async function(dispatch){
-    var json = await axios.get('/friends/' + id)
+    let { data } = await axios.get(`/friends/${myId}`)
+
     return dispatch({
       type: GET_FRIENDS,
-      payload: json.data
+      payload: data
     })
+  }
+}
+export function searchFriends(id, input){
+  console.log(input)
+  return async function(dispatch){
+    let json = await axios.get('/friends/' + id)
+    let filterFriends = json.data.filter(friend => {
+      return (friend.idFriend.fullName.includes(input))
+    })
+    return dispatch({
+      type: SEARCH_FRIENDS,
+      payload: filterFriends
+    })
+
   }
 }
 export function deleteFriend(myUserid, anyUserId) {
@@ -334,7 +351,6 @@ export function deletePost(id) {
   return async function (dispatch) {
     try {
       const { data } = await axios.delete(`/posts/${id}`)
-      console.log(data)
       return dispatch({
         type: DELETE_POST,
       })

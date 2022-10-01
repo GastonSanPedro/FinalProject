@@ -47,7 +47,7 @@ const SearchPage = () =>{
 
     return(
         <>
-        <SidebarWithHeader/>
+        <SidebarWithHeader myUser={myUser}/>
         <Box
            pos={'absolute'}
            top={'20%'}

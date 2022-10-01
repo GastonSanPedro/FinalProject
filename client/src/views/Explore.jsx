@@ -18,7 +18,7 @@ const Explore = () => {
 
   return (
     <>
-      <SidebarWithHeader />
+      <SidebarWithHeader myUser={myUser} />
       <Heading
       pos={'absolute'}
         top={'20%'}

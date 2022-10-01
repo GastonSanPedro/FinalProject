@@ -19,7 +19,7 @@ const Feed = () => {
     console.log({allPosts})
   return (
     <>
-      <SidebarWithHeader />
+      <SidebarWithHeader myUser={myUser} />
       <Box
         pos={'absolute'}
         top={'20%'}

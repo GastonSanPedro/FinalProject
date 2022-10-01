@@ -23,7 +23,7 @@ export default function AnyProfile() {
   
   return (
     <>
-      <SidebarWithHeader />
+      <SidebarWithHeader myUser={myUser}/>
       <Box
         mt="20"
         ml="15%"
