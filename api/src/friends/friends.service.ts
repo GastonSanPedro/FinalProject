@@ -39,7 +39,7 @@ export class FriendsService {
   async findAllFriendsByUser(idUser: string) {
     if(isValidObjectId(idUser)){
       const user =  await this.userModel.findById(idUser)
-      .populate({ path: 'friends.idFriend', select:'-posts -password -friends -email -bio'})
+      .populate({ path: 'friends.idFriend', select:'-posts -password -friends -bio'})
       .exec() 
       return user.friends
     }
@@ -61,7 +61,7 @@ export class FriendsService {
         select:'posts', 
         populate:{ 
           path:'posts.author', 
-          select:'-posts -password -friends -email -bio -followers'}})
+          select:'-posts -password -friends -bio -followers'}})
       .exec() 
 
       const friendsPost: any = user.friends.map(friend => friend.idFriend)
