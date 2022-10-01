@@ -134,6 +134,7 @@ export default function rootReducer(state = initialState, action) {
         myUser: action.payload,
       };
     case ADD_FRIEND:
+      console.log(action.payload)
       return {
         ...state,
         friends: action.payload,

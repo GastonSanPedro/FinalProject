@@ -62,7 +62,7 @@ export default function Friends({myUser}) {
           <DrawerCloseButton />
           <DrawerHeader>{`My friends`}</DrawerHeader>
           <DrawerBody>
-            {myUser?.friends?.length > 0 ? (
+            {/* {myUser?.friends?.length > 0 ? (
               myUser?.friends?.map((friend, index) => {
                 return (
                   <Box key={index}>
@@ -77,7 +77,7 @@ export default function Friends({myUser}) {
               })
             ) : (
               <p>Maybe you can try being more sociable</p>
-            )}
+            )} */}
           </DrawerBody>
         </DrawerContent>
       </Drawer>

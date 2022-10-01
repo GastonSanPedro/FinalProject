@@ -275,10 +275,12 @@ export function logOut() {
   };
 }
 export function addFriend(myUserid, anyUserId) {
-  const idAnyUser = { friend: anyUserId };
+  const ids = {
+      idFriend: anyUserId,
+      idUser: myUserid };
   return async function (dispatch) {
     try {
-      let info = await axios.post(`/users/friend/${myUserid}`, idAnyUser);
+      let info = await axios.post(`/friends/`, ids);
       let { data } = await axios.get(`/friends/${myUserid}`);
 
       return dispatch({
