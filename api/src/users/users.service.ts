@@ -4,6 +4,7 @@ import { isValidObjectId, Model } from 'mongoose';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './schema/user-schema';
+import { SoftDeleteModel } from 'soft-delete-plugin-mongoose';
 
 
 
@@ -11,7 +12,8 @@ import { User } from './schema/user-schema';
 export class UsersService {
   constructor(
     @InjectModel(User.name)
-    private readonly userModel: Model<User>,
+    private readonly userModel:SoftDeleteModel<User>
+    // Model<User>,
   ) {}
 
   async create(createUserDto: CreateUserDto): Promise<User> {
@@ -44,6 +46,9 @@ export class UsersService {
   async findOne(term: string) {
         let userFinded:User;
         term = term.toLowerCase()
+
+        
+
         //Busco por mail
         if(term.includes("@")){
           userFinded = await this.userModel
@@ -52,6 +57,7 @@ export class UsersService {
           .exec()
         }
 
+
         //Busco por MongoId
         if(isValidObjectId(term)){
           userFinded =  await this.userModel
@@ -59,6 +65,8 @@ export class UsersService {
           .populate({ path: 'friends.idFriend'})
           .exec()
         }
+
+   
         //Si no hay nada hasta este punto busco por UserName
         if(!userFinded){
           userFinded =  await this.userModel
@@ -67,8 +75,10 @@ export class UsersService {
           .exec()
         }
         //Si no encontro nada arroja error
-        if (!userFinded) throw new NotFoundException(`El usuario con el id, username or email ${term} no existe`);
+        if (!userFinded || userFinded.isDeleted===true) throw new NotFoundException(`El usuario con el id, username or email ${term} no existe`);
+
         return userFinded;
+
   }
 
   async update(term: string, updateUserDto: UpdateUserDto) {
@@ -82,8 +92,11 @@ export class UsersService {
 
   async remove(id: string) {
     const userDelete:User = await this.findOne(id);
-    await userDelete.deleteOne()
-    return `User ${id} has been deleted`;
+    const deleted = await this.userModel.softDelete(userDelete)
+    return deleted
+
+    // await userDelete.deleteOne()
+    // return `User ${id} has been deleted`;
   }
 
   async findByName(term: string) {
