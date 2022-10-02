@@ -1,21 +1,21 @@
 import {
   Box,
   Avatar,
-  Center,
   Stack,
   Text,
   HStack,
   Button,
+  IconButton,
+  Flex
 } from '@chakra-ui/react';
 import { IoExitOutline } from 'react-icons/io5';
-import { RiUserFollowLine, RiUserUnfollowLine } from 'react-icons/ri';
+import { RiUserFollowLine, RiUserUnfollowLine, RiUserSettingsLine } from 'react-icons/ri';
 import { useDispatch , useSelector} from 'react-redux';
 import { logOut, addFriend, deleteFriend } from '../../redux/action';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
-const UserCard = ({ site, myUser, user }) => {
-  const friends = useSelector(state => state.friends)
-  console.log({friends})
+const UserCard = ({ site, myUser, user, friends }) => {
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleClickLogout = () => {
@@ -31,8 +31,11 @@ const UserCard = ({ site, myUser, user }) => {
     dispatch(deleteFriend(myUser._id, user._id))
   }
 
-  //const following = friends?.find(friend => friend?.idFriend._id === user._id)
-  const following = {}
+  const following = () =>{
+  if(friends.length){
+    return friends?.filter(friend => friend?.idFriend._id === user._id)}
+  }
+  
   const setUserToSite = (site) => {
     if (site === 'profile') {
       return myUser;
@@ -42,6 +45,7 @@ const UserCard = ({ site, myUser, user }) => {
     }
   };
   const followValidator = JSON.parse(localStorage.getItem('email'));
+
   return (
     <Box
       zIndex={10}
@@ -78,6 +82,7 @@ const UserCard = ({ site, myUser, user }) => {
             p={'2vh'}
           >
             <Stack spacing={'0vh'}>
+            <Flex flexDir={'row'} align={'center'}>
             <Text
               fontSize="xl"
               fontWeight={'semibold'}
@@ -85,6 +90,20 @@ const UserCard = ({ site, myUser, user }) => {
             >
               {setUserToSite(site)?.firstName}{' '}{setUserToSite(site)?.lastName}
             </Text>
+            <Link to={'/settings'}>
+            <IconButton
+            p={0}
+            icon={<RiUserSettingsLine/>}
+            size={'md'}
+            textColor={'gray.700'}
+            bg={'none'}
+            borderRadius={2}
+            _hover={{
+              textColor: 'white',
+              bg: 'logo.2',
+              }}/>
+            </Link>
+            </Flex>
             <Text
               fontSize="md"
               color={'gray.500'}
@@ -149,7 +168,7 @@ const UserCard = ({ site, myUser, user }) => {
           Log Out
         </Button>
       ) : (
-        !Object.entries(following).length ? (
+        !following()?.length ? (
         <Button
         p={'2%'}
         zIndex={20}

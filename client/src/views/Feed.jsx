@@ -12,12 +12,15 @@ const Feed = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getPosts());
-  }, [dispatch, singlePost]);
-
+    dispatch(getPosts())
+    dispatch(getFriends(myUser._id));
+  }, [dispatch, singlePost, myUser]);
+  
+  const friends = useSelector((state)=>state.friends)
+  
   return (
     <>
-      <SidebarWithHeader myUser={myUser} />
+      <SidebarWithHeader myUser={myUser} friends={friends}/>
       <Box
         pos={'absolute'}
         top={'20%'}

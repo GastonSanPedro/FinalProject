@@ -31,6 +31,7 @@ const AdminProfile = () => {
 
     const posts = useSelector((state) => state.posts);
     const myUser = useSelector((state) => state.myUser);
+    const friends= useSelector((state) => state.friends)
 
     useEffect(() => {
         dispatch(getPosts());
@@ -42,7 +43,7 @@ const AdminProfile = () => {
 
     return (
         <>
-            <SidebarWithHeader />
+            <SidebarWithHeader myUser={myUser} friends={friends} />
 
 
             <Box pos="absolute" mt="8%" ml="20%" bg={'rgba(229, 191, 124, 0.2)'} h="auto" w='75%'>

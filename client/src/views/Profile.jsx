@@ -12,12 +12,13 @@ import ContainerPost from '../components/ContainerPost/ContainerPost';
 const Profile = () => {
   const myUser = useSelector((state) => state.myUser);
   const singlePost = useSelector((state) => state.singlePost);
+  const friends = useSelector((state) => state.friends)
 
   useEffect(() => {}, [myUser, singlePost]);
 
   return (
     <>
-      <SidebarWithHeader myUser={myUser} />
+      <SidebarWithHeader myUser={myUser} friends={friends} />
       <Box
         className="ImageHeader"
         zIndex={2}

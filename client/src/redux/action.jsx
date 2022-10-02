@@ -198,7 +198,6 @@ export const authUser = (mail, password, google) => {
       if (google === undefined) {
         var user = await axios.get(`/users/${mail}`);
         let formatUser = user.data;
-        console.log(formatUser);
         if (formatUser.password !== password) {
           return dispatch({
             type: AUTH_USER,
@@ -295,8 +294,8 @@ export function addFriend(myUserid, anyUserId) {
 export function getFriends(myId){
   console.log({myId})
   return async function(dispatch){
-    let { data } = await axios.get(`/friends/${myId}`)
-    console.log({data})
+  let { data } = await axios.get(`/friends/${myId}`)
+  console.log({data},'action')
     return dispatch({
       type: GET_FRIENDS,
       payload: data
@@ -304,7 +303,6 @@ export function getFriends(myId){
   }
 }
 export function searchFriends(id, input){
-  console.log(input)
   return async function(dispatch){
     let json = await axios.get('/friends/' + id)
     let filterFriends = json.data.filter(friend => {

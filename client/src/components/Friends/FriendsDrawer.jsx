@@ -1,27 +1,20 @@
 import { Drawer, DrawerBody, DrawerHeader, DrawerOverlay, DrawerContent, DrawerCloseButton, Flex, Icon, Box, Accordion, AccordionItem, AccordionButton, AccordionPanel, AccordionIcon } from '@chakra-ui/react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useDisclosure } from '@chakra-ui/react';
 import { FiUsers } from 'react-icons/fi';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { FriendCard } from './FriendCard';
 import SearchFriends from './SearchFriends';
-import { getFriends } from '../../redux/action';
 
-export default function Friends({myUser}) {
+export default function Friends({myUser, friends}) {
   
   const dispatch = useDispatch();
   const [size, setSize] = useState('');
   const [input, setInput] = useState('');
   const { isOpen, onOpen, onClose } = useDisclosure();
   const handleClick = () => { onOpen(); };
-  const id = myUser._id
-  console.log({myUser})
-  useEffect(() => {
-      dispatch(getFriends(id));
-    }, [dispatch]);
 
-    const friends = useSelector(state=> state.searchFriends)
-
+    
   return (
     <>
       <Flex

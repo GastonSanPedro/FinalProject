@@ -15,6 +15,7 @@ import { setIn } from "formik"
 const Settings = () =>{
    
    const myUser =  useSelector(state => state.myUser)
+   const friends = useSelector((state)=> state.friends)
    const [state, setState ] = useState('users')
    const NAV_ITEMS = [
       {
@@ -50,7 +51,7 @@ const Settings = () =>{
 
  return(
     <>
-    <SidebarWithHeader myUser={myUser}/>
+    <SidebarWithHeader myUser={myUser} friends={friends}/>
     
     <Box
       pos={'absolute'}
