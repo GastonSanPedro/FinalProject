@@ -68,7 +68,6 @@ export function getPosts() {
   return async function (dispatch) {
     try {
       let info = await axios.get(`/posts/`);
-      //      console.log({ info });
       dispatch({
         type: GET_POSTS,
         payload: info.data,
@@ -294,10 +293,10 @@ export function addFriend(myUserid, anyUserId) {
   };
 }
 export function getFriends(myId){
-
+  console.log({myId})
   return async function(dispatch){
     let { data } = await axios.get(`/friends/${myId}`)
-
+    console.log({data})
     return dispatch({
       type: GET_FRIENDS,
       payload: data

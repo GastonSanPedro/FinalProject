@@ -28,6 +28,7 @@ export const MobileNav = ({ myUser, onOpen, ...rest }) => {
   
     return (
       <Flex
+        zIndex={0}
         //pos={'absolute'}
         minH={'12%'}
         maxH={'12%'}
@@ -141,7 +142,7 @@ export const MobileNav = ({ myUser, onOpen, ...rest }) => {
               </VStack>)}
           </Box> */}
   
-          <Flex alignItems={'center'} mr={12} ml={5}>
+          <Flex alignItems={'center'} mr={12} ml={5} >
             <Menu>
               <MenuButton
                 py={2}

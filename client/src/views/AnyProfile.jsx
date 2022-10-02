@@ -25,29 +25,30 @@ export default function AnyProfile() {
     <>
       <SidebarWithHeader myUser={myUser}/>
       <Box
-        mt="20"
+        className="ImageHeader"
+        zIndex={2}
+        mt={'10vh'}
         ml="15%"
-        h="28vh"
+        minH={'28vh'}
+        maxH={'28vh'}
         width="85%"
         position={'absolute'}
         backgroundImage={port1}
         bgRepeat="no-repeat"
-        // bgPosition="center"
         bgSize="cover"
       />
       <UserCard site="anyProfile" user={user}  myUser={myUser}/>
       <Box
+        bg={'whitesmoke'}
         pos={'absolute'}
         top={'20%'}
-        left={'0%'}
         textAlign={'center'}
         justifyContent={'center'}
         direction={'column'}
-        width={'79vw'}
+        width={'167.5vh'}
         height={'80vh'}
-        mt={'20%'}
+        mt={'18%'}
         ml={'18%'}
-        mr={'7%'}
       >
         <ContainerPost site="anyProfile" user={user} myUser={myUser} email={email} />
       </Box>
