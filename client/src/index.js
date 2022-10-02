@@ -62,5 +62,7 @@ root.render(
 );
 
 reportWebVitals();
-connectToServer()
 
+//aca deberiamos poner un evento que Valide al usuario cuando se loguee
+connectToServer( jwtToken )
+// .value.trim() en html
