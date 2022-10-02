@@ -15,12 +15,12 @@ export default function Friends({myUser}) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const handleClick = () => { onOpen(); };
   const id = myUser._id
-  
+  console.log({myUser})
   useEffect(() => {
       dispatch(getFriends(id));
     }, [dispatch]);
 
-    const friends = useSelector(state=> state.SearchFriends)
+    const friends = useSelector(state=> state.searchFriends)
 
   return (
     <>
