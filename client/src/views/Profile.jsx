@@ -1,12 +1,13 @@
 import '../index.css';
 import { Box } from '@chakra-ui/react';
 import React, { useEffect } from 'react';
-import {  useSelector } from 'react-redux';
+import {  useSelector, useDispatch } from 'react-redux';
 import UserCard from '../components/UserCard/UserCard';
 import SidebarWithHeader from '../components/Sidebar-Navbar/SideBar';
 import port1 from '../assets/port1.png';
 import '../index.css';
 import ContainerPost from '../components/ContainerPost/ContainerPost';
+
 
 const Profile = () => {
   const myUser = useSelector((state) => state.myUser);
@@ -16,9 +17,10 @@ const Profile = () => {
 
   return (
     <>
-      <SidebarWithHeader />
+      <SidebarWithHeader myUser={myUser} />
       <Box
         className="ImageHeader"
+        zIndex={2}
         mt={'10vh'}
         ml="15%"
         minH={'28vh'}
@@ -29,22 +31,23 @@ const Profile = () => {
         bgRepeat="no-repeat"
         bgSize="cover"
       />
+
       <UserCard site="profile" myUser={myUser} />
       <Box
+        bg={'whitesmoke'}
         pos={'absolute'}
         top={'20%'}
-        left={'0%'}
         textAlign={'center'}
         justifyContent={'center'}
         direction={'column'}
-        width={'79vw'}
+        width={'167.5vh'}
         height={'80vh'}
-        mt={'20%'}
+        mt={'18%'}
         ml={'18%'}
-        mr={'7%'}
       >
         <ContainerPost site="profile" myUser={myUser} singlePost={singlePost} />
       </Box>
+
     </>
   );
 };

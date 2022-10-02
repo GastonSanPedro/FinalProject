@@ -56,11 +56,17 @@ export class FriendsService {
   async findAllPostOfMyFriends (idUser: string){
     if(isValidObjectId(idUser)){
       const user =  await this.userModel.findById(idUser)
-      .populate({ path: 'friends.idFriend', select:'posts'})
+      .populate({ 
+        path: 'friends.idFriend', 
+        select:'posts', 
+        populate:{ 
+          path:'posts.author', 
+          select:'-posts -password -friends -email -bio -followers'}})
       .exec() 
 
       const friendsPost: any = user.friends.map(friend => friend.idFriend)
       const friendsPostAll = friendsPost.map(friend => friend.posts).flat()
+
 
     return friendsPostAll
     } 
