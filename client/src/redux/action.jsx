@@ -21,6 +21,7 @@ export const GET_FRIENDS = 'GET_FRIENDS';
 export const DELETE_FRIENDS = 'DELETE_FRIENDS';
 export const REPORT_POST = 'REPORT_POST';
 export const DELETE_POST = 'DELETE_POST';
+export const GET_FRIENDS_POSTS = 'GET_FRIENDS_POSTS'
 
 
 export function getUsers() {
@@ -343,5 +344,18 @@ export function deletePost(id) {
   }
 }
 
+export function getFriendsPosts(myUserid) {
+  return async function (dispatch) {
+    try {
+      let info = await axios.get(`/friends/posts/${myUserid}`);
+      dispatch({
+        type: GET_FRIENDS_POSTS,
+        payload: info.data,
+      });
+    } catch (error) {
+      console.log(error, 'Error al llamar a la api');
+    }
+  };
+}
 
 

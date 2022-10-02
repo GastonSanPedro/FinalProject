@@ -20,7 +20,8 @@ import {
   REPORT_POST,
   DELETE_POST,
   GET_FRIENDS,
-  DELETE_FRIENDS
+  DELETE_FRIENDS,
+  GET_FRIENDS_POSTS
 } from './action';
 
 const initialState = {
@@ -139,15 +140,15 @@ export default function rootReducer(state = initialState, action) {
         friends: action.payload,
       };
     case GET_FRIENDS:
-        return{
-          ...state,
-          friends: action.payload
+      return {
+        ...state,
+        friends: action.payload
       };
     case DELETE_FRIENDS:
-        return {
-          ...state,
-          friends: action.payload,
-        };
+      return {
+        ...state,
+        friends: action.payload,
+      };
     case REPORT_POST:
       return {
         ...state
@@ -161,8 +162,12 @@ export default function rootReducer(state = initialState, action) {
           posts: [...state.myUser.posts],
         },
       };
-
-      default:
+    case GET_FRIENDS_POSTS:
+      return {
+        ...state,
+        posts: action.payload,
+      };
+    default:
       return state;
   }
 }

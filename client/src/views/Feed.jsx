@@ -1,9 +1,9 @@
 import { Box } from '@chakra-ui/react';
-import React, { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ContainerPost from '../components/ContainerPost/ContainerPost';
 import SidebarWithHeader from '../components/Sidebar-Navbar/SideBar';
-import { getPosts } from '../redux/action';
+import { getFriendsPosts } from '../redux/action';
 
 const Feed = () => {
   const myUser = useSelector((state) => state.myUser);
@@ -11,12 +11,13 @@ const Feed = () => {
   const singlePost = useSelector((state) => state.singlePost);
   const dispatch = useDispatch();
 
+  console.log(allPosts)
+
   useEffect(() => {
-    dispatch(getPosts());
+    dispatch(getFriendsPosts(myUser?._id));
   }, [dispatch, singlePost]);
 
 
-    console.log({allPosts})
   return (
     <>
       <SidebarWithHeader />
