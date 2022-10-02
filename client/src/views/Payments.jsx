@@ -1,12 +1,15 @@
 import { Box, Center, Stack } from "@chakra-ui/react"
+import { useSelector } from "react-redux"
 import PaymentCard from "../components/PaymentCard/PaymentCard"
 import SidebarWithHeader from "../components/Sidebar-Navbar/SideBar"
 
 const Payments = () => {
+    const myUser= useSelector((state) => state.myUser)
+    const friends = useSelector((state) => state.friends)
 
  return(
     <>
-    <SidebarWithHeader/>
+    <SidebarWithHeader myUser={myUser} friends={friends}/>
     <Box
     p={'8%'}
     pl={'20%'}>

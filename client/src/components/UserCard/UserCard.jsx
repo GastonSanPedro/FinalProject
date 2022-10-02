@@ -1,20 +1,21 @@
 import {
   Box,
   Avatar,
-  Center,
   Stack,
   Text,
   HStack,
   Button,
+  IconButton,
+  Flex
 } from '@chakra-ui/react';
 import { IoExitOutline } from 'react-icons/io5';
-import { AiOutlineUserAdd } from 'react-icons/ai';
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { logOut, addFriend } from '../../redux/action';
-import { useNavigate } from 'react-router-dom';
+import { RiUserFollowLine, RiUserUnfollowLine, RiUserSettingsLine } from 'react-icons/ri';
+import { useDispatch , useSelector} from 'react-redux';
+import { logOut, addFriend, deleteFriend } from '../../redux/action';
+import { Link, useNavigate } from 'react-router-dom';
 
-const UserCard = ({ site, myUser, user }) => {
+const UserCard = ({ site, myUser, user, friends }) => {
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleClickLogout = () => {
@@ -26,7 +27,15 @@ const UserCard = ({ site, myUser, user }) => {
     dispatch(addFriend(myUser._id, user._id));
     alert('ok');
   };
+  const handleClickUnfollow = () => {
+    dispatch(deleteFriend(myUser._id, user._id))
+  }
 
+  const following = () =>{
+  if(friends.length){
+    return friends?.filter(friend => friend?.idFriend._id === user._id)}
+  }
+  
   const setUserToSite = (site) => {
     if (site === 'profile') {
       return myUser;
@@ -40,100 +49,161 @@ const UserCard = ({ site, myUser, user }) => {
   return (
     <Box
       zIndex={10}
-      className="BackGroundImage"
       display={'flex'}
       flexDir={'column'}
-      ml="80%"
+      ml="77%"
       mt="19%"
       h="45vh"
-      w="17.5vw"
-      p="1%"
+      w="19vw"
+      p="1% 2% 1% 1%"
       position={'absolute'}
-      bg={'rgba(140, 161, 116, 0.6)'}
+      bg={'white'}
       justifyContent={'center'}
     >
-      <Center>
-        <Stack>
+      <Box 
+      position={'absolute'}
+      ml={'80%'}
+      bg={`logo.2`} 
+      w={7} 
+      h={'45vh'}></Box>
+        <Stack >
           <Avatar
-            size="3xl"
+            size="2xl"
             showBorder="true"
-            border={'7px solid white'}
-            mt="-55%"
-            mb={'10%'}
-            ml={'1.5vw'}
-            boxSize="23vh"
-            width={'80%'}
+            mt="-40%"
+            right={'-17%'}
             objectFit={'contain'}
             src={setUserToSite(site)?.image}
             name={setUserToSite(site)?.fullName}
-          ></Avatar>
+          />
           <Stack
             display={'flex'}
             alignContent={'center'}
-            justifyContent={'center'}
+            p={'2vh'}
           >
+            <Stack spacing={'0vh'}>
+            <Flex flexDir={'row'} align={'center'}>
             <Text
-              pt="3vh"
-              fontWeight="bold"
-              fontSize="3xl"
-              textAlign={'center'}
+              fontSize="xl"
+              fontWeight={'semibold'}
+              textAlign={'left'}
             >
-              {setUserToSite(site)?.fullName}
+              {setUserToSite(site)?.firstName}{' '}{setUserToSite(site)?.lastName}
             </Text>
-            <HStack justify={'space-evenly'}>
+            <Link to={'/settings'}>
+            <IconButton
+            p={0}
+            icon={<RiUserSettingsLine/>}
+            size={'md'}
+            textColor={'gray.700'}
+            bg={'none'}
+            borderRadius={2}
+            _hover={{
+              textColor: 'white',
+              bg: 'logo.2',
+              }}/>
+            </Link>
+            </Flex>
+            <Text
+              fontSize="md"
+              color={'gray.500'}
+              fontStyle={'italic'}
+              textAlign={'left'}
+              >
+              {setUserToSite(site)?.userName}
+            </Text>
+            </Stack>
+            <Text
+              fontSize="xs"
+              color={'gray.500'}
+              textAlign={'left'}
+              >
+              {setUserToSite(site)?.bio}
+            </Text>
+            <HStack  justify={'left'} spacing={'3.5vh'}>
               <Box align={'center'}>
-                <Text fontSize="lg" fontWeight={'semibold'}>
-                  Friends
+                <Text fontSize="xs" >
+                  Following
                 </Text>
-                <Text fontSize="md">
+                <Text fontSize="md" color={'gray.500'}>
                   {setUserToSite(site)?.friends?.length}
                 </Text>
               </Box>
               <Box align={'center'}>
-                <Text fontSize="lg" fontWeight={'semibold'}>
+                <Text fontSize="xs" >
+                  Followers
+                </Text>
+                <Text fontSize="md" color={'gray.500'}>
+                  100
+                </Text>
+              </Box>
+              <Box align={'center'}>
+                <Text fontSize="xs" >
                   Posts
                 </Text>
-                <Text fontSize="md">{setUserToSite(site)?.posts?.length}</Text>
+                <Text fontSize="md" color={'gray.500'}>{setUserToSite(site)?.posts?.length}</Text>
               </Box>
             </HStack>
           </Stack>
         </Stack>
-      </Center>
+        
       {site === 'profile' ? (
         <Button
+          p={'2%'}
           zIndex={20}
           rightIcon={<IoExitOutline />}
-          mt={'4%'}
+          w={'30vh'}
+          textColor={'gray.700'}
+          mt={'2%'}
           bg={'none'}
           borderRadius={2}
           _hover={{
-            color: 'black',
-            bg: 'white',
+            textColor: 'white',
+            bg: 'logo.2',
           }}
           onClick={() => {
             handleClickLogout();
           }}
         >
-          LOG OUT
+          Log Out
         </Button>
       ) : (
+        !following()?.length ? (
         <Button
-          zIndex={20}
-          leftIcon={<AiOutlineUserAdd />}
-          mt={'4%'}
-          bg={'none'}
-          borderRadius={2}
-          display={
-            setUserToSite(site)?.email === followValidator ? 'none' : 'block'
-          }
-          _hover={{
-            color: 'black',
-            bg: 'white',
-          }}
+        p={'2%'}
+        zIndex={20}
+        rightIcon={<RiUserFollowLine />}
+        w={'30vh'}
+        textColor={'gray.700'}
+        mt={'2%'}
+        bg={'none'}
+        borderRadius={2}
+        _hover={{
+          textColor: 'white',
+          bg: 'logo.2',
+        }}
           onClick={() => handleClickFollow()}
         >
           FOLLOW
-        </Button>
+        </Button> ):(
+          <Button
+          p={'2%'}
+          zIndex={20}
+          rightIcon={<RiUserUnfollowLine />}
+          w={'30vh'}
+          textColor={'gray.700'}
+          mt={'2%'}
+          bg={'none'}
+          borderRadius={2}
+          _hover={{
+            textColor: 'white',
+            bg: 'logo.2',
+          }}
+            onClick={() => handleClickFollow()}
+          >
+            UNFOLLOW
+          </Button>
+        )
       )}
     </Box>
   );

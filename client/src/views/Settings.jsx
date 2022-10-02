@@ -8,12 +8,14 @@ import { useState } from "react"
 import {  RiUserSettingsLine, RiHistoryLine } from 'react-icons/ri'
 import {IoStatsChartOutline} from 'react-icons/io5'
 import UserBio from "../components/UserSettings/UserBio"
+import { setIn } from "formik"
 
 
 
 const Settings = () =>{
    
    const myUser =  useSelector(state => state.myUser)
+   const friends = useSelector((state)=> state.friends)
    const [state, setState ] = useState('users')
    const NAV_ITEMS = [
       {
@@ -49,7 +51,7 @@ const Settings = () =>{
 
  return(
     <>
-    <SidebarWithHeader/>
+    <SidebarWithHeader myUser={myUser} friends={friends}/>
     
     <Box
       pos={'absolute'}
@@ -64,7 +66,7 @@ const Settings = () =>{
       bg={'whitesmoke'}>
    <NavbarSerch NAV_ITEMS={NAV_ITEMS}/> 
    <Box display={'flex'} flexDir={'row'}>
-      <UserPics myUser={myUser} />
+      <UserPics myUser={myUser} inpu={input} setInput={setInput} />
       <UserSettings 
       input={input} 
       setInput={setInput}

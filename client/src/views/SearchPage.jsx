@@ -1,4 +1,4 @@
-import { Box } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
 import React, {useState} from "react";
 import { useSelector } from "react-redux";
 import SidebarWithHeader from "../components/Sidebar-Navbar/SideBar";
@@ -8,12 +8,11 @@ import PostSearchContainer from "../components/PostSearch/ContainerPostSearch";
 import { RiFileTextLine, RiUserSearchLine, RiUserFollowLine } from 'react-icons/ri'
 import { AiOutlinePicture } from 'react-icons/ai';
 
-
-
-
 const SearchPage = () =>{
 
     const myUser = useSelector((state)=> state.myUser)
+    const friends = useSelector((state)=> state.friends)
+    const word = useSelector((state) => state.searchPost)
     const [state, setState ] = useState('users')
 
     const NAV_ITEMS = [
@@ -47,7 +46,7 @@ const SearchPage = () =>{
 
     return(
         <>
-        <SidebarWithHeader/>
+        <SidebarWithHeader myUser={myUser} friends={friends}/>
         <Box
            pos={'absolute'}
            top={'20%'}
@@ -64,14 +63,17 @@ const SearchPage = () =>{
             state={state}
             setState={setState}
             NAV_ITEMS={NAV_ITEMS}/>
+        <Text> Results for :</Text>
         {
             state === 'users' || state === 'friends' ? (
                 <ContainerSearchCard
                 state={state}
-                myUser={myUser}/>
+                myUser={myUser}
+                word={word}/>
             ):(
                 <PostSearchContainer
                     state={state}
+                    word={word}
                 />
             )
         }

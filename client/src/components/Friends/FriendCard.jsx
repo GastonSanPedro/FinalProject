@@ -1,12 +1,8 @@
 import { Link, Flex, Avatar, Text  } from "@chakra-ui/react";
 
-const userImg =
-  'https://previews.123rf.com/images/pandavector/pandavector1901/pandavector190105171/126078877-vector-design-of-avatar-and-dummy-symbol-set-of-avatar-and-image-stock-vector-illustration-.jpg?fj=1';
 
+export const FriendCard = ({ image, link,firstName, lastName, email, fullName }) => {
 
-export const FriendCard = ({ image, link,firstName, lastName, email }) => {
-  console.log(firstName)
-  console.log(lastName)
     return (
       <Link
         href={'/user/' + email}
@@ -17,7 +13,6 @@ export const FriendCard = ({ image, link,firstName, lastName, email }) => {
           align="center"
           w={'100%'}
           p="4"
-          
           borderRadius="lg"
           role="group"
           cursor="pointer"
@@ -28,8 +23,8 @@ export const FriendCard = ({ image, link,firstName, lastName, email }) => {
         >
         <Avatar
             size={'sm'}
-            name="user"
-            src={image? image : userImg}
+            name={fullName}
+            src={image}
             />
             <Text pl={2} fontSize={'1vw'} fontWeight={'bold'}> 
             {firstName} {lastName}

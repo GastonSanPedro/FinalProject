@@ -38,17 +38,17 @@ export default function ContainerPost({
       return posts;
     }
     if (site === 'feed') {
-      const friendsPosts = (myUser, posts) => {
-        let friends = myUser?.friends?.map((friend) => friend.friend[0]._id);
-        let friendsPost = posts?.filter((post) => {
-          if (friends?.includes(post?.author?._id)) {
-            return post;
-          }
-        });
-        return friendsPost;
-      };
-      let filterFriendPost = friendsPosts(myUser, posts);
-      return filterFriendPost
+      // const friendsPosts = (myUser, posts) => {
+      //   let friends = myUser?.friends?.map((friend) => friend.friend[0]._id);
+      //   let friendsPost = posts?.filter((post) => {
+      //     if (friends?.includes(post?.author?._id)) {
+      //       return post;
+      //     }
+      //   });
+      //   return friendsPost;
+      // };
+      // let filterFriendPost = friendsPosts(myUser, posts);
+      // return filterFriendPost
     }
     if (site === 'admin') {
       let reportedPosts = posts?.filter((post) => (post.reported === true))

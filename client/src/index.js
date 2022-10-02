@@ -21,6 +21,7 @@ import Payments from './views/Payments';
 import Settings from './views/Settings';
 import Explore from './views/Explore';
 import { connectToServer } from './socket-client';
+// import Chat from './components/Chat/Chat';
 // const Dotenv = require('dotenv-webpack');
 
 // require('dotenv').config();
@@ -51,6 +52,7 @@ root.render(
             <Route path="/payments" element={<Payments />} />
             <Route path="/settings" element={<Settings />} />
             <Route path="/explore" element={<Explore />} />
+            {/* <Route path="/chat" element={<Chat />} /> */}
           </Routes>
         </BrowserRouter>
       </ChakraProvider>
@@ -62,5 +64,5 @@ root.render(
 reportWebVitals();
 
 //aca deberiamos poner un evento que Valide al usuario cuando se loguee
-// connectToServer( jwtToken )
+connectToServer()
 // .value.trim() en html

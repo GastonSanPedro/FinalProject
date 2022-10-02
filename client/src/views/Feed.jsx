@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ContainerPost from '../components/ContainerPost/ContainerPost';
 import SidebarWithHeader from '../components/Sidebar-Navbar/SideBar';
-import { getPosts } from '../redux/action';
+import { getFriends, getPosts } from '../redux/action';
 
 const Feed = () => {
   const myUser = useSelector((state) => state.myUser);
@@ -12,14 +12,15 @@ const Feed = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getPosts());
-  }, [dispatch, singlePost]);
-
-
-    console.log({allPosts})
+    dispatch(getPosts())
+    dispatch(getFriends(myUser._id));
+  }, [dispatch, singlePost, myUser]);
+  
+  const friends = useSelector((state)=>state.friends)
+  
   return (
     <>
-      <SidebarWithHeader />
+      <SidebarWithHeader myUser={myUser} friends={friends}/>
       <Box
         pos={'absolute'}
         top={'20%'}
