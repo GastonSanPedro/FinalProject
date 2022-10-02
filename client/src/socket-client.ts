@@ -1,7 +1,12 @@
 import { Manager, Socket } from "socket.io-client"
 
-export const connectToServer = ()=> {
-    const manager = new Manager('http://localhost:3001/socket.io/socket.io.js')
+export const connectToServer = ( token: string )=> {
+    const manager = new Manager('http://localhost:3001/socket.io/socket.io.js', {
+        extraHeaders:{
+            hola: 'mundo',
+            authentication: token
+        }
+    })
     
     const socket = manager.socket('/');
 
@@ -21,5 +26,9 @@ const addListeners = ( socket: Socket ) => {
     })
     socket.on('clients-updated', (clients: string[])=> {
        console.log({clients})
+    })
+
+    socket.on('message-from-server', (payload: { fullname: string, message: string})=> {
+        console.log(payload)
     })
 }
