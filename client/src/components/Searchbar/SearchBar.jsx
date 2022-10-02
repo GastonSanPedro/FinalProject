@@ -21,7 +21,6 @@ const Searchbar = () => {
     dispatch(searchPost(searcher));
     dispatch(getUsers());
     navigate('/search-page');
-    setSearcher('');
   }
 
   return (
