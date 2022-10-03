@@ -3,7 +3,7 @@ import { Server, Socket } from 'socket.io';
 import { NewMessageDto } from './dto/new-message-dto';
 import { MessagesWsService } from './messages-ws.service';
 
-@WebSocketGateway({ cors: true })
+@WebSocketGateway({ cors: '*' })
 export class MessagesWsGateway implements OnGatewayConnection, OnGatewayDisconnect{
   
   @WebSocketServer() wss: Server;
@@ -15,8 +15,8 @@ export class MessagesWsGateway implements OnGatewayConnection, OnGatewayDisconne
   handleConnection(client:Socket) {
     this.messagesWsService.registerClient(client)
     this.wss.emit('clients-updated', this.messagesWsService.getConnectedClients())
-
   }
+
   handleDisconnect(client: Socket) {
     this.messagesWsService.removeClient(client.id)
     this.wss.emit('clients-updated', this.messagesWsService.getConnectedClients())
