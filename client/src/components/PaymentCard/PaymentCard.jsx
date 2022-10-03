@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import {
   Box,
   Center,
@@ -8,12 +9,41 @@ import {
   ListIcon,
   Button,
   useColorModeValue,
+  useDisclosure,
+  ModalOverlay,
 } from '@chakra-ui/react';
 import { CheckIcon } from '@chakra-ui/icons';
+import { PaymentModal } from './PaymentModal';
 
-export default function PaymentCard({ num, days, price }) {
+const OverlayOne = () => (
+  <ModalOverlay
+    bg="blackAlpha.300"
+    backdropFilter="blur(10px) hue-rotate(90deg)"
+    w={'83.5vw'}
+    h={'90vh'}
+    position={'fixed'}
+    mt={'10.5vh'}
+    left={'18%'}
+  />
+);
+
+export default function PaymentCard({ num, days, price, myUser }) {
+  const [overlay, setOverlay] = useState(<OverlayOne />);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const handleClick = () => {
+    setOverlay(<OverlayOne />);
+    onOpen();
+  };
+  //console.log(myUser);
   return (
     <Center py={6}>
+      <PaymentModal
+        onOpen={onOpen}
+        isOpen={isOpen}
+        onClose={onClose}
+        myPosts={myUser?.posts}
+        loggedId={myUser?._id}
+      />
       <Box
         maxW={'330px'}
         w={'full'}
@@ -62,14 +92,13 @@ export default function PaymentCard({ num, days, price }) {
               {`${num}% extra chances of geting in the trending posts`}
             </ListItem>
           </List>
-
           <Button
             mt={10}
             w={'full'}
             bg={'logo.3'}
             color={'white'}
             rounded={'sm'}
-            //    onClick={}
+            onClick={(e) => handleClick()}
             _hover={{
               bg: 'rgba(140, 161, 116, 0.7)',
               color: 'white',

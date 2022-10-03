@@ -1,23 +1,33 @@
 import '../index.css';
 import { Box } from '@chakra-ui/react';
 import React, { useEffect } from 'react';
-import {  useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import UserCard from '../components/UserCard/UserCard';
 import SidebarWithHeader from '../components/Sidebar-Navbar/SideBar';
 import port1 from '../assets/port1.png';
 import '../index.css';
 import ContainerPost from '../components/ContainerPost/ContainerPost';
+import { getFollowers, getFriends } from '../redux/action';
 
 
 const Profile = () => {
+
+  const dispatch = useDispatch()
   const myUser = useSelector((state) => state.myUser);
   const singlePost = useSelector((state) => state.singlePost);
 
-  useEffect(() => {}, [myUser, singlePost]);
+  useEffect(() => {
+    dispatch(getFriends(myUser._id))
+    dispatch(getFollowers(myUser._id));}, [dispatch, myUser, singlePost]);
+  const friends = useSelector((state) => state.friends);
+  const myFollowers = useSelector((state) => state.followers);
+
+
+
 
   return (
     <>
-      <SidebarWithHeader myUser={myUser} />
+      <SidebarWithHeader myUser={myUser} friends={friends} myFollowers={myFollowers} />
       <Box
         className="ImageHeader"
         zIndex={2}
@@ -40,14 +50,13 @@ const Profile = () => {
         textAlign={'center'}
         justifyContent={'center'}
         direction={'column'}
-        width={'167.5vh'}
+        width={'81vw'}
         height={'80vh'}
         mt={'18%'}
         ml={'18%'}
       >
         <ContainerPost site="profile" myUser={myUser} singlePost={singlePost} />
       </Box>
-
     </>
   );
 };

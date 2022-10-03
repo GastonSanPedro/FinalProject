@@ -1,7 +1,7 @@
 import { Link, Flex, Avatar, Text  } from "@chakra-ui/react";
 
 
-export const FriendCard = ({ image, link,firstName, lastName, email, fullName }) => {
+export const FriendCard = ({ image, firstName, lastName, email, fullName }) => {
 
     return (
       <Link
