@@ -12,7 +12,7 @@ import { MobileNav } from './MovileNav';
 import { SidebarContent } from './SidebarContent';
 
 
-export default function SidebarWithHeader({ friends, children, myUser }) {
+export default function SidebarWithHeader({ friends, children, myUser, myFollowers }) {
   
   const { isOpen, onOpen, onClose } = useDisclosure();
   const auth = useSelector((state) => state.auth);
@@ -41,6 +41,7 @@ export default function SidebarWithHeader({ friends, children, myUser }) {
         display={{ base: 'none', md: 'block' }}
         myUser={myUser}
         friends={friends}
+        myFollowers={myFollowers}
       />
       <Drawer
         autoFocus={false}

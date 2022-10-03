@@ -1,4 +1,5 @@
-import { OnModuleInit } from '@nestjs/common';
+import { OnModuleInit, Body } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
 import { 
   MessageBody, 
   OnGatewayConnection, 
@@ -10,12 +11,13 @@ import {
 import { Server, Socket} from 'socket.io';
 import { MessagesWsService } from './messages-ws.service';
 
+
 @WebSocketGateway({ cors: true})
 export class MessagesWsGateway implements  OnModuleInit, OnGatewayConnection, OnGatewayDisconnect {
   
   @WebSocketServer() wss: Server;
   constructor(
-    private readonly messagesWsService: MessagesWsService
+    private readonly messagesWsService: MessagesWsService,
     ) {}
 
         onModuleInit() {
@@ -34,6 +36,25 @@ export class MessagesWsGateway implements  OnModuleInit, OnGatewayConnection, On
           this.messagesWsService.removeClient(client.id)
           this.wss.emit('clients-updated', this.messagesWsService.getConnectedClients())
         }
+
+        // @SubscribeMessage('newMessage')
+        //   onNewMessage(@MessageBody() body: any){
+        //    console.log(body)
+        //    this.wss.emit('onMessage', {
+        //      msg: 'New Message',
+        //      content: body
+        //    })
+        //   }
+
+        @SubscribeMessage('newMessage')
+          async onNewUser(@MessageBody() body: any){
+          const user = await this.messagesWsService.findClient(body)
+           this.wss.emit('onMessage', {
+             msg: 'New Message',
+             content: user
+           })
+          }
+
 }
 
       //! Emite unicamente al cliente.
@@ -68,8 +89,6 @@ export class MessagesWsGateway implements  OnModuleInit, OnGatewayConnection, On
 
 
 
-
-
 // @WebSocketGateway({ cors: true})
 // export class MessagesWsGateway2 implements  OnModuleInit {
 
@@ -90,5 +109,5 @@ export class MessagesWsGateway implements  OnModuleInit, OnGatewayConnection, On
 //      msg: 'New Message',
 //      content: body
 //    })
-//  }
+//   }
 // }

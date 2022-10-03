@@ -16,7 +16,7 @@ const LinkItems = [
     { name: 'Favourites', icon: FiStar },
   ];
 
-export const SidebarContent = ({ friends, myUser, onClose, ...rest }) => {
+export const SidebarContent = ({ myFollowers, friends, myUser, onClose, ...rest }) => {
 
     return (
       <Box
@@ -51,8 +51,13 @@ export const SidebarContent = ({ friends, myUser, onClose, ...rest }) => {
         </Box>
   
     {/*-----------DrawerFriends---------------*/}
-        <Box pos={'fixed'} top={'89%'}>
-          <Friends myUser={myUser} friends={friends} />
+        <Box 
+        pos={'fixed'} 
+        top={'89%'}>
+          <Friends 
+          myUser={myUser} 
+          friends={friends} 
+          myFollowers={myFollowers} />
         </Box>
       </Box>
     );
