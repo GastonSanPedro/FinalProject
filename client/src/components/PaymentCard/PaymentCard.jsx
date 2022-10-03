@@ -34,7 +34,7 @@ export default function PaymentCard({ num, days, price, myUser }) {
     setOverlay(<OverlayOne />);
     onOpen();
   };
-  //console.log(myUser.posts);
+  //console.log(myUser);
   return (
     <Center py={6}>
       <PaymentModal

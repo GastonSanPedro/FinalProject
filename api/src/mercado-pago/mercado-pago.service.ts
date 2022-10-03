@@ -4,7 +4,7 @@ import { UpdateMercadoPagoDto } from './dto/update-mercado-pago.dto';
 const mercadopago = require('mercadopago');
 mercadopago.configure({
   access_token:
-    'TEST-7552348907655682-092210-b3a2be080fe7a5b1032e57c80a84ef0c-339112230',
+    'TEST-5392084165099528-100312-3ab3d506bfcb10e63fdbac4a12bf06ef-1209930610',
 });
 
 @Injectable()
@@ -20,11 +20,12 @@ export class MercadoPagoService {
     });
 
     const preference ={
+      payer_email: "test_user_62162867@testuser.com",
       items : itemsToMP,
       back_urls:{
-        success: 'https://localhost:3000',
-        failure: 'https://localhost:3000',
-        pending: 'https://localhost:3000',
+        success: 'http://localhost:3000/payments',
+        failure: 'http://localhost:3000/payments',
+        pending: 'http://localhost:3000',
       },
       auto_return: 'approved',
     };
@@ -33,3 +34,10 @@ export class MercadoPagoService {
     return mpUrl.body;
   }
 }
+//Vendedor
+// user TESTD5OG2MF1  pass 6RrOX9nz4O
+// email  test_user_62162867@testuser.com
+//
+//Comprador
+// user TESTWXWLDAZ7 pass 6x6PWZlf00
+//  nombre Martinez Mirtha  DNI 01111111
