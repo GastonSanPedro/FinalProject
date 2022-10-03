@@ -20,6 +20,7 @@ export class MercadoPagoService {
     });
 
     const preference ={
+      payer_email: "test_user_62162867@testuser.com",
       items : itemsToMP,
       back_urls:{
         success: 'https://localhost:3000',
