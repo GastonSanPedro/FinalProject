@@ -1,20 +1,31 @@
 import { Box, Center, Stack } from '@chakra-ui/react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import PaymentCard from '../components/PaymentCard/PaymentCard';
 import SidebarWithHeader from '../components/Sidebar-Navbar/SideBar';
+import { getFollowers } from '../redux/action';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 
 const Payments = () => {
   const dispatch = useDispatch();
   const myUser = useSelector((state) => state.myUser);
-  // useEffect(() => {
-  //   dispatch()
+  const friends = useSelector((state) => state.friends);
+  const myFollowers = useSelector((state) => state.followers);
+
+  useEffect(() => {
+    dispatch(getFollowers(myUser._id));
+  }, [dispatch, myUser]);
 
   // }, [third])
-  //console.log(myUser?.posts);
+  console.log(myUser?.posts);
 
   return (
     <>
-      <SidebarWithHeader />
+      <SidebarWithHeader
+        myUser={myUser}
+        friends={friends}
+        myFollowers={myFollowers}
+      />
       <Box p={'8%'} pl={'20%'}>
         <Center
           display={'flex'}
@@ -23,9 +34,9 @@ const Payments = () => {
           justifyContent={'space-evenly'}
           bg={'rgba(205, 235, 164, 0.2)'}
         >
-          <PaymentCard myUser={myUser} price={'3'} days={'1'} num={'30'} />
-          <PaymentCard myUser={myUser} price={'6'} days={'3'} num={'40'} />
-          <PaymentCard myUser={myUser} price={'8'} days={'7'} num={'50'} />
+          <PaymentCard price={'3'} days={'1'} num={'30'} myUser={myUser} />
+          <PaymentCard price={'6'} days={'3'} num={'40'} myUser={myUser} />
+          <PaymentCard price={'8'} days={'7'} num={'50'} myUser={myUser} />
         </Center>
       </Box>
     </>

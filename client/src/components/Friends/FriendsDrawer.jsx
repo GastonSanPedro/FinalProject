@@ -14,19 +14,19 @@ import {
   AccordionPanel,
   AccordionIcon,
 } from '@chakra-ui/react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useDisclosure } from '@chakra-ui/react';
 import { FiUsers } from 'react-icons/fi';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { FriendCard } from './FriendCard';
 import SearchFriends from './SearchFriends';
-import { getFriends } from '../../redux/action';
 
-export default function Friends({ myUser }) {
+export default function Friends({ myUser, friends, myFollowers }) {
   const dispatch = useDispatch();
   const [size, setSize] = useState('');
   const [input, setInput] = useState('');
   const { isOpen, onOpen, onClose } = useDisclosure();
+<<<<<<< HEAD
   const handleClick = () => { onOpen(); };
   const id = myUser?._id
   console.log({myUser})
@@ -35,6 +35,11 @@ export default function Friends({ myUser }) {
   }, [dispatch]);
 
   const friends = useSelector((state) => state.searchFriends);
+=======
+  const handleClick = () => {
+    onOpen();
+  };
+>>>>>>> dev3
 
   return (
     <>
@@ -83,16 +88,16 @@ export default function Friends({ myUser }) {
                 </h2>
                 <AccordionPanel pb={4}>
                   {friends ? (
-                    friends.map((friend, index) => {
+                    friends?.map((friend, index) => {
                       return (
                         <Box key={index}>
                           <FriendCard
-                            image={friend.idFriend.image}
-                            email={friend.idFriend.email}
-                            id={friend.idFriend._id}
-                            firstName={friend.idFriend.firstName}
-                            lastName={friend.idFriend.lastName}
-                            fullName={friend.idFriend.fullName}
+                            image={friend.idFriend?.image}
+                            email={friend.idFriend?.email}
+                            id={friend.idFriend?._id}
+                            firstName={friend.idFriend?.firstName}
+                            lastName={friend.idFriend?.lastName}
+                            fullName={friend.idFriend?.fullName}
                           />
                         </Box>
                       );
@@ -112,7 +117,24 @@ export default function Friends({ myUser }) {
                   </AccordionButton>
                 </h2>
                 <AccordionPanel pb={4}>
-                  Aca van a estar los que me siguen a mi
+                  {myFollowers ? (
+                    myFollowers.map((follower, index) => {
+                      return (
+                        <Box key={index}>
+                          <FriendCard
+                            image={follower.image}
+                            email={follower.email}
+                            id={follower._id}
+                            firstName={follower.firstName}
+                            lastName={follower.lastName}
+                            fullName={follower.fullName}
+                          />
+                        </Box>
+                      );
+                    })
+                  ) : (
+                    <p>*Ruido de grillos*</p>
+                  )}
                 </AccordionPanel>
               </AccordionItem>
             </Accordion>

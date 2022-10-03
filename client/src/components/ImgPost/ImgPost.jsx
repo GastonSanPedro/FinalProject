@@ -155,7 +155,11 @@ export default function ImgPost({
           <VStack>
             {/**Reacciones */}
             {/**Descripcion con lógica ver mas */}
-            <HStack></HStack>
+            <HStack>
+              <Avatar></Avatar>
+              {/**Username */}
+              {/**Fecha */}
+            </HStack>
 
 
           </VStack>

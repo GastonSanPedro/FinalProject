@@ -1,21 +1,22 @@
 import {
   Box,
   Avatar,
-  Center,
   Stack,
   Text,
   HStack,
   Button,
+  IconButton,
+  Flex
 } from '@chakra-ui/react';
 import { IoExitOutline } from 'react-icons/io5';
-import { RiUserFollowLine, RiUserUnfollowLine } from 'react-icons/ri';
-import { useDispatch, useSelector } from 'react-redux';
+import { RiUserFollowLine, RiUserUnfollowLine, RiUserSettingsLine } from 'react-icons/ri';
+import { useDispatch , useSelector} from 'react-redux';
 import { logOut, addFriend, deleteFriend } from '../../redux/action';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useEffect } from 'react'
 
-const UserCard = ({ site, myUser, user }) => {
-  const friends = useSelector((state) => state.friends);
-  console.log({ friends });
+const UserCard = ({ site, myUser, user, friends }) => {
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleClickLogout = () => {
@@ -25,14 +26,17 @@ const UserCard = ({ site, myUser, user }) => {
   };
   const handleClickFollow = () => {
     dispatch(addFriend(myUser._id, user._id));
-    alert('ok');
   };
   const handleClickUnfollow = () => {
-    dispatch(deleteFriend(myUser._id, user._id));
-  };
+    dispatch(deleteFriend(myUser._id, user._id))
+    
+  }
 
-  //const following = friends?.find(friend => friend?.idFriend._id === user._id)
-  const following = {};
+  const following = () =>{
+  if(friends.length){
+    return friends?.filter(friend => friend?.idFriend._id === user._id)}
+  }
+  
   const setUserToSite = (site) => {
     if (site === 'profile') {
       return myUser;
@@ -42,6 +46,9 @@ const UserCard = ({ site, myUser, user }) => {
     }
   };
   const followValidator = JSON.parse(localStorage.getItem('email'));
+
+  // useEffect(() => {}, [myUser.followers]);
+
   return (
     <Box
       zIndex={2}
@@ -49,69 +56,103 @@ const UserCard = ({ site, myUser, user }) => {
       flexDir={'column'}
       ml="77%"
       mt="19%"
-      h="45vh"
+      h="50vh"
       w="19vw"
-      p="1% 2% 1% 1%"
+      p="1% 3% 1% 1%"
       position={'absolute'}
       bg={'white'}
       justifyContent={'center'}
     >
-      <Box
-        position={'absolute'}
-        ml={'80%'}
-        bg={`logo.2`}
-        w={7}
-        h={'45vh'}
-      ></Box>
-      <Stack>
-        <Avatar
-          size="2xl"
-          showBorder="true"
-          mt="-40%"
-          right={'-17%'}
-          objectFit={'contain'}
-          src={setUserToSite(site)?.image}
-          name={setUserToSite(site)?.fullName}
-        />
-        <Stack display={'flex'} alignContent={'center'} p={'2vh'}>
-          <Stack spacing={'0vh'}>
-            <Text fontSize="xl" fontWeight={'semibold'} textAlign={'left'}>
-              {setUserToSite(site)?.firstName} {setUserToSite(site)?.lastName}
-            </Text>
+      <Box 
+      position={'absolute'}
+      ml={'80%'}
+      bg={`logo.2`} 
+      w={7} 
+      h={'50vh'}></Box>
+        <Stack >
+          <Avatar
+            size="2xl"
+            showBorder="true"
+            mt="-40%"
+            right={'-17%'}
+            objectFit={'contain'}
+            src={setUserToSite(site)?.image}
+            name={setUserToSite(site)?.fullName}
+          />
+          <Stack
+            display={'flex'}
+            alignContent={'center'}
+            p={'2vh'}
+          >
+            <Stack spacing={'0vh'}>
+            <Flex flexDir={'row'} align={'center'}>
             <Text
-              fontSize="md"
+              fontSize="xl"
+              fontWeight={'semibold'}
+              textAlign={'left'}
+            >
+              {setUserToSite(site)?.firstName}{' '}{setUserToSite(site)?.lastName}
+            </Text>
+            { site === 'profile' ?(<Link to={'/settings'}>
+            <IconButton
+            p={0}
+            icon={<RiUserSettingsLine/>}
+            size={'md'}
+            textColor={'gray.700'}
+            bg={'none'}
+            borderRadius={2}
+            _hover={{
+              textColor: 'white',
+              bg: 'logo.2',
+              }}/>
+            </Link>
+            ):(null)}
+            </Flex>
+            <Text
+              fontSize="sm"
               color={'gray.500'}
               fontStyle={'italic'}
               textAlign={'left'}
             >
               {setUserToSite(site)?.userName}
             </Text>
+            </Stack>
+            <Text
+              fontSize="xs"
+              color={'gray.500'}
+              textAlign={'left'}
+              >
+              {setUserToSite(site)?.bio}
+            </Text>
+            <HStack  justify={'left'} spacing={'3.5vh'}>
+              <Box align={'center'}>
+                <Text fontSize="xs" >
+                  Following
+                </Text>
+                <Text fontSize="md" color={'gray.500'}>
+                  {setUserToSite(site)?.friends?.length}
+                </Text>
+              </Box>
+              <Box align={'center'}>
+                <Text fontSize="xs" >
+                  Followers
+                </Text>
+                <Text fontSize="md" color={'gray.500'}>
+                  {setUserToSite(site)?.followers?.length}
+                </Text>
+              </Box>
+              <Box align={'center'}>
+                <Text fontSize="xs" >
+                  Posts
+                </Text>
+                <Text fontSize="md" color={'gray.500'}>{setUserToSite(site)?.posts?.length}</Text>
+              </Box>
+            </HStack>
           </Stack>
-          <Text fontSize="xs" color={'gray.500'} textAlign={'left'}>
-            {setUserToSite(site)?.bio}
-          </Text>
-          <HStack justify={'left'} spacing={'3.5vh'}>
-            <Box align={'center'}>
-              <Text fontSize="xs">Following</Text>
-              <Text fontSize="md" color={'gray.500'}>
-                {setUserToSite(site)?.friends?.length}
-              </Text>
-            </Box>
-            <Box align={'center'}>
-              <Text fontSize="xs">Followers</Text>
-              <Text fontSize="md" color={'gray.500'}>
-                100
-              </Text>
-            </Box>
-            <Box align={'center'}>
-              <Text fontSize="xs">Posts</Text>
-              <Text fontSize="md" color={'gray.500'}>
-                {setUserToSite(site)?.posts?.length}
-              </Text>
-            </Box>
-          </HStack>
+
+          
         </Stack>
-      </Stack>
+      
 
       {site === 'profile' ? (
         <Button
@@ -133,7 +174,8 @@ const UserCard = ({ site, myUser, user }) => {
         >
           Log Out
         </Button>
-      ) : !Object.entries(following).length ? (
+      ) : (
+        !following()?.length ? (
         <Button
           p={'2%'}
           zIndex={20}
@@ -165,10 +207,11 @@ const UserCard = ({ site, myUser, user }) => {
             textColor: 'white',
             bg: 'logo.2',
           }}
-          onClick={() => handleClickFollow()}
-        >
-          UNFOLLOW
-        </Button>
+            onClick={() => handleClickUnfollow()}
+          >
+            UNFOLLOW
+          </Button>
+        )
       )}
     </Box>
   );
