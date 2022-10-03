@@ -21,9 +21,11 @@ export const GET_FRIENDS = 'GET_FRIENDS';
 export const GET_FOLLOWERS = 'GET_FOLLOWERS';
 export const DELETE_FRIENDS = 'DELETE_FRIENDS';
 export const SEARCH_FRIENDS = 'SEARCH_FRIENDS';
+export const GET_FRIENDS_POSTS = 'GET_FRIENDS_POSTS'
 export const REPORT_POST = 'REPORT_POST';
 export const DELETE_POST = 'DELETE_POST';
 export const CREATE_PAYMENT = 'CREATE_PAYMENT';
+
 
 export function getUsers() {
   return async function (dispatch) {
@@ -274,7 +276,7 @@ export function logOut() {
     }
   };
 }
-export function addFriend(myUserid, anyUserId) {
+export const addFriend = (myUserid, anyUserId) =>{
   const ids = {
     idFriend: anyUserId,
     idUser: myUserid,
@@ -293,7 +295,7 @@ export function addFriend(myUserid, anyUserId) {
     }
   };
 }
-export function getFriends(myId){
+export const getFriends = (myId) =>{
   return async function(dispatch){
   let { data } = await axios.get(`/friends/${myId}`)
     return dispatch({
@@ -302,7 +304,7 @@ export function getFriends(myId){
     });
   };
 }
-export function getFollowers(id){
+export const getFollowers = (id) =>{
   return async function(dispatch){
     let { data } = await axios.get(`/friends/followers/${id}`)
     return dispatch({
@@ -311,7 +313,7 @@ export function getFollowers(id){
     })
   }
 }
-export function searchFriends(id, input){
+export const searchFriends = (id, input) =>{
   return async function(dispatch){
     let json = await axios.get('/friends/' + id)
     let filterFriends = json.data.filter(friend => {
@@ -323,15 +325,14 @@ export function searchFriends(id, input){
     });
   };
 }
-export function deleteFriend(myUserid, anyUserId) {
+export const deleteFriend = (myUserid, anyUserId) => {
+  
   const ids = {
     idFriend: anyUserId,
     idUser: myUserid };
-
-    console.log({ids}, 'actiondelete')
   return async function (dispatch) {
     try {
-      let info = await axios.delete(`/users/friend/${myUserid}`, ids);
+      let info = await axios.delete(`/friends/${myUserid}`, ids);
       let { data } = await axios.get(`/friends/${myUserid}`);
 
       return dispatch({
@@ -342,6 +343,15 @@ export function deleteFriend(myUserid, anyUserId) {
       console.log(error);
     }
   };
+}
+export const getFriendsPosts = (myId) => {
+  return async function (dispatch) {
+    const {data} = await axios.get(`/friends/posts/${myId}`)
+    return dispatch({
+      type: GET_FRIENDS_POSTS,
+      payload: data
+    })
+  }
 }
 export function reportPost(id) {
   return async function (dispatch) {

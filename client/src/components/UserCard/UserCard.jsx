@@ -29,7 +29,7 @@ const UserCard = ({ site, myUser, user, friends }) => {
   };
   const handleClickUnfollow = () => {
     dispatch(deleteFriend(myUser._id, user._id))
-    alert('ok')
+    
   }
 
   const following = () =>{
@@ -149,29 +149,8 @@ const UserCard = ({ site, myUser, user, friends }) => {
               </Box>
             </HStack>
           </Stack>
-          <Text fontSize="xs" color={'gray.500'} textAlign={'left'}>
-            {setUserToSite(site)?.bio}
-          </Text>
-          <HStack justify={'left'} spacing={'3.5vh'}>
-            <Box align={'center'}>
-              <Text fontSize="xs">Following</Text>
-              <Text fontSize="md" color={'gray.500'}>
-                {setUserToSite(site)?.friends?.length}
-              </Text>
-            </Box>
-            <Box align={'center'}>
-              <Text fontSize="xs">Followers</Text>
-              <Text fontSize="md" color={'gray.500'}>
-                100
-              </Text>
-            </Box>
-            <Box align={'center'}>
-              <Text fontSize="xs">Posts</Text>
-              <Text fontSize="md" color={'gray.500'}>
-                {setUserToSite(site)?.posts?.length}
-              </Text>
-            </Box>
-          </HStack>
+
+          
         </Stack>
       
 
