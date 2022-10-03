@@ -1,5 +1,5 @@
 /* global google */
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext} from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Tooltip,
@@ -21,6 +21,7 @@ import { authUser } from '../../redux/action';
 import imgBackground from '../../assets/landing-pic.jpg';
 import logo from '../../assets/logo.jpg';
 import jwt_decode from 'jwt-decode';
+import { WebsocketContext } from '../../context/WebsocketContext';
 
 const imagenB = imgBackground;
 const logoLeafme = logo;
@@ -42,6 +43,23 @@ const LogInForm = ({ logOrsign, setlogOrSign }) => {
     setInput({ ...input, [event.target.name]: event.target.value });
   const isError = input === ''; //true or false
 
+  const socket =  useContext(WebsocketContext)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
   const handleCallbackResponse = (response) => {
     console.log('Encoded JWT ID token:' + response.credential);
     var userObject = jwt_decode(response.credential);

@@ -1,4 +1,3 @@
-import { background } from '@chakra-ui/react';
 import { useContext, useEffect, useState } from 'react';
 import { WebsocketContext } from '../../context/WebsocketContext';
 
@@ -13,24 +12,32 @@ const WebSocketChat = () => {
     const [message, setMessage] = useState('')
     const [boxMessages, setBoxMessages] = useState<MessagePayload[]>([])
 
+
     useEffect(()=> {
         socket.on('connect', () => { 
-            console.log('Connected!')
-
+            console.log('cliente conectado')
         })
+
+        socket.on('disconnect', ()=> {
+            console.log('cliente desconectado')
+        })
+
+        socket.on('clients-updated', (data)=>{
+            console.log(data)
+        })
+        
         socket.on('onMessage', (data: MessagePayload) => {
             // console.log('onMessage event received!')
-            // console.log(data)
-            setBoxMessages((asd) => [...asd, data])
+            setBoxMessages((prev)=> [...prev, data])
         })
+
         return () => {
             console.log('Unregistering Events...')
             socket.off('connect');
-            socket.off('disconnected')
+            socket.off('disconnect')
         }
     }, [])
 
-    console.log({boxMessages})
     const onSubmit = () => {
     socket.emit('newMessage', message) 
     setMessage('')
