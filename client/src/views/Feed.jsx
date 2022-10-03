@@ -3,7 +3,12 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ContainerPost from '../components/ContainerPost/ContainerPost';
 import SidebarWithHeader from '../components/Sidebar-Navbar/SideBar';
-import { getFollowers, getFriends, getPosts } from '../redux/action';
+import {
+  getFollowers,
+  getFriends,
+  getFriendsPosts,
+  getPosts,
+} from '../redux/action';
 
 const Feed = () => {
   const myUser = useSelector((state) => state.myUser);
@@ -40,6 +45,7 @@ const Feed = () => {
       >
         <ContainerPost
           myUser={myUser}
+          //friendsPosts={friendsPosts}
           posts={allPosts}
           singlePost={singlePost}
           site={'feed'}

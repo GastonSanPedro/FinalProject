@@ -242,7 +242,7 @@ export const authUser = (mail, password, google) => {
       }
     }
   };
-};
+}
 export function cleanAuthUser() {
   return async function (dispatch) {
     return dispatch({
@@ -378,7 +378,6 @@ export function deletePost(id) {
     }
   };
 }
-
 export function createPayment(id, info) {
   return async function (dispatch) {
     try {
