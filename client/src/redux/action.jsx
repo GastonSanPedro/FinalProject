@@ -22,7 +22,7 @@ export const DELETE_FRIENDS = 'DELETE_FRIENDS';
 export const SEARCH_FRIENDS = 'SEARCH_FRIENDS';
 export const REPORT_POST = 'REPORT_POST';
 export const DELETE_POST = 'DELETE_POST';
-
+export const CREATE_PAYMENT = 'CREATE_PAYMENT';
 
 export function getUsers() {
   return async function (dispatch) {
@@ -239,7 +239,7 @@ export const authUser = (mail, password, google) => {
       }
     }
   };
-}
+};
 export function cleanAuthUser() {
   return async function (dispatch) {
     return dispatch({
@@ -276,8 +276,9 @@ export function logOut() {
 }
 export function addFriend(myUserid, anyUserId) {
   const ids = {
-      idFriend: anyUserId,
-      idUser: myUserid };
+    idFriend: anyUserId,
+    idUser: myUserid,
+  };
   return async function (dispatch) {
     try {
       let info = await axios.post(`/friends/`, ids);
@@ -292,30 +293,29 @@ export function addFriend(myUserid, anyUserId) {
     }
   };
 }
-export function getFriends(myId){
-  console.log({myId})
-  return async function(dispatch){
-    let { data } = await axios.get(`/friends/${myId}`)
-    console.log({data})
+export function getFriends(myId) {
+  console.log({ myId });
+  return async function (dispatch) {
+    let { data } = await axios.get(`/friends/${myId}`);
+    console.log({ data });
     return dispatch({
       type: GET_FRIENDS,
-      payload: data
-    })
-  }
+      payload: data,
+    });
+  };
 }
-export function searchFriends(id, input){
-  console.log(input)
-  return async function(dispatch){
-    let json = await axios.get('/friends/' + id)
-    let filterFriends = json.data.filter(friend => {
-      return (friend.idFriend.fullName.includes(input))
-    })
+export function searchFriends(id, input) {
+  console.log(input);
+  return async function (dispatch) {
+    let json = await axios.get('/friends/' + id);
+    let filterFriends = json.data.filter((friend) => {
+      return friend.idFriend.fullName.includes(input);
+    });
     return dispatch({
       type: SEARCH_FRIENDS,
-      payload: filterFriends
-    })
-
-  }
+      payload: filterFriends,
+    });
+  };
 }
 export function deleteFriend(myUserid, anyUserId) {
   const idAnyUser = { friend: anyUserId };
@@ -336,29 +336,36 @@ export function deleteFriend(myUserid, anyUserId) {
 export function reportPost(id) {
   return async function (dispatch) {
     try {
-      await axios.patch(`/posts/${id}`, { reported: true })
+      await axios.patch(`/posts/${id}`, { reported: true });
       return dispatch({
         type: REPORT_POST,
-      })
-    }
-    catch (error) {
+      });
+    } catch (error) {
       console.log(error);
     }
-  }
+  };
 }
 export function deletePost(id) {
   return async function (dispatch) {
     try {
-      const { data } = await axios.delete(`/posts/${id}`)
+      const { data } = await axios.delete(`/posts/${id}`);
       return dispatch({
         type: DELETE_POST,
-      })
-    }
-    catch (error) {
+      });
+    } catch (error) {
       console.log(error);
     }
-  }
+  };
 }
 
-
-
+export function createPayment(id, info) {
+  return async function (dispatch) {
+    try {
+      console.log(info);
+      const data = await axios.post(`/mercadoPago/${id}`, info);
+      console.log(data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
