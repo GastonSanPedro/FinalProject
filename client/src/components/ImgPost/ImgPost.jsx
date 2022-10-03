@@ -21,6 +21,8 @@ import {
   MenuItem,
   Menu,
   MenuButton,
+  VStack,
+  HStack
 } from '@chakra-ui/react';
 import {
   getSinglePosts,
@@ -117,7 +119,10 @@ export default function ImgPost({
           avatar={avatar}
           email={email}
         />
+        {/** Acá arranca la box del posteo */}
         <Box
+          border="1px"
+          boderColor="black"
           maxW={'25vw'}
           w={'25vw'}
           bg={useColorModeValue('white', 'gray.900')}
@@ -129,24 +134,40 @@ export default function ImgPost({
             bg: `logo.${randomNumber(1, 4)}`,
           }}
         >
-          <Box h={'210px'} mt={-6} mx={-6} mb={6} pos={'relative'}>
-            <Image
-              src={image}
-              layout={'cover'}
-              boxSize="30vh"
-              width={'100%'}
-              objectFit={'cover'}
-            />
-          </Box>
+          {/* <Box h={'210px'}  pt={10} pl={10} mx={-6} mb={6} pos={'relative'}> */}
+          <Image
+            src={image}
+            // h={'210px'}
+
+            // pt={5}
+            // pl={10}
+            // mx={-6}
+            // mb={6}
+            pos={'relative'}
+            layout={'cover'}
+            objectFit={'cover'}
+            boxSize="40vh"
+            width={'100%'}
+            
+          />
+          {/* </Box> */}
+
+          <VStack>
+            {/**Reacciones */}
+            {/**Descripcion con lógica ver mas */}
+            <HStack></HStack>
+
+
+          </VStack>
           <Stack>
-            <Heading
+            {/* <Heading
               color={useColorModeValue('gray.700', 'white')}
               textTransform="uppercase"
               fontSize={'2xl'}
               fontFamily={'body'}
             >
               {userName}
-            </Heading>
+            </Heading> */}
             <Text width={'35vh'} h={'12vh'} color={'gray.500'}>
               {sentenceCase(description, true)}
             </Text>
@@ -225,7 +246,7 @@ export default function ImgPost({
                   name="heart"
                   // value={comment?.likes?.heart}
                   icon={<BiHeart />}
-                  onHover={() => {}}
+                  onHover={() => { }}
                   _hover={{
                     bg: 'white',
                   }}
@@ -241,7 +262,7 @@ export default function ImgPost({
                   name="confusedLeaf"
                   // value={comment?.likes?.confusedLeaf}
                   icon={<BiShocked />}
-                  onHover={() => {}}
+                  onHover={() => { }}
                   _hover={{
                     bg: 'white',
                   }}

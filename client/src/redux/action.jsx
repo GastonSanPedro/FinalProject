@@ -23,7 +23,6 @@ export const SEARCH_FRIENDS = 'SEARCH_FRIENDS';
 export const REPORT_POST = 'REPORT_POST';
 export const DELETE_POST = 'DELETE_POST';
 export const GET_FRIENDS_POSTS = 'GET_FRIENDS_POSTS'
-
 export const CREATE_PAYMENT = 'CREATE_PAYMENT';
 
 export function getUsers() {
