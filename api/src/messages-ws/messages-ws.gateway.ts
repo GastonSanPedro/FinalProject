@@ -36,16 +36,6 @@ export class MessagesWsGateway implements  OnModuleInit, OnGatewayConnection, On
         }
 }
 
-  // handleConnection(client:Socket) {
-  //   this.messagesWsService.registerClient(client)
-  //   this.wss.emit('clients-updated', this.messagesWsService.getConnectedClients())
-
-  // }
-  // handleDisconnect(client: Socket) {
-  //   this.messagesWsService.removeClient(client.id)
-  //   this.wss.emit('clients-updated', this.messagesWsService.getConnectedClients())
-  // }
-
       //! Emite unicamente al cliente.
 
     // client.emit('message-from-server',{
@@ -76,25 +66,29 @@ export class MessagesWsGateway implements  OnModuleInit, OnGatewayConnection, On
 // // Asigna un room al cual transmitir
 //     this.wss.to('ventas').emit('')
 
-@WebSocketGateway({ cors: true})
-export class MessagesWsGateway2 implements  OnModuleInit {
 
-  @WebSocketServer() wss: Server;
 
-  onModuleInit() {
-    this.wss.on('connection', (socket) => {
-      // console.log(socket.id);
-      console.log(socket.id)
-      console.log('Connected')
-    })
-  }
 
-  @SubscribeMessage('newMessage')
-  onNewMessage(@MessageBody() body: any){
-   console.log(body)
-   this.wss.emit('onMessage', {
-     msg: 'New Message',
-     content: body
-   })
- }
-}
+
+// @WebSocketGateway({ cors: true})
+// export class MessagesWsGateway2 implements  OnModuleInit {
+
+//   @WebSocketServer() wss: Server;
+
+//   onModuleInit() {
+//     this.wss.on('connection', (socket) => {
+//       // console.log(socket.id);
+//       console.log(socket.id)
+//       console.log('Connected')
+//     })
+//   }
+
+//   @SubscribeMessage('newMessage')
+//   onNewMessage(@MessageBody() body: any){
+//    console.log(body)
+//    this.wss.emit('onMessage', {
+//      msg: 'New Message',
+//      content: body
+//    })
+//  }
+// }
