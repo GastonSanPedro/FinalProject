@@ -51,7 +51,7 @@ const UserCard = ({ site, myUser, user, friends }) => {
 
   return (
     <Box
-      zIndex={10}
+      zIndex={2}
       display={'flex'}
       flexDir={'column'}
       ml="77%"
@@ -113,7 +113,7 @@ const UserCard = ({ site, myUser, user, friends }) => {
               color={'gray.500'}
               fontStyle={'italic'}
               textAlign={'left'}
-              >
+            >
               {setUserToSite(site)?.userName}
             </Text>
             </Stack>
@@ -149,8 +149,32 @@ const UserCard = ({ site, myUser, user, friends }) => {
               </Box>
             </HStack>
           </Stack>
+          <Text fontSize="xs" color={'gray.500'} textAlign={'left'}>
+            {setUserToSite(site)?.bio}
+          </Text>
+          <HStack justify={'left'} spacing={'3.5vh'}>
+            <Box align={'center'}>
+              <Text fontSize="xs">Following</Text>
+              <Text fontSize="md" color={'gray.500'}>
+                {setUserToSite(site)?.friends?.length}
+              </Text>
+            </Box>
+            <Box align={'center'}>
+              <Text fontSize="xs">Followers</Text>
+              <Text fontSize="md" color={'gray.500'}>
+                100
+              </Text>
+            </Box>
+            <Box align={'center'}>
+              <Text fontSize="xs">Posts</Text>
+              <Text fontSize="md" color={'gray.500'}>
+                {setUserToSite(site)?.posts?.length}
+              </Text>
+            </Box>
+          </HStack>
         </Stack>
-        
+      
+
       {site === 'profile' ? (
         <Button
           p={'2%'}
@@ -174,23 +198,24 @@ const UserCard = ({ site, myUser, user, friends }) => {
       ) : (
         !following()?.length ? (
         <Button
-        p={'2%'}
-        zIndex={20}
-        rightIcon={<RiUserFollowLine />}
-        w={'30vh'}
-        textColor={'gray.700'}
-        mt={'2%'}
-        bg={'none'}
-        borderRadius={2}
-        _hover={{
-          textColor: 'white',
-          bg: 'logo.2',
-        }}
+          p={'2%'}
+          zIndex={20}
+          rightIcon={<RiUserFollowLine />}
+          w={'30vh'}
+          textColor={'gray.700'}
+          mt={'2%'}
+          bg={'none'}
+          borderRadius={2}
+          _hover={{
+            textColor: 'white',
+            bg: 'logo.2',
+          }}
           onClick={() => handleClickFollow()}
         >
           FOLLOW
-        </Button> ):(
-          <Button
+        </Button>
+      ) : (
+        <Button
           p={'2%'}
           zIndex={20}
           rightIcon={<RiUserUnfollowLine />}

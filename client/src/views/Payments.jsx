@@ -17,7 +17,10 @@ const Payments = () => {
         dispatch(getFollowers(myUser._id));
       }, [dispatch, myUser]);
 
- return(
+  // }, [third])
+  //console.log(myUser?.posts);
+
+  return (
     <>
     <SidebarWithHeader myUser={myUser} friends={friends} myFollowers={myFollowers}/>
     <Box
@@ -45,7 +48,7 @@ const Payments = () => {
     </Box>
     
     </>
- )   
-}
+  );
+};
 
-export default Payments
+export default Payments;

@@ -9,7 +9,6 @@ import { useParams } from 'react-router-dom';
 import ContainerPost from '../components/ContainerPost/ContainerPost';
 
 export default function AnyProfile() {
-
   const dispatch = useDispatch();
   let { email } = useParams();
   const user = useSelector((state) => state.user);
@@ -48,12 +47,17 @@ export default function AnyProfile() {
         textAlign={'center'}
         justifyContent={'center'}
         direction={'column'}
-        width={'167.5vh'}
+        width={'81vw'}
         height={'80vh'}
         mt={'18%'}
         ml={'18%'}
       >
-        <ContainerPost site="anyProfile" user={user} myUser={myUser} email={email} />
+        <ContainerPost
+          site="anyProfile"
+          user={user}
+          myUser={myUser}
+          email={email}
+        />
       </Box>
     </>
   );

@@ -45,39 +45,39 @@ export default function Friends({myUser, friends, myFollowers}) {
       <Drawer onClose={onClose} isOpen={isOpen} size={'xs'}>
         <DrawerOverlay />
         <DrawerContent>
-        <DrawerCloseButton />
+          <DrawerCloseButton />
           <DrawerHeader>{`My friends`}</DrawerHeader>
           <DrawerBody>
-          <SearchFriends setInput={setInput} input={input} myUser={myUser}/>
+            <SearchFriends setInput={setInput} input={input} myUser={myUser} />
             <Accordion defaultIndex={[0]} allowMultiple>
               <AccordionItem>
                 <h2>
                   <AccordionButton>
-                    <Box flex='1' textAlign='left'>
+                    <Box flex="1" textAlign="left">
                       Following
                     </Box>
                     <AccordionIcon />
                   </AccordionButton>
                 </h2>
                 <AccordionPanel pb={4}>
-                {
-                  friends ? (
+                  {friends ? (
                     friends.map((friend, index) => {
-                      return(
+                      return (
                         <Box key={index}>
-                        <FriendCard
-                          image={friend.idFriend.image}
-                          email={friend.idFriend.email}
-                          id={friend.idFriend._id}
-                          firstName={friend.idFriend.firstName}
-                          lastName={friend.idFriend.lastName}
-                          fullName={friend.idFriend.fullName}
+                          <FriendCard
+                            image={friend.idFriend.image}
+                            email={friend.idFriend.email}
+                            id={friend.idFriend._id}
+                            firstName={friend.idFriend.firstName}
+                            lastName={friend.idFriend.lastName}
+                            fullName={friend.idFriend.fullName}
                           />
-                        </Box>)}))
-                        : (
-                        <p>Follow someone</p>
-                      )
-                }
+                        </Box>
+                      );
+                    })
+                  ) : (
+                    <p>Follow someone</p>
+                  )}
                 </AccordionPanel>
                 </AccordionItem>
                 <AccordionItem>
