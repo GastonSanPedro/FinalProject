@@ -46,9 +46,6 @@ export class MessagesWsGateway implements  OnModuleInit, OnGatewayConnection, On
   //   this.wss.emit('clients-updated', this.messagesWsService.getConnectedClients())
   // }
 
-  
-
-
       //! Emite unicamente al cliente.
 
     // client.emit('message-from-server',{
@@ -69,8 +66,6 @@ export class MessagesWsGateway implements  OnModuleInit, OnGatewayConnection, On
 //     fullname: 'Soy yo',
 //     message: payload.message || 'no-message!!!' // poner algo por default o va a tirar error
 //     })
-
-
 
 // // Para mandar a un usuario a una sala directamente cuando se conecta
 //     client.join('ventas')
