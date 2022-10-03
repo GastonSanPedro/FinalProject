@@ -156,7 +156,7 @@ export default function rootReducer(state = initialState, action) {
       return{
         ...state,
         followers: action.payload
-      }
+      };
     case SEARCH_FRIENDS:
       return{
         ...state,
@@ -167,11 +167,11 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         friends: action.payload,
       };
-      case GET_FRIENDS_POSTS:
+    case GET_FRIENDS_POSTS:
         return {
           ...state,
           friendsPosts: action.payload
-        }
+        };
     case REPORT_POST:
       return {
         ...state,

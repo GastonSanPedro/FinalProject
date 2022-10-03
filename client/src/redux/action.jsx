@@ -241,7 +241,7 @@ export const authUser = (mail, password, google) => {
       }
     }
   };
-};
+}
 export function cleanAuthUser() {
   return async function (dispatch) {
     return dispatch({
@@ -326,7 +326,6 @@ export const searchFriends = (id, input) =>{
   };
 }
 export const deleteFriend = (myUserid, anyUserId) => {
-  
   const ids = {
     idFriend: anyUserId,
     idUser: myUserid };
@@ -377,7 +376,6 @@ export function deletePost(id) {
     }
   };
 }
-
 export function createPayment(id, info) {
   return async function (dispatch) {
     try {

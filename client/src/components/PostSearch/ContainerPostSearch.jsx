@@ -18,7 +18,7 @@ const PostSearchContainer = ({state}) => {
 
     return (
         <>
-            <Wrap justify={'center'} spacing={30} w='980px' borderRadius='7px' p={8} m={3} backgroundColor={"gray.300"}>
+            <Wrap justify={'center'} spacing={30} w='100%'p={8} backgroundColor={'whitesmoke'}>
                 {
                     state === 'text' ? (
                                 <TextPostContainer
