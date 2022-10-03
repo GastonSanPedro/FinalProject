@@ -15,9 +15,9 @@ export const PaymentSucess = () => {
   const payment = useSelector((state) => state.payment);
   const [Bill, setBill] = useState(JSON.parse(localStorage.getItem('bill')));
 
-  useEffect(() => {
-    dispatch(getFollowers(myUser._id));
-  }, [dispatch, myUser]);
+  //   useEffect(() => {
+  //     dispatch(getFollowers(myUser._id));
+  //   }, [dispatch, myUser]);
   console.log(myUser?.posts);
   return (
     <>

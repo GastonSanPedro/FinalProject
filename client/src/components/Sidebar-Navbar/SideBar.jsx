@@ -4,30 +4,36 @@ import {
   useColorModeValue,
   Drawer,
   DrawerContent,
-  useDisclosure
+  useDisclosure,
 } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getMyUser } from '../../redux/action';
+import { getFollowers, getMyUser, getFriends } from '../../redux/action';
 import { MobileNav } from './MovileNav';
 import { SidebarContent } from './SidebarContent';
 
-
-export default function SidebarWithHeader({ friends, children, myUser, myFollowers }) {
-  
+export default function SidebarWithHeader({
+  friends,
+  children,
+  myUser,
+  myFollowers,
+}) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
-   const [User, setUser] = useState(
+  const [User, setUser] = useState(
     useState(JSON.parse(localStorage.getItem('user')))
-   );
+  );
   const neededEmail = User[0].email;
+  const neededId = User[0]._id;
 
   useEffect(() => {
-    setTimeout(function () {
+    if (myUser._id === undefined) {
       dispatch(getMyUser(neededEmail));
-    }, 300);
+      dispatch(getFollowers(neededId));
+      dispatch(getFriends(neededId));
+    }
   }, [dispatch, neededEmail]);
-
+  console.log(User);
   return (
     <Box
       pos={'fixed'}
@@ -57,32 +63,32 @@ export default function SidebarWithHeader({ friends, children, myUser, myFollowe
         </DrawerContent>
       </Drawer>
       <MobileNav onOpen={onOpen} myUser={myUser} />
-        <Box ml={{ base: 0, md: 60 }} p="4">
+      <Box ml={{ base: 0, md: 60 }} p="4">
         {children}
-        </Box>
+      </Box>
     </Box>
   );
 }
 
-  //----------Lógica notificaciones-------
-  // const [notifications, setNotifications] = useState([])
-  // const [open, setOpen] = useState(false)
+//----------Lógica notificaciones-------
+// const [notifications, setNotifications] = useState([])
+// const [open, setOpen] = useState(false)
 
-  // useEffect(() => {
-  //   socket.on("getNotification", data => {
-  //     setNotifications((prev) => [...prev, data])
-  //   })
-  // }, [socket])
+// useEffect(() => {
+//   socket.on("getNotification", data => {
+//     setNotifications((prev) => [...prev, data])
+//   })
+// }, [socket])
 
-  // const displayNotification = ({ senderName }) => {
-  //   return (
-  //     <MenuItem>A {senderName} le gustó tu posteo</MenuItem>
-  //   )
-  // }
+// const displayNotification = ({ senderName }) => {
+//   return (
+//     <MenuItem>A {senderName} le gustó tu posteo</MenuItem>
+//   )
+// }
 
-  // const handleRead = () => {
-  //   setNotifications([])
-  //   setOpen
-  // }
-  //En la parte del comienzo de la barra ({ children, socket })
-  //---------------------------------------
+// const handleRead = () => {
+//   setNotifications([])
+//   setOpen
+// }
+//En la parte del comienzo de la barra ({ children, socket })
+//---------------------------------------

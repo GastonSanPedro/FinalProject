@@ -9,25 +9,24 @@ import '../index.css';
 import ContainerPost from '../components/ContainerPost/ContainerPost';
 import { getFollowers, getFriends } from '../redux/action';
 
-
 const Profile = () => {
-
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const myUser = useSelector((state) => state.myUser);
   const singlePost = useSelector((state) => state.singlePost);
-
-  useEffect(() => {
-    dispatch(getFriends(myUser._id))
-    dispatch(getFollowers(myUser._id));}, [dispatch, myUser, singlePost]);
   const friends = useSelector((state) => state.friends);
   const myFollowers = useSelector((state) => state.followers);
 
-
-
+  // useEffect(() => {
+  //   dispatch(getFriends(myUser._id))
+  //   dispatch(getFollowers(myUser._id));}, [dispatch, myUser, singlePost]);
 
   return (
     <>
-      <SidebarWithHeader myUser={myUser} friends={friends} myFollowers={myFollowers} />
+      <SidebarWithHeader
+        myUser={myUser}
+        friends={friends}
+        myFollowers={myFollowers}
+      />
       <Box
         className="ImageHeader"
         zIndex={2}
