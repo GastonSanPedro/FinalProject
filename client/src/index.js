@@ -20,7 +20,9 @@ import axios from 'axios';
 import Payments from './views/Payments';
 import Settings from './views/Settings';
 import Explore from './views/Explore';
-import { connectToServer } from './socket-client';
+
+import {  WebsocketProvider, socket } from './context/WebsocketContext';
+import  WebSocketChat  from './components/ChatWs/WebSocketChat'
 // import Chat from './components/Chat/Chat';
 // const Dotenv = require('dotenv-webpack');
 
@@ -37,11 +39,13 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>
     <React.StrictMode>
+      <WebsocketProvider value={socket}>
       <ChakraProvider theme={theme}>
         <BrowserRouter>
           <Routes>
             {/* <Route path="/" element={<App/>}/> */}
             <Route path="/profile" element={<Profile />} />
+            <Route path="/chat" element={<WebSocketChat/>} />
             <Route path="/admin" element={<AdminProfile />} />
             <Route path="/landing-page" element={<Landing />}></Route>
             <Route path="/sign-in" element={<SignIn />}></Route>
@@ -56,6 +60,7 @@ root.render(
           </Routes>
         </BrowserRouter>
       </ChakraProvider>
+      </WebsocketProvider>
     </React.StrictMode>
   </Provider>
   // document.getElementById('root')
@@ -64,5 +69,5 @@ root.render(
 reportWebVitals();
 
 //aca deberiamos poner un evento que Valide al usuario cuando se loguee
-connectToServer()
+// connectToServer()
 // .value.trim() en html
