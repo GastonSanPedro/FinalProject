@@ -12,7 +12,10 @@ const PostSearchContainer = ({state}) => {
         return post.description.includes(word)})
  
     const changeState = () => {
-        if(state === 'images') return filterPost
+        if(state === 'images'){
+          let  filterPostImg = filterPost.filter()
+            return filterPost
+        } 
         if(state === 'text') return filterPost
     }
 
