@@ -51,28 +51,32 @@ export default function ContainerPost({
     //   return filterFriendPost
     // }
     if (site === 'admin') {
-      let reportedPosts = posts?.filter((post) => (post.reported === true))
+      let reportedPosts = posts?.filter((post) => post.reported === true);
       return reportedPosts;
     }
   };
 
   const typePosts = (typePost) => {
-    if (typePost === "text") {
-      let textPosts = arrayUserPosts(site)?.filter((p) => p?.pics?.length === 0)
-      return textPosts
+    if (typePost === 'text') {
+      let textPosts = arrayUserPosts(site)?.filter(
+        (p) => p?.pics?.length === 0
+      );
+      return textPosts;
     }
-    if (typePost === "img") {
-      let imagePosts = arrayUserPosts(site)?.filter((p) => p?.pics?.length >= 1)
-      return imagePosts
+    if (typePost === 'img') {
+      let imagePosts = arrayUserPosts(site)?.filter(
+        (p) => p?.pics?.length >= 1
+      );
+      return imagePosts;
     }
-  }
+  };
 
   return (
     <>
       <Flex
         ml={'2%'}
-        pr={'2%'}
-        pl={'2%'}
+        //pr={'2%'}
+        pl={'0%'}
         textAlign={'center'}
         justifyContent={'center'}
         direction={'column'}
@@ -96,7 +100,7 @@ export default function ContainerPost({
             h={site === 'feed' ? '22vh' : '36vh'}
             w={site === 'feed' ? '100%' : '65%'}
             display={'flex'}
-            backgroundColor={'withe'}
+            backgroundColor={'white'}
             mb={site === 'profile' ? '50px' : null}
           ></Box>
         )}

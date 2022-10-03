@@ -1,13 +1,12 @@
 import '../index.css';
 import { Box } from '@chakra-ui/react';
 import React, { useEffect } from 'react';
-import {  useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import UserCard from '../components/UserCard/UserCard';
 import SidebarWithHeader from '../components/Sidebar-Navbar/SideBar';
 import port1 from '../assets/port1.png';
 import '../index.css';
 import ContainerPost from '../components/ContainerPost/ContainerPost';
-
 
 const Profile = () => {
   const myUser = useSelector((state) => state.myUser);
@@ -40,14 +39,13 @@ const Profile = () => {
         textAlign={'center'}
         justifyContent={'center'}
         direction={'column'}
-        width={'167.5vh'}
+        width={'81vw'}
         height={'80vh'}
         mt={'18%'}
         ml={'18%'}
       >
         <ContainerPost site="profile" myUser={myUser} singlePost={singlePost} />
       </Box>
-
     </>
   );
 };
