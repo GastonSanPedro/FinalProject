@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import { FriendCard } from './FriendCard';
 import SearchFriends from './SearchFriends';
 
-export default function Friends({myUser, friends}) {
+export default function Friends({myUser, friends, myFollowers}) {
   
   const dispatch = useDispatch();
   const [size, setSize] = useState('');
@@ -14,7 +14,6 @@ export default function Friends({myUser, friends}) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const handleClick = () => { onOpen(); };
 
-    
   return (
     <>
       <Flex
@@ -91,7 +90,24 @@ export default function Friends({myUser, friends}) {
                     </AccordionButton>
                   </h2>
                   <AccordionPanel pb={4}>
-                    Aca van a estar los que me siguen a mi
+                  {
+                  myFollowers ? (
+                    myFollowers.map((follower, index) => {
+                      return(
+                        <Box key={index}>
+                        <FriendCard
+                          image={follower.image}
+                          email={follower.email}
+                          id={follower._id}
+                          firstName={follower.firstName}
+                          lastName={follower.lastName}
+                          fullName={follower.fullName}
+                          />
+                        </Box>)}))
+                        : (
+                        <p>*Ruido de grillos*</p>
+                      )
+                }
                   </AccordionPanel>
                 </AccordionItem>
               </Accordion>

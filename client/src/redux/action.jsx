@@ -18,6 +18,7 @@ export const CHANGE_DATA_PROFILE = 'CHANGE_DATA_PROFILE';
 export const GET_MY_USER = 'GET_MY_USER';
 export const ADD_FRIEND = 'ADD_FRIEND';
 export const GET_FRIENDS = 'GET_FRIENDS';
+export const GET_FOLLOWERS = 'GET_FOLLOWERS';
 export const DELETE_FRIENDS = 'DELETE_FRIENDS';
 export const SEARCH_FRIENDS = 'SEARCH_FRIENDS';
 export const REPORT_POST = 'REPORT_POST';
@@ -292,12 +293,19 @@ export function addFriend(myUserid, anyUserId) {
   };
 }
 export function getFriends(myId){
-  console.log({myId})
   return async function(dispatch){
   let { data } = await axios.get(`/friends/${myId}`)
-  console.log({data},'action')
     return dispatch({
       type: GET_FRIENDS,
+      payload: data
+    })
+  }
+}
+export function getFollowers(id){
+  return async function(dispatch){
+    let { data } = await axios.get(`/friends/followers/${id}`)
+    return dispatch({
+      type: GET_FOLLOWERS,
       payload: data
     })
   }
@@ -316,10 +324,14 @@ export function searchFriends(id, input){
   }
 }
 export function deleteFriend(myUserid, anyUserId) {
-  const idAnyUser = { friend: anyUserId };
+  const ids = {
+    idFriend: anyUserId,
+    idUser: myUserid };
+
+    console.log({ids}, 'actiondelete')
   return async function (dispatch) {
     try {
-      let info = await axios.delete(`/users/friend/${myUserid}`, idAnyUser);
+      let info = await axios.delete(`/users/friend/${myUserid}`, ids);
       let { data } = await axios.get(`/friends/${myUserid}`);
 
       return dispatch({

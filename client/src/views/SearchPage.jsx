@@ -13,6 +13,8 @@ const SearchPage = () =>{
     const myUser = useSelector((state)=> state.myUser)
     const friends = useSelector((state)=> state.friends)
     const word = useSelector((state) => state.searchPost)
+    const myFollowers = useSelector((state) => state.followers)
+
     const [state, setState ] = useState('users')
 
     const NAV_ITEMS = [
@@ -46,7 +48,7 @@ const SearchPage = () =>{
 
     return(
         <>
-        <SidebarWithHeader myUser={myUser} friends={friends}/>
+        <SidebarWithHeader myUser={myUser} friends={friends}  myFollowers={myFollowers}/>
         <Box
            pos={'absolute'}
            top={'20%'}

@@ -4,7 +4,7 @@ import UserCard from '../components/UserCard/UserCard';
 import SidebarWithHeader from '../components/Sidebar-Navbar/SideBar';
 import port1 from '../assets/port1.png';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUser, getFriends } from '../redux/action';
+import { getUser, getFriends, getFollowers } from '../redux/action';
 import { useParams } from 'react-router-dom';
 import ContainerPost from '../components/ContainerPost/ContainerPost';
 
@@ -15,17 +15,18 @@ export default function AnyProfile() {
   const user = useSelector((state) => state.user);
   const myUser = useSelector((state)=> state.myUser)
   const friends = useSelector((state)=> state.friends)
-
+  const myFollowers = useSelector((state) => state.followers)
 
   useEffect(() => {
       dispatch(getUser(email));
       dispatch(getFriends(myUser._id));
+      dispatch(getFollowers(myUser._id));
       ;
-  }, [dispatch, email, myUser]);
+  }, [dispatch, email, myUser, user]);
   
   return (
     <>
-      <SidebarWithHeader myUser={myUser} friends={friends} />
+      <SidebarWithHeader myUser={myUser} friends={friends}  myFollowers={myFollowers} />
       <Box
         className="ImageHeader"
         zIndex={2}
@@ -39,7 +40,7 @@ export default function AnyProfile() {
         bgRepeat="no-repeat"
         bgSize="cover"
       />
-      <UserCard site="anyProfile" user={user} myUser={myUser} friends={friends}/>
+      <UserCard site="anyProfile" user={user} myUser={myUser} friends={friends} />
       <Box
         bg={'whitesmoke'}
         pos={'absolute'}
