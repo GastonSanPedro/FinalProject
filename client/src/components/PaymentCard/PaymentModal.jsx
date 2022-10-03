@@ -119,6 +119,7 @@ export const PaymentModal = ({
     }
     //alert('Select one price for the post with the ID: ' + post.title);
   };
+  //console.log(myPosts);
   return (
     <div>
       <Modal
