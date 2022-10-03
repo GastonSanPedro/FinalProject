@@ -16,6 +16,7 @@ import {
   ModalCloseButton,
   SelectField,
   ModalFooter,
+  useToast,
 } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createPayment } from '../../redux/action';
@@ -46,6 +47,7 @@ export const PaymentModal = ({
   const [Selected, setSelected] = useState([]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const toast = useToast();
   const payment = useSelector((state) => state.payment);
 
   const handleSelected = (id) => {
@@ -81,10 +83,41 @@ export const PaymentModal = ({
     console.log(Selected);
   };
   const handleSubmit = (Selected) => {
-    const properObject = { products: Selected };
-    dispatch(createPayment(loggedId, properObject));
-    console.log(payment.init_point);
-    window.location.href = payment?.init_point;
+    if (Selected.length === 0) {
+      toast({
+        title: 'Error',
+        description: 'Add at least one post',
+        status: 'error',
+        duration: 2000,
+        isClosable: true,
+      });
+    } else {
+      let error = [];
+      Selected.map((post) => {
+        if (post.unit_price === 0) {
+          toast({
+            title: 'Error',
+            description:
+              'Select one price for the post with the ID: ' + post.title,
+            status: 'error',
+            duration: 2000,
+            isClosable: true,
+          });
+          error.push('Missing  post' + post.title + 'price');
+        }
+      });
+      if (error.length > 0) {
+        return (error = []);
+      } else {
+        const properObject = { products: Selected };
+        dispatch(createPayment(loggedId, properObject));
+        console.log(payment.init_point);
+        if (payment.init_point) {
+          window.location.href = payment?.init_point;
+        }
+      }
+    }
+    //alert('Select one price for the post with the ID: ' + post.title);
   };
   return (
     <div>
@@ -143,7 +176,7 @@ export const PaymentModal = ({
                     display={'flex'}
                   >
                     <Text mt={'1vh'} width={'40vw'} alignSelf={'center'}>
-                      {e.id}
+                      {'Id: ' + e.title}
                     </Text>
 
                     <Button
