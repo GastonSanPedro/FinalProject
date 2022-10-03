@@ -14,7 +14,7 @@ export default function Friends({myUser}) {
   const [input, setInput] = useState('');
   const { isOpen, onOpen, onClose } = useDisclosure();
   const handleClick = () => { onOpen(); };
-  const id = myUser._id
+  const id = myUser?._id
   console.log({myUser})
   useEffect(() => {
       dispatch(getFriends(id));

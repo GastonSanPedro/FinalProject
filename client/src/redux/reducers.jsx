@@ -21,12 +21,9 @@ import {
   DELETE_POST,
   GET_FRIENDS,
   DELETE_FRIENDS,
-<<<<<<< HEAD
-  GET_FRIENDS_POSTS
-=======
+  GET_FRIENDS_POSTS,
   SEARCH_FRIENDS,
   searchFriends
->>>>>>> dev3
 } from './action';
 
 const initialState = {
@@ -146,16 +143,10 @@ export default function rootReducer(state = initialState, action) {
         friends: action.payload,
       };
     case GET_FRIENDS:
-<<<<<<< HEAD
-      return {
-        ...state,
-        friends: action.payload
-=======
         return{
           ...state,
           friends: action.payload,
           searchFriends: action.payload
->>>>>>> dev3
       };
      case SEARCH_FRIENDS:
       return{
