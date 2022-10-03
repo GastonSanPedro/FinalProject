@@ -1,6 +1,6 @@
-import SearchUserCard from "./UserSearchCard";
-import { useSelector } from "react-redux";
-import { Box, VStack, Text } from "@chakra-ui/react";
+import SearchUserCard from './UserSearchCard';
+import { useSelector } from 'react-redux';
+import { Box, VStack, Text } from '@chakra-ui/react';
 
 export default function ContainerSearchCard ({state, myUser}) {
     

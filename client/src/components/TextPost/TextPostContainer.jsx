@@ -12,8 +12,7 @@ import TextPost from './TextPost';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { getUsers } from '../../redux/action';
-import InfiniteScroll from 'react-infinite-scroll-component'
-
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 export default function TextPostContainer({
   site,
@@ -22,7 +21,6 @@ export default function TextPostContainer({
   singlePost,
   handleClickRef,
 }) {
-
   //--------- Lógica InfiteScroll --------
   const [currentStart, setCurrentStart] = useState(0);
   const [currentEnd, setCurrentEnd] = useState(9);
@@ -31,7 +29,8 @@ export default function TextPostContainer({
     setCurrentEnd(currentEnd + 9);
   };
 
-  let renderPosts = posts?.length > 9 ? posts?.slice(currentStart, currentEnd) : posts;
+  let renderPosts =
+    posts?.length > 9 ? posts?.slice(currentStart, currentEnd) : posts;
   //------------------------------------
 
   const dispatch = useDispatch();
@@ -51,7 +50,7 @@ export default function TextPostContainer({
       >
         <Flex
           pr={'2%'}
-          pl={'2%'}
+          pl={'0%'}
           w={'100%'}
           textAlign={'center'}
           justifyContent={'center'}
@@ -59,13 +58,17 @@ export default function TextPostContainer({
           borderRadius={2}
           mt={site === 'feed' ? '0vh' : '4vh'}
           bg={
-            site === 'profile' || site === 'anyProfile' ? 'rgba(229, 191, 124, 0.2)'
-              : null}
+            site === 'profile' || site === 'anyProfile'
+              ? 'rgba(229, 191, 124, 0.2)'
+              : null
+          }
         >
           <SimpleGrid
             columns={
-              site === 'profile' || site === 'anyProfile' ? { base: 1, xl: 2 }
-                : { base: 1, xl: 3 }}
+              site === 'profile' || site === 'anyProfile'
+                ? { base: 1, xl: 2 }
+                : { base: 1, xl: 3 }
+            }
             spacing={'10'}
             mt={2}
             mr={5}
@@ -76,14 +79,20 @@ export default function TextPostContainer({
                   <SlideFade in={onToggle} key={index} offsetY="20px">
                     <TextPost
                       userName={
-                        site === 'profile' || site === 'anyProfile' ? renderPosts?.userName
-                          : post.author?.userName}
+                        site === 'profile' || site === 'anyProfile'
+                          ? renderPosts?.userName
+                          : post.author?.userName
+                      }
                       fullName={
-                        site === 'profile' || site === 'anyProfile' ? renderPosts?.fullName
-                          : post.author?.fullName}
+                        site === 'profile' || site === 'anyProfile'
+                          ? renderPosts?.fullName
+                          : post.author?.fullName
+                      }
                       avatar={
-                        site === 'profile' || site === 'anyProfile' ? renderPosts?.image
-                          : post?.author?.image}
+                        site === 'profile' || site === 'anyProfile'
+                          ? renderPosts?.image
+                          : post?.author?.image
+                      }
                       image={post?.pics}
                       email={post?.author?.email}
                       description={post?.description}
@@ -95,8 +104,10 @@ export default function TextPostContainer({
                       singlePost={singlePost}
                       site={site}
                       background={
-                        site === 'profile' || site === 'anyProfile' ? `logo.${Math.random(1, 2, 3)}`
-                          : null}
+                        site === 'profile' || site === 'anyProfile'
+                          ? `logo.${Math.random(1, 2, 3)}`
+                          : null
+                      }
                     />
                   </SlideFade>
                 );
@@ -105,14 +116,14 @@ export default function TextPostContainer({
               <Box>
                 {site === 'profile' ? (
                   <Text w={'40vw'} ml={'15vw'}>
-                    You haven't create any posts. Click here to create your first
-                    one <Button onClick={handleClickRef}>Create</Button>
+                    You haven't create any posts. Click here to create your
+                    first one <Button onClick={handleClickRef}>Create</Button>
                   </Text>
                 ) : (
                   <Text>There are no posts yet</Text>
                 )}
-              </Box>)
-            }
+              </Box>
+            )}
           </SimpleGrid>
         </Flex>
       </InfiniteScroll>

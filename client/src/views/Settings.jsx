@@ -16,6 +16,8 @@ const Settings = () =>{
    
    const myUser =  useSelector(state => state.myUser)
    const friends = useSelector((state)=> state.friends)
+   const myFollowers = useSelector((state) => state.followers)
+
    const [state, setState ] = useState('users')
    const NAV_ITEMS = [
       {
@@ -51,7 +53,7 @@ const Settings = () =>{
 
  return(
     <>
-    <SidebarWithHeader myUser={myUser} friends={friends}/>
+    <SidebarWithHeader myUser={myUser} friends={friends} myFollowers={myFollowers}/>
     
     <Box
       pos={'absolute'}

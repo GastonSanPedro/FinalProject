@@ -13,6 +13,7 @@ import { RiUserFollowLine, RiUserUnfollowLine, RiUserSettingsLine } from 'react-
 import { useDispatch , useSelector} from 'react-redux';
 import { logOut, addFriend, deleteFriend } from '../../redux/action';
 import { Link, useNavigate } from 'react-router-dom';
+import { useEffect } from 'react'
 
 const UserCard = ({ site, myUser, user, friends }) => {
 
@@ -25,10 +26,10 @@ const UserCard = ({ site, myUser, user, friends }) => {
   };
   const handleClickFollow = () => {
     dispatch(addFriend(myUser._id, user._id));
-    alert('ok');
   };
   const handleClickUnfollow = () => {
     dispatch(deleteFriend(myUser._id, user._id))
+    
   }
 
   const following = () =>{
@@ -46,16 +47,18 @@ const UserCard = ({ site, myUser, user, friends }) => {
   };
   const followValidator = JSON.parse(localStorage.getItem('email'));
 
+  // useEffect(() => {}, [myUser.followers]);
+
   return (
     <Box
-      zIndex={10}
+      zIndex={2}
       display={'flex'}
       flexDir={'column'}
       ml="77%"
       mt="19%"
-      h="45vh"
+      h="50vh"
       w="19vw"
-      p="1% 2% 1% 1%"
+      p="1% 3% 1% 1%"
       position={'absolute'}
       bg={'white'}
       justifyContent={'center'}
@@ -65,7 +68,7 @@ const UserCard = ({ site, myUser, user, friends }) => {
       ml={'80%'}
       bg={`logo.2`} 
       w={7} 
-      h={'45vh'}></Box>
+      h={'50vh'}></Box>
         <Stack >
           <Avatar
             size="2xl"
@@ -90,7 +93,7 @@ const UserCard = ({ site, myUser, user, friends }) => {
             >
               {setUserToSite(site)?.firstName}{' '}{setUserToSite(site)?.lastName}
             </Text>
-            <Link to={'/settings'}>
+            { site === 'profile' ?(<Link to={'/settings'}>
             <IconButton
             p={0}
             icon={<RiUserSettingsLine/>}
@@ -103,13 +106,14 @@ const UserCard = ({ site, myUser, user, friends }) => {
               bg: 'logo.2',
               }}/>
             </Link>
+            ):(null)}
             </Flex>
             <Text
-              fontSize="md"
+              fontSize="sm"
               color={'gray.500'}
               fontStyle={'italic'}
               textAlign={'left'}
-              >
+            >
               {setUserToSite(site)?.userName}
             </Text>
             </Stack>
@@ -134,7 +138,7 @@ const UserCard = ({ site, myUser, user, friends }) => {
                   Followers
                 </Text>
                 <Text fontSize="md" color={'gray.500'}>
-                  100
+                  {setUserToSite(site)?.followers?.length}
                 </Text>
               </Box>
               <Box align={'center'}>
@@ -145,8 +149,11 @@ const UserCard = ({ site, myUser, user, friends }) => {
               </Box>
             </HStack>
           </Stack>
+
+          
         </Stack>
-        
+      
+
       {site === 'profile' ? (
         <Button
           p={'2%'}
@@ -170,23 +177,24 @@ const UserCard = ({ site, myUser, user, friends }) => {
       ) : (
         !following()?.length ? (
         <Button
-        p={'2%'}
-        zIndex={20}
-        rightIcon={<RiUserFollowLine />}
-        w={'30vh'}
-        textColor={'gray.700'}
-        mt={'2%'}
-        bg={'none'}
-        borderRadius={2}
-        _hover={{
-          textColor: 'white',
-          bg: 'logo.2',
-        }}
+          p={'2%'}
+          zIndex={20}
+          rightIcon={<RiUserFollowLine />}
+          w={'30vh'}
+          textColor={'gray.700'}
+          mt={'2%'}
+          bg={'none'}
+          borderRadius={2}
+          _hover={{
+            textColor: 'white',
+            bg: 'logo.2',
+          }}
           onClick={() => handleClickFollow()}
         >
           FOLLOW
-        </Button> ):(
-          <Button
+        </Button>
+      ) : (
+        <Button
           p={'2%'}
           zIndex={20}
           rightIcon={<RiUserUnfollowLine />}
@@ -199,7 +207,7 @@ const UserCard = ({ site, myUser, user, friends }) => {
             textColor: 'white',
             bg: 'logo.2',
           }}
-            onClick={() => handleClickFollow()}
+            onClick={() => handleClickUnfollow()}
           >
             UNFOLLOW
           </Button>

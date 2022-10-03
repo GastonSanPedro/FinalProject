@@ -13,6 +13,8 @@ const SearchPage = () =>{
     const myUser = useSelector((state)=> state.myUser)
     const friends = useSelector((state)=> state.friends)
     const word = useSelector((state) => state.searchPost)
+    const myFollowers = useSelector((state) => state.followers)
+
     const [state, setState ] = useState('users')
 
     const NAV_ITEMS = [
@@ -46,7 +48,7 @@ const SearchPage = () =>{
 
     return(
         <>
-        <SidebarWithHeader myUser={myUser} friends={friends}/>
+        <SidebarWithHeader myUser={myUser} friends={friends}  myFollowers={myFollowers}/>
         <Box
            pos={'absolute'}
            top={'20%'}
@@ -54,16 +56,15 @@ const SearchPage = () =>{
            textAlign={'center'}
            justifyContent={'center'}
            direction={'column'}
-           width={'79vw'}
+           width={'172vh'}
            height={'80vh'}
-           mt={'7%'}
+           mt={'6%'}
            ml={'18%'}
            mr={'7%'}>
         <NavbarSerch
             state={state}
             setState={setState}
             NAV_ITEMS={NAV_ITEMS}/>
-        <Text> Results for :</Text>
         {
             state === 'users' || state === 'friends' ? (
                 <ContainerSearchCard

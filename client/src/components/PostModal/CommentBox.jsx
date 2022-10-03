@@ -184,28 +184,23 @@ export const CommentBox = ({ comment, formatedDate, loggedUser, postId }) => {
             placeholder="Comment here"
             type="text"
             name="description"
+            width={'80%'}
             value={input.description}
             mt={'2vh'}
             onChange={(e) => {
               handleChange(e);
             }}
           />
-          <InputRightElement
-            w={'6vw'}
-            pointerEvents="painted"
-            children={
-              <Button
-                bg={'orange.200'}
-                mt={'4vh'}
-                w={'100%'}
-                onClick={(e) => {
-                  handleSubmit(e);
-                }}
-              >
-                Send
-              </Button>
-            }
-          />
+          <Button
+            bg={'orange.200'}
+            mt={'-1vh'}
+            w={'20%'}
+            onClick={(e) => {
+              handleSubmit(e);
+            }}
+          >
+            Send
+          </Button>
         </InputGroup>
       </Flex>{' '}
     </div>
