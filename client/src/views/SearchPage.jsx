@@ -56,16 +56,15 @@ const SearchPage = () =>{
            textAlign={'center'}
            justifyContent={'center'}
            direction={'column'}
-           width={'79vw'}
+           width={'172vh'}
            height={'80vh'}
-           mt={'7%'}
+           mt={'6%'}
            ml={'18%'}
            mr={'7%'}>
         <NavbarSerch
             state={state}
             setState={setState}
             NAV_ITEMS={NAV_ITEMS}/>
-        <Text> Results for :</Text>
         {
             state === 'users' || state === 'friends' ? (
                 <ContainerSearchCard

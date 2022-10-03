@@ -3,26 +3,34 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ContainerPost from '../components/ContainerPost/ContainerPost';
 import SidebarWithHeader from '../components/Sidebar-Navbar/SideBar';
-import { getFollowers, getFriends, getPosts } from '../redux/action';
+import {
+  getFollowers,
+  getFriends,
+  getFriendsPosts,
+  getPosts,
+} from '../redux/action';
 
 const Feed = () => {
   const myUser = useSelector((state) => state.myUser);
   const allPosts = useSelector((state) => state.posts);
   const singlePost = useSelector((state) => state.singlePost);
+  const friends = useSelector((state) => state.friends);
+  const myFollowers = useSelector((state) => state.followers);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getPosts())
-    dispatch(getFriends(myUser._id))
-    dispatch(getFollowers(myUser._id));
-  }, [dispatch, singlePost, myUser]);
-  
-  const friends = useSelector((state)=>state.friends)
-  const myFollowers = useSelector((state)=> state.followers)
+  // useEffect(() => {
+  //   dispatch(getPosts());
+  //   // dispatch(getFriends(myUser._id))
+  //   // dispatch(getFollowers(myUser._id));
+  // }, [dispatch, singlePost, myUser]);
 
   return (
     <>
-      <SidebarWithHeader myUser={myUser} friends={friends} myFollowers={myFollowers}/>
+      <SidebarWithHeader
+        myUser={myUser}
+        friends={friends}
+        myFollowers={myFollowers}
+      />
       <Box
         pos={'absolute'}
         top={'20%'}
@@ -34,10 +42,10 @@ const Feed = () => {
         height={'80vh'}
         mt={'5.5%'}
         ml={'18%'}
-
       >
         <ContainerPost
           myUser={myUser}
+          //friendsPosts={friendsPosts}
           posts={allPosts}
           singlePost={singlePost}
           site={'feed'}

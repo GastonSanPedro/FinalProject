@@ -1,7 +1,7 @@
 import {Center, Box, Flex ,Avatar, Stack, Button, Text, Heading, HStack} from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
 
-export default function SearchUserCard ({fullName, image, firstName, lastName, email, friends, posts, bio}) {
+export default function SearchUserCard ({fullName, image, firstName, lastName, email, friends, posts, bio, userName}) {
 
   function randomNumber(min, max) {
     let a = Math.random() * (max - min) + min;
@@ -37,12 +37,13 @@ export default function SearchUserCard ({fullName, image, firstName, lastName, e
             p={2}
             mr={'2%'}>
             <Heading
-              fontSize={'lg'}
+              fontSize={'md'}
               textAlign={'left'}
               >
                {firstName}
                 <br/>{lastName}
             </Heading>
+            <Text fontSize={'xs'} color={'gray.700'}>{userName}</Text>
           </Box>
           <Box
           w={'25%'}>

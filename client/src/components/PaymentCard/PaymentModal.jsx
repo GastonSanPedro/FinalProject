@@ -41,6 +41,8 @@ export const PaymentModal = ({
   onClose,
   myPosts,
   loggedId,
+  payment,
+  Bill,
 }) => {
   const [overlay, setOverlay] = useState(<OverlayOne />);
   const [hide, setHide] = useState(false);
@@ -48,8 +50,6 @@ export const PaymentModal = ({
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const toast = useToast();
-  const payment = useSelector((state) => state.payment);
-
   const handleSelected = (id) => {
     let updatePosts = [
       ...Selected,
@@ -112,6 +112,7 @@ export const PaymentModal = ({
         const properObject = { products: Selected };
         dispatch(createPayment(loggedId, properObject));
         console.log(payment.init_point);
+        localStorage.setItem('bill', JSON.stringify(payment));
         if (payment.init_point) {
           window.location.href = payment?.init_point;
         }
@@ -119,7 +120,7 @@ export const PaymentModal = ({
     }
     //alert('Select one price for the post with the ID: ' + post.title);
   };
-  //console.log(myPosts);
+  //console.log(payment);
   return (
     <div>
       <Modal
