@@ -1,31 +1,57 @@
-import { OnGatewayConnection, OnGatewayDisconnect, SubscribeMessage, WebSocketGateway, WebSocketServer } from '@nestjs/websockets';
-import { Server, Socket } from 'socket.io';
-import { NewMessageDto } from './dto/new-message-dto';
-import { MessagesWsService } from './messages-ws.service';
+import { OnModuleInit } from '@nestjs/common';
+import { 
+  MessageBody, 
+  OnGatewayConnection, 
+  SubscribeMessage, 
+  WebSocketGateway, 
+  WebSocketServer 
+} from '@nestjs/websockets';
+import { Server, Socket} from 'socket.io';
+// import { MessagesWsService } from './messages-ws.service';
 
-@WebSocketGateway({ cors: true })
-export class MessagesWsGateway implements OnGatewayConnection, OnGatewayDisconnect{
+@WebSocketGateway({ cors: true})
+export class MessagesWsGateway implements  OnModuleInit {
   
   @WebSocketServer() wss: Server;
 
-  constructor(
-    private readonly messagesWsService: MessagesWsService
-    ) {}
+  // constructor(
+  //   private readonly messagesWsService: MessagesWsGateway
+  //   ) {}
     
-  handleConnection(client:Socket) {
-    this.messagesWsService.registerClient(client)
-    this.wss.emit('clients-updated', this.messagesWsService.getConnectedClients())
+    onModuleInit() {
+      this.wss.on('connection', (socket) => {
+        // console.log(socket.id);
+        console.log(socket.id)
+        console.log('Connected')
+      })
+    }
 
-  }
-  handleDisconnect(client: Socket) {
-    this.messagesWsService.removeClient(client.id)
-    this.wss.emit('clients-updated', this.messagesWsService.getConnectedClients())
-  }
   
-  @SubscribeMessage('message-from-client')
-  onMessageFromClient(client: Socket, payload: NewMessageDto){
+  @SubscribeMessage('newMessage')
+  
+  onNewMessage(@MessageBody() body: any){
+    console.log(body)
+    this.wss.emit('onMessage', {
+      msg: 'New Message',
+      content: body
+    })
 
-    //! Emite unicamente al cliente.
+  }
+}
+  // handleConnection(client:Socket) {
+  //   this.messagesWsService.registerClient(client)
+  //   this.wss.emit('clients-updated', this.messagesWsService.getConnectedClients())
+
+  // }
+  // handleDisconnect(client: Socket) {
+  //   this.messagesWsService.removeClient(client.id)
+  //   this.wss.emit('clients-updated', this.messagesWsService.getConnectedClients())
+  // }
+
+  
+
+
+      //! Emite unicamente al cliente.
 
     // client.emit('message-from-server',{
     //   fullname: 'Soy yo',
@@ -41,22 +67,18 @@ export class MessagesWsGateway implements OnGatewayConnection, OnGatewayDisconne
 
   //  Emitir a TODOS
 
-    this.wss.emit('message-from-server',{
-      fullname: 'Soy yo',
-      message: payload.message || 'no-message!!!' // poner algo por default o va a tirar error
-      })
+//   this.wss.emit('message-from-server',{
+//     fullname: 'Soy yo',
+//     message: payload.message || 'no-message!!!' // poner algo por default o va a tirar error
+//     })
 
- 
 
-  // Para mandar a un usuario a una sala directamente cuando se conecta
-      client.join('ventas')
 
-  //sala x defecto a la que estan unidos los clietnes
-      client.join(client.id)
+// // Para mandar a un usuario a una sala directamente cuando se conecta
+//     client.join('ventas')
 
-  // Asigna un room al cual transmitir
-      this.wss.to('ventas').emit('')
+// //sala x defecto a la que estan unidos los clietnes
+//     client.join(client.id)
 
-  }
-}
-
+// // Asigna un room al cual transmitir
+//     this.wss.to('ventas').emit('')

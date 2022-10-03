@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty } from 'class-validator';
+import { IsBase64, IsBoolean, IsNotEmpty, IsOptional } from 'class-validator';
 import { ObjectId } from 'mongoose';
 
 export class AddFriendDto {
@@ -10,5 +10,10 @@ export class AddFriendDto {
     @ApiProperty()
     @IsNotEmpty()
     idUser: ObjectId;
+
+    @ApiProperty()
+    @IsBoolean()
+    @IsOptional()
+    isDeleted: Boolean
     
 }
