@@ -1,7 +1,7 @@
 import{ useEffect} from 'react';
 import { Box, Heading } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getPosts } from '../redux/action';
+import { getPosts, getFriends, getFollowers } from '../redux/action';
 import ContainerPost from '../components/ContainerPost/ContainerPost';
 import SidebarWithHeader from '../components/Sidebar-Navbar/SideBar';
 
@@ -10,15 +10,22 @@ const Explore = () => {
   const myUser = useSelector((state) => state.myUser);
   const allPosts = useSelector((state) => state.posts);
   const singlePost = useSelector((state) => state.singlePost);
+  const friends = useSelector((state) => state.friends)
+  const myFollowers = useSelector((state) => state.followers)
+
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getPosts());
-  }, [dispatch, singlePost]);
+  }, [ singlePost]);
 
+    useEffect(() => {
+      dispatch(getFriends(myUser._id));
+      dispatch(getFollowers(myUser._id));
+  }, [ myUser]);
   return (
     <>
-      <SidebarWithHeader />
+      <SidebarWithHeader myUser={myUser} friends={friends}  myFollowers={myFollowers}/>
       <Heading
       pos={'absolute'}
         top={'20%'}

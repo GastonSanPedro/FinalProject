@@ -18,9 +18,13 @@ export const CHANGE_DATA_PROFILE = 'CHANGE_DATA_PROFILE';
 export const GET_MY_USER = 'GET_MY_USER';
 export const ADD_FRIEND = 'ADD_FRIEND';
 export const GET_FRIENDS = 'GET_FRIENDS';
+export const GET_FOLLOWERS = 'GET_FOLLOWERS';
 export const DELETE_FRIENDS = 'DELETE_FRIENDS';
+export const SEARCH_FRIENDS = 'SEARCH_FRIENDS';
+export const GET_FRIENDS_POSTS = 'GET_FRIENDS_POSTS'
 export const REPORT_POST = 'REPORT_POST';
 export const DELETE_POST = 'DELETE_POST';
+export const CREATE_PAYMENT = 'CREATE_PAYMENT';
 
 
 export function getUsers() {
@@ -67,7 +71,6 @@ export function getPosts() {
   return async function (dispatch) {
     try {
       let info = await axios.get(`/posts/`);
-      //      console.log({ info });
       dispatch({
         type: GET_POSTS,
         payload: info.data,
@@ -113,7 +116,7 @@ export function postComment(payload, id) {
     try {
       const info = await axios.post(`/comments`, payload);
       let data = await axios.get(`/posts/id/${id}`);
-      //console.log(data.data);
+
       return dispatch({
         type: POST_COMMENT,
         payload: data.data,
@@ -128,7 +131,7 @@ export function postReaction(payload, idPost, idComment) {
     try {
       const info = await axios.post(`/comments/${idComment}`, payload);
       let data = await axios.get(`/posts/id/${idPost}`);
-      //console.log(data.data);
+
       return dispatch({
         type: POST_REACTION,
         payload: data.data,
@@ -198,7 +201,6 @@ export const authUser = (mail, password, google) => {
       if (google === undefined) {
         var user = await axios.get(`/users/${mail}`);
         let formatUser = user.data;
-        console.log(formatUser);
         if (formatUser.password !== password) {
           return dispatch({
             type: AUTH_USER,
@@ -239,7 +241,7 @@ export const authUser = (mail, password, google) => {
       }
     }
   };
-}
+};
 export function cleanAuthUser() {
   return async function (dispatch) {
     return dispatch({
@@ -274,11 +276,14 @@ export function logOut() {
     }
   };
 }
-export function addFriend(myUserid, anyUserId) {
-  const idAnyUser = { friend: anyUserId };
+export const addFriend = (myUserid, anyUserId) =>{
+  const ids = {
+    idFriend: anyUserId,
+    idUser: myUserid,
+  };
   return async function (dispatch) {
     try {
-      let info = await axios.post(`/users/friend/${myUserid}`, idAnyUser);
+      let info = await axios.post(`/friends/`, ids);
       let { data } = await axios.get(`/friends/${myUserid}`);
 
       return dispatch({
@@ -290,20 +295,44 @@ export function addFriend(myUserid, anyUserId) {
     }
   };
 }
-export function getFriends(id){
+export const getFriends = (myId) =>{
   return async function(dispatch){
-    var json = await axios.get('/friends/' + id)
+  let { data } = await axios.get(`/friends/${myId}`)
     return dispatch({
       type: GET_FRIENDS,
-      payload: json.data
+      payload: data,
+    });
+  };
+}
+export const getFollowers = (id) =>{
+  return async function(dispatch){
+    let { data } = await axios.get(`/friends/followers/${id}`)
+    return dispatch({
+      type: GET_FOLLOWERS,
+      payload: data
     })
   }
 }
-export function deleteFriend(myUserid, anyUserId) {
-  const idAnyUser = { friend: anyUserId };
+export const searchFriends = (id, input) =>{
+  return async function(dispatch){
+    let json = await axios.get('/friends/' + id)
+    let filterFriends = json.data.filter(friend => {
+      return (friend.idFriend.fullName.includes(input))
+    })
+    return dispatch({
+      type: SEARCH_FRIENDS,
+      payload: filterFriends,
+    });
+  };
+}
+export const deleteFriend = (myUserid, anyUserId) => {
+  
+  const ids = {
+    idFriend: anyUserId,
+    idUser: myUserid };
   return async function (dispatch) {
     try {
-      let info = await axios.delete(`/users/friend/${myUserid}`, idAnyUser);
+      let info = await axios.delete(`/friends/${myUserid}`, ids);
       let { data } = await axios.get(`/friends/${myUserid}`);
 
       return dispatch({
@@ -315,33 +344,52 @@ export function deleteFriend(myUserid, anyUserId) {
     }
   };
 }
+export const getFriendsPosts = (myId) => {
+  return async function (dispatch) {
+    const {data} = await axios.get(`/friends/posts/${myId}`)
+    return dispatch({
+      type: GET_FRIENDS_POSTS,
+      payload: data
+    })
+  }
+}
 export function reportPost(id) {
   return async function (dispatch) {
     try {
-      await axios.patch(`/posts/${id}`, { reported: true })
+      await axios.patch(`/posts/${id}`, { reported: true });
       return dispatch({
         type: REPORT_POST,
-      })
-    }
-    catch (error) {
+      });
+    } catch (error) {
       console.log(error);
     }
-  }
+  };
 }
 export function deletePost(id) {
   return async function (dispatch) {
     try {
-      const { data } = await axios.delete(`/posts/${id}`)
-      console.log(data)
+      const { data } = await axios.delete(`/posts/${id}`);
       return dispatch({
         type: DELETE_POST,
-      })
-    }
-    catch (error) {
+      });
+    } catch (error) {
       console.log(error);
     }
-  }
+  };
 }
 
-
-
+export function createPayment(id, info) {
+  return async function (dispatch) {
+    try {
+      console.log(info);
+      const data = await axios.post(`/mercadoPago/${id}`, info);
+      console.log(data.data);
+      return dispatch({
+        type: CREATE_PAYMENT,
+        payload: data.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
