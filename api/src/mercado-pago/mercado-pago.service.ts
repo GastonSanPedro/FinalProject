@@ -34,8 +34,10 @@ export class MercadoPagoService {
     return mpUrl.body;
   }
 }
-//Comprador
+//Vendedor
 // user TESTD5OG2MF1  pass 6RrOX9nz4O
+// email  test_user_62162867@testuser.com
 //
-//Vendedor 
+//Comprador
 // user TESTWXWLDAZ7 pass 6x6PWZlf00
+//  nombre Martinez Mirtha  DNI 01111111
