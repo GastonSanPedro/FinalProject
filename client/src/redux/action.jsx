@@ -364,6 +364,10 @@ export function createPayment(id, info) {
       console.log(info);
       const data = await axios.post(`/mercadoPago/${id}`, info);
       console.log(data.data);
+      return dispatch({
+        type: CREATE_PAYMENT,
+        payload: data.data,
+      });
     } catch (error) {
       console.log(error);
     }

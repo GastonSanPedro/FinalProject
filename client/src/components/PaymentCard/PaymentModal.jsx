@@ -17,7 +17,7 @@ import {
   SelectField,
   ModalFooter,
 } from '@chakra-ui/react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { createPayment } from '../../redux/action';
 import { useNavigate } from 'react-router-dom';
 
@@ -46,6 +46,7 @@ export const PaymentModal = ({
   const [Selected, setSelected] = useState([]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const payment = useSelector((state) => state.payment);
 
   const handleSelected = (id) => {
     let updatePosts = [
@@ -82,8 +83,8 @@ export const PaymentModal = ({
   const handleSubmit = (Selected) => {
     const properObject = { products: Selected };
     dispatch(createPayment(loggedId, properObject));
-    window.location.href =
-      'https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=339112230-2ec49d3d-82f3-4e40-875c-18336276701d';
+    console.log(payment.init_point);
+    window.location.href = payment?.init_point;
   };
   return (
     <div>
