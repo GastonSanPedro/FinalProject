@@ -31,10 +31,12 @@ const AdminProfile = () => {
 
     const posts = useSelector((state) => state.posts);
     const myUser = useSelector((state) => state.myUser);
+    const friends= useSelector((state) => state.friends);
+    const myFollowers = useSelector((state) => state.followers)
 
-    useEffect(() => {
-        dispatch(getPosts());
-    }, [posts]);
+    // useEffect(() => {
+    //     dispatch(getPosts());
+    // }, [posts]);
 
     const handleDelete = (id) => {
         dispatch(deletePost(id))
@@ -42,7 +44,7 @@ const AdminProfile = () => {
 
     return (
         <>
-            <SidebarWithHeader />
+            <SidebarWithHeader myUser={myUser} friends={friends} myFollowers={myFollowers} />
 
 
             <Box pos="absolute" mt="8%" ml="20%" bg={'rgba(229, 191, 124, 0.2)'} h="auto" w='75%'>

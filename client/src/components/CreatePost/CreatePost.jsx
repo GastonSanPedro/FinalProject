@@ -105,8 +105,7 @@ const CreatePost = ({ site, myUser, createdRef }) => {
       }
     );
     myWidget.open();
-    // dispatch(UploadPic(event.target.files));
-    // setInput({ ...input, [event.target.name]: event.target.files });
+
   };
   return (
     <>

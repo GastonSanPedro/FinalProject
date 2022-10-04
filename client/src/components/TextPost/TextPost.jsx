@@ -7,30 +7,25 @@ import {
   IconButton,
   ModalOverlay,
   useDisclosure,
-  Modal,
-  ModalContent,
-  Button,
-  ModalHeader,
-  ModalCloseButton,
-  ModalBody,
-  ModalFooter,
-  Text,
-  Box,
-  Input,
-  InputGroup,
-  InputRightElement,
+  MenuList,
+  MenuButton,
+  Menu,
+  MenuItem,
   useToast,
+  Box,
 } from '@chakra-ui/react';
-import { BiMessage } from 'react-icons/bi';
+import { BiMessage, BiShocked, BiHeart, BiHappyAlt } from 'react-icons/bi';
+import { FiMoreVertical } from 'react-icons/fi';
 import { BsSun } from 'react-icons/bs';
 import Quotes from '../../assets/comillas.svg';
-import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import {
   getSinglePosts,
-  cleanSinglePost,
+  reportPost,
   postComment,
 } from '../../redux/action';
+import { PostModal } from '../PostModal/PostModal';
+import { useNavigate } from 'react-router-dom';
 
 function randomNumber(min, max) {
   let a = Math.random() * (max - min) + min;
@@ -71,21 +66,36 @@ export default function TextPost({
   postId,
   singlePost,
   loggedUser,
+  loggedEmail,
+  date,
+  avatar,
+  email,
+  site,
 }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [overlay, setOverlay] = useState(<OverlayOne />);
+  const [hide, setHide] = useState(false);
+  const [Reaction, setReaction] = useState({});
   const [input, setInput] = useState({
     idUser: loggedUser,
     idPost: postId,
     description: '',
   });
-
+  const newDate = new Date(date);
+  const formatedDate =
+    newDate.toLocaleTimeString('es-ES').slice(0, -3) +
+    ' ' +
+    newDate.toLocaleDateString('es-ES');
   const dispatch = useDispatch();
   const toast = useToast();
+  const navigate = useNavigate()
   const handleClick = () => {
     setOverlay(<OverlayOne />);
     dispatch(getSinglePosts(postId));
     onOpen();
+  };
+  const handleReport = () => {
+    dispatch(reportPost(postId));
   };
   const handleChange = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -104,107 +114,27 @@ export default function TextPost({
 
   return (
     <>
-      <Modal
-        isCentered
-        isOpen={isOpen}
+      <PostModal
+        singlePost={singlePost}
+        fullName={fullName}
+        description={description}
+        image={image}
+        onOpen={onOpen}
         onClose={onClose}
-        scrollBehavior={'inside'}
-      >
-        {overlay}
-        <ModalContent ml={'15vw'} mt={'20vh'} maxh={'84vh'}>
-          <ModalHeader>{fullName}</ModalHeader>
-          <ModalCloseButton
-            onClick={(e) => {
-              dispatch(cleanSinglePost());
-              onClose();
-            }}
-          />
-          <ModalBody>
-            <Text textAlign={'center'}>{description}</Text>
-            <Box bg={'gray.200'} mt={'2vh'}>
-              <Text textAlign={'center'}>Comentarios</Text>
-              <Box>
-                {singlePost?.comments?.length > 0 ? (
-                  singlePost?.comments?.map((comment) => {
-                    const date = new Date(comment.createdAt);
-                    const formatedDate =
-                      date.toLocaleTimeString('es-ES').slice(0, -3) +
-                      ' ' +
-                      date.toLocaleDateString('es-ES');
-                    return (
-                      <Flex
-                        bg={'gray.200'}
-                        p={'1vh'}
-                        display={'block'}
-                        dir={'column'}
-                      >
-                        <Box
-                          width={'100%'}
-                          height={'2.75vh'}
-                          display={'flex'}
-                          mb={'1vh'}
-                        >
-                          <Box width={'50%'} textAlign={'left'}>
-                            <Link>
-                              <Text color={'orange.300'}>
-                                {comment.idUser.fullName}
-                              </Text>
-                            </Link>
-                          </Box>
-                          <Box width={'50%'} textAlign={'right'}>
-                            <Text fontSize={'1.4vh'} pt={'0.7vh'}>
-                              {formatedDate}
-                            </Text>
-                          </Box>
-                        </Box>
-                        <Flex width={'100%'} maxH={'auto'} minH={'4.75vh'}>
-                          <Text pl={'1vw'}>{comment.description}</Text>
-                        </Flex>
-                      </Flex>
-                    );
-                  })
-                ) : (
-                  <Text>Aun no hay comentarios</Text>
-                )}
-              </Box>
-            </Box>
-            <InputGroup>
-              <Input
-                placeholder="Comment here"
-                type="text"
-                name="description"
-                value={input.description}
-                mt={'2vh'}
-                onChange={(e) => {
-                  handleChange(e);
-                }}
-              />
-              <InputRightElement
-                w={'6vw'}
-                pointerEvents="painted"
-                children={
-                  <Button
-                    bg={'orange.200'}
-                    mt={'4vh'}
-                    w={'100%'}
-                    onClick={(e) => {
-                      handleSubmit(e);
-                    }}
-                  >
-                    Send
-                  </Button>
-                }
-              />
-            </InputGroup>
-          </ModalBody>
-          <ModalFooter></ModalFooter>
-        </ModalContent>
-      </Modal>
+        isOpen={isOpen}
+        loggedUser={loggedUser}
+        loggedEmail={loggedEmail}
+        postId={postId}
+        date={formatedDate}
+        avatar={avatar}
+        email={email}
+      />
       <Flex
         maxW={'640px'}
         direction={{ base: 'column-reverse', md: 'row' }}
-        width={'full'}
-        p={8}
+        width={site === 'profile' || site === 'anyProfile' ? '34vw' : '24vw'}
+        h={'30vh'}
+        p={5}
         justifyContent={'space-between'}
         position={'relative'}
         ml={'1vw'}
@@ -227,11 +157,16 @@ export default function TextPost({
           direction={'column'}
           textAlign={'left'}
           justifyContent={'space-between'}
+          width={site === 'profile' ? '25vw' : '20vw'}
+          height={'18vh'}
+          mt={'2vh'}
+          overflow={'hidden'}
+          pl={'1vw'}
         >
           <chakra.p
             fontFamily={'Roboto'}
             fontWeight={'medium'}
-            textAlign={'right'}
+            textAlign={'left'}
             fontSize={'15px'}
             pb={4}
           >
@@ -241,7 +176,7 @@ export default function TextPost({
             fontFamily={'Roboto'}
             fontWeight={'bold'}
             fontSize={14}
-            textAlign={'right'}
+            textAlign={'left'}
           >
             {fullName}
           </chakra.p>
@@ -250,10 +185,11 @@ export default function TextPost({
           flexDir={'column'}
           alignContent={'center'}
           justifyContent={'center'}
+          height={'20vh'}
           minW={'35%'}
         >
-          <Link to={`/user/${userName}`}>
             <Avatar
+              onClick={()=>{navigate(`/user/${userName}`)}}
               size={'xl'}
               src={image}
               name={fullName}
@@ -261,33 +197,42 @@ export default function TextPost({
               width={'100px'}
               justifySelf={'center'}
               alignSelf={'center'}
-              mt={'10%'}
+              mt={'8%'}
               mb={'18%'}
               ml={'3%'}
             />
-          </Link>
-          <Flex align={'flex-end'} justify={'center'}>
-            <IconButton
-              size={'lg'}
-              bg={'none'}
-              h={30}
-              icon={<BiMessage />}
-              onClick={() => {
-                handleClick();
-              }}
-              _hover={{
-                bg: 'white',
-              }}
-              _active={{
-                bg: 'white',
-                color: 'logo.3',
-              }}
-            />
+        </Flex>
+        <Flex
+          align={'flex-end'}
+          justify={'center'}
+          h={'4vh'}
+          position={'absolute'}
+          bottom={'3'}
+          right={'28%'}
+        >
+          <Box
+            onMouseLeave={() => {
+              setHide(false);
+            }}
+          >
             <IconButton
               size={'lg'}
               h={30}
               bg={'none'}
               icon={<BsSun />}
+              //   name="suns"
+              // value={
+              //   comment.likes?.length === 0 ? 0 : Number(comment.likes[0]?.suns)
+              // }
+              onClick={(e) => {
+                setReaction({
+                  ...Reaction,
+                  suns: Number(e.target.value) + 1,
+                });
+              }}
+              onMouseEnter={() => {
+                setHide(true);
+              }}
               _hover={{
                 bg: 'white',
               }}
@@ -296,8 +241,102 @@ export default function TextPost({
                 color: 'logo.3',
               }}
             />
-          </Flex>
+            <Box
+              transition={' display 8s'}
+              display={!hide ? 'none' : 'inline'}
+              width={!hide ? '4vw' : '12vw'}
+            >
+              <IconButton
+                size={'lg'}
+                h={30}
+                bg={'none'}
+                name="happyLeaf"
+                // value={comment.likes?.happyLeaf}
+                icon={<BiHappyAlt />}
+                _hover={{
+                  bg: 'white',
+                }}
+                _active={{
+                  bg: 'white',
+                  color: 'logo.3',
+                }}
+              />
+              <IconButton
+                size={'lg'}
+                h={30}
+                bg={'none'}
+                name="heart"
+                // value={comment?.likes?.heart}
+                icon={<BiHeart />}
+                onHover={() => {}}
+                _hover={{
+                  bg: 'white',
+                }}
+                _active={{
+                  bg: 'white',
+                  color: 'logo.3',
+                }}
+              />
+              <IconButton
+                size={'lg'}
+                h={30}
+                bg={'none'}
+                name="confusedLeaf"
+                // value={comment?.likes?.confusedLeaf}
+                icon={<BiShocked />}
+                onHover={() => {}}
+                _hover={{
+                  bg: 'white',
+                }}
+                _active={{
+                  bg: 'white',
+                  color: 'logo.3',
+                }}
+              />
+            </Box>
+          </Box>
         </Flex>
+        <IconButton
+          position={'absolute'}
+          size={'lg'}
+          bg={'none'}
+          h={'4vh'}
+          icon={<BiMessage />}
+          right={site === 'profile' ? '10%' : '14%'}
+          bottom={'3'}
+          onClick={() => {
+            handleClick();
+          }}
+          _hover={{
+            bg: 'white',
+          }}
+          _active={{
+            bg: 'white',
+            color: 'logo.3',
+          }}
+        />
+        <Menu>
+          <MenuButton
+            as={IconButton}
+            position="absolute"
+            right={'2%'}
+            bottom={'3'}
+            siz={'lg'}
+            h={'4vh'}
+            bg={'none'}
+            icon={<FiMoreVertical />}
+            _hover={{
+              bg: 'white',
+            }}
+            _active={{
+              bg: 'white',
+              color: 'logo.3',
+            }}
+          />
+          <MenuList>
+            <MenuItem onClick={() => handleReport()}>Report post</MenuItem>
+          </MenuList>
+        </Menu>
       </Flex>
     </>
   );

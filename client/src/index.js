@@ -20,6 +20,7 @@ import axios from 'axios';
 import Payments from './views/Payments';
 import Settings from './views/Settings';
 import Explore from './views/Explore';
+import { PaymentSucess } from './views/PaymentSucess';
 // const Dotenv = require('dotenv-webpack');
 
 // require('dotenv').config();
@@ -28,7 +29,7 @@ import Explore from './views/Explore';
 // dotenv.config();
 //console.log(process.env.REACT_APP_API);
 axios.defaults.baseURL = process.env.REACT_APP_API;
-//axios.defaults.baseURL = 'http://localhost:3001';
+// axios.defaults.baseURL = 'http://localhost:3001';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -50,6 +51,7 @@ root.render(
             <Route path="/payments" element={<Payments />} />
             <Route path="/settings" element={<Settings />} />
             <Route path="/explore" element={<Explore />} />
+            <Route path="/success-payment" element={<PaymentSucess />} />
           </Routes>
         </BrowserRouter>
       </ChakraProvider>

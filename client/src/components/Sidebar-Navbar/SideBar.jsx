@@ -4,51 +4,20 @@ import {
   useColorModeValue,
   Drawer,
   DrawerContent,
-  useDisclosure
+  useDisclosure,
 } from '@chakra-ui/react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getMyUser } from '../../redux/action';
 import { MobileNav } from './MovileNav';
 import { SidebarContent } from './SidebarContent';
 
-
-export default function SidebarWithHeader({ children }) {
-  //----------Lógica notificaciones-------
-  // const [notifications, setNotifications] = useState([])
-  // const [open, setOpen] = useState(false)
-
-  // useEffect(() => {
-  //   socket.on("getNotification", data => {
-  //     setNotifications((prev) => [...prev, data])
-  //   })
-  // }, [socket])
-
-  // const displayNotification = ({ senderName }) => {
-  //   return (
-  //     <MenuItem>A {senderName} le gustó tu posteo</MenuItem>
-  //   )
-  // }
-
-  // const handleRead = () => {
-  //   setNotifications([])
-  //   setOpen
-  // }
-  //En la parte del comienzo de la barra ({ children, socket })
-  //---------------------------------------
+export default function SidebarWithHeader({
+  friends,
+  children,
+  myUser,
+  myFollowers,
+}) {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const auth = useSelector((state) => state.auth);
-  const dispatch = useDispatch();
-  const [User, setUser] = useState(
-    useState(JSON.parse(localStorage.getItem('user')))
-  );
-  const neededEmail = User[0].email;
 
-  useEffect(() => {
-    setTimeout(function () {
-      dispatch(getMyUser(neededEmail));
-    }, 300);
-  }, [dispatch, neededEmail]);
-  const myUser = useSelector((state) => state.myUser);
+
   return (
     <Box
       pos={'fixed'}
@@ -61,6 +30,8 @@ export default function SidebarWithHeader({ children }) {
         onClose={() => onClose}
         display={{ base: 'none', md: 'block' }}
         myUser={myUser}
+        friends={friends}
+        myFollowers={myFollowers}
       />
       <Drawer
         autoFocus={false}
@@ -76,9 +47,32 @@ export default function SidebarWithHeader({ children }) {
         </DrawerContent>
       </Drawer>
       <MobileNav onOpen={onOpen} myUser={myUser} />
-        <Box ml={{ base: 0, md: 60 }} p="4">
+      <Box ml={{ base: 0, md: 60 }} p="4">
         {children}
-        </Box>
+      </Box>
     </Box>
   );
 }
+
+//----------Lógica notificaciones-------
+// const [notifications, setNotifications] = useState([])
+// const [open, setOpen] = useState(false)
+
+// useEffect(() => {
+//   socket.on("getNotification", data => {
+//     setNotifications((prev) => [...prev, data])
+//   })
+// }, [socket])
+
+// const displayNotification = ({ senderName }) => {
+//   return (
+//     <MenuItem>A {senderName} le gustó tu posteo</MenuItem>
+//   )
+// }
+
+// const handleRead = () => {
+//   setNotifications([])
+//   setOpen
+// }
+//En la parte del comienzo de la barra ({ children, socket })
+//---------------------------------------

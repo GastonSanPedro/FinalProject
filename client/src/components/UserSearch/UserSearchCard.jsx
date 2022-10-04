@@ -1,8 +1,8 @@
 import {Center, Box, Flex ,Avatar, Stack, Button, Text, Heading, HStack} from '@chakra-ui/react'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 
-export default function SearchUserCard ({fullName, image, firstName, lastName, email, friends, posts, bio}) {
-
+export default function SearchUserCard ({fullName, image, firstName, lastName, email, friends, posts, bio, userName}) {
+  const navigate = useNavigate()
   function randomNumber(min, max) {
     let a = Math.random() * (max - min) + min;
     return Math.floor(a);
@@ -37,12 +37,13 @@ export default function SearchUserCard ({fullName, image, firstName, lastName, e
             p={2}
             mr={'2%'}>
             <Heading
-              fontSize={'lg'}
+              fontSize={'md'}
               textAlign={'left'}
               >
                {firstName}
                 <br/>{lastName}
             </Heading>
+            <Text fontSize={'xs'} color={'gray.700'}>{userName}</Text>
           </Box>
           <Box
           w={'25%'}>
@@ -66,9 +67,9 @@ export default function SearchUserCard ({fullName, image, firstName, lastName, e
             flexDir={'column'}
             left={'1%'}
             w={'30%'}
-             >
-              <Link to={`/user/${email}`}>          
+             >         
                 <Button
+                onClick={()=>{navigate(`/user/${email}`)}}
                 size={'sm'}
                 w={'80%'}
                 mt={2}
@@ -82,7 +83,7 @@ export default function SearchUserCard ({fullName, image, firstName, lastName, e
                   >
                   Profile
                 </Button>
-                </Link> 
+
             </Box>
         </Stack>
 
