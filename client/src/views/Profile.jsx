@@ -25,13 +25,13 @@ const Profile = () => {
     
     useEffect(() => {
         dispatch(getMyUser(neededEmail));
-      
+
     }, [dispatch, neededEmail]);
     
     
     useEffect(() => {
       dispatch(getFriends(myUser?._id))
-      dispatch(getFollowers(myUser?._id));}, [dispatch, myUser, singlePost, friends]);
+      dispatch(getFollowers(myUser?._id));}, [dispatch, singlePost]);
     
   return (
     <>
