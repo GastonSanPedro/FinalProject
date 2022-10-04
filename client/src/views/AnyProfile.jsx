@@ -25,7 +25,7 @@ export default function AnyProfile() {
   useEffect(() => {
       dispatch(getUser(email));
       ;
-  }, [dispatch, email, myUser, user]);
+  }, [dispatch, email]);
 
   return (
     <>
