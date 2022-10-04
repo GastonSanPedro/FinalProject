@@ -17,7 +17,7 @@ export const ColorBox = () => {
   )
 }
 
-export const UserSettings = ({myUser, input, setInput}) => {
+export const UserSettings = ({myUser, input, setInput, users}) => {
 
   const {firstName, lastName, userName, password, email} = myUser
     
@@ -46,7 +46,8 @@ export const UserSettings = ({myUser, input, setInput}) => {
                     name={'firstName'} 
                     email={email} 
                     input={input} 
-                    setInput={setInput}/>
+                    setInput={setInput}
+                    />
                   </Flex>
                   <ColorBox/>
               </Flex>
@@ -59,14 +60,16 @@ export const UserSettings = ({myUser, input, setInput}) => {
                   align={'center'} 
                   justify={'space-between'} 
                   w={'100%'} 
-                  bg={'white'} >
+                  bg={'white'}
+                   >
                     <Text>Last Name:</Text>
                     <EditableForm 
                     val={lastName} 
                     name={'lastName'}
                     email={email}  
                     input={input} 
-                    setInput={setInput}/>
+                    setInput={setInput}
+                    users={users}/>
                   </Flex>
                   <ColorBox/>
                 </Flex>
@@ -87,7 +90,8 @@ export const UserSettings = ({myUser, input, setInput}) => {
                     val={userName} 
                     input={input}
                     name={'userName'} 
-                    setInput={setInput}/>
+                    setInput={setInput}
+                    users={users.map((user)=> user.username)}/>
                     </Flex>
                     <ColorBox/>
                 </Flex>
@@ -108,7 +112,8 @@ export const UserSettings = ({myUser, input, setInput}) => {
                     input={input}
                     email={email}  
                     setInput={setInput}
-                    name={'password'}  />
+                    name={'password'}
+                    users={users}  />
                     </Flex>
                     <ColorBox/>
                 </Flex>

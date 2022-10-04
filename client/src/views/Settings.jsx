@@ -17,6 +17,7 @@ const Settings = () =>{
    const myUser =  useSelector(state => state.myUser)
    const friends = useSelector((state)=> state.friends)
    const myFollowers = useSelector((state) => state.followers)
+   const users = useSelector((state) => state.users)
 
    const [state, setState ] = useState('users')
    const NAV_ITEMS = [
@@ -39,7 +40,7 @@ const Settings = () =>{
          onClick: () => {
            setState('images')}
        }  
-    ];
+    ]
     
     const [input, setInput] = useState({
     firstName: '',
@@ -51,10 +52,10 @@ const Settings = () =>{
     bio: '',
     })
 
+
  return(
     <>
     <SidebarWithHeader myUser={myUser} friends={friends} myFollowers={myFollowers}/>
-    
     <Box
       pos={'absolute'}
       left={'0%'}
@@ -66,15 +67,19 @@ const Settings = () =>{
       mt={'5.4%'}
       ml={'16%'}
       bg={'whitesmoke'}>
-   <NavbarSerch NAV_ITEMS={NAV_ITEMS}/> 
-   <Box display={'flex'} flexDir={'row'}>
-      <UserPics myUser={myUser} inpu={input} setInput={setInput} />
+    <NavbarSerch NAV_ITEMS={NAV_ITEMS}/> 
+    <Box display={'flex'} flexDir={'row'}>
+      <UserPics 
+      myUser={myUser} 
+      inpu={input} 
+      setInput={setInput} />
       <UserSettings 
       input={input} 
       setInput={setInput}
       myUser={myUser} 
       state={state} 
-      setState={setState}/>
+      setState={setState}
+      users={users}/>
     </Box>
     <UserBio 
     myUser={myUser}
