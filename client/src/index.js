@@ -20,10 +20,7 @@ import axios from 'axios';
 import Payments from './views/Payments';
 import Settings from './views/Settings';
 import Explore from './views/Explore';
-
-// import {  WebsocketProvider, socket } from './context/WebsocketContext';
-// import  WebSocketChat  from './components/ChatWs/WebSocketChat'
-// import Chat from './components/Chat/Chat';
+import { PaymentSucess } from './views/PaymentSucess';
 // const Dotenv = require('dotenv-webpack');
 
 // require('dotenv').config();
@@ -54,7 +51,7 @@ root.render(
             <Route path="/payments" element={<Payments />} />
             <Route path="/settings" element={<Settings />} />
             <Route path="/explore" element={<Explore />} />
-            {/* <Route path="/chat" element={<Chat />} /> */}
+            <Route path="/success-payment" element={<PaymentSucess />} />
           </Routes>
         </BrowserRouter>
       </ChakraProvider>

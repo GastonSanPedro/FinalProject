@@ -1,6 +1,6 @@
 import '../index.css';
 import { Box } from '@chakra-ui/react';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import UserCard from '../components/UserCard/UserCard';
 import SidebarWithHeader from '../components/Sidebar-Navbar/SideBar';
@@ -11,8 +11,7 @@ import { getFollowers, getFriends } from '../redux/action';
 import { connectToServer } from '../socket-client';
 
 const Profile = () => {
-
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const myUser = useSelector((state) => state.myUser);
   const singlePost = useSelector((state) => state.singlePost);
   const friends = useSelector((state) => state.friends);
@@ -35,7 +34,11 @@ const Profile = () => {
 
   return (
     <>
-      <SidebarWithHeader myUser={myUser} friends={friends} myFollowers={myFollowers} />
+      <SidebarWithHeader
+        myUser={myUser}
+        friends={friends}
+        myFollowers={myFollowers}
+      />
       <Box
         className="ImageHeader"
         zIndex={2}

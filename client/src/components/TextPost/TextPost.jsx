@@ -18,15 +18,14 @@ import { BiMessage, BiShocked, BiHeart, BiHappyAlt } from 'react-icons/bi';
 import { FiMoreVertical } from 'react-icons/fi';
 import { BsSun } from 'react-icons/bs';
 import Quotes from '../../assets/comillas.svg';
-import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import {
   getSinglePosts,
   reportPost,
-  cleanSinglePost,
   postComment,
 } from '../../redux/action';
 import { PostModal } from '../PostModal/PostModal';
+import { useNavigate } from 'react-router-dom';
 
 function randomNumber(min, max) {
   let a = Math.random() * (max - min) + min;
@@ -89,6 +88,7 @@ export default function TextPost({
     newDate.toLocaleDateString('es-ES');
   const dispatch = useDispatch();
   const toast = useToast();
+  const navigate = useNavigate()
   const handleClick = () => {
     setOverlay(<OverlayOne />);
     dispatch(getSinglePosts(postId));
@@ -188,8 +188,8 @@ export default function TextPost({
           height={'20vh'}
           minW={'35%'}
         >
-          <Link to={`/user/${userName}`}>
             <Avatar
+              onClick={()=>{navigate(`/user/${userName}`)}}
               size={'xl'}
               src={image}
               name={fullName}
@@ -201,7 +201,6 @@ export default function TextPost({
               mb={'18%'}
               ml={'3%'}
             />
-          </Link>
         </Flex>
         <Flex
           align={'flex-end'}
