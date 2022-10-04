@@ -98,12 +98,14 @@ export const PostModal = ({
               <Box>
                 {singlePost?.comments?.length > 0 ? (
                   singlePost?.comments?.map((comment) => {
-                    //console.log(comment.likes);
                     const date = new Date(comment.createdAt);
                     const formatedDate =
                       date.toLocaleTimeString('es-ES').slice(0, -3) +
                       ' ' +
                       date.toLocaleDateString('es-ES');
+                    //console.log(comment.likes);
+                    if(comment?.idUser !== null){
+                      
                     return (
                       <CommentBox
                         comment={comment}
@@ -112,6 +114,9 @@ export const PostModal = ({
                         postId={postId}
                       />
                     );
+                    
+                    }
+                   
                   })
                 ) : (
                   <Text>Aun no hay comentarios</Text>

@@ -20,6 +20,7 @@ import {  useNavigate } from 'react-router-dom';
 
 
 const UserCard = ({ site, myUser, user, friends }) => {
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleClickLogout = () => {
@@ -29,16 +30,16 @@ const UserCard = ({ site, myUser, user, friends }) => {
     navigate('/landing-page');
   };
   const handleClickFollow = () => {
-    dispatch(addFriend(myUser._id, user._id));
+    dispatch(addFriend(myUser?._id, user?._id));
   };
 
   const handleClickUnfollow = () => {
-    dispatch(deleteFriend(myUser._id, user._id));
+    dispatch(deleteFriend(myUser?._id, user?._id));
   };
 
   const following = () => {
-    if (friends.length) {
-      return friends?.filter((friend) => friend?.idFriend._id === user._id);
+    if (friends?.length) {
+      return friends?.filter((friend) => friend?.idFriend?._id === user?._id);
     }
   };
 
@@ -52,7 +53,7 @@ const UserCard = ({ site, myUser, user, friends }) => {
   };
   const followValidator = JSON.parse(localStorage.getItem('email'));
 
-  // useEffect(() => {}, [myUser.followers]);
+
 
   return (
     <Box
@@ -197,11 +198,12 @@ const UserCard = ({ site, myUser, user, friends }) => {
             textColor: 'white',
             bg: 'logo.2',
           }}
-          onClick={() => handleClickUnfollow()}
-        >
-          UNFOLLOW
-        </Button>
-      )}
+            onClick={(e) => handleClickUnfollow(e)}
+          >
+            UNFOLLOW
+          </Button>
+        )
+      }
     </Box>
   );
 };

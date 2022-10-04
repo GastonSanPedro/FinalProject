@@ -40,8 +40,10 @@ export class FriendsService {
     if(isValidObjectId(idUser)){
       const user =  await this.userModel.findById(idUser)
       .populate({ path: 'friends.idFriend', select:'-posts -password -friends -email -bio'})
-      .exec() 
+      .exec()
       return user.friends
+      // .filter((el=>el.idUser))
+      
     }
   }
 

@@ -75,6 +75,7 @@ export default function TextPostContainer({
           >
             {renderPosts?.length !== 0 ? (
               renderPosts?.map((post, index) => {
+                if(post.author !==null){
                 return (
                   <SlideFade in={onToggle} key={index} offsetY="20px">
                     <TextPost
@@ -112,7 +113,7 @@ export default function TextPostContainer({
                     />
                   </SlideFade>
                 );
-              })
+              }})
             ) : (
               <Box>
                 {site === 'profile' ? (

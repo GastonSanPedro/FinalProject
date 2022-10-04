@@ -167,13 +167,14 @@ export function createUser(payload) {
     }
   };
 }
-export function searchUser(searcher) {
+export function searchUser(myId, searcher) {
   return async function (dispatch) {
     try {
       var json = await axios.get(`/users/name/${searcher}`);
+      let filtered = json.data.filter(user => user._id !== myId)
       return dispatch({
         type: SEARCH_USER,
-        payload: json.data,
+        payload: filtered,
       });
     } catch (error) {
       return dispatch({
@@ -330,16 +331,15 @@ export const searchFriends = (id, input) => {
 export const deleteFriend = (myUserid, anyUserId) => {
   const ids = {
     idFriend: anyUserId,
-    idUser: myUserid,
-  };
+    };
+    
   return async function (dispatch) {
     try {
       let info = await axios.delete(`/friends/${myUserid}`, ids);
-      let { data } = await axios.get(`/friends/${myUserid}`);
+      // let { data } = await axios.get(`/friends/${myUserid}`);
 
       return dispatch({
-        type: DELETE_FRIENDS,
-        payload: data,
+        type: DELETE_FRIENDS
       });
     } catch (error) {
       console.log(error);
