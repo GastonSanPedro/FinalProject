@@ -145,8 +145,8 @@ export const MobileNav = ({ myUser, onOpen, ...rest }) => {
                     ml="2"
                   >
                     <Text fontSize="sm">
-                      {myUser?.fullName
-                        ? myUser.fullName
+                      {myUser?.firstName
+                        ? `${myUser.firstName} ${myUser.lastName}`
                         : 'Loading'}
                     </Text>
                   </VStack>

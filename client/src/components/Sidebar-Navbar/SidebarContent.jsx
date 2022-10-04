@@ -69,18 +69,18 @@ export const SidebarContent = ({ myFollowers, friends, myUser, onClose, ...rest 
   const NavItem = ({ icon, link, children, ...rest }) => {
     const navigate = useNavigate()
     return (
-      <Button
+      <Box
         bg={'none'}
         fontWeight={'normal'}
         onClick={()=>{navigate(`/${link.name}`)}}
         style={{ textDecoration: 'none' }}
         _focus={{ boxShadow: 'none' }}
-        p={'3vh'}
+        p={'1vh'}
       >
         <Flex
           align="center"
-          p="4"
-          mx="4"
+          p="3"
+          mx="2"
           borderRadius="lg"
           role="group"
           cursor="pointer"
@@ -102,6 +102,6 @@ export const SidebarContent = ({ myFollowers, friends, myUser, onClose, ...rest 
           )}
           {children}
         </Flex>
-      </Button>
+      </Box>
     );
   };

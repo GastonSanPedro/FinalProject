@@ -20,6 +20,7 @@ import {  useNavigate } from 'react-router-dom';
 
 
 const UserCard = ({ site, myUser, user, friends }) => {
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleClickLogout = () => {
@@ -52,7 +53,7 @@ const UserCard = ({ site, myUser, user, friends }) => {
   };
   const followValidator = JSON.parse(localStorage.getItem('email'));
 
-  // useEffect(() => {}, [myUser.followers]);
+
 
   return (
     <Box
@@ -197,11 +198,12 @@ const UserCard = ({ site, myUser, user, friends }) => {
             textColor: 'white',
             bg: 'logo.2',
           }}
-          onClick={() => handleClickUnfollow()}
-        >
-          UNFOLLOW
-        </Button>
-      )}
+            onClick={(e) => handleClickUnfollow(e)}
+          >
+            UNFOLLOW
+          </Button>
+        )
+      }
     </Box>
   );
 };

@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { setPremium } from '../../redux/action';
 
 export const SuccessPaymentInfo = ({ myPosts }) => {
+  //console.log(myPosts);
   const [Bill, setBill] = useState(JSON.parse(localStorage.getItem('bill')));
   const [Details, setDetails] = useState({});
   const [current, setCurrent] = useState();
@@ -17,14 +18,14 @@ export const SuccessPaymentInfo = ({ myPosts }) => {
       setCurrent(undefined);
       setDetails(undefined);
     } else if (current === undefined) {
-      const detailPost = myPosts.find((post) => post._id === id);
-      //console.log(detailPost);
+      const detailPost = myPosts?.find((post) => post._id === id);
+      console.log(myPosts);
       setDetails(detailPost);
       setCurrent(id);
     } else {
       setCurrent(undefined);
       setDetails(undefined);
-      const detailPost = myPosts.find((post) => post._id === id);
+      const detailPost = myPosts?.find((post) => post._id === id);
       //console.log(detailPost);
       setDetails(detailPost);
       setCurrent(id);
