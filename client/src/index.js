@@ -20,7 +20,7 @@ import axios from 'axios';
 import Payments from './views/Payments';
 import Settings from './views/Settings';
 import Explore from './views/Explore';
-import { PaymentSucess } from './views/PaymentSucess';
+import PaymentSucess from './views/PaymentSucess';
 // const Dotenv = require('dotenv-webpack');
 
 // require('dotenv').config();

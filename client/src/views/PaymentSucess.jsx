@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { SuccessPaymentInfo } from '../components/PaymentCard/SuccessPaymentInfo';
 
-export const PaymentSucess = () => {
+const PaymentSucess = () => {
   const dispatch = useDispatch();
   const myUser = useSelector((state) => state.myUser);
   const friends = useSelector((state) => state.friends);
@@ -30,3 +30,5 @@ export const PaymentSucess = () => {
     </>
   );
 };
+
+export default PaymentSucess;
