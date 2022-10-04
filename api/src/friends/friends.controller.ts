@@ -31,7 +31,8 @@ export class FriendsController {
     return this.friendsService.findAllPostOfMyFriends(idUser);
   }
 
-  @Delete('/:idUser')
+
+  @Patch('/:idUser')
   removeFriend(@Param('idUser') idUser: string, @Body() updateFriendDto: UpdateFriendDto) {
     return this.friendsService.removeFriend(idUser, updateFriendDto);
   }

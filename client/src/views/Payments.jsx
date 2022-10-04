@@ -2,6 +2,7 @@ import { Box, Center, Stack } from '@chakra-ui/react';
 import { useSelector } from 'react-redux';
 import PaymentCard from '../components/PaymentCard/PaymentCard';
 import SidebarWithHeader from '../components/Sidebar-Navbar/SideBar';
+import {useState} from 'react'
 
 const Payments = () => {
 

@@ -334,7 +334,7 @@ export const deleteFriend = (myUserid, anyUserId) => {
   };
   return async function (dispatch) {
     try {
-      let info = await axios.delete(`/friends/${myUserid}`, ids);
+      let info = await axios.patch(`/friends/${myUserid}`, ids);
       let { data } = await axios.get(`/friends/${myUserid}`);
 
       return dispatch({
