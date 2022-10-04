@@ -16,9 +16,9 @@ const Profile = () => {
   const myUser = useSelector((state) => state.myUser);
   const singlePost = useSelector((state) => state.singlePost);
 
-  useEffect(() => {
-    dispatch(getFriends(myUser._id))
-    dispatch(getFollowers(myUser._id));}, [dispatch, myUser, singlePost]);
+  // useEffect(() => {
+  //   dispatch(getFriends(myUser._id))
+  //   dispatch(getFollowers(myUser._id));}, [dispatch, myUser, singlePost]);
   const friends = useSelector((state) => state.friends);
   const myFollowers = useSelector((state) => state.followers);
 

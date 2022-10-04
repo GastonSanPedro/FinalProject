@@ -26,20 +26,9 @@ export default function Friends({ myUser, friends, myFollowers }) {
   const [size, setSize] = useState('');
   const [input, setInput] = useState('');
   const { isOpen, onOpen, onClose } = useDisclosure();
-<<<<<<< HEAD
-  const handleClick = () => { onOpen(); };
-  const id = myUser?._id
-  console.log({myUser})
-  useEffect(() => {
-    dispatch(getFriends(id));
-  }, [dispatch]);
-
-  const friends = useSelector((state) => state.searchFriends);
-=======
   const handleClick = () => {
     onOpen();
   };
->>>>>>> dev3
 
   return (
     <>

@@ -24,7 +24,6 @@ export const SEARCH_FRIENDS = 'SEARCH_FRIENDS';
 export const GET_FRIENDS_POSTS = 'GET_FRIENDS_POSTS'
 export const REPORT_POST = 'REPORT_POST';
 export const DELETE_POST = 'DELETE_POST';
-export const GET_FRIENDS_POSTS = 'GET_FRIENDS_POSTS'
 export const CREATE_PAYMENT = 'CREATE_PAYMENT';
 
 
@@ -201,7 +200,7 @@ export const authUser = (mail, password, google) => {
     try {
       if (google === undefined) {
         var user = await axios.get(`/users/${mail}`);
-        let formatUser = user.data;
+        let formatUser = await   user.data;
         if (formatUser.password !== password) {
           return dispatch({
             type: AUTH_USER,
@@ -377,25 +376,7 @@ export function deletePost(id) {
     }
   };
 }
-<<<<<<< HEAD
 
-export function getFriendsPosts(myUserid) {
-  return async function (dispatch) {
-    try {
-      let info = await axios.get(`/friends/posts/${myUserid}`);
-      dispatch({
-        type: GET_FRIENDS_POSTS,
-        payload: info.data,
-      });
-    } catch (error) {
-      console.log(error, 'Error al llamar a la api');
-    }
-  };
-}
-
-
-=======
->>>>>>> dev3
 export function createPayment(id, info) {
   return async function (dispatch) {
     try {

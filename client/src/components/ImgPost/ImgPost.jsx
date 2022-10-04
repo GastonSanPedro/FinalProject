@@ -1,22 +1,13 @@
 import {
   Box,
-  Center,
-  Heading,
   Text,
-  Stack,
   Avatar,
-  useColorModeValue,
   Image,
   Flex,
   IconButton,
   ModalOverlay,
   useDisclosure,
   Button,
-  Input,
-  ModalCloseButton,
-  InputRightElement,
-  InputGroup,
-  useToast,
   MenuList,
   MenuItem,
   Menu,
@@ -26,17 +17,15 @@ import {
 } from '@chakra-ui/react';
 import {
   getSinglePosts,
-  postComment,
   reportPost,
-  deletePost,
 } from '../../redux/action';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { BiMessage, BiShocked, BiHeart, BiHappyAlt } from 'react-icons/bi';
 import { BsSun } from 'react-icons/bs';
 import { FiMoreVertical } from 'react-icons/fi';
 import { useDispatch } from 'react-redux';
 import { PostModal } from '../PostModal/PostModal';
+import { useNavigate } from 'react-router-dom';
 
 function randomNumber(min, max) {
   let a = Math.random() * (max - min) + min;
@@ -70,11 +59,13 @@ export default function ImgPost({
   site,
   handleDelete,
 }) {
+
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [overlay, setOverlay] = useState(<OverlayOne />);
   const [hide, setHide] = useState(false);
   const [Reaction, setReaction] = useState({});
   const dispatch = useDispatch();
+  const navigate = useNavigate()
   const handleClick = () => {
     setOverlay(<OverlayOne />);
     onOpen();
@@ -90,107 +81,90 @@ export default function ImgPost({
     ' ' +
     newDate.toLocaleDateString('es-ES');
 
-  function sentenceCase(input, lowercaseBefore) {
-    input = input === undefined || input === null ? '' : input;
-    if (lowercaseBefore) {
-      input = input.toLowerCase();
-    }
-    return input
-      .toString()
-      .replace(/(^|\. *)([a-z])/g, function (match, separator, char) {
-        return separator + char.toUpperCase();
-      });
+  // function sentenceCase(input, lowercaseBefore) {
+  //   input = input === undefined || input === null ? '' : input;
+  //   if (lowercaseBefore) {
+  //     input = input.toLowerCase();
+  //   }
+  //   return input
+  //     .toString()
+  //     .replace(/(^|\. *)([a-z])/g, function (match, separator, char) {
+  //       return separator + char.toUpperCase();
+  //     });
+  // }
+
+  // if (sentenceCase(description, true).length >50 ){
+  //   let displayText = sentenceCase(description, true).slice(0,50)
+  //   return displayText
+  // }
+
+  // if(description.length > 50){
+  //   var displayText = description.slice(0,50)
+  //   return displayText
+  // }
+  const handleNavigate = () => {
+    navigate(`/user/${email}`)
   }
+
+
   return (
     <>
-      <Center py={6}>
-        <PostModal
-          singlePost={singlePost}
-          fullName={fullName}
-          description={description}
-          image={image}
-          onOpen={onOpen}
-          onClose={onClose}
-          isOpen={isOpen}
-          loggedUser={loggedUser}
-          loggedEmail={loggedEmail}
-          postId={postId}
-          date={formatedDate}
-          avatar={avatar}
-          email={email}
-        />
-        {/** Acá arranca la box del posteo */}
-        <Box
+      {/* <Center py={6}> */}
+      <PostModal
+        singlePost={singlePost}
+        fullName={fullName}
+        description={description}
+        image={image}
+        onOpen={onOpen}
+        onClose={onClose}
+        isOpen={isOpen}
+        loggedUser={loggedUser}
+        loggedEmail={loggedEmail}
+        postId={postId}
+        date={formatedDate}
+        avatar={avatar}
+        email={email}
+      />
+      {/** Acá arranca la box del posteo */}
+      <Box
+        border="1px"
+        borderColor='gray.200'
+        bgColor="#f5f5f5"
+        maxW={'25vw'}
+        w={'25vw'}
+        rounded={'sm'}
+        p={6}
+        h={'68vh'}
+        overflow={'hidden'}
+      // _hover={{
+      //   bg: `logo.${randomNumber(1, 4)}`,
+      // }}
+      >
+        <Image
+          src={image}
           border="1px"
-          boderColor="black"
-          maxW={'25vw'}
-          w={'25vw'}
-          bg={useColorModeValue('white', 'gray.900')}
-          rounded={'sm'}
-          p={6}
-          h={site === 'profile' ? '60vh' : '62vh'}
-          overflow={'hidden'}
-          _hover={{
-            bg: `logo.${randomNumber(1, 4)}`,
-          }}
-        >
-          {/* <Box h={'210px'}  pt={10} pl={10} mx={-6} mb={6} pos={'relative'}> */}
-          <Image
-            src={image}
-            // h={'210px'}
+          borderColor='gray.200'
+          // h={'210px'}
+          // pt={5}
+          // pl={10}
+          // mx={-6}
+          // mb={6}
+          pos={'relative'}
+          layout={'cover'}
+          objectFit={'cover'}
+          boxSize="40vh"
+          width={'100%'}
 
-            // pt={5}
-            // pl={10}
-            // mx={-6}
-            // mb={6}
-            pos={'relative'}
-            layout={'cover'}
-            objectFit={'cover'}
-            boxSize="40vh"
-            width={'100%'}
-            
-          />
-          {/* </Box> */}
-
-          <VStack>
-            {/**Reacciones */}
-            {/**Descripcion con lógica ver mas */}
-            <HStack>
-              <Avatar></Avatar>
-              {/**Username */}
-              {/**Fecha */}
-            </HStack>
-
-
-          </VStack>
-          <Stack>
-            {/* <Heading
-              color={useColorModeValue('gray.700', 'white')}
-              textTransform="uppercase"
-              fontSize={'2xl'}
-              fontFamily={'body'}
-            >
-              {userName}
-            </Heading> */}
-            <Text width={'35vh'} h={'12vh'} color={'gray.500'}>
-              {sentenceCase(description, true)}
-            </Text>
-          </Stack>
-          <Stack mt={6} direction={'row'} spacing={4} align={'center'}>
-            <Link to={`/user/${email}`}>
-              <Avatar src={avatar} name={fullName} alt={'Author'} />
-            </Link>
-            <Stack direction={'column'} spacing={0} fontSize={'sm'}>
-              <Text fontWeight={600}>{fullName}</Text>
-              <Text color={'gray.500'}>{formatedDate}</Text>
-            </Stack>
-          </Stack>
+        />
+        {/* </Box> */}
+        <Box pt={3}>
           <Flex
             position={'absolute'}
             ml={'-1vw'}
             align={'flex-start'}
             justify={'right'}
             width={'14vw'}
+            zIndex={5}
           >
             <Box
               onMouseLeave={() => {
@@ -279,6 +253,7 @@ export default function ImgPost({
             </Box>
           </Flex>
           <IconButton
+            zIndex={5}
             position="absolute"
             ml={'4.7%'}
             size={'lg'}
@@ -298,6 +273,7 @@ export default function ImgPost({
           />
           <Menu>
             <MenuButton
+              zIndex={5}
               as={IconButton}
               position="absolute"
               ml={'9%'}
@@ -319,7 +295,59 @@ export default function ImgPost({
             </MenuList>
           </Menu>
         </Box>
-      </Center>
+
+
+
+        <VStack>
+          <Text width={'22vw'} h={'12vh'} color={"black"} pt={9}>
+            {/* {sentenceCase(description, true)} */}
+            {/* {displayText} */}
+            {description?.length > 60 ?
+              `${description?.slice(0, 60)} ... `
+              : description}
+            {description?.length > 70 ?
+              <Button
+                zIndex={5}
+                position="relative"
+                bg="none"
+                onClick={() => handleClick()}
+              >
+                Ver más
+              </Button> : null}
+          </Text>
+          <HStack pt="9%" pr="7%" position="absolute">
+            <Avatar onClick={() => handleNavigate()} size='sm' src={avatar} name={fullName} alt={'Author'} />
+            <Text >{userName}</Text>
+            <Box ml="20px">
+              <Text color={'gray.500'} ml="60%" w="150px">{formatedDate}</Text>
+            </Box>
+          </HStack>
+        </VStack>
+        {/* <Stack>
+            <Heading
+              color={useColorModeValue('gray.700', 'white')}
+              textTransform="uppercase"
+              fontSize={'2xl'}
+              fontFamily={'body'}
+            >
+              {userName}
+            </Heading>
+            <Text width={'35vh'} h={'12vh'} color={'gray.500'}>
+              {sentenceCase(description, true)}
+            </Text>
+          </Stack> */}
+        {/* <Stack mt={6} direction={'row'} spacing={4} align={'center'}>
+            <Link to={`/user/${email}`}>
+              <Avatar src={avatar} name={fullName} alt={'Author'} />
+            </Link>
+            <Stack direction={'column'} spacing={0} fontSize={'sm'}>
+              <Text fontWeight={600}>{fullName}</Text>
+              <Text color={'gray.500'}>{formatedDate}</Text>
+            </Stack>
+          </Stack> */}
+
+      </Box>
+      {/* </Center> */}
       {site === 'admin' ? (
         <Button onClick={() => handleDelete(postId)}>Eliminar</Button>
       ) : null}

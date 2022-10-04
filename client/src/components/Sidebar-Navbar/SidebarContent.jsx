@@ -7,6 +7,7 @@ import {
     FiCompass,
     FiStar,
   } from 'react-icons/fi';
+  import { redirect } from "react-router-dom"
 
 
 const LinkItems = [
