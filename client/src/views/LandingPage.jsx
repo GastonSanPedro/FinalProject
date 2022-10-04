@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import { useState } from 'react';
 import LogInForm from '../components/LogInForm/LogInForm';
-import { Center, Button, Image } from '@chakra-ui/react';
-import { Link } from 'react-router-dom';
+import { Image } from '@chakra-ui/react';
 import CreateUser from '../components/CreateUserForm/CreateUSerForm';
 import logo from '../assets/logo.jpg';
 

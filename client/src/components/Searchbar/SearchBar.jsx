@@ -1,15 +1,16 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Input, Box, IconButton } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { searchUser, searchPost, getPosts, getFriends, getFollowers, getFriendsPosts, getMyUser } from '../../redux/action';
+import { searchUser, searchPost } from '../../redux/action';
 
 const Searchbar = () => {
 
   const myUser = useSelector((state) => state.myUser);
   const friends = useSelector((state) => state.friends);
   const myFollowers = useSelector((state) => state.followers);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [searcher, setSearcher] = useState('');
@@ -19,14 +20,14 @@ const Searchbar = () => {
     setSearcher(e.target.value);
   }
 
-  useEffect(() => {
-    dispatch(getPosts())
-    dispatch(getFriends(myUser?._id))
-    dispatch(getFollowers(myUser?._id))
-    dispatch(getFriendsPosts(myUser?._id));
-    dispatch(getMyUser())
+  // useEffect(() => {
+  //   dispatch(getPosts())
+  //   dispatch(getFriends(myUser?._id))
+  //   dispatch(getFollowers(myUser?._id))
+  //   dispatch(getFriendsPosts(myUser?._id));
+  //   dispatch(getMyUser())
     
-  }, [friends]);
+  // }, [dispatch]);
   
 
   function handleSubmit(e) {

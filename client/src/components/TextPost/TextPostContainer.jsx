@@ -9,9 +9,7 @@ import {
   Divider,
 } from '@chakra-ui/react';
 import TextPost from './TextPost';
-import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { getUsers } from '../../redux/action';
+import { useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 export default function TextPostContainer({
