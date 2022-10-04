@@ -11,7 +11,7 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import { BiMessage, BiHappyAlt, BiHeart, BiShocked } from 'react-icons/bi';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { BsSun } from 'react-icons/bs';
 import {
   getSinglePosts,
@@ -21,7 +21,6 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 
 export const CommentBox = ({ comment, formatedDate, loggedUser, postId }) => {
-  const navigate = useNavigate()
   const [hide, setHide] = useState(false);
   const [show, setShow] = useState(false);
   const [Reaction, setReaction] = useState({
@@ -41,6 +40,7 @@ export const CommentBox = ({ comment, formatedDate, loggedUser, postId }) => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
   const handleSubmit = (e) => {
+    
     dispatch(postComment(input, postId));
     setInput({ idUser: loggedUser, idPost: postId, description: '' });
     toast({
@@ -66,7 +66,9 @@ export const CommentBox = ({ comment, formatedDate, loggedUser, postId }) => {
       >
         <Box width={'100%'} height={'2.75vh'} display={'flex'} mb={'1vh'}>
           <Box width={'50%'} textAlign={'left'}>
+            {/* <Link to={`/user/${loggedEmail}`}> */}
             <Text color={'orange.300'}>{comment.idUser.fullName}</Text>
+            {/* </Link> */}
           </Box>
           <Box width={'50%'} textAlign={'right'}>
             <Text fontSize={'1.4vh'} pt={'0.7vh'}>
