@@ -11,5 +11,6 @@ export class UpdatePostDto extends PartialType(CreatePostDto) {
   updatedAt?: number;
 
   @ApiProperty()
+  @IsOptional()
     likes?: IReactions []
 }
