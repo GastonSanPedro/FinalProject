@@ -27,7 +27,14 @@ const OverlayOne = () => (
   />
 );
 
-export default function PaymentCard({ num, days, price, myUser }) {
+export default function PaymentCard({
+  num,
+  days,
+  price,
+  myUser,
+  payment,
+  Bill,
+}) {
   const [overlay, setOverlay] = useState(<OverlayOne />);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const handleClick = () => {
@@ -43,6 +50,8 @@ export default function PaymentCard({ num, days, price, myUser }) {
         onClose={onClose}
         myPosts={myUser?.posts}
         loggedId={myUser?._id}
+        payment={payment}
+        Bill={Bill}
       />
       <Box
         maxW={'330px'}

@@ -26,10 +26,14 @@ export default function AnyProfile() {
       dispatch(getUser(email));
       ;
   }, [dispatch, email, myUser, user]);
-  
+
   return (
     <>
-      <SidebarWithHeader myUser={myUser} friends={friends}  myFollowers={myFollowers} />
+      <SidebarWithHeader
+        myUser={myUser}
+        friends={friends}
+        myFollowers={myFollowers}
+      />
       <Box
         className="ImageHeader"
         zIndex={2}

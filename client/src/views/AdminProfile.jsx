@@ -34,9 +34,9 @@ const AdminProfile = () => {
     const friends= useSelector((state) => state.friends);
     const myFollowers = useSelector((state) => state.followers)
 
-    useEffect(() => {
-        dispatch(getPosts());
-    }, [posts]);
+    // useEffect(() => {
+    //     dispatch(getPosts());
+    // }, [posts]);
 
     const handleDelete = (id) => {
         dispatch(deletePost(id))

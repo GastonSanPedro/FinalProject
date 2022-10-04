@@ -24,7 +24,8 @@ import {
   DELETE_FRIENDS,
   GET_FRIENDS_POSTS,
   SEARCH_FRIENDS,
-  CREATE_PAYMENT
+  CREATE_PAYMENT,
+  SET_PREMIUM,
 } from './action';
 
 const initialState = {
@@ -147,20 +148,20 @@ export default function rootReducer(state = initialState, action) {
         friends: action.payload,
       };
     case GET_FRIENDS:
-        return{
-          ...state,
-          friends: action.payload,
-          searchFriends: action.payload
+      return {
+        ...state,
+        friends: action.payload,
+        searchFriends: action.payload,
       };
     case GET_FOLLOWERS:
-      return{
+      return {
         ...state,
-        followers: action.payload
+        followers: action.payload,
       };
     case SEARCH_FRIENDS:
-      return{
+      return {
         ...state,
-        searchFriends: action.payload
+        searchFriends: action.payload,
       };
     case DELETE_FRIENDS:
       return {
@@ -168,10 +169,10 @@ export default function rootReducer(state = initialState, action) {
         friends: action.payload,
       };
     case GET_FRIENDS_POSTS:
-        return {
-          ...state,
-          friendsPosts: action.payload
-        };
+      return {
+        ...state,
+        friendsPosts: action.payload,
+      };
     case REPORT_POST:
       return {
         ...state,
@@ -189,6 +190,10 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         payment: action.payload,
+      };
+    case SET_PREMIUM:
+      return {
+        ...state,
       };
 
     default:

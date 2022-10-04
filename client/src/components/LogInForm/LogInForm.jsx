@@ -1,26 +1,26 @@
 /* global google */
-import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import {
-  Tooltip,
-  Center,
   Box,
+  Button,
+  Center,
+  Flex,
   FormControl,
-  Input,
   FormLabel,
+  Input,
   InputGroup,
   InputRightElement,
-  Button,
-  Flex,
   Text,
+  Tooltip,
   useToast,
 } from '@chakra-ui/react';
 import { Formik } from 'formik';
+import jwt_decode from 'jwt-decode';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { authUser } from '../../redux/action';
+import { useNavigate } from 'react-router-dom';
 import imgBackground from '../../assets/landing-pic.jpg';
 import logo from '../../assets/logo.jpg';
-import jwt_decode from 'jwt-decode';
+import { authUser, getFollowers, getFriends } from '../../redux/action';
 
 const imagenB = imgBackground;
 const logoLeafme = logo;
@@ -96,6 +96,8 @@ const LogInForm = ({ logOrsign, setlogOrSign }) => {
         isClosable: true,
         onCloseComplete: handleNavigation(),
       });
+      // dispatch(getFollowers(auth.user._id));
+      // dispatch(getFriends(auth.user._id));
       //navigate(`/Home`);
     } else if (auth.reason) {
       //alert(auth.reason);
