@@ -11,7 +11,7 @@ export const connectToServer = ( email: string )=> {
  }
 
 const addListeners = ( socket: Socket ) => {
-    socket.on('connect', ()=> {
+    socket.on('clients-updated', ()=> {
         console.log("cliente conectado")
     })
 }

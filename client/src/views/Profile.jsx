@@ -8,21 +8,29 @@ import port1 from '../assets/port1.png';
 import '../index.css';
 import ContainerPost from '../components/ContainerPost/ContainerPost';
 import { getFollowers, getFriends } from '../redux/action';
-
+import { connectToServer } from '../socket-client';
 
 const Profile = () => {
 
   const dispatch = useDispatch()
   const myUser = useSelector((state) => state.myUser);
   const singlePost = useSelector((state) => state.singlePost);
-
-  useEffect(() => {
-    dispatch(getFriends(myUser._id))
-    dispatch(getFollowers(myUser._id));}, [dispatch, myUser, singlePost]);
   const friends = useSelector((state) => state.friends);
   const myFollowers = useSelector((state) => state.followers);
 
+  const connectWs = (email)=>{
+  connectToServer(email)
+  }
+  
+  useEffect(()=>{
+    connectWs(myUser?.email)
 
+  },[])
+
+  useEffect(() => {
+     dispatch(getFriends(myUser._id))
+     dispatch(getFollowers(myUser._id))
+  }, [dispatch, myUser, singlePost]);
 
 
   return (

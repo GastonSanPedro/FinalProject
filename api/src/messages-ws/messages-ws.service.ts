@@ -15,7 +15,7 @@ export class MessagesWsService {
     private readonly userService: UsersService
     ){}
 
-    registerClient (client:Socket){
+    registerClient (client:Socket ){
         this.connectedClients[client.id] = client;
     }
     removeClient(clientId:string){

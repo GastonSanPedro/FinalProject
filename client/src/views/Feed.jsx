@@ -5,11 +5,15 @@ import ContainerPost from '../components/ContainerPost/ContainerPost';
 import SidebarWithHeader from '../components/Sidebar-Navbar/SideBar';
 import { getFollowers, getFriends, getFriendsPosts, getPosts } from '../redux/action';
 
+
+
 const Feed = () => {
   const myUser = useSelector((state) => state.myUser);
   const allPosts = useSelector((state) => state.posts);
   const singlePost = useSelector((state) => state.singlePost);
   const dispatch = useDispatch();
+
+  
 
   useEffect(() => {
     dispatch(getPosts())

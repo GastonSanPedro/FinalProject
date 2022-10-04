@@ -29,6 +29,8 @@ export class MessagesWsGateway implements OnGatewayConnection, OnGatewayDisconne
       
         handleConnection(client:Socket) {
           console.log(client)
+          const email = client.handshake.headers.email
+          console.log(email)
           this.messagesWsService.registerClient(client)
           this.wss.emit('clients-updated', this.messagesWsService.getConnectedClients())
         }
