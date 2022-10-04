@@ -169,17 +169,10 @@ export default function rootReducer(state = initialState, action) {
         friends: action.payload,
       };
     case GET_FRIENDS_POSTS:
-<<<<<<< HEAD
       return {
         ...state,
         friendsPosts: action.payload,
       };
-=======
-        return {
-          ...state,
-          friendsPosts: action.payload
-        };
->>>>>>> dev3
     case REPORT_POST:
       return {
         ...state,

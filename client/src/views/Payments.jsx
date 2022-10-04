@@ -2,15 +2,14 @@ import { Box, Center, Stack } from '@chakra-ui/react';
 import { useSelector } from 'react-redux';
 import PaymentCard from '../components/PaymentCard/PaymentCard';
 import SidebarWithHeader from '../components/Sidebar-Navbar/SideBar';
+import React, { useState } from 'react';
 
 const Payments = () => {
-
   const myUser = useSelector((state) => state.myUser);
   const friends = useSelector((state) => state.friends);
   const myFollowers = useSelector((state) => state.followers);
   const payment = useSelector((state) => state.payment);
   const [Bill, setBill] = useState(JSON.parse(localStorage.getItem('bill')));
-
 
   return (
     <>

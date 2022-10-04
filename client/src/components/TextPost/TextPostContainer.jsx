@@ -24,7 +24,7 @@ export default function TextPostContainer({
   //--------- Lógica InfiteScroll --------
   const [currentStart, setCurrentStart] = useState(0);
   const [currentEnd, setCurrentEnd] = useState(9);
-
+  //console.log(myUser);
   const handleClickMore = () => {
     setCurrentEnd(currentEnd + 9);
   };
@@ -101,6 +101,7 @@ export default function TextPostContainer({
                       reported={post?.reported}
                       loggedUser={myUser?._id}
                       loggedEmail={myUser?.email}
+                      premium={post?.premium}
                       singlePost={singlePost}
                       site={site}
                       background={
