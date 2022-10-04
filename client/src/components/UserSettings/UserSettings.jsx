@@ -89,7 +89,7 @@ export const UserSettings = ({myUser, input, setInput, users}) => {
                     email={email}  
                     val={userName} 
                     input={input}
-                    name={'username'} 
+                    name={'userName'} 
                     setInput={setInput}
                     users={users.map((user)=> user.userName)}/>
                     </Flex>
@@ -126,18 +126,36 @@ export const UserSettings = ({myUser, input, setInput, users}) => {
                     justify={'space-between'} 
                     w={'100%'} 
                     bg={'white'} >
-                      <Button
-                      rightIcon={<AiOutlineDelete/>} 
-                      w={'100%'}
-                      h={'7vh'} 
-                      bg={'none'}
-                      fontStyle={'none'}
-                      fontWeight={'normal'}
-                      borderRadius={2}
-                      _hover={{
-                        color: 'white',
-                        bg: 'logo.3' 
-                    }}>Delete your account?</Button>
+                      {
+                        Object.entries(input).length ? (
+                          <Button
+                          rightIcon={<AiOutlineDelete/>} 
+                          w={'100%'}
+                          h={'7vh'} 
+                          bg={'none'}
+                          fontStyle={'none'}
+                          fontWeight={'normal'}
+                          borderRadius={2}
+                          _hover={{
+                            color: 'white',
+                            bg: 'logo.3' 
+                          }}>Confirm changes?</Button>
+                        ):(
+                          <Button
+                          rightIcon={<AiOutlineDelete/>} 
+                          w={'100%'}
+                          h={'7vh'} 
+                          bg={'none'}
+                          fontStyle={'none'}
+                          fontWeight={'normal'}
+                          borderRadius={2}
+                          _hover={{
+                            color: 'white',
+                            bg: 'logo.3' 
+                          }}>Delete account?</Button>
+                        )
+                      
+                        }
                 </Flex>
                 <Box bg={`logo.3`} w={10} h={'7vh'}></Box>
                 </Flex>
