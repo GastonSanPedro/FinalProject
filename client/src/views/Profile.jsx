@@ -25,7 +25,7 @@ const Profile = () => {
     
     useEffect(() => {
         dispatch(getMyUser(neededEmail));
-      
+
     }, [dispatch, neededEmail]);
     
     

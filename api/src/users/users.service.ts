@@ -91,13 +91,24 @@ export class UsersService {
   }
 
   async remove(id: string) {
-    const userDelete:User = await this.findOne(id);
+    const userDelete:User = await this.userModel.findById(id);
     const deleted = await this.userModel.softDelete(userDelete)
+    if(userDelete.isDeleted ===false){
     return deleted
+    }else{
+      return this.userModel.restore(userDelete)
+    }
+     
+    }
 
-    // await userDelete.deleteOne()
-    // return `User ${id} has been deleted`;
-  }
+
+  // async restaured(id:string){
+  //   const userRestaured:User = await this.userModel.findById(id)
+  //   const restaured = await this.userModel.restore(userRestaured)
+  //   return restaured
+  // }
+  
+
 
   async findByName(term: string) {
     let userFinded:User[];
