@@ -2,7 +2,7 @@ import { Flex, Avatar, Text  } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
 
-export const FriendCard = ({ image, firstName, lastName, email, fullName, id }) => {
+export const FriendCard = ({ image, firstName, lastName, fullName, id }) => {
   
     const navigate = useNavigate()
 
