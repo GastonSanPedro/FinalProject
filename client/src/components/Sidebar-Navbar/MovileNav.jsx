@@ -2,8 +2,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { logOut } from "../../redux/action";
 import Searchbar from '../Searchbar/SearchBar';
-import { Box, Flex, IconButton, Menu, MenuButton,Icon, MenuItem, HStack, MenuDivider, Image, Link, useColorModeValue, MenuList, Avatar,Text,VStack } from "@chakra-ui/react";
-import { Link as ReactLink } from 'react-router-dom';
+import { Box, Flex, IconButton, Menu, MenuButton,Icon, MenuItem, HStack, MenuDivider, Image, useColorModeValue, MenuList, Avatar,Text,VStack } from "@chakra-ui/react";
 import logo from '../../assets/logo.jpg';
 import {
     FiMenu,
@@ -14,9 +13,8 @@ import {
 /*--------------- BARRA LATERAL----------------------*/
 
 export const MobileNav = ({ myUser, onOpen, ...rest }) => {
-   
+    const navigate = useNavigate()
     const google = (window.google = window.google ? window.google : {});
-    const navigate = useNavigate();
     const dispatch = useDispatch();
     const handleClickLogOut = () => {
       localStorage.removeItem('user');
@@ -127,20 +125,6 @@ export const MobileNav = ({ myUser, onOpen, ...rest }) => {
         </Box>
   
         <HStack spacing={{ base: '0', md: '6' }}>
-          {/*   Lógica socket.io
-          <Box>
-            <BellIcon onClick={() => setOpen(!open)} />
-            {notifications.length > 0 &&
-              <Box mr="3">
-                {notifications.length}
-              </Box>
-            }
-            {open && (
-              <VStack>
-                {notifications.map(n => (displayNotification(n)))}
-                <Button onClick={handleRead} ></Button>
-              </VStack>)}
-          </Box> */}
   
           <Flex alignItems={'center'} mr={12} ml={5} >
             <Menu>
@@ -161,12 +145,9 @@ export const MobileNav = ({ myUser, onOpen, ...rest }) => {
                     ml="2"
                   >
                     <Text fontSize="sm">
-                      {myUser?.fullName
-                        ? myUser.fullName
+                      {myUser?.firstName
+                        ? `${myUser.firstName} ${myUser.lastName}`
                         : 'Loading'}
-                    </Text>
-                    <Text fontSize="xs" color="gray.600">
-                      Admin
                     </Text>
                   </VStack>
                   <Box display={{ base: 'none', md: 'flex' }}>
@@ -178,18 +159,12 @@ export const MobileNav = ({ myUser, onOpen, ...rest }) => {
                 bg={useColorModeValue('white', 'gray.900')}
                 borderColor={useColorModeValue('gray.200', 'gray.700')}
               >
-                <Link as={ReactLink} to="/profile">
-                  <MenuItem>Profile</MenuItem>
-                </Link>
-                <Link as={ReactLink} to="/admin">
-                  <MenuItem>Admin panel</MenuItem>
-                </Link>
-                <Link as={ReactLink} to="/settings">
-                <MenuItem>Settings</MenuItem>
-                </Link>
-                <Link as={ReactLink} to="/payments">
-                  <MenuItem>Payments</MenuItem>
-                </Link>
+                
+                <MenuItem onClick={()=>{navigate(`/profile`)}}>Profile</MenuItem>
+                <MenuItem onClick={()=>{navigate(`/admin`)}}>Admin panel</MenuItem>
+                <MenuItem onClick={()=>{navigate(`/settings`)}}>Settings</MenuItem>
+                <MenuItem onClick={()=>{navigate(`/payments`)}}>Payments</MenuItem>
+                
                 <MenuDivider />
                 <MenuItem onClick={() => handleClickLogOut()}>Sign out</MenuItem>
               </MenuList>
@@ -200,3 +175,17 @@ export const MobileNav = ({ myUser, onOpen, ...rest }) => {
     );
   };
   
+  {/*   Lógica socket.io
+  <Box>
+    <BellIcon onClick={() => setOpen(!open)} />
+    {notifications.length > 0 &&
+      <Box mr="3">
+        {notifications.length}
+      </Box>
+    }
+    {open && (
+      <VStack>
+        {notifications.map(n => (displayNotification(n)))}
+        <Button onClick={handleRead} ></Button>
+      </VStack>)}
+  </Box> */}

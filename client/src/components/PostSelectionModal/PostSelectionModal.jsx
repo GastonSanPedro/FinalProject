@@ -7,10 +7,6 @@ import {
   ModalCloseButton,
   Text,
   Box,
-  Flex,
-  InputGroup,
-  Input,
-  InputRightElement,
   ModalOverlay,
   useDisclosure,
 } from '@chakra-ui/react';

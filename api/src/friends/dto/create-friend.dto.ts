@@ -10,5 +10,8 @@ export class AddFriendDto {
     @ApiProperty()
     @IsNotEmpty()
     idUser: ObjectId;
+
+    @ApiProperty()
+    isDeleted:Boolean;
     
 }

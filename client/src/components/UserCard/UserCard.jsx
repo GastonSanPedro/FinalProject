@@ -6,14 +6,18 @@ import {
   HStack,
   Button,
   IconButton,
-  Flex
+  Flex,
 } from '@chakra-ui/react';
 import { IoExitOutline } from 'react-icons/io5';
-import { RiUserFollowLine, RiUserUnfollowLine, RiUserSettingsLine } from 'react-icons/ri';
-import { useDispatch , useSelector} from 'react-redux';
+import {
+  RiUserFollowLine,
+  RiUserUnfollowLine,
+  RiUserSettingsLine,
+} from 'react-icons/ri';
+import { useDispatch, useSelector } from 'react-redux';
 import { logOut, addFriend, deleteFriend } from '../../redux/action';
-import { Link, useNavigate } from 'react-router-dom';
-import { useEffect } from 'react'
+import {  useNavigate } from 'react-router-dom';
+
 
 const UserCard = ({ site, myUser, user, friends }) => {
 
@@ -21,22 +25,24 @@ const UserCard = ({ site, myUser, user, friends }) => {
   const dispatch = useDispatch();
   const handleClickLogout = () => {
     localStorage.removeItem('user');
+    localStorage.removeItem('bill');
     dispatch(logOut());
     navigate('/landing-page');
   };
   const handleClickFollow = () => {
-    dispatch(addFriend(myUser._id, user._id));
+    dispatch(addFriend(myUser?._id, user?._id));
   };
-  const handleClickUnfollow = () => {
-    dispatch(deleteFriend(myUser._id, user._id))
-    
-  }
 
-  const following = () =>{
-  if(friends.length){
-    return friends?.filter(friend => friend?.idFriend._id === user._id)}
-  }
-  
+  const handleClickUnfollow = () => {
+    dispatch(deleteFriend(myUser?._id, user?._id));
+  };
+
+  const following = () => {
+    if (friends?.length) {
+      return friends?.filter((friend) => friend?.idFriend?._id === user?._id);
+    }
+  };
+
   const setUserToSite = (site) => {
     if (site === 'profile') {
       return myUser;
@@ -47,7 +53,7 @@ const UserCard = ({ site, myUser, user, friends }) => {
   };
   const followValidator = JSON.parse(localStorage.getItem('email'));
 
-  // useEffect(() => {}, [myUser.followers]);
+
 
   return (
     <Box
@@ -63,28 +69,25 @@ const UserCard = ({ site, myUser, user, friends }) => {
       bg={'white'}
       justifyContent={'center'}
     >
-      <Box 
-      position={'absolute'}
-      ml={'80%'}
-      bg={`logo.2`} 
-      w={7} 
-      h={'50vh'}></Box>
-        <Stack >
-          <Avatar
-            size="2xl"
-            showBorder="true"
-            mt="-40%"
-            right={'-17%'}
-            objectFit={'contain'}
-            src={setUserToSite(site)?.image}
-            name={setUserToSite(site)?.fullName}
-          />
-          <Stack
-            display={'flex'}
-            alignContent={'center'}
-            p={'2vh'}
-          >
-            <Stack spacing={'0vh'}>
+      <Box
+        position={'absolute'}
+        ml={'80%'}
+        bg={`logo.2`}
+        w={7}
+        h={'50vh'}
+      ></Box>
+      <Stack>
+        <Avatar
+          size="2xl"
+          showBorder="true"
+          mt="-40%"
+          right={'-17%'}
+          objectFit={'contain'}
+          src={setUserToSite(site)?.image}
+          name={setUserToSite(site)?.fullName}
+        />
+        <Stack display={'flex'} alignContent={'center'} p={'2vh'}>
+          <Stack spacing={'0vh'}>
             <Flex flexDir={'row'} align={'center'}>
             <Text
               fontSize="xl"
@@ -93,8 +96,9 @@ const UserCard = ({ site, myUser, user, friends }) => {
             >
               {setUserToSite(site)?.firstName}{' '}{setUserToSite(site)?.lastName}
             </Text>
-            { site === 'profile' ?(<Link to={'/settings'}>
+            { site === 'profile' ?(
             <IconButton
+            onClick={()=>{navigate('/settings')}}
             p={0}
             icon={<RiUserSettingsLine/>}
             size={'md'}
@@ -105,7 +109,6 @@ const UserCard = ({ site, myUser, user, friends }) => {
               textColor: 'white',
               bg: 'logo.2',
               }}/>
-            </Link>
             ):(null)}
             </Flex>
             <Text
@@ -116,43 +119,32 @@ const UserCard = ({ site, myUser, user, friends }) => {
             >
               {setUserToSite(site)?.userName}
             </Text>
-            </Stack>
-            <Text
-              fontSize="xs"
-              color={'gray.500'}
-              textAlign={'left'}
-              >
-              {setUserToSite(site)?.bio}
-            </Text>
-            <HStack  justify={'left'} spacing={'3.5vh'}>
-              <Box align={'center'}>
-                <Text fontSize="xs" >
-                  Following
-                </Text>
-                <Text fontSize="md" color={'gray.500'}>
-                  {setUserToSite(site)?.friends?.length}
-                </Text>
-              </Box>
-              <Box align={'center'}>
-                <Text fontSize="xs" >
-                  Followers
-                </Text>
-                <Text fontSize="md" color={'gray.500'}>
-                  {setUserToSite(site)?.followers?.length}
-                </Text>
-              </Box>
-              <Box align={'center'}>
-                <Text fontSize="xs" >
-                  Posts
-                </Text>
-                <Text fontSize="md" color={'gray.500'}>{setUserToSite(site)?.posts?.length}</Text>
-              </Box>
-            </HStack>
           </Stack>
-
-          
+          <Text fontSize="xs" color={'gray.500'} textAlign={'left'}>
+            {setUserToSite(site)?.bio}
+          </Text>
+          <HStack justify={'left'} spacing={'3.5vh'}>
+            <Box align={'center'}>
+              <Text fontSize="xs">Following</Text>
+              <Text fontSize="md" color={'gray.500'}>
+                {setUserToSite(site)?.friends?.length}
+              </Text>
+            </Box>
+            <Box align={'center'}>
+              <Text fontSize="xs">Followers</Text>
+              <Text fontSize="md" color={'gray.500'}>
+                {setUserToSite(site)?.followers?.length}
+              </Text>
+            </Box>
+            <Box align={'center'}>
+              <Text fontSize="xs">Posts</Text>
+              <Text fontSize="md" color={'gray.500'}>
+                {setUserToSite(site)?.posts?.length}
+              </Text>
+            </Box>
+          </HStack>
         </Stack>
-      
+      </Stack>
 
       {site === 'profile' ? (
         <Button
@@ -174,8 +166,7 @@ const UserCard = ({ site, myUser, user, friends }) => {
         >
           Log Out
         </Button>
-      ) : (
-        !following()?.length ? (
+      ) : !following()?.length ? (
         <Button
           p={'2%'}
           zIndex={20}
@@ -207,12 +198,12 @@ const UserCard = ({ site, myUser, user, friends }) => {
             textColor: 'white',
             bg: 'logo.2',
           }}
-            onClick={() => handleClickUnfollow()}
+            onClick={(e) => handleClickUnfollow(e)}
           >
             UNFOLLOW
           </Button>
         )
-      )}
+      }
     </Box>
   );
 };
