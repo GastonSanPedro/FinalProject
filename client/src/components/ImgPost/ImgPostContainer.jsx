@@ -80,6 +80,7 @@ const ImgPostContainer = ({
                             : post?.author?.image}
                         image={post?.pics}
                         email={post?.author?.email}
+                        authorId={post?.author?._id}
                         description={post?.description}
                         date={post?.createdAt}
                         postId={post?._id}

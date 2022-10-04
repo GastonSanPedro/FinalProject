@@ -58,6 +58,7 @@ export default function ImgPost({
   loggedEmail,
   site,
   handleDelete,
+  authorId
 }) {
 
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -103,7 +104,7 @@ export default function ImgPost({
   //   return displayText
   // }
   const handleNavigate = () => {
-    navigate(`/user/${email}`)
+    navigate(`/user/${authorId}`)
   }
 
 

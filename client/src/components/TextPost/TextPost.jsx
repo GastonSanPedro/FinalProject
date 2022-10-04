@@ -13,20 +13,16 @@ import {
   MenuItem,
   useToast,
   Box,
+  Badge,
 } from '@chakra-ui/react';
 import { BiMessage, BiShocked, BiHeart, BiHappyAlt } from 'react-icons/bi';
 import { FiMoreVertical } from 'react-icons/fi';
 import { BsSun } from 'react-icons/bs';
 import Quotes from '../../assets/comillas.svg';
-import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import {
-  getSinglePosts,
-  reportPost,
-  cleanSinglePost,
-  postComment,
-} from '../../redux/action';
+import { getSinglePosts, reportPost, postComment } from '../../redux/action';
 import { PostModal } from '../PostModal/PostModal';
+import { useNavigate } from 'react-router-dom';
 
 function randomNumber(min, max) {
   let a = Math.random() * (max - min) + min;
@@ -70,6 +66,7 @@ export default function TextPost({
   loggedEmail,
   date,
   avatar,
+  premium,
   email,
   site,
 }) {
@@ -82,6 +79,7 @@ export default function TextPost({
     idPost: postId,
     description: '',
   });
+  console.log(premium);
   const newDate = new Date(date);
   const formatedDate =
     newDate.toLocaleTimeString('es-ES').slice(0, -3) +
@@ -89,6 +87,7 @@ export default function TextPost({
     newDate.toLocaleDateString('es-ES');
   const dispatch = useDispatch();
   const toast = useToast();
+  const navigate = useNavigate();
   const handleClick = () => {
     setOverlay(<OverlayOne />);
     dispatch(getSinglePosts(postId));
@@ -163,6 +162,11 @@ export default function TextPost({
           overflow={'hidden'}
           pl={'1vw'}
         >
+          {premium === true ? (
+            <Badge w={'4.5vw'} color={'white'} bg={'yellow.300'}>
+              Premium
+            </Badge>
+          ) : null}
           <chakra.p
             fontFamily={'Roboto'}
             fontWeight={'medium'}
@@ -188,20 +192,21 @@ export default function TextPost({
           height={'20vh'}
           minW={'35%'}
         >
-          <Link to={`/user/${userName}`}>
-            <Avatar
-              size={'xl'}
-              src={image}
-              name={fullName}
-              height={'100px'}
-              width={'100px'}
-              justifySelf={'center'}
-              alignSelf={'center'}
-              mt={'8%'}
-              mb={'18%'}
-              ml={'3%'}
-            />
-          </Link>
+          <Avatar
+            onClick={() => {
+              navigate(`/user/${userName}`);
+            }}
+            size={'xl'}
+            src={image}
+            name={fullName}
+            height={'100px'}
+            width={'100px'}
+            justifySelf={'center'}
+            alignSelf={'center'}
+            mt={'8%'}
+            mb={'18%'}
+            ml={'3%'}
+          />
         </Flex>
         <Flex
           align={'flex-end'}

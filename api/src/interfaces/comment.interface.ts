@@ -1,10 +1,18 @@
+
+import {  ObjectId } from 'mongoose';           
+
 export interface IReactions {
-   
-    suns: number;
+  idUser: ObjectId
 
-    happyLeaf: number;
-
-    heart: number;
-
-    confusedLeaf: number;
+  type : string
 }
+// export interface IReactions {
+   
+//     suns: number;
+
+//     happyLeaf: number;
+
+//     heart: number;
+
+//     confusedLeaf: number;
+// }
