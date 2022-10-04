@@ -58,7 +58,6 @@ const CreateUser = ({ logOrSign, setlogOrSign }) => {
     }
   }, [dispatch]);
 
-  console.log(User);
   const valEmail = (inputValueEmail) => {
     const emailF = allUsers.filter((user) => inputValueEmail === user.email);
     if (emailF[0]) return true;
@@ -158,7 +157,7 @@ const CreateUser = ({ logOrSign, setlogOrSign }) => {
               //navigate(`/home`);
             } else {
               dispatch(createUser(values), []);
-
+              values.
               localStorage.setItem('user', JSON.stringify(values));
               toast({
                 title: 'Welcome!',
@@ -324,24 +323,12 @@ const CreateUser = ({ logOrSign, setlogOrSign }) => {
                       type="submit"
                       mt="10px"
                       onSubmit={handleSubmit}
+                      
                     >
                       Create Account
                     </Button>
                   )}
 
-                  <Link to="/">
-                    <Button
-                      mt="10px"
-                      ml={'0.5vw'}
-                      onClick={(e) => {
-                        dispatch(cleanAuthUser());
-                        setUser('');
-                        setlogOrSign('log');
-                      }}
-                    >
-                      Back
-                    </Button>
-                  </Link>
                   <Button
                     mt="10px"
                     ml={'0.5vw'}

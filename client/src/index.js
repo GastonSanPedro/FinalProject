@@ -60,30 +60,8 @@ root.render(
   // document.getElementById('root')
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
 
-// const root = ReactDOM.createRoot(
-//   document.getElementById('root') as HTMLElement
-// );
-// root.render(
-//   <Provider store={store}>
-//   <React.StrictMode>
-//     <ChakraProvider theme={theme}>
-//     <BrowserRouter>
-//       <Routes>
-//         <Route path="/" element={<App/>}/>
-//         <Route path="profile" element={<Profile/>}/>
-//         <Route path="/landing-page" element={<Landing/>}></Route>
-//         <Route path="/sign-in" element={<SignIn/>}></Route>
-//         <Route path="/search-page" element={<SearchPage/>}></Route>
-//         <Route path="/home" element={<Feed/>}></Route>
-//       </Routes>
-//     </BrowserRouter>
+//aca deberiamos poner un evento que Valide al usuario cuando se loguee
 
-//     </ChakraProvider>
-//   </React.StrictMode>
-//   </Provider>
-// );
+// .value.trim() en html

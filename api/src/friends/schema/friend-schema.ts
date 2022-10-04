@@ -8,6 +8,9 @@ export class Friend extends Document {
 
   @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'User' })
   idUser: Types.ObjectId
+
+  @Prop()
+  isDeleted: Boolean
 }
 
 
