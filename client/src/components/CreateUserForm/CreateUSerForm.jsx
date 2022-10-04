@@ -47,7 +47,7 @@ const CreateUser = ({ logOrSign, setlogOrSign }) => {
   };
   const handleNavigation = () => {
     setTimeout(function () {
-      navigate(`/home`);
+      navigate(`/profile`);
     }, 2000);
   };
   useEffect(() => {
