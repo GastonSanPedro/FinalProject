@@ -18,10 +18,6 @@ const Explore = () => {
     dispatch(getPosts());
   }, [singlePost]);
 
-  //   useEffect(() => {
-  //     dispatch(getFriends(myUser._id));
-  //     dispatch(getFollowers(myUser._id));
-  // }, [ myUser]);
   return (
     <>
       <SidebarWithHeader

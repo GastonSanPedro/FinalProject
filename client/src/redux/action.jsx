@@ -212,6 +212,7 @@ export const authUser = (mail, password, google) => {
             payload: { auth: true, user: formatUser },
           });
         }
+        
       } else if (google) {
         var user = await axios.get(`/users/${mail}`);
         if (user) {

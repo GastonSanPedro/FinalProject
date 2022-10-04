@@ -3,26 +3,15 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ContainerPost from '../components/ContainerPost/ContainerPost';
 import SidebarWithHeader from '../components/Sidebar-Navbar/SideBar';
-import {
-  getFollowers,
-  getFriends,
-  getFriendsPosts,
-  getPosts,
-} from '../redux/action';
 
 const Feed = () => {
   const myUser = useSelector((state) => state.myUser);
   const allPosts = useSelector((state) => state.posts);
   const singlePost = useSelector((state) => state.singlePost);
-  const friends = useSelector((state) => state.friends);
-  const myFollowers = useSelector((state) => state.followers);
-  const dispatch = useDispatch();
+  const friends = useSelector((state)=>state.friends)
+  const myFollowers = useSelector((state)=> state.followers)
+  const friendsPosts = useSelector((state) => state.friendsPosts)
 
-  // useEffect(() => {
-  //   dispatch(getPosts());
-  //   // dispatch(getFriends(myUser._id))
-  //   // dispatch(getFollowers(myUser._id));
-  // }, [dispatch, singlePost, myUser]);
 
   return (
     <>

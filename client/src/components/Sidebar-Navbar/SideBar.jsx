@@ -6,8 +6,6 @@ import {
   DrawerContent,
   useDisclosure,
 } from '@chakra-ui/react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getFollowers, getMyUser, getFriends } from '../../redux/action';
 import { MobileNav } from './MovileNav';
 import { SidebarContent } from './SidebarContent';
 
@@ -18,22 +16,8 @@ export default function SidebarWithHeader({
   myFollowers,
 }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const auth = useSelector((state) => state.auth);
-  const dispatch = useDispatch();
-  const [User, setUser] = useState(
-    useState(JSON.parse(localStorage.getItem('user')))
-  );
-  const neededEmail = User[0].email;
-  const neededId = User[0]._id;
 
-  useEffect(() => {
-    if (myUser._id === undefined) {
-      dispatch(getMyUser(neededEmail));
-      dispatch(getFollowers(neededId));
-      dispatch(getFriends(neededId));
-    }
-  }, [dispatch, neededEmail]);
-  console.log(User);
+
   return (
     <Box
       pos={'fixed'}

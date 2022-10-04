@@ -17,9 +17,8 @@ export default function AnyProfile() {
   const myFollowers = useSelector((state) => state.followers);
 
   useEffect(() => {
-    dispatch(getUser(email));
-    // dispatch(getFriends(myUser._id));
-    // dispatch(getFollowers(myUser._id));
+      dispatch(getUser(email));
+      ;
   }, [dispatch, email, myUser, user]);
 
   return (

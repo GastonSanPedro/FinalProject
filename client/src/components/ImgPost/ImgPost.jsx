@@ -12,11 +12,6 @@ import {
   ModalOverlay,
   useDisclosure,
   Button,
-  Input,
-  ModalCloseButton,
-  InputRightElement,
-  InputGroup,
-  useToast,
   MenuList,
   MenuItem,
   Menu,
@@ -24,17 +19,16 @@ import {
 } from '@chakra-ui/react';
 import {
   getSinglePosts,
-  postComment,
   reportPost,
   deletePost,
 } from '../../redux/action';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { BiMessage, BiShocked, BiHeart, BiHappyAlt } from 'react-icons/bi';
 import { BsSun } from 'react-icons/bs';
 import { FiMoreVertical } from 'react-icons/fi';
 import { useDispatch } from 'react-redux';
 import { PostModal } from '../PostModal/PostModal';
+import { useNavigate } from 'react-router-dom';
 
 function randomNumber(min, max) {
   let a = Math.random() * (max - min) + min;
@@ -68,6 +62,7 @@ export default function ImgPost({
   site,
   handleDelete,
 }) {
+  const navigate = useNavigate()
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [overlay, setOverlay] = useState(<OverlayOne />);
   const [hide, setHide] = useState(false);
@@ -152,9 +147,7 @@ export default function ImgPost({
             </Text>
           </Stack>
           <Stack mt={6} direction={'row'} spacing={4} align={'center'}>
-            <Link to={`/user/${email}`}>
-              <Avatar src={avatar} name={fullName} alt={'Author'} />
-            </Link>
+            <Avatar onClick={()=>navigate(`/user/${email}`)} src={avatar} name={fullName} alt={'Author'} />
             <Stack direction={'column'} spacing={0} fontSize={'sm'}>
               <Text fontWeight={600}>{fullName}</Text>
               <Text color={'gray.500'}>{formatedDate}</Text>
