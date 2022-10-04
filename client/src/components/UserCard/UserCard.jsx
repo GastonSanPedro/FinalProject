@@ -29,16 +29,16 @@ const UserCard = ({ site, myUser, user, friends }) => {
     navigate('/landing-page');
   };
   const handleClickFollow = () => {
-    dispatch(addFriend(myUser._id, user._id));
+    dispatch(addFriend(myUser?._id, user?._id));
   };
 
   const handleClickUnfollow = () => {
-    dispatch(deleteFriend(myUser._id, user._id));
+    dispatch(deleteFriend(myUser?._id, user?._id));
   };
 
   const following = () => {
-    if (friends.length) {
-      return friends?.filter((friend) => friend?.idFriend._id === user._id);
+    if (friends?.length) {
+      return friends?.filter((friend) => friend?.idFriend?._id === user?._id);
     }
   };
 
