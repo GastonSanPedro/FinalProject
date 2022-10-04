@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import LogInForm from '../components/LogInForm/LogInForm';
 import { Center, Button, Image } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
@@ -8,6 +8,7 @@ import logo from '../assets/logo.jpg';
 const Landing = () => {
   const logoLeafme = logo;
   const [logOrSign, setlogOrSign] = useState('log');
+
 
   return (
     <>
@@ -31,3 +32,4 @@ const Landing = () => {
 };
 
 export default Landing;
+
