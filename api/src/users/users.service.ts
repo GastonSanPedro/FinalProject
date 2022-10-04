@@ -112,7 +112,7 @@ export class UsersService {
           {fullName: {$regex: term, $options: "$i"} },
           {userName: {$regex: term, $options: "$i"} }
         ]})
-        .populate({ path: 'friends.idFriend', select:'-posts -password -friends -email -bio'})
+        .populate({ path: 'friends.idFriend', select:'-posts -password -friends -bio'})
         .exec()
         
         if(userFinded.length === 0) throw new NotFoundException(`El usuario con el First Name, Last Name, Username or Full Name ${term} no existe`)
