@@ -21,7 +21,6 @@ import { authUser } from '../../redux/action';
 import imgBackground from '../../assets/landing-pic.jpg';
 import logo from '../../assets/logo.jpg';
 import jwt_decode from 'jwt-decode';
-import { WebsocketContext } from '../../context/WebsocketContext';
 
 const imagenB = imgBackground;
 const logoLeafme = logo;
@@ -42,23 +41,6 @@ const LogInForm = ({ logOrsign, setlogOrSign }) => {
   const handleInputChange = (event) =>
     setInput({ ...input, [event.target.name]: event.target.value });
   const isError = input === ''; //true or false
-
-  const socket =  useContext(WebsocketContext)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   
   const handleCallbackResponse = (response) => {
     console.log('Encoded JWT ID token:' + response.credential);

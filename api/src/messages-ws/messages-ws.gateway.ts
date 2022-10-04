@@ -13,21 +13,22 @@ import { MessagesWsService } from './messages-ws.service';
 
 
 @WebSocketGateway({ cors: true})
-export class MessagesWsGateway implements  OnModuleInit, OnGatewayConnection, OnGatewayDisconnect {
+export class MessagesWsGateway implements OnGatewayConnection, OnGatewayDisconnect {
   
   @WebSocketServer() wss: Server;
   constructor(
     private readonly messagesWsService: MessagesWsService,
     ) {}
 
-        onModuleInit() {
-            this.wss.on('connection', (socket) => {
-            console.log(socket.id)
-            console.log('Connected')
-          })
-        }
-
+        // onModuleInit() {
+        //     this.wss.on('connection', (socket) => {
+        //     console.log(socket.id)
+        //     console.log('Connected')
+        //   })
+        // }
+      
         handleConnection(client:Socket) {
+          console.log(client)
           this.messagesWsService.registerClient(client)
           this.wss.emit('clients-updated', this.messagesWsService.getConnectedClients())
         }
@@ -36,7 +37,17 @@ export class MessagesWsGateway implements  OnModuleInit, OnGatewayConnection, On
           this.messagesWsService.removeClient(client.id)
           this.wss.emit('clients-updated', this.messagesWsService.getConnectedClients())
         }
-
+        
+        
+        @SubscribeMessage('newUser')
+          async onNewUser(@MessageBody() body: any){
+          body
+          const user = await this.messagesWsService.findClient(body)
+           this.wss.emit(``, {
+             msg: 'New Message',
+             content: user
+           })
+        }
         // @SubscribeMessage('newMessage')
         //   onNewMessage(@MessageBody() body: any){
         //    console.log(body)
@@ -45,16 +56,6 @@ export class MessagesWsGateway implements  OnModuleInit, OnGatewayConnection, On
         //      content: body
         //    })
         //   }
-
-        @SubscribeMessage('newMessage')
-          async onNewUser(@MessageBody() body: any){
-          const user = await this.messagesWsService.findClient(body)
-           this.wss.emit('onMessage', {
-             msg: 'New Message',
-             content: user
-           })
-          }
-
 }
 
       //! Emite unicamente al cliente.
