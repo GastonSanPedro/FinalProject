@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import ContainerPost from '../components/ContainerPost/ContainerPost';
 import SidebarWithHeader from '../components/Sidebar-Navbar/SideBar';
 
-
 const Feed = () => {
   const myUser = useSelector((state) => state.myUser);
   const allPosts = useSelector((state) => state.posts);
@@ -16,7 +15,11 @@ const Feed = () => {
 
   return (
     <>
-      <SidebarWithHeader myUser={myUser} friends={friends} myFollowers={myFollowers}/>
+      <SidebarWithHeader
+        myUser={myUser}
+        friends={friends}
+        myFollowers={myFollowers}
+      />
       <Box
         pos={'absolute'}
         top={'20%'}
@@ -28,11 +31,10 @@ const Feed = () => {
         height={'80vh'}
         mt={'5.5%'}
         ml={'18%'}
-
       >
         <ContainerPost
           myUser={myUser}
-          friendsPosts={friendsPosts}
+          //friendsPosts={friendsPosts}
           posts={allPosts}
           singlePost={singlePost}
           site={'feed'}

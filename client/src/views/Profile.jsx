@@ -10,10 +10,8 @@ import ContainerPost from '../components/ContainerPost/ContainerPost';
 import { getFollowers, getFriends, getMyUser } from '../redux/action';
 
 
-
 const Profile = () => {
-
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const myUser = useSelector((state) => state.myUser);
   const singlePost = useSelector((state) => state.singlePost);
   const friends = useSelector((state) => state.friends);
@@ -37,7 +35,11 @@ const Profile = () => {
     
   return (
     <>
-      <SidebarWithHeader myUser={myUser} friends={friends} myFollowers={myFollowers} />
+      <SidebarWithHeader
+        myUser={myUser}
+        friends={friends}
+        myFollowers={myFollowers}
+      />
       <Box
         className="ImageHeader"
         zIndex={2}
