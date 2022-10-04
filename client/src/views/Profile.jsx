@@ -7,39 +7,40 @@ import SidebarWithHeader from '../components/Sidebar-Navbar/SideBar';
 import port1 from '../assets/port1.png';
 import '../index.css';
 import ContainerPost from '../components/ContainerPost/ContainerPost';
-import { getFollowers, getFriends } from '../redux/action';
+import { getFollowers, getFriends, getMyUser } from '../redux/action';
 import { connectToServer } from '../socket-client';
 
 const Profile = () => {
   const dispatch = useDispatch();
+  
   const myUser = useSelector((state) => state.myUser);
   const singlePost = useSelector((state) => state.singlePost);
   const friends = useSelector((state) => state.friends);
   const myFollowers = useSelector((state) => state.followers);
 
-  const connectWs = (email)=>{
-  connectToServer(email)
-  }
-  useEffect(()=>{
-    connectWs(myUser?.email)
-
-  },[])
-  
   const [User, setUser] = useState(
     useState(JSON.parse(localStorage.getItem('user')))
     );
-    const neededEmail = User[0].email;
-    
-    useEffect(() => {
-        dispatch(getMyUser(neededEmail));
 
-    }, [dispatch, neededEmail]);
-    
-    
-    useEffect(() => {
-      dispatch(getFriends(myUser?._id))
-      dispatch(getFollowers(myUser?._id));}, [dispatch, singlePost]);
-    
+  const neededEmail = User[0].email;
+  useEffect(() => {
+    dispatch(getMyUser(neededEmail));
+}, [dispatch, neededEmail]);
+
+useEffect(() => {
+  dispatch(getFriends(myUser?._id))
+  dispatch(getFollowers(myUser?._id));
+}, [dispatch, singlePost]);
+
+  // const connectWs = (email)=>{
+  // connectToServer(email)
+  // }
+
+  // useEffect(()=>{
+  //   connectWs(myUser?.email)
+  // },[])
+  
+        
   return (
     <>
       <SidebarWithHeader
