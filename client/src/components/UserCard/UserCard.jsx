@@ -15,7 +15,7 @@ import { logOut, addFriend, deleteFriend } from '../../redux/action';
 import {  useNavigate } from 'react-router-dom';
 
 
-const UserCard = ({ site, myUser, user, friends }) => {
+const UserCard = ({ site, myUser, user, friends, handleClickFollow, handleClickUnfollow }) => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -24,13 +24,7 @@ const UserCard = ({ site, myUser, user, friends }) => {
     dispatch(logOut());
     navigate('/landing-page');
   };
-  const handleClickFollow = () => {
-    dispatch(addFriend(myUser._id, user._id));
-  };
 
-  const handleClickUnfollow = () => {
-    dispatch(deleteFriend(myUser._id, user._id))
-  }
 
   const following = () =>{
   if(friends.length){
@@ -47,7 +41,7 @@ const UserCard = ({ site, myUser, user, friends }) => {
   };
   const followValidator = JSON.parse(localStorage.getItem('email'));
 
-  // useEffect(() => {}, [myUser.followers]);
+
 
   return (
     <Box
@@ -207,7 +201,7 @@ const UserCard = ({ site, myUser, user, friends }) => {
             textColor: 'white',
             bg: 'logo.2',
           }}
-            onClick={() => handleClickUnfollow()}
+            onClick={(e) => handleClickUnfollow(e)}
           >
             UNFOLLOW
           </Button>
