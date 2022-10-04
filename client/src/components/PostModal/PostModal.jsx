@@ -3,32 +3,24 @@ import {
   Box,
   Text,
   Image,
-  Flex,
-  IconButton,
-  Modal,
   ModalBody,
   ModalContent,
   ModalHeader,
   ModalOverlay,
-  useDisclosure,
-  Button,
   Input,
   ModalCloseButton,
-  InputRightElement,
-  InputGroup,
   useToast,
   ModalFooter,
+  Modal,
+  Button,
+  InputGroup
 } from '@chakra-ui/react';
-import { Link } from 'react-router-dom';
-import { BiMessage, BiHappyAlt, BiHeart, BiShocked } from 'react-icons/bi';
-import { BsSun } from 'react-icons/bs';
 import {
-  getSinglePosts,
-  cleanSinglePost,
   postComment,
 } from '../../redux/action';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { CommentBox } from './CommentBox';
+
 
 const OverlayOne = () => (
   <ModalOverlay

@@ -6,8 +6,6 @@ import {
   DrawerContent,
   useDisclosure
 } from '@chakra-ui/react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getMyUser } from '../../redux/action';
 import { MobileNav } from './MovileNav';
 import { SidebarContent } from './SidebarContent';
 
@@ -15,18 +13,7 @@ import { SidebarContent } from './SidebarContent';
 export default function SidebarWithHeader({ friends, children, myUser, myFollowers }) {
   
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const auth = useSelector((state) => state.auth);
-  const dispatch = useDispatch();
-   const [User, setUser] = useState(
-    useState(JSON.parse(localStorage.getItem('user')))
-   );
-  const neededEmail = User[0].email;
 
-  useEffect(() => {
-    setTimeout(function () {
-      dispatch(getMyUser(neededEmail));
-    }, 300);
-  }, [dispatch, neededEmail]);
 
   return (
     <Box

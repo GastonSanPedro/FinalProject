@@ -18,8 +18,6 @@ export default function AnyProfile() {
 
   useEffect(() => {
       dispatch(getUser(email));
-      dispatch(getFriends(myUser._id));
-      dispatch(getFollowers(myUser._id));
       ;
   }, [dispatch, email, myUser, user]);
   

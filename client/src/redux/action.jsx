@@ -212,6 +212,7 @@ export const authUser = (mail, password, google) => {
             payload: { auth: true, user: formatUser },
           });
         }
+        
       } else if (google) {
         var user = await axios.get(`/users/${mail}`);
         if (user) {
@@ -329,6 +330,7 @@ export const deleteFriend = (myUserid, anyUserId) => {
   const ids = {
     idFriend: anyUserId,
     idUser: myUserid };
+    console.log({ids},'actions')
   return async function (dispatch) {
     try {
       let info = await axios.delete(`/friends/${myUserid}`, ids);

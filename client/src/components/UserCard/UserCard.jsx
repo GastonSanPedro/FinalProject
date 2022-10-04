@@ -12,8 +12,8 @@ import { IoExitOutline } from 'react-icons/io5';
 import { RiUserFollowLine, RiUserUnfollowLine, RiUserSettingsLine } from 'react-icons/ri';
 import { useDispatch , useSelector} from 'react-redux';
 import { logOut, addFriend, deleteFriend } from '../../redux/action';
-import { Link, useNavigate } from 'react-router-dom';
-import { useEffect } from 'react'
+import {  useNavigate } from 'react-router-dom';
+
 
 const UserCard = ({ site, myUser, user, friends }) => {
 
@@ -27,9 +27,9 @@ const UserCard = ({ site, myUser, user, friends }) => {
   const handleClickFollow = () => {
     dispatch(addFriend(myUser._id, user._id));
   };
+
   const handleClickUnfollow = () => {
     dispatch(deleteFriend(myUser._id, user._id))
-    
   }
 
   const following = () =>{
@@ -93,8 +93,9 @@ const UserCard = ({ site, myUser, user, friends }) => {
             >
               {setUserToSite(site)?.firstName}{' '}{setUserToSite(site)?.lastName}
             </Text>
-            { site === 'profile' ?(<Link to={'/settings'}>
+            { site === 'profile' ?(
             <IconButton
+            onClick={()=>{navigate('/settings')}}
             p={0}
             icon={<RiUserSettingsLine/>}
             size={'md'}
@@ -105,7 +106,6 @@ const UserCard = ({ site, myUser, user, friends }) => {
               textColor: 'white',
               bg: 'logo.2',
               }}/>
-            </Link>
             ):(null)}
             </Flex>
             <Text

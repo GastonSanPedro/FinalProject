@@ -1,4 +1,4 @@
-import { Box, Flex, Image, CloseButton, useColorModeValue, Link, Icon,  } from "@chakra-ui/react";
+import { Box, Flex, Image, CloseButton, useColorModeValue, Icon, Button  } from "@chakra-ui/react";
 import Friends from "../Friends/FriendsDrawer";
 import logo from '../../assets/logo.jpg';
 import {
@@ -7,6 +7,7 @@ import {
     FiCompass,
     FiStar,
   } from 'react-icons/fi';
+import { useNavigate } from "react-router-dom";
 
 
 const LinkItems = [
@@ -18,6 +19,8 @@ const LinkItems = [
 
 export const SidebarContent = ({ myFollowers, friends, myUser, onClose, ...rest }) => {
 
+
+    
     return (
       <Box
         transition="3s ease"
@@ -64,11 +67,15 @@ export const SidebarContent = ({ myFollowers, friends, myUser, onClose, ...rest 
   };
   
   const NavItem = ({ icon, link, children, ...rest }) => {
+    const navigate = useNavigate()
     return (
-      <Link
-        href={`/${link.name}`}
+      <Button
+        bg={'none'}
+        fontWeight={'normal'}
+        onClick={()=>{navigate(`/${link.name}`)}}
         style={{ textDecoration: 'none' }}
         _focus={{ boxShadow: 'none' }}
+        p={'3vh'}
       >
         <Flex
           align="center"
@@ -95,6 +102,6 @@ export const SidebarContent = ({ myFollowers, friends, myUser, onClose, ...rest 
           )}
           {children}
         </Flex>
-      </Link>
+      </Button>
     );
   };
