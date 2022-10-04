@@ -34,12 +34,12 @@ const ImgPostContainer = ({
   let renderPosts = posts?.length > 9 ? posts?.slice(currentStart, currentEnd) : posts;
   //------------------------------------
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const { isOpen, onToggle } = useDisclosure();
 
-  useEffect(() => {
-    dispatch(getUsers());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(getUsers());
+  // }, [dispatch]);
 
   return (
     <>
@@ -80,6 +80,7 @@ const ImgPostContainer = ({
                             : post?.author?.image}
                         image={post?.pics}
                         email={post?.author?.email}
+                        authorId={post?.author?._id}
                         description={post?.description}
                         date={post?.createdAt}
                         postId={post?._id}

@@ -201,7 +201,7 @@ export const authUser = (mail, password, google) => {
     try {
       if (google === undefined) {
         var user = await axios.get(`/users/${mail}`);
-        let formatUser = user.data;
+        let formatUser = await   user.data;
         if (formatUser.password !== password) {
           return dispatch({
             type: AUTH_USER,
@@ -379,6 +379,7 @@ export function deletePost(id) {
     }
   };
 }
+
 export function createPayment(id, info) {
   return async function (dispatch) {
     try {
