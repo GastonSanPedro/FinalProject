@@ -2,14 +2,14 @@ import { Flex, Avatar, Text  } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
 
-export const FriendCard = ({ image, firstName, lastName, email, fullName }) => {
+export const FriendCard = ({ image, firstName, lastName, fullName, id }) => {
   
     const navigate = useNavigate()
 
     return (
 
         <Flex
-          onClick={()=>{navigate(`/user/${email}`)}}
+          onClick={()=>{navigate(`/user/${id}`)}}
           align="center"
           w={'100%'}
           p="4"
