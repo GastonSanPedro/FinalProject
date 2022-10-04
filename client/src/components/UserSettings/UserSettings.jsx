@@ -69,7 +69,7 @@ export const UserSettings = ({myUser, input, setInput, users}) => {
                     email={email}  
                     input={input} 
                     setInput={setInput}
-                    users={users}/>
+                    />
                   </Flex>
                   <ColorBox/>
                 </Flex>
@@ -89,9 +89,9 @@ export const UserSettings = ({myUser, input, setInput, users}) => {
                     email={email}  
                     val={userName} 
                     input={input}
-                    name={'userName'} 
+                    name={'username'} 
                     setInput={setInput}
-                    users={users.map((user)=> user.username)}/>
+                    users={users.map((user)=> user.userName)}/>
                     </Flex>
                     <ColorBox/>
                 </Flex>
@@ -113,7 +113,7 @@ export const UserSettings = ({myUser, input, setInput, users}) => {
                     email={email}  
                     setInput={setInput}
                     name={'password'}
-                    users={users}  />
+                    />
                     </Flex>
                     <ColorBox/>
                 </Flex>

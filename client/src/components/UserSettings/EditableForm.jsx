@@ -10,10 +10,9 @@ const EditableForm = ({val, input, setInput, name, email, users}) => {
 
   const dispatch = useDispatch()
   const handleCheckButton = () => {dispatch(changeDataProfile(input, email ))}
-  const handleChangeInput = (e) => {
+  const handleChangeInput = (e) => {    
+      setInput({[e.target.name] : e.target.value})}
     
-    setInput({[e.target.name] : e.target.value})}
-  //console.log({users})
 
   function EditableControls() {
     const {
@@ -64,7 +63,7 @@ const EditableForm = ({val, input, setInput, name, email, users}) => {
       justifyContent={'space-evenly'}
       >
       <EditablePreview color={'gray.500'} fontStyle={'italic'} />
-      <EditableInput name={name} onChange={(e) => handleChangeInput(e)} size={'SM'} />
+      <EditableInput name={name} onBlo onBlur={(e) => handleChangeInput(e)} size={'SM'} />
       <EditableControls />
       </Flex>
 

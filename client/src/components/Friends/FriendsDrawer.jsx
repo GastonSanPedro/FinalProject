@@ -30,7 +30,7 @@ export default function Friends({ myUser, friends, myFollowers }) {
   const handleClick = () => {
     onOpen();
   };
-  console.log({friends})
+  
   return (
     <>
       <Flex
