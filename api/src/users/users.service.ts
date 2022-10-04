@@ -94,6 +94,7 @@ export class UsersService {
     const userDelete:User = await this.userModel.findById(id);
     const deleted = await this.userModel.softDelete(userDelete)
     if(userDelete.isDeleted ===false){
+
     return deleted
     }else{
       return this.userModel.restore(userDelete)

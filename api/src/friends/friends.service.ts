@@ -63,7 +63,7 @@ export class FriendsService {
         select:'posts', 
         populate:{ 
           path:'posts.author', 
-          select:'-posts -password -friends -email -bio -followers'}})
+          select:'-posts -password -friends -bio -followers'}})
       .exec() 
 
       const friendsPost: any = user.friends.map(friend => friend.idFriend)
@@ -79,9 +79,11 @@ export class FriendsService {
     const user: User = await this.userModel.findById(idUser);
     // const friendDelete:Friend = await this.friendModel.findOne({idFriend});
     const userFriend: User = await this. userModel.findById(idFriend)
+    
     userFriend.followers = userFriend.followers.filter(follower => follower._id.toString() !== idUser)
     userFriend.save()
-    user.friends = user.friends.filter(friend=> friend.idFriend.toString() !== idFriend.toString())
+    
+    user.friends = user.friends.filter(friend => friend.idFriend.toString() !== idFriend.toString())
     user.save()
     // await friendDelete.deleteOne()
     return `Friend ${idFriend} has been deleted`;

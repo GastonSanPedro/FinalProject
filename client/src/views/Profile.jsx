@@ -7,8 +7,8 @@ import SidebarWithHeader from '../components/Sidebar-Navbar/SideBar';
 import port1 from '../assets/port1.png';
 import '../index.css';
 import ContainerPost from '../components/ContainerPost/ContainerPost';
-import { getFollowers, getFriends, getMyUser } from '../redux/action';
-
+import { getFollowers, getFriends } from '../redux/action';
+import { connectToServer } from '../socket-client';
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -16,7 +16,14 @@ const Profile = () => {
   const singlePost = useSelector((state) => state.singlePost);
   const friends = useSelector((state) => state.friends);
   const myFollowers = useSelector((state) => state.followers);
-  
+
+  const connectWs = (email)=>{
+  connectToServer(email)
+  }
+  useEffect(()=>{
+    connectWs(myUser?.email)
+
+  },[])
   
   const [User, setUser] = useState(
     useState(JSON.parse(localStorage.getItem('user')))
