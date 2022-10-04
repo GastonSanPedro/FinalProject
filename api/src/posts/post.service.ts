@@ -34,6 +34,7 @@ export class PostsService {
   }
 
   async findAll() {
+    
     return await this.postModel
     .find()
     .sort({createdAt: -1})
