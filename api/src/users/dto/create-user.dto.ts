@@ -47,6 +47,12 @@ export class CreateUserDto {
   image?: string;
 
   @ApiProperty()
+  @IsOptional()
+  @IsString()
+  cover?: string;
+
+
+  @ApiProperty()
   @IsDate()
   @IsOptional()
   birthDate?: Date;

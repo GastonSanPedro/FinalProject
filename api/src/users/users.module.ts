@@ -26,7 +26,7 @@ import { UsersService } from './users.service';
     ])
   ],
   exports:[
-    MongooseModule
+    MongooseModule,
   ]
 })
 export class UsersModule {}

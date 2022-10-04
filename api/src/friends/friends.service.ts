@@ -81,7 +81,7 @@ export class FriendsService {
     const userFriend: User = await this. userModel.findById(idFriend)
     userFriend.followers = userFriend.followers.filter(follower => follower._id.toString() !== idUser)
     userFriend.save()
-    user.friends = user.friends.filter(friend=> friend.idFriend.toString() !== idFriend.toString())
+    user.friends = user.friends.filter(friend => friend.idFriend.toString() !== idFriend.toString())
     user.save()
     // await friendDelete.deleteOne()
     return `Friend ${idFriend} has been deleted`;

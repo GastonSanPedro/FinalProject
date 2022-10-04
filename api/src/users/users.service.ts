@@ -93,6 +93,7 @@ export class UsersService {
   async remove(id: string) {
     const userDelete:User = await this.findOne(id);
     const deleted = await this.userModel.softDelete(userDelete)
+
     return deleted
 
     // await userDelete.deleteOne()
