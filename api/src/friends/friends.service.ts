@@ -39,7 +39,7 @@ export class FriendsService {
   async findAllFriendsByUser(idUser: string) {
     if(isValidObjectId(idUser)){
       const user =  await this.userModel.findById(idUser)
-      .populate({ path: 'friends.idFriend', select:'-posts -password -friends -email -bio'})
+      .populate({ path: 'friends.idFriend', select:'-posts -password -friends -bio'})
       .exec()
       return user.friends
       // .filter((el=>el.idUser))
@@ -79,8 +79,10 @@ export class FriendsService {
     const user: User = await this.userModel.findById(idUser);
     // const friendDelete:Friend = await this.friendModel.findOne({idFriend});
     const userFriend: User = await this. userModel.findById(idFriend)
+    
     userFriend.followers = userFriend.followers.filter(follower => follower._id.toString() !== idUser)
     userFriend.save()
+    
     user.friends = user.friends.filter(friend => friend.idFriend.toString() !== idFriend.toString())
     user.save()
     // await friendDelete.deleteOne()

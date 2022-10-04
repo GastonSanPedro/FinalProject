@@ -50,7 +50,7 @@ export function getUser(email) {
         payload: info.data,
       });
     } catch (error) {
-      console.log(error, 'holis');
+      console.log(error);
     }
   };
 }
@@ -339,7 +339,8 @@ export const deleteFriend = (myUserid, anyUserId) => {
       let { data } = await axios.get(`/friends/${myUserid}`);
 
       return dispatch({
-        type: DELETE_FRIENDS
+        type: DELETE_FRIENDS,
+        payload: data
       });
     } catch (error) {
       console.log(error);
