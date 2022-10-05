@@ -215,7 +215,7 @@ export default function ImgPost({
         w={'25vw'}
         rounded={'sm'}
         p={6}
-        h={'70vh'}
+        h={'74vh'}
         overflow={'hidden'}
         // _hover={{
         //   bg: `logo.${randomNumber(1, 4)}`,
@@ -261,7 +261,7 @@ export default function ImgPost({
           width={'100%'}
           onClick={() => handleClick()}
         />
-        <Box top={'60px'} right={'-90px'} position={'relative'}>
+        <Box pt={3}>
           <Flex
             position={'absolute'}
             ml={'-2vw'}
@@ -269,6 +269,7 @@ export default function ImgPost({
             justify={'right'}
             width={'17vw'}
             zIndex={5}
+            top={'87%'}
           >
             <Box
               onMouseLeave={() => {
@@ -372,7 +373,8 @@ export default function ImgPost({
           <Button
             zIndex={5}
             position="absolute"
-            ml={'5.7%'}
+            ml={'18%'}
+            top={'87.1%'}
             size={'sm'}
             bg={'gray.300'}
             h={30}
@@ -395,8 +397,9 @@ export default function ImgPost({
               zIndex={5}
               as={IconButton}
               position="absolute"
-              ml={'10.4%'}
+              ml={'35.4%'}
               mb={'4vh'}
+              top={'87.1%'}
               siz={'lg'}
               h={30}
               bg={'gray.200'}
@@ -416,7 +419,7 @@ export default function ImgPost({
         </Box>
 
         <VStack>
-          <Text width={'22vw'} h={'12vh'} color={'black'} pt={9}>
+          <Text width={'22vw'} h={'12vh'} color={'black'} pt={9} mt={'2vh'}>
             {/* {sentenceCase(description, true)} */}
             {/* {displayText} */}
             {description?.length > 60
