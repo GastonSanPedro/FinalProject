@@ -58,29 +58,29 @@ const EditableForm = ({val, input, setInput, name, email, usernames}) => {
     } = useEditableControls()
 
     return isEditing ? (
-        <Flex align={'center'}>
-        <IconButton 
+      <Flex align={'center'}>
+        <IconButton
           isDisabled={true}
-          size='xs' 
+          size='xs'
           bg={'none'}
           name={'check'}
           icon={<CheckIcon />}
-          
-          {...getSubmitButtonProps()} 
-           />
-        <IconButton 
-          size='xs' 
-          bg={'none'} 
-          icon={<CloseIcon />} 
+
+          {...getSubmitButtonProps()}
+        />
+        <IconButton
+          size='xs'
+          bg={'none'}
+          icon={<CloseIcon />}
           {...getCancelButtonProps()} />
-        </Flex>
+      </Flex>
     ) : (
       <Flex justifyContent='center'>
-        <IconButton 
-        size='sm' 
-        bg={'none'} 
-        icon={<EditIcon />} 
-        {...getEditButtonProps()} />
+        <IconButton
+          size='sm'
+          bg={'none'}
+          icon={<EditIcon />}
+          {...getEditButtonProps()} />
       </Flex>
     )
   }

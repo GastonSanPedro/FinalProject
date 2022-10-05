@@ -5,15 +5,22 @@ import NavbarSerch from '../components/NavbarSearch/NavbarSearch';
 import SidebarWithHeader from '../components/Sidebar-Navbar/SideBar';
 import { RiImage2Line } from 'react-icons/ri';
 
+import { getFriendsPosts } from '../redux/action';
+import { useEffect } from 'react';
 
 
 const Feed = () => {
   const myUser = useSelector((state) => state.myUser);
-  const allPosts = useSelector((state) => state.posts);
   const singlePost = useSelector((state) => state.singlePost);
-  const friends = useSelector((state)=>state.friends)
-  const myFollowers = useSelector((state)=> state.followers)
-  const friendsPosts = useSelector((state) => state.friendsPosts)
+  const friends = useSelector((state) => state.friends)
+  const myFollowers = useSelector((state) => state.followers)
+  const posts = useSelector((state) => state.friendsPosts)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getFriendsPosts(myUser?._id));
+  }, [dispatch]);
+
 
 
   return (
@@ -38,8 +45,7 @@ const Feed = () => {
 
         <ContainerPost
           myUser={myUser}
-          //friendsPosts={friendsPosts}
-          posts={allPosts}
+          posts={posts}
           singlePost={singlePost}
           site={'feed'}
           word

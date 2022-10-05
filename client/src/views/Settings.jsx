@@ -1,6 +1,6 @@
 import { Box } from "@chakra-ui/react"
 import SidebarWithHeader from "../components/Sidebar-Navbar/SideBar"
-import {UserSettings} from "../components/UserSettings/UserSettings"
+import { UserSettings } from "../components/UserSettings/UserSettings"
 import UserPics from "../components/UserSettings/UserPics"
 import { useSelector } from "react-redux"
 import NavbarSerch from "../components/NavbarSearch/NavbarSearch"
@@ -51,10 +51,9 @@ const Settings = () =>{
     image: '',
     fullName: `${myUser.firstName} ${myUser.lastName}`,
     bio: '',
-    })
-    
+  })
 
- return(
+  return (
     <>
     <SidebarWithHeader myUser={myUser} friends={friends} myFollowers={myFollowers}/>
     <Box
@@ -86,7 +85,7 @@ const Settings = () =>{
     setInput={setInput}/>
     </Box>
     </>
- )   
+  )
 }
 
 export default Settings
