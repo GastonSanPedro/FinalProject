@@ -1,4 +1,4 @@
-import React, { useState } from 'react';  
+import React, { useState } from 'react';
 import { Box, Avatar, Heading, HStack } from '@chakra-ui/react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
@@ -13,14 +13,12 @@ const AnyProfileDetail = () => {
 
   let anyUser = useSelector((state) => state.user);
 
-  console.log(anyUser);
-
   useEffect(() => {
     dispatch(getUser(email));
     // return () => {
     //   getUser(email);
     // };
-  },[dispatch]);
+  }, [dispatch]);
 
   return (
     <>

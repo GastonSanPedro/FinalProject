@@ -20,6 +20,7 @@ import jwt_decode from 'jwt-decode';
 import { useDispatch, useSelector } from 'react-redux';
 import logo from '../../assets/logo.jpg';
 import imgBackground from '../../assets/landing-pic.jpg';
+import emailjs from '@emailjs/browser';
 
 const logoLeafme = logo;
 const imagenB = imgBackground;
@@ -36,7 +37,6 @@ const CreateUser = ({ logOrSign, setlogOrSign }) => {
 
   const handleClick = () => setShow(!show);
   const handleCallbackResponse = (response) => {
-    console.log('Encoded JWT ID token:' + response.credential);
     var userObject = jwt_decode(response.credential);
     setUser(userObject);
     //dispatch(authUser(userObject.email, null, true));
@@ -134,7 +134,7 @@ const CreateUser = ({ logOrSign, setlogOrSign }) => {
 
             return errores;
           }}
-          onSubmit={(values, actions) => {
+          onSubmit={async(values, actions) => {
             if (User) {
               const googleUser = {
                 firstName: User?.given_name,
@@ -157,7 +157,8 @@ const CreateUser = ({ logOrSign, setlogOrSign }) => {
               //navigate(`/home`);
             } else {
               dispatch(createUser(values), []);
-              values.
+
+              
               localStorage.setItem('user', JSON.stringify(values));
               toast({
                 title: 'Welcome!',
@@ -168,7 +169,15 @@ const CreateUser = ({ logOrSign, setlogOrSign }) => {
                 isClosable: true,
                 onCloseComplete: handleNavigation(),
               });
-              //navigate(`/home`);
+
+              const templateParams = {
+                name: values.firstName,
+                lastName: values.lastName,
+                email: values.email,
+                greetings:'Welcome to Leaf Me 🍁🍁🍁:',
+                body:`We are a community that loves nature and making friends, so we decided to build a space for all of us to enjoy together and share everything about our beloved plants. Because of this we strongly ask you to keep uppseting and unrelated topics away of this platform.. Thanks and Welcome to LeafMe4`
+            };
+              await emailjs.send("service_95rwpyl","welcomeTemplate", templateParams, "NT4sJB-hk0XwMsuPr" )
             }
           }}
         >
@@ -323,7 +332,6 @@ const CreateUser = ({ logOrSign, setlogOrSign }) => {
                       type="submit"
                       mt="10px"
                       onSubmit={handleSubmit}
-                      
                     >
                       Create Account
                     </Button>

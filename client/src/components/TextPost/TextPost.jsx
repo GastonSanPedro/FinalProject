@@ -79,7 +79,7 @@ export default function TextPost({
     idPost: postId,
     description: '',
   });
-  console.log(premium);
+
   const newDate = new Date(date);
   const formatedDate =
     newDate.toLocaleTimeString('es-ES').slice(0, -3) +
@@ -274,8 +274,7 @@ export default function TextPost({
                 name="heart"
                 // value={comment?.likes?.heart}
                 icon={<BiHeart />}
-                onHover={() => {}}
-                _hover={{
+               _hover={{
                   bg: 'white',
                 }}
                 _active={{
@@ -290,7 +289,6 @@ export default function TextPost({
                 name="confusedLeaf"
                 // value={comment?.likes?.confusedLeaf}
                 icon={<BiShocked />}
-                onHover={() => {}}
                 _hover={{
                   bg: 'white',
                 }}

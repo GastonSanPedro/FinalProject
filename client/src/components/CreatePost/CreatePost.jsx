@@ -50,7 +50,6 @@ const CreatePost = ({ site, myUser, createdRef }) => {
           duration: 2000,
           isClosable: true,
         });
-        console.log('Post added successfully');
       }
     } else {
       if (input.description === '' || input.pics === '') {
@@ -75,7 +74,6 @@ const CreatePost = ({ site, myUser, createdRef }) => {
           duration: 2000,
           isClosable: true,
         });
-        console.log('Post added successfully');
       }
     }
   };
@@ -92,7 +90,6 @@ const CreatePost = ({ site, myUser, createdRef }) => {
       },
       (error, result) => {
         if (!error && result && result.event === 'success') {
-          console.log('Done! Here is the image info: ', result.info.path);
           setInput({
             ...input,
             pics:
@@ -144,12 +141,12 @@ const CreatePost = ({ site, myUser, createdRef }) => {
 
         <Box ml={8} w="90%">
           <Textarea
-            w={'60%'}
+            w={TypePost === 'text' ? '60%' : '45%'}
             h={site === 'profile' ? '200px' : null}
             ref={createdRef}
             type="textarea"
             position={'absolute'}
-            left={'16%'}
+            left={site === 'profile' ? 'none' : '16%'}
             backgroundColor={'white'}
             placeholder="Write something..."
             value={input.description}
@@ -162,23 +159,27 @@ const CreatePost = ({ site, myUser, createdRef }) => {
             }}
           />
           <Image
+            display={input.pics ? 'inline' : 'none'}
             src={input.pics}
-            h={'15vh'}
+            h={site === 'profile' ? '25vh' : '20vh'}
+            w={'18vw'}
+            mt={site === 'profile' ? '1vh' : '0vh'}
+            objectFit={'contain'}
             position={'absolute'}
-            right={'15%'}
+            right={site === 'profile' ? '27%' : '15%'}
           ></Image>
           <Box
             width={'80%'}
             display={'inline-flex'}
             position={'relative'}
-            top={'60%'}
+            top={site === 'profile' ? '56%' : '60%'}
             left={site === 'feed' ? '-10%' : '0%'}
             ml={site === 'feed' ? 0 : '150px'}
             mt={site === 'feed' ? 0 : '10px'}
           >
             <Button
               colorScheme={'gray'}
-              mt={2}
+              mt={site === 'profile' ? '10vh' : 2}
               onClick={(e) => {
                 handleSubmit(input);
               }}
@@ -190,7 +191,8 @@ const CreatePost = ({ site, myUser, createdRef }) => {
                 <Button
                   color={'black'}
                   background={'orange.200'}
-                  mt={'2'}
+                  top={site === 'profile' ? '56%' : '60%'}
+                  mt={site === 'profile' ? '10vh' : '2'}
                   ml={'2'}
                   id="upload-widget"
                   className="cloudinary-button"
@@ -202,7 +204,7 @@ const CreatePost = ({ site, myUser, createdRef }) => {
                 </Button>
                 <Text
                   w={'80'}
-                  mt={5}
+                  mt={site === 'profile' ? '11vh' : 5}
                   ml={site === 'feed' ? '-20' : 2}
                   fontSize={11}
                   alignContent={'center'}
