@@ -79,7 +79,7 @@ export default function TextPost({
     idPost: postId,
     description: '',
   });
-  console.log(premium);
+
   const newDate = new Date(date);
   const formatedDate =
     newDate.toLocaleTimeString('es-ES').slice(0, -3) +

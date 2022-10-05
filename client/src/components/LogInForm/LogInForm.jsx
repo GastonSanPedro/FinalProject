@@ -41,11 +41,9 @@ const LogInForm = ({ logOrsign, setlogOrSign }) => {
   const handleInputChange = (event) =>
     setInput({ ...input, [event.target.name]: event.target.value });
   const isError = input === ''; //true or false
-  
+
   const handleCallbackResponse = (response) => {
-    console.log('Encoded JWT ID token:' + response.credential);
     var userObject = jwt_decode(response.credential);
-    console.log(userObject);
     dispatch(
       authUser(userObject.email, null, {
         email: userObject.email,
@@ -71,7 +69,7 @@ const LogInForm = ({ logOrsign, setlogOrSign }) => {
 
     isUserValidate();
   }, [auth, google]);
-  //console.log(process.env.GOOGLE_ID_CLIENT);
+
   const handleSubmit = (input) => {
     dispatch(authUser(input.email, input.pass));
   };

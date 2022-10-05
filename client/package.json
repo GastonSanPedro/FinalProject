@@ -5,6 +5,7 @@
   "dependencies": {
     "@chakra-ui/icons": "^2.0.10",
     "@chakra-ui/react": "^2.3.4",
+    "@emailjs/browser": "^3.7.0",
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
     "@react-icons/all-files": "^4.1.0",
@@ -20,6 +21,7 @@
     "chart.js": "^3.9.1",
     "cloudinary-react": "^1.8.1",
     "dotenv": "^16.0.2",
+    "emailjs": "^4.0.1",
     "formik": "^2.2.9",
     "framer-motion": "^7.5.1",
     "jwt-decode": "^3.1.2",
