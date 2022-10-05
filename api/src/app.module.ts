@@ -12,7 +12,7 @@ import { JoiValidationSchena } from './config/joi.validation';
 import { CommentsModule } from './comments/comments.module';
 import { MercadoPagoModule } from './mercado-pago/mercado-pago.module';
 import { FriendsModule } from './friends/friends.module';
-import { MessagesWsModule } from './messages-ws/messages-ws.module';
+// import { MessagesWsModule } from './messages-ws/messages-ws.module';
 
 @Module({
   imports: [
@@ -25,7 +25,7 @@ import { MessagesWsModule } from './messages-ws/messages-ws.module';
       }),
     MongooseModule.forRoot(process.env.MONGODB),
     UsersModule, 
-    PosteosModule, SeedModule, CommentsModule, MercadoPagoModule, FriendsModule, MessagesWsModule
+    PosteosModule, SeedModule, CommentsModule, MercadoPagoModule, FriendsModule
   ],
   controllers: [],
   providers: [],
