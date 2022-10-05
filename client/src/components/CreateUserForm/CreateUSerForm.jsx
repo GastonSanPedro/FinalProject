@@ -157,7 +157,7 @@ const CreateUser = ({ logOrSign, setlogOrSign }) => {
               //navigate(`/home`);
             } else {
               dispatch(createUser(values), []);
-              values.
+              
               localStorage.setItem('user', JSON.stringify(values));
               toast({
                 title: 'Welcome!',

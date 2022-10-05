@@ -17,6 +17,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { logOut, addFriend, deleteFriend } from '../../redux/action';
 import {  useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 
 const UserCard = ({ site, myUser, user, friends }) => {
@@ -29,6 +30,11 @@ const UserCard = ({ site, myUser, user, friends }) => {
     dispatch(logOut());
     navigate('/landing-page');
   };
+
+  useEffect(() => {
+
+  },[friends, myUser, user])
+
   const handleClickFollow = () => {
     dispatch(addFriend(myUser?._id, user?._id));
   };
