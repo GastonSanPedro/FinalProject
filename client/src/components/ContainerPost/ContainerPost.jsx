@@ -12,7 +12,6 @@ export default function ContainerPost({
   posts,
   singlePost,
   handleDelete,
-  friendsPosts
 }) {
   const [typePost, setTypePost] = useState('img');
   const ref = useRef();
@@ -39,7 +38,7 @@ export default function ContainerPost({
       return posts;
     }
     if (site === 'feed') {
-     //return friendsPosts;
+      return posts
     }
     if (site === 'admin') {
       let reportedPosts = posts?.filter((post) => post.reported === true);
@@ -75,15 +74,15 @@ export default function ContainerPost({
         mt={site === 'feed' ? '0vh' : '4vh'}
       >
         {site === 'search' ||
-        site === 'admin' ||
-        site === 'explore' ? null : site === 'feed' || site === 'profile' ? (
-          <CreatePost
-            site={site}
-            email={email}
-            myUser={myUser}
-            createdRef={ref}
-          />
-        ) : (
+          site === 'admin' ||
+          site === 'explore' ? null : site === 'feed' || site === 'profile' ? (
+            <CreatePost
+              site={site}
+              email={email}
+              myUser={myUser}
+              createdRef={ref}
+            />
+          ) : (
           <Box
             p={3}
             m={3}
