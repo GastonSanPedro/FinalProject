@@ -1,7 +1,9 @@
 import { Box } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
 import ContainerPost from '../components/ContainerPost/ContainerPost';
+import NavbarSerch from '../components/NavbarSearch/NavbarSearch';
 import SidebarWithHeader from '../components/Sidebar-Navbar/SideBar';
+import { RiImage2Line } from 'react-icons/ri';
 
 
 
@@ -12,6 +14,7 @@ const Feed = () => {
   const friends = useSelector((state)=>state.friends)
   const myFollowers = useSelector((state)=> state.followers)
   const friendsPosts = useSelector((state) => state.friendsPosts)
+
 
   return (
     <>
@@ -32,6 +35,7 @@ const Feed = () => {
         mt={'5.5%'}
         ml={'18%'}
       >
+
         <ContainerPost
           myUser={myUser}
           //friendsPosts={friendsPosts}

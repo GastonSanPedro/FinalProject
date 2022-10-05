@@ -1,10 +1,9 @@
 import { Box, Button, Flex, Text } from "@chakra-ui/react";
 import EditableForm from "./EditableForm";
 import { AiOutlineDelete } from "react-icons/ai";
-import { RiCheckboxLine } from 'react-icons/ri';
+
 import { useState } from "react";
 import { useDispatch} from "react-redux";
-import { changeDataProfile } from "../../redux/action";
 
 function randomNumber(min, max) {
   let a = Math.random() * (max - min) + min;
@@ -15,7 +14,7 @@ export const ColorBox = () => {
     <Box 
       bg={`logo.${randomNumber(1, 4)}`} 
       w={10} 
-      h={'6.1vh'}></Box>
+      h={'9vh'}></Box>
   )
 }
 
@@ -24,8 +23,9 @@ export const UserSettings = ({myUser, input, setInput, users}) => {
   const {firstName, lastName, userName, password, email} = myUser
   const [errors, setErrors] = useState({})
   const [disabled, setDisabled ] = useState(true)
-  
+
   const usernames = users.map(user => user.userName)
+
   
   
   if(Object.entries(myUser).length){
@@ -44,7 +44,8 @@ export const UserSettings = ({myUser, input, setInput, users}) => {
                   m={'2% 0% 2% 2%'} 
                   p={'1% 1% 1% 2%'} 
                   align={'center'} 
-                  justify={'space-between'} 
+                  justify={'space-between'}
+                  h={'9vh'} 
                   w={'100%'} 
                   bg={'white'} >
                     <Text>First Name:</Text>
@@ -61,7 +62,8 @@ export const UserSettings = ({myUser, input, setInput, users}) => {
               <Flex 
               borderRadius={2} 
               align={'center'}>
-                  <Flex   
+                  <Flex
+                  h={'9vh'}    
                   m={'2% 0% 2% 2%'}  
                   p={'1% 1% 1% 2%'} 
                   align={'center'} 
@@ -83,7 +85,8 @@ export const UserSettings = ({myUser, input, setInput, users}) => {
                 <Flex 
                 borderRadius={2} 
                 align={'center'}>
-                    <Flex   
+                    <Flex
+                    h={'9vh'}    
                      m={'2% 0% 2% 2%'}  
                     p={'1% 1% 1% 2%'} 
                     align={'center'} 
@@ -97,14 +100,16 @@ export const UserSettings = ({myUser, input, setInput, users}) => {
                     val={userName} 
                     input={input}
                     name={'userName'} 
-                    setInput={setInput}/>
+                    setInput={setInput}
+                    usernames={usernames}/>
                     </Flex>
                     <ColorBox/>
                 </Flex>
                 <Flex 
                 borderRadius={2} 
                 align={'center'}>
-                    <Flex  
+                    <Flex
+                    h={'9vh'}   
                     m={'2% 0% 2% 2%'} 
                     p={'1% 1% 1% 2%'} 
                     align={'center'} 

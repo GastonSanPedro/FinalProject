@@ -10,6 +10,7 @@ import {
   getFriends,
   getFollowers,
   getFriendsPosts,
+  getUsers,
 } from '../../redux/action';
 
 const Searchbar = () => {
@@ -35,6 +36,7 @@ const Searchbar = () => {
     dispatch(getFriends(neededId));
     dispatch(getFollowers(neededId));
     dispatch(getFriendsPosts(neededId));
+    dispatch(getUsers())
   }
   // useEffect(() => {
   //   dispatch(getPosts())
