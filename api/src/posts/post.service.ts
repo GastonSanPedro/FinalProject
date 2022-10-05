@@ -16,7 +16,7 @@ export class PostsService {
   ) {}
 
   async create(createPostDto: CreatePostDto) {
-    createPostDto.description = createPostDto.description.toLowerCase();
+    createPostDto.description = createPostDto.description
     createPostDto.createdAt = Date.now();
     createPostDto.reported = false;
     createPostDto.premium = false;
