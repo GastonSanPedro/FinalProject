@@ -18,10 +18,10 @@ const PostSearchContainer = ({state}) => {
         } 
         if(state === 'text') return filterPost
     }
-
+    
     return (
         <>
-            <Wrap justify={'center'} spacing={30} w='100%'p={8} backgroundColor={'whitesmoke'}>
+            <Wrap justify={'center'} spacing={30} w='100%'p={8} backgroundColor={'whitesmoke'} minH={'77vh'}>
                 {
                     state === 'text' ? (
                                 <TextPostContainer
