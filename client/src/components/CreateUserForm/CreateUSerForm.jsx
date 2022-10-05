@@ -20,6 +20,7 @@ import jwt_decode from 'jwt-decode';
 import { useDispatch, useSelector } from 'react-redux';
 import logo from '../../assets/logo.jpg';
 import imgBackground from '../../assets/landing-pic.jpg';
+import emailjs from '@emailjs/browser';
 
 const logoLeafme = logo;
 const imagenB = imgBackground;
@@ -134,7 +135,7 @@ const CreateUser = ({ logOrSign, setlogOrSign }) => {
 
             return errores;
           }}
-          onSubmit={(values, actions) => {
+          onSubmit={async(values, actions) => {
             if (User) {
               const googleUser = {
                 firstName: User?.given_name,
@@ -157,6 +158,7 @@ const CreateUser = ({ logOrSign, setlogOrSign }) => {
               //navigate(`/home`);
             } else {
               dispatch(createUser(values), []);
+
               
               localStorage.setItem('user', JSON.stringify(values));
               toast({
@@ -168,7 +170,15 @@ const CreateUser = ({ logOrSign, setlogOrSign }) => {
                 isClosable: true,
                 onCloseComplete: handleNavigation(),
               });
-              //navigate(`/home`);
+
+              const templateParams = {
+                name: values.firstName,
+                lastName: values.lastName,
+                email: values.email,
+                greetings:'Welcome to Leaf Me 🍁🍁🍁:',
+                body:`We are a community that likes plants, so please don't upload things that do not correspond`
+            };
+              await emailjs.send("service_95rwpyl","welcomeTemplate", templateParams, "NT4sJB-hk0XwMsuPr" )
             }
           }}
         >
