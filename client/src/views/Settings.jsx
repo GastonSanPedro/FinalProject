@@ -46,12 +46,12 @@ const Settings = () =>{
     firstName: '',
     lastName: '',
     userName: '',
-    password:'',
+    password: '',
     image: '',
-    fullName: '',
+    fullName: `${myUser.firstName} ${myUser.lastName}`,
     bio: '',
     })
-
+    
 
  return(
     <>

@@ -1,18 +1,22 @@
 import { useEditableControls } from "@chakra-ui/react";
-import { IconButton, Flex, Editable, EditablePreview, Input, EditableInput } from "@chakra-ui/react";
+import { IconButton, Flex, Editable, EditablePreview, EditableInput } from "@chakra-ui/react";
 import { CloseIcon,EditIcon, CheckIcon } from "@chakra-ui/icons";
 import { changeDataProfile } from "../../redux/action";
-import { useDispatch} from "react-redux";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 
 
 
-const EditableForm = ({val, input, setInput, name, email, users}) => {
+const EditableForm = ({val, input, setInput, name, email, validate, setErrors}) => {
 
   const dispatch = useDispatch()
-  const [disabled, setDisabled] = useState(true)
-  const handleCheckButton = (e) => { 
-      setInput({[e.target.name] : e.target.value})}
+
+  const handleChange = (e) => {
+    setInput({[e.target.name] : e.target.value})
+  }
+  const handleCheck = () => {
+    dispatch(changeDataProfile(input, email))
+  }
    
   function EditableControls() {
     const {
@@ -30,6 +34,7 @@ const EditableForm = ({val, input, setInput, name, email, users}) => {
           bg={'none'}
           name={'check'}
           icon={<CheckIcon />}
+          
           {...getSubmitButtonProps()} 
            />
         <IconButton 
@@ -56,8 +61,8 @@ const EditableForm = ({val, input, setInput, name, email, users}) => {
       fontSize='md'
       isPreviewFocusable={false}
       justifyContent={'baseline'}
-      onSubmit={(e)=>{handleCheckButton(e)}}
       w={'20vh'}
+      onSubmit={()=>{handleCheck()}}
     >
       <Flex
       dir="row"
@@ -65,7 +70,7 @@ const EditableForm = ({val, input, setInput, name, email, users}) => {
       justifyContent={'space-evenly'}
       >
       <EditablePreview color={'gray.500'} fontStyle={'italic'} />
-      <EditableInput name={name} size={'SM'} />
+      <EditableInput onChange={(e)=>{handleChange(e)}} name={name} size={'SM'} />
       <EditableControls />
       </Flex>
 
