@@ -8,10 +8,8 @@ import {
   Button,
   Divider,
 } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useState } from 'react';
 import ImgPost from './ImgPost';
-import { getUsers } from '../../redux/action';
 import InfiniteScroll from 'react-infinite-scroll-component'
 
 const ImgPostContainer = ({
@@ -34,12 +32,8 @@ const ImgPostContainer = ({
   let renderPosts = posts?.length > 9 ? posts?.slice(currentStart, currentEnd) : posts;
   //------------------------------------
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const { isOpen, onToggle } = useDisclosure();
-
-  useEffect(() => {
-    dispatch(getUsers());
-  }, [dispatch]);
 
   return (
     <>
@@ -80,6 +74,7 @@ const ImgPostContainer = ({
                             : post?.author?.image}
                         image={post?.pics}
                         email={post?.author?.email}
+                        authorId={post?.author?._id}
                         description={post?.description}
                         date={post?.createdAt}
                         postId={post?._id}

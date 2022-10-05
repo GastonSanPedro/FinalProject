@@ -81,7 +81,7 @@ const LogInForm = ({ logOrsign, setlogOrSign }) => {
 
   const handleNavigation = () => {
     setTimeout(function () {
-      navigate(`/home`);
+      navigate(`/profile`);
     }, 2000);
   };
   const isUserValidate = () => {
