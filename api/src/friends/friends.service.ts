@@ -13,6 +13,7 @@ export class FriendsService {
     private readonly userModel: Model<User>,
   @InjectModel(Friend.name)
     private readonly friendModel: Model<Friend>,
+
   ) {}
 
   async create(addFriendDto: AddFriendDto): Promise<Friend> {
@@ -50,9 +51,32 @@ export class FriendsService {
   async findAllFollowersByUser(idUser: string) {
     if(isValidObjectId(idUser)){
       const user =  await this.userModel.findById(idUser)
-      return user.followers
+      return user.followers.filter((el)=> el._id !== null)
     }
   }
+
+  async findAllFollowersAndFriendsByUser(idUser: string) {
+  const all = []
+
+  const allFollowers = await this.findAllFollowersByUser(idUser)
+    allFollowers.forEach(user => {
+      all.push(user._id.toString())
+    });
+
+  const allFriends = await this.findAllFriendsByUser(idUser)
+    allFriends.map(user => {
+      all.push(user.idFriend._id.toString())})
+
+  const newSet = [... new Set(all)]
+  
+  let friendFollower = []
+
+  for (let i = 0; i < newSet.length; i++) {
+  let user = await this.userModel.findById(newSet[i])
+    friendFollower.push(user)
+  }
+  return friendFollower
+ }
 
 
   async findAllPostOfMyFriends (idUser: string){
@@ -68,7 +92,6 @@ export class FriendsService {
 
       const friendsPost: any = user.friends.map(friend => friend.idFriend)
       const friendsPostAll = friendsPost.map(friend => friend.posts).flat()
-
 
     return friendsPostAll
     } 
