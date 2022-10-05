@@ -8,11 +8,13 @@ import { Friend } from './schema/friend-schema';
 
 @Injectable()
 export class FriendsService {
+  public readonly friendFollower = []
   constructor(
   @InjectModel(User.name)
     private readonly userModel: Model<User>,
   @InjectModel(Friend.name)
     private readonly friendModel: Model<Friend>,
+
   ) {}
 
   async create(addFriendDto: AddFriendDto): Promise<Friend> {
@@ -41,7 +43,7 @@ export class FriendsService {
       const user =  await this.userModel.findById(idUser)
       .populate({ path: 'friends.idFriend', select:'-posts -password -friends -bio'})
       .exec()
-      return user.friends
+      return user.friends.filter((el)=> el.idFriend !== null)
       // .filter((el=>el.idUser))
       
     }
@@ -50,9 +52,31 @@ export class FriendsService {
   async findAllFollowersByUser(idUser: string) {
     if(isValidObjectId(idUser)){
       const user =  await this.userModel.findById(idUser)
-      return user.followers
+      return user.followers.filter((el)=> el._id !== null)
     }
   }
+
+  async findAllFollowersAndFriendsByUser(idUser: string) {
+  const all = []
+
+  const allFollowers = await this.findAllFollowersByUser(idUser)
+    allFollowers.forEach(user => {
+      all.push(user._id.toString())
+    });
+
+  const allFriends = await this.findAllFriendsByUser(idUser)
+    allFriends.map(user => {
+      all.push(user.idFriend._id.toString())})
+
+  const newSet = [... new Set(all)]
+
+  const array = newSet.map(async(userId) => {
+      let user = await this.userModel.findById(userId)
+      this.friendFollower.push(user)
+    })
+    console.log(this.friendFollower)
+
+ }
 
 
   async findAllPostOfMyFriends (idUser: string){
@@ -68,7 +92,6 @@ export class FriendsService {
 
       const friendsPost: any = user.friends.map(friend => friend.idFriend)
       const friendsPostAll = friendsPost.map(friend => friend.posts).flat()
-
 
     return friendsPostAll
     } 
