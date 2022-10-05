@@ -40,7 +40,6 @@ export const CommentBox = ({ comment, formatedDate, loggedUser, postId }) => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
   const handleSubmit = (e) => {
-    
     dispatch(postComment(input, postId));
     setInput({ idUser: loggedUser, idPost: postId, description: '' });
     toast({
@@ -54,7 +53,7 @@ export const CommentBox = ({ comment, formatedDate, loggedUser, postId }) => {
   const handleReaction = (e) => {
     //setReaction({ ...Reaction, [e.target.name]: e.target.value + 1 });
   };
-  console.log(comment);
+  //console.log(comment);
   return (
     <div>
       <Flex

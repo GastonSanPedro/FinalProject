@@ -101,7 +101,7 @@ export default function PaymentCard({
               {`${num}% extra chances of geting in the trending posts`}
             </ListItem>
           </List>
-          <Button
+          {/* <Button
             mt={10}
             w={'full'}
             bg={'logo.3'}
@@ -117,7 +117,7 @@ export default function PaymentCard({
             }}
           >
             Start your campaign
-          </Button>
+          </Button> */}
         </Box>
       </Box>
     </Center>
