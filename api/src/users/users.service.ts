@@ -91,13 +91,25 @@ export class UsersService {
   }
 
   async remove(id: string) {
-    const userDelete:User = await this.findOne(id);
+    const userDelete:User = await this.userModel.findById(id);
     const deleted = await this.userModel.softDelete(userDelete)
-    return deleted
+    if(userDelete.isDeleted ===false){
 
-    // await userDelete.deleteOne()
-    // return `User ${id} has been deleted`;
-  }
+    return deleted
+    }else{
+      return this.userModel.restore(userDelete)
+    }
+     
+    }
+
+
+  // async restaured(id:string){
+  //   const userRestaured:User = await this.userModel.findById(id)
+  //   const restaured = await this.userModel.restore(userRestaured)
+  //   return restaured
+  // }
+  
+
 
   async findByName(term: string) {
     let userFinded:User[];
@@ -112,7 +124,7 @@ export class UsersService {
           {fullName: {$regex: term, $options: "$i"} },
           {userName: {$regex: term, $options: "$i"} }
         ]})
-        .populate({ path: 'friends.idFriend', select:'-posts -password -friends -email -bio'})
+        .populate({ path: 'friends.idFriend', select:'-posts -password -friends -bio'})
         .exec()
         
         if(userFinded.length === 0) throw new NotFoundException(`El usuario con el First Name, Last Name, Username or Full Name ${term} no existe`)

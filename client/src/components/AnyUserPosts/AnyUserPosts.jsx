@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react';
 import { Box, Flex, Wrap, WrapItem, Heading } from '@chakra-ui/react';
 
 const AnyUserPosts = ({ posts }) => {

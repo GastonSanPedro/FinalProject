@@ -16,7 +16,7 @@ const Explore = () => {
 
   useEffect(() => {
     dispatch(getPosts());
-  }, [singlePost]);
+  }, []);
 
   return (
     <>

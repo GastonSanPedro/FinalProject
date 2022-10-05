@@ -8,6 +8,7 @@ import {
   Text,
   Textarea,
   useToast,
+  Image,
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -78,12 +79,16 @@ const CreatePost = ({ site, myUser, createdRef }) => {
       }
     }
   };
-
   const handleInputImage = (event) => {
+    const closeWidget = () => {
+      myWidget.close();
+    };
     var myWidget = window.cloudinary.createUploadWidget(
       {
         cloudName: 'duilsmrmx',
         uploadPreset: 'leafme',
+        multiple: true,
+        destroy: true,
       },
       (error, result) => {
         if (!error && result && result.event === 'success') {
@@ -94,18 +99,10 @@ const CreatePost = ({ site, myUser, createdRef }) => {
               `https://res.cloudinary.com/duilsmrmx/image/upload/` +
               result.info.path,
           });
-          toast({
-            title: 'Sucess',
-            description: 'Picture added successfully',
-            status: 'success',
-            duration: 2000,
-            isClosable: true,
-          });
         }
       }
     );
     myWidget.open();
-
   };
   return (
     <>
@@ -147,24 +144,34 @@ const CreatePost = ({ site, myUser, createdRef }) => {
 
         <Box ml={8} w="90%">
           <Textarea
-            w={'100%'}
+            w={'60%'}
             h={site === 'profile' ? '200px' : null}
             ref={createdRef}
             type="textarea"
+            position={'absolute'}
+            left={'16%'}
             backgroundColor={'white'}
             placeholder="Write something..."
             value={input.description}
             name="description"
             size="md"
             mt={2}
+            ml={'0'}
             onChange={(e) => {
               handleInputChange(e);
             }}
           />
+          <Image
+            src={input.pics}
+            h={'15vh'}
+            position={'absolute'}
+            right={'15%'}
+          ></Image>
           <Box
             width={'80%'}
             display={'inline-flex'}
             position={'relative'}
+            top={'60%'}
             left={site === 'feed' ? '-10%' : '0%'}
             ml={site === 'feed' ? 0 : '150px'}
             mt={site === 'feed' ? 0 : '10px'}

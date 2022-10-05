@@ -39,9 +39,9 @@ export class FriendsService {
   async findAllFriendsByUser(idUser: string) {
     if(isValidObjectId(idUser)){
       const user =  await this.userModel.findById(idUser)
-      .populate({ path: 'friends.idFriend', select:'-posts -password -friends -email -bio'})
+      .populate({ path: 'friends.idFriend', select:'-posts -password -friends -bio'})
       .exec()
-      return user.friends
+      return user.friends.filter((el)=>el.idFriend !== null)
       // .filter((el=>el.idUser))
       
     }
@@ -63,7 +63,7 @@ export class FriendsService {
         select:'posts', 
         populate:{ 
           path:'posts.author', 
-          select:'-posts -password -friends -email -bio -followers'}})
+          select:'-posts -password -friends -bio -followers'}})
       .exec() 
 
       const friendsPost: any = user.friends.map(friend => friend.idFriend)
@@ -74,14 +74,16 @@ export class FriendsService {
     } 
   }
 
-  async removeFriend(idUser: string, updateFriendDto: UpdateFriendDto) {
-    const idFriend = updateFriendDto.idFriend
+  async removeFriend(idUser: string, idFriend: string) {
+    // const idFriend = updateFriendDto.idFriend
     const user: User = await this.userModel.findById(idUser);
     // const friendDelete:Friend = await this.friendModel.findOne({idFriend});
     const userFriend: User = await this. userModel.findById(idFriend)
+    
     userFriend.followers = userFriend.followers.filter(follower => follower._id.toString() !== idUser)
     userFriend.save()
-    user.friends = user.friends.filter(friend=> friend.idFriend.toString() !== idFriend.toString())
+    
+    user.friends = user.friends.filter(friend => friend.idFriend.toString() !== idFriend.toString())
     user.save()
     // await friendDelete.deleteOne()
     return `Friend ${idFriend} has been deleted`;

@@ -9,9 +9,7 @@ import {
   Divider,
 } from '@chakra-ui/react';
 import TextPost from './TextPost';
-import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { getUsers } from '../../redux/action';
+import { useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 export default function TextPostContainer({
@@ -33,12 +31,12 @@ export default function TextPostContainer({
     posts?.length > 9 ? posts?.slice(currentStart, currentEnd) : posts;
   //------------------------------------
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const { isOpen, onToggle } = useDisclosure();
 
-  useEffect(() => {
-    dispatch(getUsers());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(getUsers());
+  // }, [dispatch]);
 
   return (
     <>

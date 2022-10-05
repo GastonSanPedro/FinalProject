@@ -37,6 +37,8 @@ export class User extends Document {
   @Prop({})
   birthDate?: string;
 
+  @Prop({})
+  cover?: string; 
   
   @Prop({})
   fullName: string;

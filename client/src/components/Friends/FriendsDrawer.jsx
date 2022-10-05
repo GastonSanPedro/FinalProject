@@ -27,10 +27,11 @@ export default function Friends({ myUser, friends, myFollowers }) {
   const [size, setSize] = useState('');
   const [input, setInput] = useState('');
   const { isOpen, onOpen, onClose } = useDisclosure();
+  
   const handleClick = () => {
     onOpen();
   };
-  
+
   return (
     <>
       <Flex

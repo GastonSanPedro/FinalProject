@@ -9,11 +9,11 @@ import {
 } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger/dist';
 import { ParseObjectIdPipe } from 'src/utilities/parse-object-id-pipe.pipe';
-import { AddFriendDto } from './dto/add-friend-dto';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './schema/user-schema';
 import { UsersService } from './users.service';
+import { usersDB } from '../seed/users';
 
 
 @ApiTags('Users')
@@ -50,7 +50,9 @@ export class UsersController {
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.usersService.remove(id);
+    return this.usersService.remove(id)
   }
+
+  
 
 }

@@ -50,7 +50,7 @@ export function getUser(email) {
         payload: info.data,
       });
     } catch (error) {
-      console.log(error, 'holis');
+      console.log(error);
     }
   };
 }
@@ -201,7 +201,7 @@ export const authUser = (mail, password, google) => {
     try {
       if (google === undefined) {
         var user = await axios.get(`/users/${mail}`);
-        let formatUser = user.data;
+        let formatUser = await   user.data;
         if (formatUser.password !== password) {
           return dispatch({
             type: AUTH_USER,
@@ -328,18 +328,18 @@ export const searchFriends = (id, input) => {
     });
   };
 };
-export const deleteFriend = (myUserid, anyUserId) => {
-  const ids = {
-    idFriend: anyUserId,
-    };
+export const deleteFriend = (myUserid, idFriend) => {
+  // const ids = {
+  //   idFriend: anyUserId,
+  //   };
     
   return async function (dispatch) {
     try {
-      let info = await axios.delete(`/friends/${myUserid}`, ids);
-      // let { data } = await axios.get(`/friends/${myUserid}`);
+      let info = await axios.patch(`/friends/${myUserid}`, idFriend);
+      let { data } = await axios.get(`/friends/${myUserid}`);
 
       return dispatch({
-        type: DELETE_FRIENDS
+        type: DELETE_FRIENDS,
       });
     } catch (error) {
       console.log(error);
@@ -379,6 +379,7 @@ export function deletePost(id) {
     }
   };
 }
+
 export function createPayment(id, info) {
   return async function (dispatch) {
     try {

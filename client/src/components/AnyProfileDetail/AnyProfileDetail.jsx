@@ -17,10 +17,10 @@ const AnyProfileDetail = () => {
 
   useEffect(() => {
     dispatch(getUser(email));
-    return () => {
-      getUser(email);
-    };
-  });
+    // return () => {
+    //   getUser(email);
+    // };
+  },[dispatch]);
 
   return (
     <>
