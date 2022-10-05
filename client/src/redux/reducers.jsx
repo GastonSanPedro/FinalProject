@@ -26,6 +26,7 @@ import {
   SEARCH_FRIENDS,
   CREATE_PAYMENT,
   SET_PREMIUM,
+  POST_REACTION_POST,
 } from './action';
 
 const initialState = {
@@ -81,10 +82,9 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         singlePost: action.payload,
       };
-    case POST_REACTION:
+    case POST_REACTION_POST:
       return {
         ...state,
-        singlePost: action.payload,
       };
     case CLEAN_SINGLE_POST:
       return {

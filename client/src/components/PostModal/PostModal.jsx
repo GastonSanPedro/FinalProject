@@ -15,7 +15,7 @@ import {
   Button,
   InputGroup,
 } from '@chakra-ui/react';
-import { postComment } from '../../redux/action';
+import { postComment, getMyUser } from '../../redux/action';
 import { useDispatch } from 'react-redux';
 import { CommentBox } from './CommentBox';
 
@@ -71,6 +71,9 @@ export const PostModal = ({
       duration: 2000,
       isClosable: true,
     });
+    setTimeout(function () {
+      dispatch(getMyUser(loggedEmail));
+    }, 800);
   };
   const handleReaction = (e) => {
     setReaction({ ...Reaction, [e.target.name]: e.target.value + 1 });
