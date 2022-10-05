@@ -55,6 +55,8 @@ export default function ImgPost({
   date,
   avatar,
   userName,
+  firstname,
+  lastname,
   email,
   singlePost,
   postId,
@@ -188,7 +190,6 @@ export default function ImgPost({
   // }
   return (
     <>
-      {/* <Center py={6}> */}
       <PostModal
         singlePost={singlePost}
         fullName={fullName}
@@ -205,8 +206,8 @@ export default function ImgPost({
         email={email}
         site={site}
       />
-      {/** Acá arranca la box del posteo */}
       <Box
+        position={'relative'}
         border="1px"
         borderColor="gray.200"
         bgColor="#f5f5f5"
@@ -214,13 +215,37 @@ export default function ImgPost({
         w={'25vw'}
         rounded={'sm'}
         p={6}
-        h={'68vh'}
+        h={'70vh'}
         overflow={'hidden'}
         // _hover={{
         //   bg: `logo.${randomNumber(1, 4)}`,
         // }}
       >
+        <HStack position={'absolute'} top={4}>
+          {site === 'profile' || site === 'anyProfile' ? null : (
+            <Avatar
+              cursor={'pointer'}
+              onClick={() => handleNavigate()}
+              size="md"
+              src={avatar}
+              name={fullName}
+              alt={'Author'}
+            />
+          )}
+          <VStack position={'absolute'} left={'50px'} top={'3px'} w={'200px'}>
+            <Text as="b" left={0} position={'absolute'}>
+              {' '}
+              {firstname} {lastname}
+            </Text>
+            <Text fontSize="sm" left={0} position={'absolute'} pt={'12px'}>
+              {userName}
+            </Text>
+          </VStack>
+        </HStack>
         <Image
+          cursor="pointer"
+          position={'absolute'}
+          top={'55px'}
           src={image}
           border="1px"
           borderColor="gray.200"
@@ -234,9 +259,9 @@ export default function ImgPost({
           objectFit={'cover'}
           boxSize="40vh"
           width={'100%'}
+          onClick={() => handleClick()}
         />
-        {/* </Box> */}
-        <Box pt={3}>
+        <Box top={'60px'} right={'-90px'} position={'relative'}>
           <Flex
             position={'absolute'}
             ml={'-2vw'}
@@ -403,51 +428,23 @@ export default function ImgPost({
                 position="relative"
                 bg="none"
                 onClick={() => handleClick()}
+                color={'gray.500'}
               >
                 Ver más
               </Button>
             ) : null}
           </Text>
-          <HStack pt="9%" pr="7%" position="absolute">
-            <Avatar
-              onClick={() => handleNavigate()}
-              size="sm"
-              src={avatar}
-              name={fullName}
-              alt={'Author'}
-            />
-            <Text>{userName}</Text>
-            <Box ml="20px">
-              <Text color={'gray.500'} ml="60%" w="150px">
-                {formatedDate}
-              </Text>
-            </Box>
-          </HStack>
         </VStack>
-        {/* <Stack>
-            <Heading
-              color={useColorModeValue('gray.700', 'white')}
-              textTransform="uppercase"
-              fontSize={'2xl'}
-              fontFamily={'body'}
-            >
-              {userName}
-            </Heading>
-            <Text width={'35vh'} h={'12vh'} color={'gray.500'}>
-              {sentenceCase(description, true)}
-            </Text>
-          </Stack> */}
-        {/* <Stack mt={6} direction={'row'} spacing={4} align={'center'}>
-            <Link to={`/user/${email}`}>
-              <Avatar src={avatar} name={fullName} alt={'Author'} />
-            </Link>
-            <Stack direction={'column'} spacing={0} fontSize={'sm'}>
-              <Text fontWeight={600}>{fullName}</Text>
-              <Text color={'gray.500'}>{formatedDate}</Text>
-            </Stack>
-          </Stack> */}
+        <Text
+          color={'gray.500'}
+          position={'absolute'}
+          bottom={'5px'}
+          right={'10px'}
+          w="150px"
+        >
+          {formatedDate}
+        </Text>
       </Box>
-      {/* </Center> */}
       {site === 'admin' ? (
         <Button onClick={() => handleDelete(postId)}>Eliminar</Button>
       ) : null}

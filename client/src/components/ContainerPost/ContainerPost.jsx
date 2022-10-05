@@ -3,6 +3,9 @@ import CreatePost from '../CreatePost/CreatePost';
 import ImgPostContainer from '../ImgPost/ImgPostContainer';
 import TextPostContainer from '../TextPost/TextPostContainer';
 import { useState, useRef } from 'react';
+import NavbarSerch from '../NavbarSearch/NavbarSearch';
+import { BsChatLeftText } from 'react-icons/bs';
+import { RiImage2Line } from 'react-icons/ri'
 
 export default function ContainerPost({
   site,
@@ -12,21 +15,12 @@ export default function ContainerPost({
   posts,
   singlePost,
   handleDelete,
-  friendsPosts,
 }) {
   const [typePost, setTypePost] = useState('img');
   const ref = useRef();
   const handleClickRef = () => {
     ref.current.focus();
   };
-
-  const handleClickImg = () => {
-    setTypePost('img');
-  };
-  const handleClickText = () => {
-    setTypePost('text');
-  };
-
   const arrayUserPosts = (site) => {
     if (site === 'profile') {
       return myUser?.posts;
@@ -38,14 +32,13 @@ export default function ContainerPost({
       return posts;
     }
     if (site === 'feed') {
-      //return friendsPosts;
+      return posts
     }
     if (site === 'admin') {
       let reportedPosts = posts?.filter((post) => post.reported === true);
       return reportedPosts;
     }
   };
-
   const typePosts = (typePost) => {
     if (typePost === 'text') {
       let textPosts = arrayUserPosts(site)?.filter(
@@ -61,11 +54,24 @@ export default function ContainerPost({
     }
   };
 
+  const NAV_ITEMS = [
+    {
+       label: 'Images',
+       icon: <RiImage2Line/>,
+       onClick: () => {
+        setTypePost('image')}
+     },
+     {
+         label: 'Text',
+         icon: <BsChatLeftText/>,
+         onClick: () => {
+          setTypePost('text')
+         }
+       }  
+  ]
   return (
     <>
       <Flex
-        ml={'2%'}
-        //pr={'2%'}
         pl={'0%'}
         textAlign={'center'}
         justifyContent={'center'}
@@ -74,15 +80,15 @@ export default function ContainerPost({
         mt={site === 'feed' ? '0vh' : '4vh'}
       >
         {site === 'search' ||
-        site === 'admin' ||
-        site === 'explore' ? null : site === 'feed' || site === 'profile' ? (
-          <CreatePost
-            site={site}
-            email={email}
-            myUser={myUser}
-            createdRef={ref}
-          />
-        ) : (
+          site === 'admin' ||
+          site === 'explore' ? null : site === 'feed' || site === 'profile' ? (
+            <CreatePost
+              site={site}
+              email={email}
+              myUser={myUser}
+              createdRef={ref}
+            />
+          ) : (
           <Box
             p={3}
             m={3}
@@ -96,45 +102,8 @@ export default function ContainerPost({
         )}
         {site === 'explore' ? null : <Divider />}
 
-        <Flex dir="row" align={'center'} justify={'center'} mb={'2%'} mt={'2%'}>
-          <Button
-            onClick={() => {
-              handleClickImg();
-            }}
-            size={'md'}
-            bg={'none'}
-            borderRadius="none"
-            _hover={{
-              bg: 'none',
-              borderBottom: '2px solid black',
-            }}
-            _focus={{
-              bg: 'none',
-              borderBottom: '2px solid black',
-            }}
-          >
-            Images
-          </Button>
-          <Button
-            onClick={() => {
-              handleClickText();
-            }}
-            name={'text'}
-            size={'md'}
-            bg={'none'}
-            borderRadius="none"
-            _hover={{
-              bg: 'none',
-              borderBottom: '2px solid black',
-            }}
-            _focus={{
-              bg: 'none',
-              borderBottom: '2px solid black',
-            }}
-          >
-            Text
-          </Button>
-        </Flex>
+        <NavbarSerch NAV_ITEMS={NAV_ITEMS}/>
+         
         {typePost === 'text' ? (
           <TextPostContainer
             posts={typePosts('text')}

@@ -47,7 +47,6 @@ export default function SearchUserCard ({fullName, image, firstName, lastName, e
           </Box>
           <Box
           w={'25%'}>
-            {bio}
           </Box>
           <Stack display={'flex'} flexDir={'row'} w={'15%'}>
             <Flex flexDir={'column'}>

@@ -1,5 +1,5 @@
-import { Box, Text } from "@chakra-ui/react";
-import React, {useState} from "react";
+import { Box } from "@chakra-ui/react";
+import {useState} from "react";
 import { useSelector } from "react-redux";
 import SidebarWithHeader from "../components/Sidebar-Navbar/SideBar";
 import NavbarSerch from "../components/NavbarSearch/NavbarSearch";
@@ -25,10 +25,17 @@ const SearchPage = () =>{
             setState('users')}
         },
         {
-            label: 'Friends',
+            label: 'Following',
             icon: <RiUserFollowLine/>,
             onClick: () => {
-              setState('friends')
+              setState('following')
+            }
+          },
+        {
+            label: 'Followers',
+            icon: <RiUserFollowLine/>,
+            onClick: () => {
+              setState('followers')
             }
           },
         {
@@ -66,11 +73,13 @@ const SearchPage = () =>{
             setState={setState}
             NAV_ITEMS={NAV_ITEMS}/>
         {
-            state === 'users' || state === 'friends' ? (
+            state === 'users' || state === 'following' || state === 'followers' ? (
                 <ContainerSearchCard
                 state={state}
                 myUser={myUser}
-                word={word}/>
+                word={word}
+                friends={friends}
+                myFollowers={myFollowers}/>
             ):(
                 <PostSearchContainer
                     state={state}

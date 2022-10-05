@@ -13,15 +13,18 @@ const PostSearchContainer = ({state}) => {
  
     const changeState = () => {
         if(state === 'images'){
-          let  filterPostImg = filterPost?.filter(post => post.pics.length > 0)
+          let  filterPostImg = filterPost?.filter(post => post?.pics.length > 0)
             return filterPostImg
         } 
-        if(state === 'text') return filterPost
+        else if(state === 'text') {
+            let filterPostText = filterPost?.filter(post => post?.pics.length === 0)
+            return filterPostText
+        }
     }
-
+    
     return (
         <>
-            <Wrap justify={'center'} spacing={30} w='100%'p={8} backgroundColor={'whitesmoke'}>
+            <Wrap justify={'center'} spacing={30} w='100%'p={8} backgroundColor={'whitesmoke'} minH={'77vh'}>
                 {
                     state === 'text' ? (
                                 <TextPostContainer
@@ -35,7 +38,6 @@ const PostSearchContainer = ({state}) => {
                                 />
                     )
                 }
-  
             </Wrap>
         </>
     )

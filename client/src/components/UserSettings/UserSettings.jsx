@@ -2,25 +2,32 @@ import { Box, Button, Flex, Text } from "@chakra-ui/react";
 import EditableForm from "./EditableForm";
 import { AiOutlineDelete } from "react-icons/ai";
 
+import { useState } from "react";
+import { useDispatch} from "react-redux";
 
 function randomNumber(min, max) {
   let a = Math.random() * (max - min) + min;
   return Math.floor(a);
 }
-
 export const ColorBox = () => {
   return(
     <Box 
       bg={`logo.${randomNumber(1, 4)}`} 
       w={10} 
-      h={'6.1vh'}></Box>
+      h={'9vh'}></Box>
   )
 }
 
 export const UserSettings = ({myUser, input, setInput, users}) => {
-
+  const dispatch = useDispatch()
   const {firstName, lastName, userName, password, email} = myUser
-    
+  const [errors, setErrors] = useState({})
+  const [disabled, setDisabled ] = useState(true)
+
+  const usernames = users.map(user => user.userName)
+
+  
+  
   if(Object.entries(myUser).length){
         return(
           <>
@@ -37,7 +44,8 @@ export const UserSettings = ({myUser, input, setInput, users}) => {
                   m={'2% 0% 2% 2%'} 
                   p={'1% 1% 1% 2%'} 
                   align={'center'} 
-                  justify={'space-between'} 
+                  justify={'space-between'}
+                  h={'9vh'} 
                   w={'100%'} 
                   bg={'white'} >
                     <Text>First Name:</Text>
@@ -54,7 +62,8 @@ export const UserSettings = ({myUser, input, setInput, users}) => {
               <Flex 
               borderRadius={2} 
               align={'center'}>
-                  <Flex   
+                  <Flex
+                  h={'9vh'}    
                   m={'2% 0% 2% 2%'}  
                   p={'1% 1% 1% 2%'} 
                   align={'center'} 
@@ -76,7 +85,8 @@ export const UserSettings = ({myUser, input, setInput, users}) => {
                 <Flex 
                 borderRadius={2} 
                 align={'center'}>
-                    <Flex   
+                    <Flex
+                    h={'9vh'}    
                      m={'2% 0% 2% 2%'}  
                     p={'1% 1% 1% 2%'} 
                     align={'center'} 
@@ -91,14 +101,15 @@ export const UserSettings = ({myUser, input, setInput, users}) => {
                     input={input}
                     name={'userName'} 
                     setInput={setInput}
-                    users={users.map((user)=> user.userName)}/>
+                    usernames={usernames}/>
                     </Flex>
                     <ColorBox/>
                 </Flex>
                 <Flex 
                 borderRadius={2} 
                 align={'center'}>
-                    <Flex  
+                    <Flex
+                    h={'9vh'}   
                     m={'2% 0% 2% 2%'} 
                     p={'1% 1% 1% 2%'} 
                     align={'center'} 
@@ -126,21 +137,6 @@ export const UserSettings = ({myUser, input, setInput, users}) => {
                     justify={'space-between'} 
                     w={'100%'} 
                     bg={'white'} >
-                      {
-                        Object.entries(input).length ? (
-                          <Button
-                          rightIcon={<AiOutlineDelete/>} 
-                          w={'100%'}
-                          h={'7vh'} 
-                          bg={'none'}
-                          fontStyle={'none'}
-                          fontWeight={'normal'}
-                          borderRadius={2}
-                          _hover={{
-                            color: 'white',
-                            bg: 'logo.3' 
-                          }}>Confirm changes?</Button>
-                        ):(
                           <Button
                           rightIcon={<AiOutlineDelete/>} 
                           w={'100%'}
@@ -153,9 +149,6 @@ export const UserSettings = ({myUser, input, setInput, users}) => {
                             color: 'white',
                             bg: 'logo.3' 
                           }}>Delete account?</Button>
-                        )
-                      
-                        }
                 </Flex>
                 <Box bg={`logo.3`} w={10} h={'7vh'}></Box>
                 </Flex>
@@ -167,3 +160,52 @@ export const UserSettings = ({myUser, input, setInput, users}) => {
             <p>Loading...</p>
             </>
         )}
+
+    // const validate = (input) => {
+    //   let errores = {};
+    //           if (input.firstName){
+    //             if(input.firstName === '' ) {
+    //             errores.firstName = 'Please enter your name';
+    //             } else if ( !/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(input.firstName)) {
+    //             errores.firstName = 'The name can only contain letters and spaces';
+    //           }}
+    //           if (input.lastName){
+    //           if (input.lastName === '') {
+    //             errores.lastName = 'Please enter your last name';
+    //           } else if (
+    //             !/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(input.lastName)) {
+    //             errores.lastName = 'The last name can only contain letters and spaces';
+    //           }}
+    //           if(input.userName){
+    //           if (input.userName === '') {
+    //             errores.userName = 'Please create an username';
+    //           } else if (usernames?.includes(input.userName)) {
+      //             errores.userName = 'Username in use, please create another one';
+    //           }}
+    //           if(input.password){
+      //           if (input.password === '') {
+    //             errores.password = 'Please create a password';
+    //           } else if (input.password.length < 6) {
+    //             errores.password = 'Password must be longer than 6 characters';
+    //           }}
+    //           return errores;
+              
+    //         }
+    // const handleSubmit = () => {
+    //           dispatch(changeDataProfile(input))
+    //         }
+    {/* {
+      Object.entries(input).length ? (
+        <Button
+        rightIcon={<RiCheckboxLine/>} 
+        w={'100%'}
+        h={'7vh'} 
+        bg={'none'}
+        fontStyle={'none'}
+        fontWeight={'normal'}
+        borderRadius={2}
+        _hover={{
+          color: 'white',
+          bg: 'logo.3' 
+        }}>Confirm changes?</Button>
+      ):( */}

@@ -30,6 +30,7 @@ const ImgPostContainer = ({
 
   let renderPosts =
     posts?.length > 9 ? posts?.slice(currentStart, currentEnd) : posts;
+  console.log(renderPosts);
   //------------------------------------
 
   // const dispatch = useDispatch();
