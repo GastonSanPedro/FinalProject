@@ -176,7 +176,7 @@ const CreateUser = ({ logOrSign, setlogOrSign }) => {
                 lastName: values.lastName,
                 email: values.email,
                 greetings:'Welcome to Leaf Me 🍁🍁🍁:',
-                body:`We are a community that likes plants, so please don't upload things that do not correspond`
+                body:`We are a community that loves nature and making friends, so we decided to build a space for all of us to enjoy together and share everything about our beloved plants. Because of this we strongly ask you to keep uppseting and unrelated topics away of this platform.. Thanks and Welcome to LeafMe4`
             };
               await emailjs.send("service_95rwpyl","welcomeTemplate", templateParams, "NT4sJB-hk0XwMsuPr" )
             }
