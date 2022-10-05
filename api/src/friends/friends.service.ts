@@ -41,7 +41,7 @@ export class FriendsService {
       const user =  await this.userModel.findById(idUser)
       .populate({ path: 'friends.idFriend', select:'-posts -password -friends -bio'})
       .exec()
-      return user.friends
+      return user.friends.filter((el)=>el.idFriend !== null)
       // .filter((el=>el.idUser))
       
     }
@@ -74,8 +74,8 @@ export class FriendsService {
     } 
   }
 
-  async removeFriend(idUser: string, updateFriendDto: UpdateFriendDto) {
-    const idFriend = updateFriendDto.idFriend
+  async removeFriend(idUser: string, idFriend: string) {
+    // const idFriend = updateFriendDto.idFriend
     const user: User = await this.userModel.findById(idUser);
     // const friendDelete:Friend = await this.friendModel.findOne({idFriend});
     const userFriend: User = await this. userModel.findById(idFriend)

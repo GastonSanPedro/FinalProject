@@ -32,9 +32,10 @@ export class FriendsController {
   }
 
 
-  @Patch('/:idUser')
-  removeFriend(@Param('idUser') idUser: string, @Body() updateFriendDto: UpdateFriendDto) {
-    return this.friendsService.removeFriend(idUser, updateFriendDto);
+  @Delete('/:idUser/:idFriend')
+  removeFriend(@Param('idUser') idUser: string, @Param('idFriend') idFriend: string) {
+    console.log(idUser, idFriend, 'lalala')
+    return this.friendsService.removeFriend(idUser, idFriend);
   }
 
   
