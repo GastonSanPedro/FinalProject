@@ -136,21 +136,21 @@ export default function ImgPost({
         w={'25vw'}
         rounded={'sm'}
         p={6}
-        h={'68vh'}
+        h={'70vh'}
         overflow={'hidden'}
       >
         <HStack
           position={"absolute"}
           top={4}
         >
-          {site === "profile" || site === "anyProfile" ? null
-            : <Avatar cursor={"pointer"} onClick={() => handleNavigate()} size='md' src={avatar} name={fullName} alt={'Author'}
-            />}
-          <VStack 
-          position={"absolute"}
-          left={"50px"}
-          top={"3px"}
-          w={"200px"}
+          {site === "profile" || site === "anyProfile" ? null :
+             <Avatar cursor={"pointer"} onClick={() => handleNavigate()} size='md' src={avatar} name={fullName} alt={'Author'}/>
+            }
+          <VStack
+            position={"absolute"}
+            left={"50px"}
+            top={"3px"}
+            w={"200px"}
           >
             <Text as='b' left={0} position={"absolute"}> {firstname} {lastname}</Text>
             <Text fontSize='sm' left={0} position={"absolute"} pt={"12px"} >{userName}</Text>
@@ -170,10 +170,10 @@ export default function ImgPost({
           width={'100%'}
           onClick={() => handleClick()}
         />
-        <Box pt={3}>
+        <Box top={"60px"} right={"-90px"} position={'relative'}>
           <Flex
             position={'absolute'}
-            ml={'-1vw'}
+            ml={'-2vw'}
             align={'flex-start'}
             justify={'right'}
             width={'14vw'}
@@ -188,6 +188,7 @@ export default function ImgPost({
                 size={'lg'}
                 h={30}
                 bg={'none'}
+                mr={"20px"}
                 icon={<BsSun />}
                 onClick={(e) => {
                   setReaction({
@@ -262,7 +263,7 @@ export default function ImgPost({
           <IconButton
             zIndex={5}
             position="absolute"
-            ml={'4.7%'}
+            mr={'4.7%'}
             size={'lg'}
             bg={'none'}
             h={30}
@@ -283,7 +284,7 @@ export default function ImgPost({
               zIndex={5}
               as={IconButton}
               position="absolute"
-              ml={'9%'}
+              ml={'12%'}
               mb={'4vh'}
               siz={'lg'}
               h={30}
@@ -303,8 +304,8 @@ export default function ImgPost({
           </Menu>
         </Box>
 
-        <VStack>
-          <Text width={'22vw'} h={'12vh'} color={"black"} pt={9}>
+        <VStack bottom={"45px"} left={"35px"} position={"absolute"}>
+          <Text as='i' fontWeight={500} width={'21vw'} h={'12vh'} color={"black"} pt={9}>
             {description?.length > 60 ?
               `${description?.slice(0, 60)} ... `
               : description}
@@ -314,20 +315,14 @@ export default function ImgPost({
                 position="relative"
                 bg="none"
                 onClick={() => handleClick()}
+                color={'gray.500'}
               >
                 Ver más
               </Button> : null}
           </Text>
-          {/* <HStack pt="9%" pl="0%" position="absolute">
-            {site === "profile" || site === "anyProfile" ? null
-              : <Avatar cursor={"pointer"} onClick={() => handleNavigate()} size='sm' src={avatar} name={fullName} alt={'Author'}
-              />}
-            <Text >{userName}</Text>
-            <Box ml="20px">
-              <Text color={'gray.500'} mr="0%" w="150px">{formatedDate}</Text>
-            </Box>
-          </HStack> */}
+          
         </VStack>
+        <Text color={'gray.500'} position={"absolute"} bottom={"5px"} right={"10px"}  w="150px">{formatedDate}</Text>
       </Box>
       {site === 'admin' ? (
         <Button onClick={() => handleDelete(postId)}>Eliminar</Button>
