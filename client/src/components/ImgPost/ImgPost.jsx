@@ -316,11 +316,13 @@ export default function ImgPost({
                 Ver más
               </Button> : null}
           </Text>
-          <HStack pt="9%" pr="7%" position="absolute">
-            <Avatar onClick={() => handleNavigate()} size='sm' src={avatar} name={fullName} alt={'Author'} />
+          <HStack pt="9%" pl="0%" position="absolute">
+            {site === "profile" || site ==="anyProfile" ? null
+            : <Avatar cursor= {"pointer"}  onClick={() => handleNavigate()} size='sm' src={avatar} name={fullName} alt={'Author'} 
+             />}
             <Text >{userName}</Text>
             <Box ml="20px">
-              <Text color={'gray.500'} ml="60%" w="150px">{formatedDate}</Text>
+              <Text color={'gray.500'} mr="0%" w="150px">{formatedDate}</Text>
             </Box>
           </HStack>
         </VStack>

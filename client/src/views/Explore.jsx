@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Box, Heading } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getPosts, getFriends, getFollowers } from '../redux/action';
+import { getPosts} from '../redux/action';
 import ContainerPost from '../components/ContainerPost/ContainerPost';
 import SidebarWithHeader from '../components/Sidebar-Navbar/SideBar';
 

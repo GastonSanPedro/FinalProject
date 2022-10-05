@@ -30,6 +30,7 @@ const ImgPostContainer = ({
   };
 
   let renderPosts = posts?.length > 9 ? posts?.slice(currentStart, currentEnd) : posts;
+  console.log(renderPosts)
   //------------------------------------
 
   // const dispatch = useDispatch();
@@ -64,7 +65,7 @@ const ImgPostContainer = ({
                     <SlideFade in={onToggle} key={index} offsetY="20px">
                       <ImgPost
                         userName={
-                          site === 'profile' || site === 'anyProfile' ? renderPosts?.userName
+                          site === 'profile' || site === 'anyProfile' ? renderPosts?.author
                             : post.author?.userName}
                         fullName={
                           site === 'profile' || site === 'anyProfile' ? renderPosts?.fullName
