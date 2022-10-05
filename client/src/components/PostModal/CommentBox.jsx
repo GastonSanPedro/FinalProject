@@ -53,7 +53,6 @@ export const CommentBox = ({ comment, formatedDate, loggedUser, postId }) => {
   const handleReaction = (e) => {
     //setReaction({ ...Reaction, [e.target.name]: e.target.value + 1 });
   };
-  //console.log(comment);
   return (
     <div>
       <Flex

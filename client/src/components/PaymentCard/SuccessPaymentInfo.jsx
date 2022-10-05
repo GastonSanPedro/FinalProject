@@ -1,11 +1,10 @@
 import { Box, Text, Flex, Button, Image, useToast } from '@chakra-ui/react';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { setPremium } from '../../redux/action';
 
 export const SuccessPaymentInfo = ({ myPosts }) => {
-  //console.log(myPosts);
   const [Bill, setBill] = useState(JSON.parse(localStorage.getItem('bill')));
   const [Details, setDetails] = useState({});
   const [current, setCurrent] = useState();
@@ -19,41 +18,28 @@ export const SuccessPaymentInfo = ({ myPosts }) => {
       setDetails(undefined);
     } else if (current === undefined) {
       const detailPost = myPosts?.find((post) => post._id === id);
-      console.log(myPosts);
       setDetails(detailPost);
       setCurrent(id);
     } else {
       setCurrent(undefined);
       setDetails(undefined);
       const detailPost = myPosts?.find((post) => post._id === id);
-      //console.log(detailPost);
       setDetails(detailPost);
       setCurrent(id);
     }
   };
-  const handleSubmit = () => {
+  useEffect(() => {
     const items = Bill?.items?.map((item) => {
       return {
         id: item.title,
       };
     });
-    //console.log(items);
     dispatch(setPremium(items));
-    toast({
-      title: 'Sucess',
-      description: 'Your post are premium now!',
-      status: 'success',
-      duration: 2000,
-      isClosable: true,
-    });
-    localStorage.removeItem('bill');
-    setBill('');
-    navigate('/Home');
-  };
+  }, [Bill]);
+
   return (
     <>
       <Box
-        border={'1px solid black'}
         w={'81.8vw'}
         h={'88.4vh'}
         position={'absolute'}
@@ -75,20 +61,26 @@ export const SuccessPaymentInfo = ({ myPosts }) => {
               date.toLocaleDateString('es-ES');
             return (
               <Box
-                w={'75vw'}
-                h={Details?._id === item.title ? '16vh' : '5vh'}
-                display={'flex'}
-                alignItems={'left'}
-                mb={'2vh'}
-                bg={'gray.100'}
+                h={Details?._id === item.title ? '16vh' : '8vh'}
+                width={'90%'}
+                display={'inline-flex'}
+                alignItems={'center'}
+                mb={'2%'}
+                bg={'gray.200'}
+                p={2}
               >
-                <Text width={'50vw'} h={'4vh'} position={'absolute'}>
+                <Text
+                  mt={'1vh'}
+                  width={'40vw'}
+                  alignSelf={'center'}
+                  display={current !== item.title ? 'flex' : 'none'}
+                >
                   Id: {item.title}
                 </Text>
                 <Button
                   position={'absolute'}
-                  right={'4%'}
-                  mt={'0.5vh'}
+                  right={'16%'}
+                  alignSelf={'center'}
                   size={'sm'}
                   bg={'orange.200'}
                   onClick={(e) => handleClick(e, item.title)}
@@ -97,14 +89,28 @@ export const SuccessPaymentInfo = ({ myPosts }) => {
                 </Button>
                 <Box
                   display={current === item.title ? 'flex' : 'none'}
-                  position={'relative'}
-                  marginTop={'5vh'}
+                  alignSelf={'center'}
                   w={'60vw'}
                   mr={'20vw'}
                   left={'0%'}
                 >
-                  <Image src={Details?.pics} h={'10vh'} />
+                  <Image
+                    src={
+                      Details?.pics
+                        ? Details?.pics
+                        : 'https://res.cloudinary.com/duilsmrmx/image/upload/v1664933936/leafme/tbjmhzzcfuejoonaofb9.png'
+                    }
+                    h={'10vh'}
+                  />
                   <Box>
+                    <Text
+                      mt={'1vh'}
+                      width={'40vw'}
+                      ml={'2vw'}
+                      alignSelf={'center'}
+                    >
+                      Id: {Details?._id}
+                    </Text>
                     <Text ml={'2vw'}>Description: {Details?.description}</Text>
                     <Text ml={'2vw'}>Date: {formatedDate}</Text>
                   </Box>
@@ -117,10 +123,19 @@ export const SuccessPaymentInfo = ({ myPosts }) => {
           position={'absolute'}
           bg={'orange.200'}
           size={'lg'}
-          right={'2%'}
+          right={'12%'}
           mt={'2vh'}
           onClick={(e) => {
-            handleSubmit();
+            navigate('/Home');
+            localStorage.removeItem('bill');
+            setBill('');
+            toast({
+              title: 'Sucess',
+              description: 'Your post are premium now!',
+              status: 'success',
+              duration: 2000,
+              isClosable: true,
+            });
           }}
         >
           Finish

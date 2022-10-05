@@ -13,14 +13,11 @@ import {
   ModalFooter,
   Modal,
   Button,
-  InputGroup
+  InputGroup,
 } from '@chakra-ui/react';
-import {
-  postComment,
-} from '../../redux/action';
+import { postComment } from '../../redux/action';
 import { useDispatch } from 'react-redux';
 import { CommentBox } from './CommentBox';
-
 
 const OverlayOne = () => (
   <ModalOverlay
@@ -103,20 +100,16 @@ export const PostModal = ({
                       date.toLocaleTimeString('es-ES').slice(0, -3) +
                       ' ' +
                       date.toLocaleDateString('es-ES');
-                    //console.log(comment.likes);
-                    if(comment?.idUser !== null){
-                      
-                    return (
-                      <CommentBox
-                        comment={comment}
-                        formatedDate={formatedDate}
-                        loggedUser={loggedUser}
-                        postId={postId}
-                      />
-                    );
-                    
+                    if (comment?.idUser !== null) {
+                      return (
+                        <CommentBox
+                          comment={comment}
+                          formatedDate={formatedDate}
+                          loggedUser={loggedUser}
+                          postId={postId}
+                        />
+                      );
                     }
-                   
                   })
                 ) : (
                   <Text>Aun no hay comentarios</Text>

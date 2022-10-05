@@ -12,12 +12,11 @@ export default function ContainerPost({
   posts,
   singlePost,
   handleDelete,
-  friendsPosts
+  friendsPosts,
 }) {
   const [typePost, setTypePost] = useState('img');
   const ref = useRef();
   const handleClickRef = () => {
-    console.log(ref);
     ref.current.focus();
   };
 
@@ -39,7 +38,7 @@ export default function ContainerPost({
       return posts;
     }
     if (site === 'feed') {
-     //return friendsPosts;
+      //return friendsPosts;
     }
     if (site === 'admin') {
       let reportedPosts = posts?.filter((post) => post.reported === true);

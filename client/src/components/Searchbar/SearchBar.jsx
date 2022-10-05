@@ -21,7 +21,6 @@ const Searchbar = () => {
   );
   const neededEmail = User[0].email;
   const neededId = User[0]._id;
-  console.log(!myUser?.email);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [searcher, setSearcher] = useState('');

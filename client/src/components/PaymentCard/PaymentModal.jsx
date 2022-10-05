@@ -52,7 +52,6 @@ export const PaymentModal = ({
   const navigate = useNavigate();
   const toast = useToast();
   const handleSelected = (id, description, pics) => {
-    //console.log(Selected.findIndex((p) => p.title === id) === -1);
     if (Selected.findIndex((p) => p.title === id) === -1) {
       let updatePosts = [
         ...Selected,
@@ -64,29 +63,22 @@ export const PaymentModal = ({
           picture_url: pics,
         },
       ];
-      //console.log(updatePosts);
       setSelected(updatePosts);
     }
   };
   const handleRemove = (postId) => {
-    //console.log(postId);
     const removePost = Selected?.filter((e) => e.title !== postId);
-    //console.log(removePost);
     // let updatePosts = Selected.slice(removePost, 0);
 
-    //console.log(updatePosts);
     setSelected(removePost);
   };
   const handleChange = (id, event) => {
-    //console.log(id);
     const postSelected = Selected?.filter((e) => e.title === id);
     const postPosition = Selected?.findIndex((e) => e.title === id);
-    //console.log(postPosition);
     let toUpdatePrice = Selected;
     toUpdatePrice[postPosition].unit_price = event.target.value;
 
     setSelected(toUpdatePrice);
-    //console.log(Selected);
   };
   const handleSubmit = (Selected) => {
     if (Selected.length === 0) {
@@ -117,7 +109,6 @@ export const PaymentModal = ({
       } else {
         const properObject = { products: Selected };
         dispatch(createPayment(loggedId, properObject));
-        console.log(payment.init_point);
         localStorage.setItem('bill', JSON.stringify(payment));
         if (payment.init_point) {
           window.location.href = payment?.init_point;
@@ -128,8 +119,7 @@ export const PaymentModal = ({
   };
   const ImagePost = myPosts?.filter((post) => post.pics?.length >= 1);
   const TextPost = myPosts?.filter((post) => post.pics?.length === 0);
-  //console.log(ImagePost, TextPost);
-  //console.log(payment);
+
   return (
     <div>
       <Modal
@@ -260,7 +250,6 @@ export const PaymentModal = ({
               {Selected?.map((e) => {
                 const postId = e.title;
                 if (e) {
-                  console.log(e);
                   return (
                     <Box
                       width={'90%'}

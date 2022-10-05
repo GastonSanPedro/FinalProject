@@ -41,7 +41,6 @@ export default function PaymentCard({
     setOverlay(<OverlayOne />);
     onOpen();
   };
-  //console.log(myUser);
   return (
     <Center py={6}>
       <PaymentModal
