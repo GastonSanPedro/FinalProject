@@ -1,47 +1,45 @@
-import { Avatar, Box, IconButton, Flex, Text as Text } from "@chakra-ui/react";
+import { Avatar, Box, IconButton, Flex, Text as Text } from '@chakra-ui/react';
 import { RiUpload2Line, RiCheckboxLine } from 'react-icons/ri';
-import {MdOutlineCancelPresentation} from 'react-icons/md'
-import { changeDataProfile } from "../../redux/action";
+import { MdOutlineCancelPresentation } from 'react-icons/md';
+import { changeDataProfile } from '../../redux/action';
 import { useDispatch } from 'react-redux';
-import {useState} from 'react';
+import { useState } from 'react';
 
+const UserPics = ({ myUser }) => {
+  const [input, setInput] = useState({
+    image: '',
+  });
+  const dispatch = useDispatch();
+  const { image, fullName, email } = myUser;
+  const handleCheckButton = () => {
+    dispatch(changeDataProfile(input, email));
+    setInput({ image: '' });
+  };
+  const handleCancelButton = () => {
+    setInput({ image: '' });
+  };
+  const handleInputImage = () => {
+    var myWidget = window.cloudinary.createUploadWidget(
+      {
+        cloudName: 'duilsmrmx',
+        uploadPreset: 'leafme',
+      },
+      (error, result) => {
+        if (!error && result && result.event === 'success') {
+          setInput({
+            image:
+              `https://res.cloudinary.com/duilsmrmx/image/upload/` +
+              result.info.path,
+          });
+        }
+      }
+    );
+    myWidget.open();
+  };
 
-
-
-const UserPics = ({myUser}) => {
-    const [input, setInput] = useState({
-        image: ''
-    })
-    const dispatch = useDispatch()
-    const {image, fullName, email} = myUser
-    const handleCheckButton = () => {
-        dispatch(changeDataProfile(input, email))
-        setInput({image: ''})
-    }
-    const handleCancelButton = () => {
-        setInput({image: ''})
-    }
-    const handleInputImage = () => {
-        var myWidget = window.cloudinary.createUploadWidget(
-          {
-            cloudName: 'duilsmrmx',
-            uploadPreset: 'leafme',
-          },
-          (error, result) => {
-            if (!error && result && result.event === 'success') {
-              console.log('Done! Here is the image info: ', result.info.path);
-              setInput({
-                image : `https://res.cloudinary.com/duilsmrmx/image/upload/` +
-                  result.info.path,
-              });console.log(input)
-             }})
-             myWidget.open();
-            };
-
-    
-    return (
-        <>
-        <Box 
+  return (
+    <>
+      <Box
         display={'flex'}
         flexDir={'column'}
         ml={'10%'}
@@ -54,25 +52,26 @@ const UserPics = ({myUser}) => {
         pr={'8vh'}
         pt={'4vh'}
         pb={'4vh'}
-       >
+      >
         <Box w={'30vh'} h={'30vh'}>
-        <Avatar
+          <Avatar
             bg={'logo.3'}
             fontSize={'10rem'}
             size={'full'}
             src={input.image !== '' ? input.image : image}
-            name={fullName}/>   
+            name={fullName}
+          />
         </Box>
 
-        <Flex p={'2%'} justifyItems={'flex-end'} >
-        
-        {
-            input.image !== '' ?(
-                <Flex align={'center'}>
-                <Text w={'20vh'} mr={'1%'} fontSize={'xs'}>Confirm new photo?</Text>
-                <IconButton
+        <Flex p={'2%'} justifyItems={'flex-end'}>
+          {input.image !== '' ? (
+            <Flex align={'center'}>
+              <Text w={'20vh'} mr={'1%'} fontSize={'xs'}>
+                Confirm new photo?
+              </Text>
+              <IconButton
                 size={'sm'}
-                icon={<RiCheckboxLine/>}
+                icon={<RiCheckboxLine />}
                 aria-label={'upload-image'}
                 onClick={() => handleCheckButton()}
                 bg={'none'}
@@ -81,11 +80,12 @@ const UserPics = ({myUser}) => {
                 borderRadius={2}
                 _hover={{
                   color: 'white',
-                  bg: 'logo.3' 
-              }}/>
+                  bg: 'logo.3',
+                }}
+              />
               <IconButton
                 size={'sm'}
-                icon={<MdOutlineCancelPresentation/>}
+                icon={<MdOutlineCancelPresentation />}
                 aria-label={'upload-image'}
                 onClick={() => handleCancelButton()}
                 bg={'none'}
@@ -94,30 +94,32 @@ const UserPics = ({myUser}) => {
                 borderRadius={2}
                 _hover={{
                   color: 'white',
-                  bg: 'logo.3' 
-              }}/>
-                </Flex>
-            ):(
-                <IconButton
-                icon={<RiUpload2Line/>}
-                size={'sm'}
-                aria-label={'preload-image'}
-                onClick={()=>{handleInputImage()}}
-                bg={'none'}
-                fontStyle={'none'}
-                fontWeight={'normal'}
-                borderRadius={2}
-                _hover={{
-                    color: 'white',
-                    bg: 'logo.3' 
-                }}/>
-            )
+                  bg: 'logo.3',
+                }}
+              />
+            </Flex>
+          ) : (
+            <IconButton
+              icon={<RiUpload2Line />}
+              size={'sm'}
+              aria-label={'preload-image'}
+              onClick={() => {
+                handleInputImage();
+              }}
+              bg={'none'}
+              fontStyle={'none'}
+              fontWeight={'normal'}
+              borderRadius={2}
+              _hover={{
+                color: 'white',
+                bg: 'logo.3',
+              }}
+            />
+          )}
+        </Flex>
+      </Box>
+    </>
+  );
+};
 
-        }
-        </Flex>    
-        </Box>
-        </>
-    )
-}
-
-export default UserPics
+export default UserPics;

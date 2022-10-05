@@ -16,7 +16,6 @@ export default function ContainerPost({
   const [typePost, setTypePost] = useState('img');
   const ref = useRef();
   const handleClickRef = () => {
-    console.log(ref);
     ref.current.focus();
   };
 

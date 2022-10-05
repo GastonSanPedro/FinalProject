@@ -36,7 +36,6 @@ const CreateUser = ({ logOrSign, setlogOrSign }) => {
 
   const handleClick = () => setShow(!show);
   const handleCallbackResponse = (response) => {
-    console.log('Encoded JWT ID token:' + response.credential);
     var userObject = jwt_decode(response.credential);
     setUser(userObject);
     //dispatch(authUser(userObject.email, null, true));
@@ -157,8 +156,7 @@ const CreateUser = ({ logOrSign, setlogOrSign }) => {
               //navigate(`/home`);
             } else {
               dispatch(createUser(values), []);
-              values.
-              localStorage.setItem('user', JSON.stringify(values));
+              values.localStorage.setItem('user', JSON.stringify(values));
               toast({
                 title: 'Welcome!',
                 description:
@@ -323,7 +321,6 @@ const CreateUser = ({ logOrSign, setlogOrSign }) => {
                       type="submit"
                       mt="10px"
                       onSubmit={handleSubmit}
-                      
                     >
                       Create Account
                     </Button>
