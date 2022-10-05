@@ -54,54 +54,58 @@ const ImgPostContainer = ({
           mt={site === 'feed' ? '0vh' : '4vh'}
         >
           <SimpleGrid
-              columns={{ base: 1, xl: 3 }}
-              spacing={'10'}
-              mt={2}
-              mr={5}
-            >
-              {renderPosts?.length !== 0 ? (
-                renderPosts?.map((post, index) => {
-                  return (
-                    <SlideFade in={onToggle} key={index} offsetY="20px">
-                      <ImgPost
-                        userName={
-                          site === 'profile' || site === 'anyProfile' ? renderPosts?.author
-                            : post.author?.userName}
-                        fullName={
-                          site === 'profile' || site === 'anyProfile' ? renderPosts?.fullName
-                            : post.author?.fullName}
-                        avatar={
-                          site === 'profile' || site === 'anyProfile' ? renderPosts?.image
-                            : post?.author?.image}
-                        image={post?.pics}
-                        email={post?.author?.email}
-                        authorId={post?.author?._id}
-                        description={post?.description}
-                        date={post?.createdAt}
-                        postId={post?._id}
-                        reported={post?.reported}
-                        loggedUser={myUser?._id}
-                        loggedEmail={myUser?.email}
-                        singlePost={singlePost}
-                        site={site}
-                        handleDelete={handleDelete}
-                      />
-                    </SlideFade>
-                  );
-                })
-              ) : (
-                <Box>
-                  {site === 'profile' ? (
-                    <Text w={'40vw'} ml={'15vw'}>
-                      You haven't create any posts. Click here to create your
-                      first one <Button onClick={handleClickRef}>Create</Button>
-                    </Text>
-                  ) : (
-                    <Text>There are no posts yet</Text>
-                  )}
-                </Box>
-              )}
-            </SimpleGrid>
+            columns={{ base: 1, xl: 3 }}
+            spacing={'10'}
+            mt={2}
+            mr={5}
+          >
+            {renderPosts?.length !== 0 ? (
+              renderPosts?.map((post, index) => {
+                return (
+                  <SlideFade in={onToggle} key={index} offsetY="20px">
+                    <ImgPost
+                      userName={
+                        site === 'profile' || site === 'anyProfile' ? renderPosts?.author
+                          : post.author?.userName}
+                      fullName={
+                        site === 'profile' || site === 'anyProfile' ? renderPosts?.fullName
+                          : post.author?.fullName}
+                      firstname={site === 'profile' || site === 'anyProfile' ? null
+                        : post?.author?.firstName}
+                      lastname={site === 'profile' || site === 'anyProfile' ? null
+                        : post?.author?.lastName}
+                      avatar={
+                        site === 'profile' || site === 'anyProfile' ? renderPosts?.image
+                          : post?.author?.image}
+                      image={post?.pics}
+                      email={post?.author?.email}
+                      authorId={post?.author?._id}
+                      description={post?.description}
+                      date={post?.createdAt}
+                      postId={post?._id}
+                      reported={post?.reported}
+                      loggedUser={myUser?._id}
+                      loggedEmail={myUser?.email}
+                      singlePost={singlePost}
+                      site={site}
+                      handleDelete={handleDelete}
+                    />
+                  </SlideFade>
+                );
+              })
+            ) : (
+              <Box>
+                {site === 'profile' ? (
+                  <Text w={'40vw'} ml={'15vw'}>
+                    You haven't create any posts. Click here to create your
+                    first one <Button onClick={handleClickRef}>Create</Button>
+                  </Text>
+                ) : (
+                  <Text>There are no posts yet</Text>
+                )}
+              </Box>
+            )}
+          </SimpleGrid>
         </Flex>
       </InfiniteScroll>
     </>
