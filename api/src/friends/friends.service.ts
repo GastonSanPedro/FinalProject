@@ -41,7 +41,7 @@ export class FriendsService {
       const user =  await this.userModel.findById(idUser)
       .populate({ path: 'friends.idFriend', select:'-posts -password -friends -bio'})
       .exec()
-      return user.friends
+      return user.friends.filter((el)=>el.idFriend !== null)
       // .filter((el=>el.idUser))
       
     }
