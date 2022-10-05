@@ -8,7 +8,6 @@ import { Friend } from './schema/friend-schema';
 
 @Injectable()
 export class FriendsService {
-  public readonly friendFollower = []
   constructor(
   @InjectModel(User.name)
     private readonly userModel: Model<User>,
@@ -69,13 +68,14 @@ export class FriendsService {
       all.push(user.idFriend._id.toString())})
 
   const newSet = [... new Set(all)]
+  
+  let friendFollower = []
 
-  const array = newSet.map(async(userId) => {
-      let user = await this.userModel.findById(userId)
-      this.friendFollower.push(user)
-    })
-    console.log(this.friendFollower)
-
+  for (let i = 0; i < newSet.length; i++) {
+  let user = await this.userModel.findById(newSet[i])
+    friendFollower.push(user)
+  }
+  return friendFollower
  }
 
 
