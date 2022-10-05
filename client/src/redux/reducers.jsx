@@ -186,6 +186,11 @@ export default function rootReducer(state = initialState, action) {
           posts: [...state.myUser.posts],
         },
       };
+    case GET_FRIENDS_POSTS:
+      return {
+        ...state,
+        posts: action.payload,
+      };
     case CREATE_PAYMENT:
       return {
         ...state,

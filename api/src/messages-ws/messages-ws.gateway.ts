@@ -1,55 +1,55 @@
-import { OnModuleInit, Body } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { 
-  MessageBody, 
-  OnGatewayConnection, 
-  SubscribeMessage, 
-  WebSocketGateway, 
-  WebSocketServer ,
-  OnGatewayDisconnect
-} from '@nestjs/websockets';
-import { Server, Socket} from 'socket.io';
-import { MessagesWsService } from './messages-ws.service';
+// import { OnModuleInit, Body } from '@nestjs/common';
+// import { InjectModel } from '@nestjs/mongoose';
+// import { 
+//   MessageBody, 
+//   OnGatewayConnection, 
+//   SubscribeMessage, 
+//   WebSocketGateway, 
+//   WebSocketServer ,
+//   OnGatewayDisconnect
+// } from '@nestjs/websockets';
+// import { Server, Socket} from 'socket.io';
+// import { MessagesWsService } from './messages-ws.service';
 
 
-@WebSocketGateway({ cors: true})
-export class MessagesWsGateway implements OnGatewayConnection, OnGatewayDisconnect {
-  
-  @WebSocketServer() wss: Server;
-  constructor(
-    private readonly messagesWsService: MessagesWsService,
-    ) {}
 
-        // onModuleInit() {
-        //     this.wss.on('connection', (socket) => {
-        //     console.log(socket.id)
-        //     console.log('Connected')
-        //   })
-        // }
+// @WebSocketGateway({ cors: true})
+// export class MessagesWsGateway implements OnGatewayConnection, OnGatewayDisconnect {
+//   @WebSocketServer() wss: Server;
+//   constructor(
+//     private readonly messagesWsService: MessagesWsService,
+//     ) {}
+
+//         // onModuleInit() {
+//         //     this.wss.on('connection', (socket) => {
+//         //     console.log(socket.id)
+//         //     console.log('Connected')
+//         //   })
+//         // }
       
-        handleConnection(client:Socket) {
-          console.log(client)
-          const email = client.handshake.headers.email
-          console.log(email)
-          this.messagesWsService.registerClient(client)
-          this.wss.emit('clients-updated', this.messagesWsService.getConnectedClients())
-        }
+//         handleConnection(client:Socket) {
+//           console.log(client)
+//           const email = client.handshake.headers.email
+//           console.log(email)
+//           this.messagesWsService.registerClient(client)
+//           this.wss.emit('clients-updated', this.messagesWsService.getConnectedClients())
+//         }
 
-        handleDisconnect(client: Socket) {
-          this.messagesWsService.removeClient(client.id)
-          this.wss.emit('clients-updated', this.messagesWsService.getConnectedClients())
-        }
+//         handleDisconnect(client: Socket) {
+//           this.messagesWsService.removeClient(client.id)
+//           this.wss.emit('clients-updated', this.messagesWsService.getConnectedClients())
+//         }
         
         
-        @SubscribeMessage('newUser')
-          async onNewUser(@MessageBody() body: any){
-          body
-          const user = await this.messagesWsService.findClient(body)
-           this.wss.emit(``, {
-             msg: 'New Message',
-             content: user
-           })
-        }
+//         @SubscribeMessage('newUser')
+//           async onNewUser(@MessageBody() body: any){
+//           body
+//           const user = await this.messagesWsService.findClient(body)
+//            this.wss.emit(``, {
+//              msg: 'New Message',
+//              content: user
+//            })
+//         }
         // @SubscribeMessage('newMessage')
         //   onNewMessage(@MessageBody() body: any){
         //    console.log(body)
@@ -58,7 +58,7 @@ export class MessagesWsGateway implements OnGatewayConnection, OnGatewayDisconne
         //      content: body
         //    })
         //   }
-}
+// }
 
       //! Emite unicamente al cliente.
 

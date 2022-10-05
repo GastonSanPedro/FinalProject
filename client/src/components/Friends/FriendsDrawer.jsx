@@ -22,10 +22,12 @@ import { FriendCard } from './FriendCard';
 import SearchFriends from './SearchFriends';
 
 export default function Friends({ myUser, friends, myFollowers }) {
-  const dispatch = useDispatch();
+
+  
   const [size, setSize] = useState('');
   const [input, setInput] = useState('');
   const { isOpen, onOpen, onClose } = useDisclosure();
+  
   const handleClick = () => {
     onOpen();
   };
