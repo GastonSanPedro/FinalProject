@@ -23,7 +23,7 @@ export class MercadoPagoService {
       payer_email: "test_user_62162867@testuser.com",
       items : itemsToMP,
       back_urls:{
-        success: 'http://localhost:3000/payments',
+        success: 'http://localhost:3000/success-payment',
         failure: 'http://localhost:3000/payments',
         pending: 'http://localhost:3000',
       },
