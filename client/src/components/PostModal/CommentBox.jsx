@@ -150,7 +150,6 @@ export const CommentBox = ({ comment, formatedDate, loggedUser, postId }) => {
                 name="heart"
                 value={comment?.likes?.heart}
                 icon={<BiHeart />}
-                onHover={() => {}}
                 _hover={{
                   bg: 'white',
                 }}
@@ -166,7 +165,6 @@ export const CommentBox = ({ comment, formatedDate, loggedUser, postId }) => {
                 name="confusedLeaf"
                 value={comment?.likes?.confusedLeaf}
                 icon={<BiShocked />}
-                onHover={() => {}}
                 _hover={{
                   bg: 'white',
                 }}

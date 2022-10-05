@@ -225,7 +225,6 @@ export default function ImgPost({
                   name="heart"
                   // value={comment?.likes?.heart}
                   icon={<BiHeart />}
-                  onHover={() => { }}
                   _hover={{
                     bg: 'white',
                   }}
@@ -241,7 +240,6 @@ export default function ImgPost({
                   name="confusedLeaf"
                   // value={comment?.likes?.confusedLeaf}
                   icon={<BiShocked />}
-                  onHover={() => { }}
                   _hover={{
                     bg: 'white',
                   }}
