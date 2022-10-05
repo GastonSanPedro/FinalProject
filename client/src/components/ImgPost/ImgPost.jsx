@@ -20,6 +20,8 @@ import {
   getSinglePosts,
   postReaction,
   reportPost,
+  getPosts,
+  getUser,
 } from '../../redux/action';
 import { useState } from 'react';
 import { BiMessage, BiShocked, BiHeart, BiHappyAlt } from 'react-icons/bi';
@@ -92,15 +94,60 @@ export default function ImgPost({
       const newReaction = [...likes, { idUser: loggedUser, type: value }];
       console.log(newReaction);
       dispatch(postReaction({ likes: newReaction }, postId, null, loggedUser));
+      if (site === 'explore' || site === 'search') {
+        setTimeout(function () {
+          dispatch(getPosts());
+        }, 1000);
+      }
+      if (site === 'anyProfile') {
+        setTimeout(function () {
+          dispatch(getUser(authorId));
+        }, 1000);
+      }
+      if (site === 'profile') {
+        setTimeout(function () {
+          dispatch(getMyUser(loggedEmail));
+        }, 1000);
+      }
+    } else if (userReaction && userReaction.type === value) {
+      const filtered = likes.filter((r) => r.idUser !== loggedUser);
+      dispatch(postReaction({ likes: filtered }, postId, null, loggedUser));
+      if (site === 'explore' || site === 'search') {
+        setTimeout(function () {
+          dispatch(getPosts());
+        }, 1000);
+      }
+      if (site === 'anyProfile') {
+        setTimeout(function () {
+          dispatch(getUser(authorId));
+        }, 1000);
+      }
+      if (site === 'profile') {
+        setTimeout(function () {
+          dispatch(getMyUser(loggedEmail));
+        }, 1000);
+      }
     } else {
       const filtered = likes.filter((r) => r.idUser !== loggedUser);
       const newReaction = [...filtered, { idUser: loggedUser, type: value }];
       console.log(newReaction);
       dispatch(postReaction({ likes: newReaction }, postId, null, loggedUser));
+      if (site === 'explore' || site === 'search') {
+        setTimeout(function () {
+          dispatch(getPosts());
+        }, 1000);
+      }
+      if (site === 'anyProfile') {
+        setTimeout(function () {
+          dispatch(getUser(authorId));
+        }, 1000);
+      }
+      if (site === 'profile') {
+        setTimeout(function () {
+          dispatch(getMyUser(loggedEmail));
+        }, 1000);
+      }
     }
-    setTimeout(function () {
-      dispatch(getMyUser(loggedEmail));
-    }, 800);
 
     //if(likes.find((r)=> r.id ))
   };
@@ -134,7 +181,11 @@ export default function ImgPost({
   const happyReactions = likes.filter((r) => r.type === 'happyLeaf');
   const confusedReactions = likes.filter((r) => r.type === 'confusedLeaf');
   //console.log(heartsReactions);
-
+  // console.log(singlePost);
+  // if (singlePost.length === 0) {
+  //   console.log('funco');
+  //   dispatch(getMyUser(loggedEmail));
+  // }
   return (
     <>
       {/* <Center py={6}> */}
@@ -152,6 +203,7 @@ export default function ImgPost({
         date={formatedDate}
         avatar={avatar}
         email={email}
+        site={site}
       />
       {/** Acá arranca la box del posteo */}
       <Box

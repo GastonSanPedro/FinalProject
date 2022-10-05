@@ -58,7 +58,8 @@ export function getUser(email) {
 export function getMyUser(email) {
   return async function (dispatch) {
     try {
-      let info = await axios.get(`/users/${email}`, {});
+      let info = await axios.get(`/users/${email}`);
+      //console.log(info.data);
       dispatch({
         type: GET_MY_USER,
         payload: info.data,
@@ -117,7 +118,7 @@ export function postComment(payload, id) {
     try {
       const info = await axios.post(`/comments`, payload);
       let data = await axios.get(`/posts/id/${id}`);
-
+      console.log(info.data);
       return dispatch({
         type: POST_COMMENT,
         payload: data.data,
