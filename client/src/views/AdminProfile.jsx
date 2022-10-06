@@ -46,7 +46,7 @@ const AdminProfile = () => {
 
     const [block, setBlock] = useState('Blocked users')
 
-    console.log({users})
+    console.log({ users })
 
     // useEffect(() => {
     //     if (deletedUsers?.length === 0) { dispatch(getDeletedUsers()) }
@@ -57,7 +57,8 @@ const AdminProfile = () => {
     // }, [posts])
 
     useEffect(() => {
-        if (deletedUsers?.length === 0) { dispatch(getDeletedUsers()) }
+        // if (deletedUsers?.length === 0) { dispatch(getDeletedUsers()) }
+        dispatch(getDeletedUsers())
         if (posts?.length === 0) { dispatch(getPosts()); }
     }, [])
 
@@ -72,9 +73,9 @@ const AdminProfile = () => {
 
     const HandleBlock = (userId) => {
         dispatch(blockRestoreUser(userId))
+        dispatch(getDeletedUsers())
 
-        useEffect(() => {
-        }, [users, deletedUsers])
+        
 
     }
 
@@ -153,11 +154,11 @@ const AdminProfile = () => {
                     <AccordionItem bg={"gray.50"}>
                         <h2>
                             <AccordionButton>
-                                
-                                    <Box flex='1' textAlign='left' >
-                                        Reported Posts
-                                    </Box>
-                                    {/* {posts.length > 0 ?
+
+                                <Box flex='1' textAlign='left' >
+                                    Reported Posts
+                                </Box>
+                                {/* {posts.length > 0 ?
                                     <AiTwotonePlusCircle color='red'/> : null} */}
                                 <AccordionIcon />
                             </AccordionButton>
