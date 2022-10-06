@@ -1,15 +1,12 @@
 import { Box, Flex, Avatar, Text, Input, Button, HStack } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
-import ModalFeed from "./ModalFeed";
-import ProfileFeedComent from "./ProfileFeedComent";
-import {RiMailSendLine} from 'react-icons/ri';
+import { useState } from 'react'
 import { useDispatch } from "react-redux";
-import { useState } from 'react';
-import { postComentWall } from "../../redux/action";
+import  { postComentWall } from '../../redux/action'
+import { useDispatch } from "react-redux";
 
-const ProfileFeed = ({myUser, user, site}) => {
 
-  const navigate = useNavigate()
+const ProfileFeed = ({myUser, user}) => {
   const dispatch = useDispatch()
   const [input, setInput] = useState('')
 
@@ -20,9 +17,9 @@ const ProfileFeed = ({myUser, user, site}) => {
 
 
   const handleSubmit = ()=> {
-    dispatch(postComentWall({description: input, author: myUser._id}, user._id, site))
-    setInput('')
-  }
+    dispatch(postComentWall({description: input, author: myUser._id}, user._id))
+    setInput('')}
+ 
   const preview = user?.wall?.slice(0,4)
   return(
     <>
