@@ -4,6 +4,7 @@ import { Document } from 'mongoose';
 import { Post, PostSchema } from 'src/posts/schema/post-schema';
 import { Friend, FriendSchema } from 'src/friends/schema/friend-schema';
 import { softDeletePlugin, SoftDeleteModel } from 'soft-delete-plugin-mongoose';
+import { Wall, WallSchema } from 'src/interfaces/wall-schema';
 //toque el importe del posteSchema
 
 
@@ -62,6 +63,8 @@ export class User extends Document {
   @Prop()
   reportedPosts: number
 
+  @Prop([WallSchema])
+  wall: Wall[]
 }
 
 export const UserSchema = SchemaFactory.createForClass(User).plugin(softDeletePlugin);

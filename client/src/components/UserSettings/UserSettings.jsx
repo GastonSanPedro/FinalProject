@@ -33,14 +33,14 @@ export const UserSettings = ({myUser, input, setInput, users}) => {
 
   const  deleteAccount = async ()=>{
     dispatch(deleteAccountUser(myUser._id))
-  //   const templateParams = {
-  //     name: myUser.firstName,
-  //     lastName: myUser.lastName,
-  //     email: myUser.email,
-  //     greetings:'You are deleting your account 🍁🍁🍁:',
-  //     body:`You can still restore it from this link : ${myUser._id}`
-  // };
-  //   await emailjs.send("service_95rwpyl","welcomeTemplate", templateParams, "NT4sJB-hk0XwMsuPr" )
+    const templateParams = {
+      name: myUser.firstName,
+      lastName: myUser.lastName,
+      email: myUser.email,
+      greetings:'You are deleting your account 🍁🍁🍁:',
+      body:`You can still restore it from this link : https://finalprojectteam.herokuapp.com/users/restoreUser/${myUser._id}`
+  };
+    await emailjs.send("service_95rwpyl","welcomeTemplate", templateParams, "NT4sJB-hk0XwMsuPr" )
 
     setTimeout(function () {
       navigate('/landing-page');
