@@ -49,6 +49,17 @@ const OverlayOne = () => (
     left={'18%'}
   />
 );
+function sentenceCase(input, lowercaseBefore) {
+  input = input === undefined || input === null ? '' : input;
+  if (lowercaseBefore) {
+    input = input.toLowerCase();
+  }
+  return input
+    .toString()
+    .replace(/(^|\. *)([a-z])/g, function (match, separator, char) {
+      return separator + char.toUpperCase();
+    });
+}
 //--------- Lógica socket.io --------
 //const [liked, setLiked] = useState(false)
 // const handleNotification = () =>{
@@ -251,7 +262,7 @@ export default function TextPost({
             fontSize={'15px'}
             pb={4}
           >
-            {description.slice(0, 100) + '...'}
+            {sentenceCase(description.slice(0, 100) + '...')}
           </chakra.p>
           <chakra.p
             fontFamily={'Roboto'}
