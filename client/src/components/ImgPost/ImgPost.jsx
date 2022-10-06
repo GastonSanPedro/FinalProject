@@ -48,6 +48,17 @@ const OverlayOne = () => (
     left={'18%'}
   />
 );
+function sentenceCase(input, lowercaseBefore) {
+  input = input === undefined || input === null ? '' : input;
+  if (lowercaseBefore) {
+    input = input.toLowerCase();
+  }
+  return input
+    .toString()
+    .replace(/(^|\. *)([a-z])/g, function (match, separator, char) {
+      return separator + char.toUpperCase();
+    });
+}
 
 export default function ImgPost({
   image,
@@ -435,8 +446,8 @@ export default function ImgPost({
             {/* {sentenceCase(description, true)} */}
             {/* {displayText} */}
             {description?.length > 60
-              ? `${description?.slice(0, 60)} ... `
-              : description}
+              ? `${sentenceCase(description?.slice(0, 60))} ... `
+              : sentenceCase(description)}
             {description?.length > 70 ? (
               <Button
                 zIndex={5}

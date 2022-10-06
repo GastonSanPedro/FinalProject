@@ -77,6 +77,8 @@ export class FriendsService {
   let user = await this.userModel.findById(newSet[i])
     friendFollower.push(user)
   }
+  
+
   return friendFollower
  }
 
