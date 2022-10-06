@@ -35,7 +35,7 @@ export default function ContainerPost({
       return posts
     }
     if (site === 'admin') {
-      let reportedPosts = posts?.filter((post) => post.reported === true);
+      let reportedPosts = posts?.filter((post) => post?.reported === true);
       return reportedPosts;
     }
   };
@@ -46,7 +46,7 @@ export default function ContainerPost({
       );
       return textPosts;
     }
-    if (typePost === 'img') {
+    else if (typePost === 'img') {
       let imagePosts = arrayUserPosts(site)?.filter(
         (p) => p?.pics?.length >= 1
       );

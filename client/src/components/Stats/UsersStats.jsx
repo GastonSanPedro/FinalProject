@@ -30,10 +30,11 @@ const UserStats = () => {
     return (
         <>
             <Box
-                w="300px"
-                h="auto"
+                h="300px"
+                w="auto"
             >
-                <Doughnut data={userData} />
+                <Doughnut
+                 data={userData} />
             </Box>
         </>
     )

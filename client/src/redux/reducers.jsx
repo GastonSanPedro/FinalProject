@@ -26,6 +26,8 @@ import {
   SEARCH_FRIENDS,
   CREATE_PAYMENT,
   SET_PREMIUM,
+  BLOCK_RESTORE_USER,
+  GET_DELETED_USERS,
 } from './action';
 
 const initialState = {
@@ -46,6 +48,7 @@ const initialState = {
   friendsPosts: [],
   followers: [],
   payment: [],
+  deletedUsers: [],
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -186,11 +189,11 @@ export default function rootReducer(state = initialState, action) {
           posts: [...state.myUser.posts],
         },
       };
-    case GET_FRIENDS_POSTS:
-      return {
-        ...state,
-        posts: action.payload,
-      };
+    // case GET_FRIENDS_POSTS:
+    //   return {
+    //     ...state,
+    //     posts: action.payload,
+    //   };
     case CREATE_PAYMENT:
       return {
         ...state,
@@ -199,6 +202,17 @@ export default function rootReducer(state = initialState, action) {
     case SET_PREMIUM:
       return {
         ...state,
+      };
+    case BLOCK_RESTORE_USER:
+      return {
+        ...state,
+        users: [...state.users],
+        deletedUsers: [...state.deletedUsers],
+      };
+    case GET_DELETED_USERS:
+      return {
+        ...state,
+        deletedUsers: action.payload,
       };
 
     default:

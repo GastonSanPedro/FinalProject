@@ -26,6 +26,8 @@ export const REPORT_POST = 'REPORT_POST';
 export const DELETE_POST = 'DELETE_POST';
 export const CREATE_PAYMENT = 'CREATE_PAYMENT';
 export const SET_PREMIUM = 'SET_PREMIUM';
+export const BLOCK_RESTORE_USER = 'BLOCK_RESTORE_USER';
+export const GET_DELETED_USERS = 'GET_DELETED_USERS';
 
 export function getUsers() {
   return async function (dispatch) {
@@ -405,6 +407,33 @@ export function setPremium(input) {
       console.log(change);
     } catch (error) {
       console.log(error);
+    }
+  };
+}
+
+export function blockRestoreUser(userId) {
+  return async function (dispatch) {
+    try {
+      const { data } = await axios.delete(`/users/${userId}`);
+      return dispatch({
+        type: BLOCK_RESTORE_USER,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
+
+export function getDeletedUsers() {
+  return async function (dispatch) {
+    try {
+      let info = await axios.get('/users/deleted', {});
+      dispatch({
+        type: GET_DELETED_USERS,
+        payload: info.data,
+      });
+    } catch (error) {
+      console.log(error, 'Error');
     }
   };
 }
