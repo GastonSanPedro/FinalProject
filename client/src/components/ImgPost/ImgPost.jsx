@@ -250,13 +250,14 @@ export default function ImgPost({
         border="1px"
         borderColor="gray.200"
         bgColor="#f5f5f5"
-        maxW={'25vw'}
-        w={site === "admin" ? "23vw" :'25vw'}
+        maxW={site === "admin" ? "23vw" : '25vw'}
+        w={'25vw'}
         rounded={'sm'}
         p={6}
         h={'74vh'}
         overflow={'hidden'}
         boxShadow={premium ? '0px 1vh 2vw -1px #FBFF3A;' : null}
+        
       // _hover={{
       //   bg: `logo.${randomNumber(1, 4)}`,
       // }}
@@ -418,9 +419,9 @@ export default function ImgPost({
           <Button
             zIndex={5}
             position="absolute"
-            ml={'18%'}
+            ml={site ==="admin" ? '23%' : "18%"}
             top={'87.1%'}
-            size={'sm'}
+            size={site ==="admin" ? "xs" :'sm'}
             bg={'logo.1'}
             h={30}
             onClick={() => {

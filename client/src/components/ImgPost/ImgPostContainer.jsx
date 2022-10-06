@@ -55,7 +55,12 @@ const ImgPostContainer = ({
           borderRadius={2}
           mt={site === 'feed' ? '0vh' : '4vh'}
         >
-          <SimpleGrid columns={{ base: 1, xl: 3 }} spacing={'10'} mt={2} mr={5}>
+          <SimpleGrid 
+      
+          columns={{ base: 1, xl: 3 }} 
+          spacing={'10'} 
+          mt={2} 
+          mr={'5'}>
             {renderPosts?.length !== 0 ? (
               renderPosts?.map((post, index) => {
                 return (
