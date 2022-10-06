@@ -85,7 +85,9 @@ export default function ContainerPost({
       >
         {site === 'search' ||
           site === 'admin' ||
-          site === 'explore' ? null : site === 'feed' ? (
+          site === 'explore'||
+          site === 'trending'
+           ? null : site === 'feed' ? (
             <CreatePost
               site={site}
               email={email}
