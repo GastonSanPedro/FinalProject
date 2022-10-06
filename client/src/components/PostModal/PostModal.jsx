@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Box,
   Text,
@@ -15,9 +15,10 @@ import {
   Button,
   InputGroup,
 } from '@chakra-ui/react';
-import { postComment } from '../../redux/action';
+import { postComment, getMyUser, cleanSinglePost } from '../../redux/action';
 import { useDispatch } from 'react-redux';
 import { CommentBox } from './CommentBox';
+import { useNavigate } from 'react-router-dom';
 
 const OverlayOne = () => (
   <ModalOverlay
@@ -42,7 +43,9 @@ export const PostModal = ({
   isOpen,
   onOpen,
   onClose,
+  site,
 }) => {
+  console.log(loggedUser);
   const [overlay, setOverlay] = useState(<OverlayOne />);
   const [hide, setHide] = useState(false);
   const [Reaction, setReaction] = useState({
@@ -51,12 +54,15 @@ export const PostModal = ({
     heart: 0,
     confusedLeaf: 0,
   });
+  useEffect(() => {}, [singlePost]);
+  //console.log(singlePost);
   const [input, setInput] = useState({
     idUser: loggedUser,
     idPost: postId,
     description: '',
   });
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const toast = useToast();
   const handleChange = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -72,8 +78,13 @@ export const PostModal = ({
       isClosable: true,
     });
   };
-  const handleReaction = (e) => {
-    setReaction({ ...Reaction, [e.target.name]: e.target.value + 1 });
+  const handleClose = (e) => {
+    dispatch(cleanSinglePost());
+    setTimeout(function () {
+      dispatch(getMyUser(loggedEmail));
+      // navigate('/explore');
+      //console.log('me ejecute');
+    }, 3000);
   };
   return (
     <div>
@@ -86,7 +97,11 @@ export const PostModal = ({
         {overlay}
         <ModalContent ml={'15vw'} mt={'20vh'} maxh={'84vh'}>
           <ModalHeader>{fullName}</ModalHeader>
-          <ModalCloseButton />
+          <ModalCloseButton
+            onClick={(e) => {
+              handleClose();
+            }}
+          />
           <ModalBody>
             <Image src={image} width={'100%'} />
             <Text textAlign={'center'}>{description}</Text>

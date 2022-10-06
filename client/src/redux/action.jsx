@@ -5,7 +5,8 @@ export const GET_POSTS = 'GET_POSTS';
 export const SINGLE_POST = 'SINGLE_POST';
 export const CLEAN_SINGLE_POST = 'CLEAN_SINGLE_POST';
 export const POST_COMMENT = 'POST_COMMENT';
-export const POST_REACTION = 'POST_REACTION';
+export const POST_REACTION_POST = 'POST_REACTION_POST';
+export const POST_REACTION_COMMENT = 'POST_REACTION_USER';
 export const POST_USER = 'POST_USER';
 export const CREATE_USER_POST = 'CREATE_USER_POST';
 export const CREATE_USER = 'CREATE_USER';
@@ -57,7 +58,8 @@ export function getUser(email) {
 export function getMyUser(email) {
   return async function (dispatch) {
     try {
-      let info = await axios.get(`/users/${email}`, {});
+      let info = await axios.get(`/users/${email}`);
+      //console.log(info.data);
       dispatch({
         type: GET_MY_USER,
         payload: info.data,
@@ -116,7 +118,7 @@ export function postComment(payload, id) {
     try {
       const info = await axios.post(`/comments`, payload);
       let data = await axios.get(`/posts/id/${id}`);
-
+      console.log(info.data);
       return dispatch({
         type: POST_COMMENT,
         payload: data.data,
@@ -126,16 +128,19 @@ export function postComment(payload, id) {
     }
   };
 }
-export function postReaction(payload, idPost, idComment) {
+export function postReaction(payload, idPost, idComment, idUser) {
   return async function (dispatch) {
     try {
-      const info = await axios.post(`/comments/${idComment}`, payload);
-      let data = await axios.get(`/posts/id/${idPost}`);
-
-      return dispatch({
-        type: POST_REACTION,
-        payload: data.data,
-      });
+      if (idComment) {
+        const info = await axios.post(`/comments/${idComment}`, payload);
+        let data = await axios.get(`/posts/id/${idPost}`);
+        return dispatch({
+          type: POST_REACTION_COMMENT,
+          payload: data.data,
+        });
+      } else if (idPost && idComment === null) {
+        const info = await axios.patch(`/posts/${idPost}`, payload);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -171,7 +176,7 @@ export function searchUser(myId, searcher) {
   return async function (dispatch) {
     try {
       var json = await axios.get(`/users/name/${searcher}`);
-      let filtered = json.data.filter(user => user._id !== myId)
+      let filtered = json.data.filter((user) => user._id !== myId);
       return dispatch({
         type: SEARCH_USER,
         payload: filtered,
@@ -201,7 +206,7 @@ export const authUser = (mail, password, google) => {
     try {
       if (google === undefined) {
         var user = await axios.get(`/users/${mail}`);
-        let formatUser = await   user.data;
+        let formatUser = await user.data;
         if (formatUser.password !== password) {
           return dispatch({
             type: AUTH_USER,
@@ -213,7 +218,6 @@ export const authUser = (mail, password, google) => {
             payload: { auth: true, user: formatUser },
           });
         }
-        
       } else if (google) {
         var user = await axios.get(`/users/${mail}`);
         if (user) {
@@ -244,7 +248,7 @@ export const authUser = (mail, password, google) => {
       }
     }
   };
-}
+};
 export function cleanAuthUser() {
   return async function (dispatch) {
     return dispatch({
@@ -332,7 +336,7 @@ export const deleteFriend = (myUserid, idFriend) => {
   // const ids = {
   //   idFriend: anyUserId,
   //   };
-    
+
   return async function (dispatch) {
     try {
       let info = await axios.delete(`/friends/${myUserid}/${idFriend}`);

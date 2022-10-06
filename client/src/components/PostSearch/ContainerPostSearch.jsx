@@ -13,10 +13,13 @@ const PostSearchContainer = ({state}) => {
  
     const changeState = () => {
         if(state === 'images'){
-          let  filterPostImg = filterPost?.filter(post => post.pics.length > 0)
+          let  filterPostImg = filterPost?.filter(post => post?.pics.length > 0)
             return filterPostImg
         } 
-        if(state === 'text') return filterPost
+        else if(state === 'text') {
+            let filterPostText = filterPost?.filter(post => post?.pics.length === 0)
+            return filterPostText
+        }
     }
     
     return (
@@ -35,7 +38,6 @@ const PostSearchContainer = ({state}) => {
                                 />
                     )
                 }
-  
             </Wrap>
         </>
     )

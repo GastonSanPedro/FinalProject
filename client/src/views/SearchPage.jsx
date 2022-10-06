@@ -1,5 +1,5 @@
-import { Box, Text } from "@chakra-ui/react";
-import React, {useState} from "react";
+import { Box } from "@chakra-ui/react";
+import {useState} from "react";
 import { useSelector } from "react-redux";
 import SidebarWithHeader from "../components/Sidebar-Navbar/SideBar";
 import NavbarSerch from "../components/NavbarSearch/NavbarSearch";

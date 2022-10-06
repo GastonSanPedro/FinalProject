@@ -25,6 +25,11 @@ export class FriendsController {
     return this.friendsService.findAllFollowersByUser(idUser);
   }
 
+  @Get('/followersAndFriends/:idUser')
+  findAllFollowersAndFriendsByUser(@Param('idUser') idUser: string) {
+    return this.friendsService.findAllFollowersAndFriendsByUser(idUser);
+  }
+
 
   @Get('/posts/:idUser')
   findAllPostsOfMyFriends(@Param('idUser') idUser:string) {
