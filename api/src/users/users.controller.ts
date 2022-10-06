@@ -43,6 +43,11 @@ export class UsersController {
   findOne(@Param('term') term: string) {
     return this.usersService.findOne(term);
   }
+
+  @Get('/restoreUser/:id')
+  restaured(@Param('id') id: string) {
+    return this.usersService.restaured(id);
+  }
   @Get('/name/:term')
    findByName(@Param('term') term: string) {
   

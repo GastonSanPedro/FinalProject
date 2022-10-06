@@ -109,11 +109,11 @@ export class UsersService {
     }
 
 
-  // async restaured(id:string){
-  //   const userRestaured:User = await this.userModel.findById(id)
-  //   const restaured = await this.userModel.restore(userRestaured)
-  //   return restaured
-  // }
+  async restaured(id:string){
+    const userRestaured:User = await this.userModel.findById(id)
+    const restaured = await this.userModel.restore(userRestaured)
+    return restaured
+  }
   
 
 
