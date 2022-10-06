@@ -303,13 +303,15 @@ export const addFriend = (myUserid, anyUserId) => {
       let info = await axios.post(`/friends/`, ids);
       let friendsUser = await axios.get(`/friends/${myUserid}`);
       let anyUserWithoutFriend = await axios.get(`/users/${anyUserId}`)
+      let myUser = await axios.get(`/users/${myUserid}`)
       console.log({anyUserWithoutFriend})
       console.log({friendsUser})
       return dispatch({
         type: ADD_FRIEND,
         payload: {
           friendsUser: friendsUser.data,
-          anyUserWithoutFriend: anyUserWithoutFriend.data
+          anyUserWithoutFriend: anyUserWithoutFriend.data,
+          myUser: myUser.data
         },
       });
     } catch (error) {
@@ -358,13 +360,15 @@ export const deleteFriend = (myUserid, idFriend) => {
       let info = await axios.delete(`/friends/${myUserid}/${idFriend}`);
       let friendsUser = await axios.get(`/friends/${myUserid}`);
       let anyUserWithNewFriend = await axios.get(`/users/${idFriend}`)
+      let myUser = await axios.get(`/users/${myUserid}`)
       console.log(friendsUser.data)
       console.log(anyUserWithNewFriend.data)
       return dispatch({
         type: DELETE_FRIENDS,
         payload: {
           friendsUser: friendsUser.data,
-          anyUserWithNewFriend: anyUserWithNewFriend.data
+          anyUserWithNewFriend: anyUserWithNewFriend.data,
+          myUser: myUser.data
         },
       });
     } catch (error) {
