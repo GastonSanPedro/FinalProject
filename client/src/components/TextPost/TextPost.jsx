@@ -28,6 +28,7 @@ import {
   postComment,
   getPosts,
   getUser,
+  getTrendingPosts,
   postReaction,
 } from '../../redux/action';
 import { PostModal } from '../PostModal/PostModal';
@@ -151,6 +152,11 @@ export default function TextPost({
           dispatch(getPosts());
         }, 1000);
       }
+      if (site === 'trending') {
+        setTimeout(function () {
+          dispatch(getTrendingPosts());
+        }, 1000);
+      }
     } else if (userReaction && userReaction.type === value) {
       const filtered = likes.filter((r) => r.idUser !== loggedUser);
       dispatch(
@@ -176,6 +182,11 @@ export default function TextPost({
           dispatch(getPosts());
         }, 1000);
       }
+      if (site === 'trending') {
+        setTimeout(function () {
+          dispatch(getTrendingPosts());
+        }, 1000);
+      }
     } else {
       const filtered = likes.filter((r) => r.idUser !== loggedUser);
       const newReaction = [...filtered, { idUser: loggedUser, type: value }];
@@ -194,6 +205,11 @@ export default function TextPost({
       if (site === 'profile') {
         setTimeout(function () {
           dispatch(getPosts());
+        }, 1000);
+      }
+      if (site === 'trending') {
+        setTimeout(function () {
+          dispatch(getTrendingPosts());
         }, 1000);
       }
     }

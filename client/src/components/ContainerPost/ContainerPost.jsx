@@ -44,7 +44,6 @@ export default function ContainerPost({
       return posts;
     }
   };
-  console.log(posts);
   const typePosts = (typePost) => {
     if (typePost === 'text') {
       let textPosts = arrayUserPosts(site)?.filter(
