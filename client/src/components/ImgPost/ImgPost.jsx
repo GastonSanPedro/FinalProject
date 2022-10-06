@@ -92,7 +92,6 @@ export default function ImgPost({
     onOpen();
     dispatch(getSinglePosts(postId));
   };
-  //console.log(premium);
   const handleReport = () => {
     dispatch(reportPost(postId));
   };

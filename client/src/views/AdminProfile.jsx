@@ -183,7 +183,7 @@ const AdminProfile = () => {
                                 <RadioGroup onChange={setBlock} value={block}>
                                     <HStack direction="row">
                                         <Radio value='Blocked users'>Blocked users</Radio>
-                                        <Radio value='All users'>All users</Radio>
+                                        <Radio value='All users'>Users in good standing</Radio>
                                     </HStack>
                                 </RadioGroup>
 
@@ -191,6 +191,8 @@ const AdminProfile = () => {
                             <ContainerUsersAdmin
                                 HandleBlock={HandleBlock}
                                 users={block === 'All users' ? users : deletedUsers}
+                                block={block}
+
                             />
                         </AccordionPanel>
                     </AccordionItem>

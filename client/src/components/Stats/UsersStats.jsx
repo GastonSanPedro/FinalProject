@@ -26,21 +26,17 @@ const UserStats = () => {
         if (premiumPosts?.length === 0) {
             nonPaying?.push(u)
         }
-        else if (premiumPosts?.length === 1) {
+         else if (premiumPosts?.length === 1) {
             payingOne?.push(u)
         }
-        else if (payingPlusTwo?.length >= 2){
-            payingPlusTwo?.push(u)
-        }
-        
 
     })
 
     const [userData, setUserData] = useState({
-        labels: [`Paying +2 posts`, "Pay 1 post", `Never pay`],
+        labels: [ "Paying", `Never pay`],
         datasets: [{
             label: "Posts",
-            data: [payingPlusTwo?.length, payingOne?.length, nonPaying?.length],
+            data: [payingOne?.length, nonPaying?.length],
             backgroundColor: getDataColors(20),
             borderColor: getDataColors()
         }]

@@ -17,8 +17,7 @@ export default function ContainerPost({
   handleDelete,
 }) {
   const [typePost, setTypePost] = useState('img');
-  //console.log(myUser);
-  //console.log(posts.filter((post) => post.author?._id === myUser?._id));
+  
   const ref = useRef();
   const handleClickRef = () => {
     ref.current.focus();
