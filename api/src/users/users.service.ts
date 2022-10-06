@@ -7,7 +7,6 @@ import { User } from './schema/user-schema';
 import { SoftDeleteModel } from 'soft-delete-plugin-mongoose';
 
 
-
 @Injectable()
 export class UsersService {
   constructor(
@@ -21,6 +20,7 @@ export class UsersService {
     createUserDto.userName = createUserDto.userName.toLowerCase();
     createUserDto.bio= "";
     createUserDto.fullName = `${createUserDto.firstName} ${createUserDto.lastName}`;
+    createUserDto.cover = 'https://images.unsplash.com/photo-1602298674761-700e96568f5f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cmFpbmZvcmVzdHxlbnwwfHwwfHw%3D&w=1000&q=80'
    
     try {
       const user:User = await this.userModel.create(createUserDto);
