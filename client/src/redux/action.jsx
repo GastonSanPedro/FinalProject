@@ -75,10 +75,11 @@ export function getMyUser(email) {
 export function getPosts() {
   return async function (dispatch) {
     try {
-      let info = await axios.get(`/posts/`);
+      let {data} = await axios.get(`/posts/`);
+      let filtrado = data.filter(el=>el.author !== null)
       dispatch({
         type: GET_POSTS,
-        payload: info.data,
+        payload: filtrado,
       });
     } catch (error) {
       console.log(error, 'Error al llamar a la api');
@@ -104,8 +105,10 @@ export function getSinglePosts(id) {
     }
   };
 }
-export function cleanSinglePost() {
+export function cleanSinglePost(id) {
   return async function (dispatch) {
+    const info = await axios.get(`/users/${id}`);
+    console.log(info.data);
     try {
       dispatch({
         type: SINGLE_POST,

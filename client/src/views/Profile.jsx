@@ -1,42 +1,43 @@
-import '../index.css';
 import { Box, IconButton } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import UserCard from '../components/UserCard/UserCard';
-import SidebarWithHeader from '../components/Sidebar-Navbar/SideBar';
+import { useDispatch, useSelector } from 'react-redux';
 import port1 from '../assets/port1.png';
 import ContainerPost from '../components/ContainerPost/ContainerPost';
-import { getFollowers, getFriends, getMyUser } from '../redux/action';
-import CoverModal from '../components/CoverModal/CoverModal';
 import Carousel from '../components/CoverModal/Carousel';
-
+import CoverModal from '../components/CoverModal/CoverModal';
+import SidebarWithHeader from '../components/Sidebar-Navbar/SideBar';
+import UserCard from '../components/UserCard/UserCard';
+import '../index.css';
+import { getFollowers, getFriends, getPosts } from '../redux/action';
 
 const Profile = () => {
   const dispatch = useDispatch();
-  
+
   const myUser = useSelector((state) => state.myUser);
   const singlePost = useSelector((state) => state.singlePost);
   const friends = useSelector((state) => state.friends);
   const myFollowers = useSelector((state) => state.followers);
+  const posts = useSelector((state) => state.posts);
 
-  const [User, setUser] = useState(
-    useState(JSON.parse(localStorage.getItem('user')))
-    );
+  // const [User, setUser] = useState(
+  //   useState(JSON.parse(localStorage.getItem('user')))
+  // );
 
-  const neededEmail = User[0].email;
+  // const neededEmail = User[0].email;
+  // useEffect(() => {
+  //   dispatch(getMyUser(neededEmail));
+  // }, [dispatch, neededEmail]);
+
   useEffect(() => {
-    dispatch(getMyUser(neededEmail));
-}, [dispatch, neededEmail]);
-
-  useEffect(() => {
-  if(friends.length === 0){
-    dispatch(getFriends(myUser?._id))
+    if (friends.length === 0) {
+      dispatch(getFriends(myUser?._id));
     }
-  if(myFollowers.length === 0){
-    dispatch(getFollowers(myUser?._id));
-  }
+    if (myFollowers.length === 0) {
+      dispatch(getFollowers(myUser?._id));
+    }
+    dispatch(getPosts());
   }, [dispatch, singlePost]);
-        
+
   return (
     <>
       <SidebarWithHeader
@@ -56,9 +57,9 @@ const Profile = () => {
         backgroundImage={myUser.cover}
         bgRepeat="no-repeat"
         bgSize="cover"
-        >
-        <CoverModal myUser={myUser}/>
-        </Box>
+      >
+        <CoverModal myUser={myUser} />
+      </Box>
       <UserCard site="profile" myUser={myUser} />
       <Box
         bg={'whitesmoke'}
@@ -72,8 +73,12 @@ const Profile = () => {
         mt={'18%'}
         ml={'18%'}
       >
-
-        <ContainerPost site="profile" myUser={myUser} singlePost={singlePost} />
+        <ContainerPost
+          site="profile"
+          myUser={myUser}
+          singlePost={singlePost}
+          posts={posts}
+        />
       </Box>
     </>
   );
