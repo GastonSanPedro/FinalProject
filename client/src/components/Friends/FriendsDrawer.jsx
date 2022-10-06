@@ -27,13 +27,12 @@ export default function Friends({ myUser, friends, myFollowers }) {
   const [size, setSize] = useState('');
   const [input, setInput] = useState('');
   const { isOpen, onOpen, onClose } = useDisclosure();
-
-  console.log(friends)
-  console.log(myFollowers)
   
   const handleClick = () => {
     onOpen();
   };
+
+  console.log({friends})
 
   return (
     <>
