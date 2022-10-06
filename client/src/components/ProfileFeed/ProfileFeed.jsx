@@ -1,7 +1,27 @@
 import { Box, Flex, Avatar, Text, Input, Button } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
+import { useState } from 'react'
+import { useDispatch } from "react-redux";
+import  { postComentWall } from '../../redux/action'
+
+
 
 const ProfileFeed = ({myUser, user}) => {
+  const dispatch = useDispatch()
+  const [input, setInput] = useState('')
+
+  const handleChange = (e) => { 
+    setInput(
+      e.target.value
+    )}
+
+
+  const handleSubmit = ()=> {
+    dispatch(postComentWall({description: input, author: myUser._id}, user._id))
+    setInput('')
+  }
+  console.log(user.wall, 'ProfileFeed')
+
   const navigate = useNavigate()
   return(
     <>
@@ -51,9 +71,13 @@ const ProfileFeed = ({myUser, user}) => {
           ml={'2%'}
           variant={'flushed'}
           w={'80%'}
+          onChange={ (e) => handleChange(e)}
+          value= {input}
         />
         
-        <Button>Post</Button>
+        <Button
+        onClick={()=> handleSubmit()}
+        >Post</Button>
         </Box>
         </Flex>
         
