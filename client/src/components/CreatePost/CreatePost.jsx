@@ -45,7 +45,7 @@ const CreatePost = ({ site, myUser, createdRef }) => {
           pics: '',
         });
         toast({
-          title: 'Sucess',
+          title: 'Success',
           description: 'Post created successfully',
           status: 'success',
           duration: 2000,
@@ -72,7 +72,7 @@ const CreatePost = ({ site, myUser, createdRef }) => {
           pics: '',
         });
         toast({
-          title: 'Sucess',
+          title: 'Success',
           description: 'Post created successfully',
           status: 'success',
           duration: 2000,

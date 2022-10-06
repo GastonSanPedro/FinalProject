@@ -72,7 +72,7 @@ export const PostModal = ({
     dispatch(postReaction({ rating: rating + 1 }, postId, null));
     setInput({ idUser: loggedUser, idPost: postId, description: '' });
     toast({
-      title: 'Sucess',
+      title: 'Success',
       description: 'Comment added successfully',
       status: 'success',
       duration: 2000,
