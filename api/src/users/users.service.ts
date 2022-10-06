@@ -46,6 +46,7 @@ export class UsersService {
   async findAllDeleted() {
     return await this.userModel.findDeleted()
   }
+  
 
   async findOne(term: string) {
         let userFinded:User;
