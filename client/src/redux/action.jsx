@@ -28,6 +28,7 @@ export const CREATE_PAYMENT = 'CREATE_PAYMENT';
 export const SET_PREMIUM = 'SET_PREMIUM';
 export const BLOCK_RESTORE_USER = 'BLOCK_RESTORE_USER';
 export const DELETE_ACCOUNT = 'DELETE_ACCOUNT';
+export const GET_USERS_DELETED = 'GET_USERS_DELETED';
 
 export function getUsers() {
   return async function (dispatch) {
@@ -437,4 +438,20 @@ export function blockRestoreUser(userId) {
       }
   }
 }
+
+
+export function getDeletedUsers() {
+  return async function (dispatch) {
+    try {
+      let {data} = await axios.get('/users/deleted');
+      dispatch({
+        type: GET_USERS_DELETED,
+        payload: data,
+      });
+    } catch (error) {
+      console.log(error, 'Error');
+    }
+  };
+}
+
 

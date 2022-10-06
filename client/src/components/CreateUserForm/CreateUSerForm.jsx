@@ -1,7 +1,7 @@
 import { Form, Formik } from 'formik';
 import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { cleanAuthUser, createUser, getUsers } from '../../redux/action';
+import { cleanAuthUser, createUser, getUsers, getDeletedUsers } from '../../redux/action';
 import {
   Box,
   Button,
@@ -29,6 +29,7 @@ const CreateUser = ({ logOrSign, setlogOrSign }) => {
   const dispatch = useDispatch();
   const allUsers = useSelector((state) => state.allUsers);
   const user = useSelector((state) => state.user);
+  const usersDeleted = useSelector((state) => state.usersDeleted);
   const auth = useSelector((state) => state.auth);
   const toast = useToast();
   const navigate = useNavigate();
@@ -53,22 +54,22 @@ const CreateUser = ({ logOrSign, setlogOrSign }) => {
   useEffect(() => {
     /* global google */
     dispatch(getUsers());
+    dispatch(getDeletedUsers())
     if (auth.auth === 'unregistered') {
       setUser(auth.user);
     }
   }, [dispatch]);
 
   const valEmail = (inputValueEmail) => {
-    const emailF = allUsers.filter((user) => inputValueEmail === user.email);
-    
-    if (emailF[0]) return true;
+    const emailF = allUsers.find((user) => inputValueEmail === user.email);
+    const emailFDeleted = usersDeleted.find((user) => inputValueEmail === user.email)
+    if (emailF || emailFDeleted) return true;
     else return false;
   };
   const valUsername = (inputValueUsername) => {
-    const usernameF = allUsers.filter(
-      (user) => inputValueUsername === user.userName
-    );
-    if (usernameF[0]) return true;
+    const usernameF = allUsers.find((user) => inputValueUsername === user.userName);
+    const usernameFDeleted = usersDeleted.find((user) => inputValueUsername === user.userName);
+    if (usernameF || usernameFDeleted) return true;
     else return false;
   };
 
