@@ -19,7 +19,7 @@ import {
 import '../index.css';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getPosts, deletePost, getDeletedUsers, } from '../redux/action';
+import { getPosts, deletePost, getDeletedUsers, getUser, getUsers, } from '../redux/action';
 import SidebarWithHeader from '../components/Sidebar-Navbar/SideBar';
 import ContainerPost from '../components/ContainerPost/ContainerPost';
 import { FiUsers } from "react-icons/fi";
@@ -73,11 +73,19 @@ const AdminProfile = () => {
 
     const HandleBlock = (userId) => {
         dispatch(blockUser(userId))
-        dispatch(getDeletedUsers())
+     
+        setTimeout(() => {
+            dispatch(getUsers())
+            dispatch(getDeletedUsers())
+        }, 1000)
     }
 
     const handleRestoreUser = (userId) =>{
         dispatch(restoretUser(userId))
+        setTimeout(() => {
+            dispatch(getUsers())
+            dispatch(getDeletedUsers())
+        }, 1000)
     }
 
     return (

@@ -215,6 +215,7 @@ export default function rootReducer(state = initialState, action) {
     case BLOCK_USER:
       return {
         ...state,
+        users: action.payload
       };
     case DELETE_ACCOUNT:
       return {
@@ -236,6 +237,11 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         posts: action.payload
+      };
+    case RESTORE_USER:
+      return {
+        ...state,
+        users: action.payload
       };
       case CLEAN_SEARCHFRIEND:
         return {

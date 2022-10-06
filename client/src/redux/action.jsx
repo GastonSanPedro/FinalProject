@@ -450,9 +450,11 @@ export function setPremium(input) {
 export function blockUser(userId) {
   return async function (dispatch) {
     try {
-      const { data } = await axios.delete(`/users/${userId}`);
+      await axios.delete(`/users/${userId}`);
+      const {data} = await axios.get(`/users/`)
       return dispatch({
         type: BLOCK_USER,
+        payload: data
       });
     } catch (error) {
       console.log(error);
@@ -560,8 +562,10 @@ export function restoretUser(id) {
   return async function (dispatch) {
     try {
       await axios.patch(`/users/restoreUser/${id}`, { isDeleted: false});
+      const {data} = await axios.get(`/users/`)
       return dispatch({
         type: RESTORE_USER,
+        payload: data
       });
     } catch (error) {
       console.log(error);
