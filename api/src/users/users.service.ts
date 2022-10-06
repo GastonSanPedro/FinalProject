@@ -102,18 +102,11 @@ export class UsersService {
   async remove(id: string) {
     const userDelete:User = await this.userModel.findById(id);
     const deleted = await this.userModel.softDelete(userDelete)
-    if(userDelete.isDeleted ===false){
-
-    return deleted
-    }else{
-      return this.userModel.restore(userDelete)
+    if(userDelete.isDeleted ===false)return deleted    
     }
-     
-    }
-
 
   async restaured(id:string , updateUserDto: UpdateUserDto ){
-  const userRestaured:User = await this.userModel.findById(id.toString());
+  const userRestaured:User = await this.userModel.findById(id);
   
   console.log(userRestaured)
   await userRestaured.updateOne(updateUserDto) 

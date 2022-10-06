@@ -69,5 +69,9 @@ export class UsersController {
     return this.usersService.remove(id)
   }
 
+  // @Get('/restoreUser/:id')
+  // findDeletedById(@Param('id') id: string) {
+  //   return this.usersService.findDeletedById(id);
+  // }
 
 }
