@@ -11,6 +11,7 @@ const PaymentSucess = () => {
   const myFollowers = useSelector((state) => state.followers);
   const payment = useSelector((state) => state.payment);
   const [Bill, setBill] = useState(JSON.parse(localStorage.getItem('bill')));
+  const posts = useSelector((state) => state.posts);
 
   //   (() => {
   //     dispatch(getFollowers(myUser._id));
@@ -23,7 +24,7 @@ const PaymentSucess = () => {
         friends={friends}
         myFollowers={myFollowers}
       />
-      <SuccessPaymentInfo myPosts={myUser?.posts} />
+      <SuccessPaymentInfo myPosts={posts} />
     </>
   );
 };
