@@ -8,6 +8,7 @@ import {
   IsString,
   MinLength
 } from 'class-validator';
+import { Wall } from 'src/interfaces/wall-schema';
 import { User } from '../schema/user-schema';
 
 export class CreateUserDto {
@@ -79,5 +80,7 @@ export class CreateUserDto {
   @IsOptional()
   reportedPosts: number
 
-
+  @ApiProperty()
+  @IsOptional()
+  wall?: Wall[]
 }

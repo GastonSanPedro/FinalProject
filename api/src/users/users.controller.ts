@@ -14,6 +14,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './schema/user-schema';
 import { UsersService } from './users.service';
 import { usersDB } from '../seed/users';
+import { AddWallCommentDto } from './dto/add-wallcomment.dto';
 
 
 @ApiTags('Users')
@@ -51,6 +52,11 @@ export class UsersController {
   @Patch(':term')
   update(@Param('term') term: string, @Body() updateUserDto: UpdateUserDto) {
     return this.usersService.update(term, updateUserDto);
+  }
+
+  @Patch('/wall/:idUserWall')
+  addCommentWall(@Param('idUserWall') idUserWall: string, @Body() wallCommentDto: AddWallCommentDto) {
+    return this.usersService.addCommentWall(idUserWall, wallCommentDto);
   }
 
   @Delete(':id')

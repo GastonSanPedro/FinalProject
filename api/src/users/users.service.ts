@@ -5,6 +5,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './schema/user-schema';
 import { SoftDeleteModel } from 'soft-delete-plugin-mongoose';
+import { AddWallCommentDto } from './dto/add-wallcomment.dto';
 
 
 @Injectable()
@@ -40,6 +41,7 @@ export class UsersService {
     return await this.userModel
     .find()
     .populate({ path: 'friends.idFriend'})
+    .populate({ path: 'wall.author'})
     .exec()
   }
 
@@ -135,6 +137,18 @@ export class UsersService {
       return userFinded
   }
 
+  async addCommentWall(idUserWall: string, wallCommentDto: AddWallCommentDto) {
+    wallCommentDto.createdAt = Date.now()
 
+    if(isValidObjectId(idUserWall) && isValidObjectId(wallCommentDto.author)){
+    const userWall: any = await this.userModel.findById(idUserWall)
+    const myUser: User = await this.userModel.findById(wallCommentDto.author)
+
+      if(!userWall || !wallCommentDto.author) throw new NotFoundException('User not Found ')
+      userWall.wall.push(wallCommentDto)
+      userWall.save()
+    }
+    console.log(idUserWall)
+  }
 
 }
