@@ -7,8 +7,8 @@ import { useState } from 'react';
 
 export default function ContainerSearchCard ({state, myUser, friends, myFollowers}) {
 
-    const friendsId= friends.map(friend => friend.idFriend._id)
-    const followersId = myFollowers.map(follower => follower._id)
+    const friendsId= friends?.map(friend => friend.idFriend._id)
+    const followersId = myFollowers?.map(follower => follower._id)
     const searchUsers = useSelector((state)=> state.searchUser)
     const searchFriends = searchUsers.filter(user => friendsId?.includes(user._id))
     const searchFollowers = searchUsers.filter(user => followersId?.includes(user._id))

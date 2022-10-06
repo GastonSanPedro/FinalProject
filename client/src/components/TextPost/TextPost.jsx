@@ -89,6 +89,7 @@ export default function TextPost({
   premium,
   email,
   likes,
+  rating,
   site,
   authorId,
   comments,
@@ -126,7 +127,14 @@ export default function TextPost({
     if (userReaction === undefined) {
       const newReaction = [...likes, { idUser: loggedUser, type: value }];
       console.log(newReaction);
-      dispatch(postReaction({ likes: newReaction }, postId, null, loggedUser));
+      dispatch(
+        postReaction(
+          { likes: newReaction, rating: rating + 1 },
+          postId,
+          null,
+          loggedUser
+        )
+      );
       if (site === 'explore' || site === 'search') {
         setTimeout(function () {
           dispatch(getPosts());
@@ -144,7 +152,14 @@ export default function TextPost({
       }
     } else if (userReaction && userReaction.type === value) {
       const filtered = likes.filter((r) => r.idUser !== loggedUser);
-      dispatch(postReaction({ likes: filtered }, postId, null, loggedUser));
+      dispatch(
+        postReaction(
+          { likes: filtered, rating: rating - 1 },
+          postId,
+          null,
+          loggedUser
+        )
+      );
       if (site === 'explore' || site === 'search') {
         setTimeout(function () {
           dispatch(getPosts());
@@ -208,6 +223,7 @@ export default function TextPost({
         description={description}
         image={image}
         onOpen={onOpen}
+        rating={rating}
         onClose={onClose}
         isOpen={isOpen}
         loggedUser={loggedUser}

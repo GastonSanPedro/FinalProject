@@ -51,7 +51,7 @@ export const PaymentModal = ({
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const toast = useToast();
-  const handleSelected = (id, description, pics) => {
+  const handleSelected = (id, description, pics, rating) => {
     if (Selected.findIndex((p) => p.title === id) === -1) {
       let updatePosts = [
         ...Selected,
@@ -61,6 +61,7 @@ export const PaymentModal = ({
           unit_price: 0,
           description: description,
           picture_url: pics,
+          category_id: rating,
         },
       ];
       setSelected(updatePosts);
@@ -108,7 +109,9 @@ export const PaymentModal = ({
         return (error = []);
       } else {
         const properObject = { products: Selected };
+        //console.log(properObject);
         dispatch(createPayment(loggedId, properObject));
+        console.log(payment.items);
         localStorage.setItem('bill', JSON.stringify(payment));
         if (payment.init_point) {
           window.location.href = payment?.init_point;
@@ -151,6 +154,7 @@ export const PaymentModal = ({
                   const id = e._id;
                   const description = e.description;
                   const pics = e.pics;
+                  const rating = e.rating;
                   return (
                     <Box
                       width={'100%'}
@@ -182,7 +186,7 @@ export const PaymentModal = ({
                         bg={'logo.3'}
                         color={'black'}
                         onClick={(e) => {
-                          handleSelected(id, description, pics);
+                          handleSelected(id, description, pics, rating);
                         }}
                         _hover={{
                           bg: 'logo.1',

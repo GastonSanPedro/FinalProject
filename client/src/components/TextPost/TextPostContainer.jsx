@@ -98,6 +98,7 @@ export default function TextPostContainer({
                         description={post?.description}
                         date={post?.createdAt}
                         postId={post?._id}
+                        rating={post?.rating}
                         reported={post?.reported}
                         likes={post?.likes}
                         loggedUser={myUser?._id}
