@@ -53,7 +53,6 @@ export const PostModal = ({
   onClose,
   site,
 }) => {
-  //console.log(site);
   const [overlay, setOverlay] = useState(<OverlayOne />);
   const [input, setInput] = useState({
     idUser: loggedUser,

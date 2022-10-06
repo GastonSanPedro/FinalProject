@@ -42,11 +42,7 @@ const Searchbar = () => {
     dispatch(getUsers());
     dispatch(getPosts());
   }
-  // useEffect(() => {
-  //   dispatch(getPosts())
-  //   dispatch(getMyUser())
 
-  // }, [dispatch]);
 
   function handleSubmit(e) {
     e.preventDefault();

@@ -14,7 +14,7 @@ import {
   RiUserUnfollowLine,
   RiUserSettingsLine,
 } from 'react-icons/ri';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { logOut, addFriend, deleteFriend } from '../../redux/action';
 import {  useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
@@ -33,7 +33,7 @@ const UserCard = ({ site, myUser, user, friends }) => {
 
   useEffect(() => {
 
-  },[friends, myUser, user])
+  },[ friends, myUser, user])
 
   const handleClickFollow = () => {
     dispatch(addFriend(myUser?._id, user?._id));
@@ -67,7 +67,7 @@ const UserCard = ({ site, myUser, user, friends }) => {
       display={'flex'}
       flexDir={'column'}
       ml="77%"
-      mt="19%"
+      mt="20%"
       h="50vh"
       w="19vw"
       p="1% 3% 1% 1%"
@@ -78,7 +78,7 @@ const UserCard = ({ site, myUser, user, friends }) => {
       <Box
         position={'absolute'}
         ml={'80%'}
-        bg={`logo.2`}
+        bg={`logo.3`}
         w={7}
         h={'50vh'}
       ></Box>
