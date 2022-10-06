@@ -87,7 +87,7 @@ const LogInForm = ({ logOrsign, setlogOrSign }) => {
       localStorage.setItem('user', JSON.stringify(auth.user));
       localStorage.setItem('email', JSON.stringify(auth.user.email));
       toast({
-        title: 'Sucess',
+        title: 'Success',
         description: 'Redirecting to your feed',
         status: 'success',
         duration: 2000,

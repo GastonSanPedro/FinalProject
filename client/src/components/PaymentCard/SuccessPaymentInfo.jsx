@@ -136,7 +136,7 @@ export const SuccessPaymentInfo = ({ myPosts }) => {
             localStorage.removeItem('bill');
             setBill('');
             toast({
-              title: 'Sucess',
+              title: 'Success',
               description: 'Your post are premium now!',
               status: 'success',
               duration: 2000,
