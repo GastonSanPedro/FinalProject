@@ -43,9 +43,7 @@ export class UsersService {
     .exec()
   }
 
-  async findAllDeleted() {
-    return await this.userModel.findDeleted()
-  }
+
 
   async findOne(term: string) {
         let userFinded:User;
@@ -134,6 +132,19 @@ export class UsersService {
       return userFinded
   }
 
+  async findAllDeleted(term: string) {
+    let deletedUsers = await this.userModel.findDeleted()
+    console.log(deletedUsers)
+    deletedUsers = await this.userModel
+    .find(
+    {$or:[
+      {firstName: {$regex: term, $options: "$i"} },
+      {lastName: {$regex: term, $options: "$i"} },
+      {fullName: {$regex: term, $options: "$i"} },
+      {userName: {$regex: term, $options: "$i"} }
+    ]})
+    return deletedUsers
+  }
 
 
 }

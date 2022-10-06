@@ -33,9 +33,9 @@ export class UsersController {
     return this.usersService.findAll();
   }
 
-  @Get('/deleted')
-  findAllDeleted() {
-    return this.usersService.findAllDeleted();
+  @Get('/deleted/:term')
+  findAllDeleted(@Param('term') term: string) {
+    return this.usersService.findAllDeleted(term);
   }
 
   @Get(':term')
