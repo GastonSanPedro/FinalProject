@@ -5,7 +5,7 @@ import TextPostContainer from '../TextPost/TextPostContainer';
 import { useState, useRef } from 'react';
 import NavbarSerch from '../NavbarSearch/NavbarSearch';
 import { BsChatLeftText } from 'react-icons/bs';
-import { RiImage2Line } from 'react-icons/ri'
+import { RiImage2Line } from 'react-icons/ri';
 
 export default function ContainerPost({
   site,
@@ -17,13 +17,15 @@ export default function ContainerPost({
   handleDelete,
 }) {
   const [typePost, setTypePost] = useState('img');
+  //console.log(myUser);
+  //console.log(posts.filter((post) => post.author?._id === myUser?._id));
   const ref = useRef();
   const handleClickRef = () => {
     ref.current.focus();
   };
   const arrayUserPosts = (site) => {
     if (site === 'profile') {
-      return myUser?.posts;
+      return posts?.filter((post) => post.author?._id === myUser?._id);
     }
     if (site === 'anyProfile') {
       return user?.posts;
@@ -32,7 +34,7 @@ export default function ContainerPost({
       return posts;
     }
     if (site === 'feed') {
-      return posts
+      return posts;
     }
     if (site === 'admin') {
       let reportedPosts = posts?.filter((post) => post?.reported === true);
@@ -56,19 +58,20 @@ export default function ContainerPost({
 
   const NAV_ITEMS = [
     {
-       label: 'Images',
-       icon: <RiImage2Line/>,
-       onClick: () => {
-        setTypePost('image')}
-     },
-     {
-         label: 'Text',
-         icon: <BsChatLeftText/>,
-         onClick: () => {
-          setTypePost('text')
-         }
-       }  
-  ]
+      label: 'Images',
+      icon: <RiImage2Line />,
+      onClick: () => {
+        setTypePost('image');
+      },
+    },
+    {
+      label: 'Text',
+      icon: <BsChatLeftText />,
+      onClick: () => {
+        setTypePost('text');
+      },
+    },
+  ];
   return (
     <>
       <Flex
@@ -80,15 +83,15 @@ export default function ContainerPost({
         mt={site === 'feed' ? '0vh' : '4vh'}
       >
         {site === 'search' ||
-          site === 'admin' ||
-          site === 'explore' ? null : site === 'feed' || site === 'profile' ? (
-            <CreatePost
-              site={site}
-              email={email}
-              myUser={myUser}
-              createdRef={ref}
-            />
-          ) : (
+        site === 'admin' ||
+        site === 'explore' ? null : site === 'feed' || site === 'profile' ? (
+          <CreatePost
+            site={site}
+            email={email}
+            myUser={myUser}
+            createdRef={ref}
+          />
+        ) : (
           <Box
             p={3}
             m={3}
@@ -102,8 +105,8 @@ export default function ContainerPost({
         )}
         {site === 'explore' ? null : <Divider />}
 
-        <NavbarSerch NAV_ITEMS={NAV_ITEMS}/>
-         
+        <NavbarSerch NAV_ITEMS={NAV_ITEMS} />
+
         {typePost === 'text' ? (
           <TextPostContainer
             posts={typePosts('text')}

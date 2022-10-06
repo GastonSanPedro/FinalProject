@@ -5,7 +5,8 @@ export const GET_POSTS = 'GET_POSTS';
 export const SINGLE_POST = 'SINGLE_POST';
 export const CLEAN_SINGLE_POST = 'CLEAN_SINGLE_POST';
 export const POST_COMMENT = 'POST_COMMENT';
-export const POST_REACTION = 'POST_REACTION';
+export const POST_REACTION_POST = 'POST_REACTION_POST';
+export const POST_REACTION_COMMENT = 'POST_REACTION_USER';
 export const POST_USER = 'POST_USER';
 export const CREATE_USER_POST = 'CREATE_USER_POST';
 export const CREATE_USER = 'CREATE_USER';
@@ -27,7 +28,12 @@ export const DELETE_POST = 'DELETE_POST';
 export const CREATE_PAYMENT = 'CREATE_PAYMENT';
 export const SET_PREMIUM = 'SET_PREMIUM';
 export const BLOCK_RESTORE_USER = 'BLOCK_RESTORE_USER';
+<<<<<<< HEAD
 export const GET_DELETED_USERS = 'GET_DELETED_USERS';
+=======
+export const DELETE_ACCOUNT = 'DELETE_ACCOUNT';
+export const GET_USERS_DELETED = 'GET_USERS_DELETED';
+>>>>>>> dev3
 
 export function getUsers() {
   return async function (dispatch) {
@@ -59,7 +65,8 @@ export function getUser(email) {
 export function getMyUser(email) {
   return async function (dispatch) {
     try {
-      let info = await axios.get(`/users/${email}`, {});
+      let info = await axios.get(`/users/${email}`);
+      //console.log(info.data);
       dispatch({
         type: GET_MY_USER,
         payload: info.data,
@@ -72,10 +79,11 @@ export function getMyUser(email) {
 export function getPosts() {
   return async function (dispatch) {
     try {
-      let info = await axios.get(`/posts/`);
+      let {data} = await axios.get(`/posts/`);
+      let filtrado = data.filter(el=>el.author !== null)
       dispatch({
         type: GET_POSTS,
-        payload: info.data,
+        payload: filtrado,
       });
     } catch (error) {
       console.log(error, 'Error al llamar a la api');
@@ -101,8 +109,10 @@ export function getSinglePosts(id) {
     }
   };
 }
-export function cleanSinglePost() {
+export function cleanSinglePost(id) {
   return async function (dispatch) {
+    const info = await axios.get(`/users/${id}`);
+    console.log(info.data);
     try {
       dispatch({
         type: SINGLE_POST,
@@ -118,7 +128,7 @@ export function postComment(payload, id) {
     try {
       const info = await axios.post(`/comments`, payload);
       let data = await axios.get(`/posts/id/${id}`);
-
+      console.log(info.data);
       return dispatch({
         type: POST_COMMENT,
         payload: data.data,
@@ -128,16 +138,19 @@ export function postComment(payload, id) {
     }
   };
 }
-export function postReaction(payload, idPost, idComment) {
+export function postReaction(payload, idPost, idComment, idUser) {
   return async function (dispatch) {
     try {
-      const info = await axios.post(`/comments/${idComment}`, payload);
-      let data = await axios.get(`/posts/id/${idPost}`);
-
-      return dispatch({
-        type: POST_REACTION,
-        payload: data.data,
-      });
+      if (idComment) {
+        const info = await axios.post(`/comments/${idComment}`, payload);
+        let data = await axios.get(`/posts/id/${idPost}`);
+        return dispatch({
+          type: POST_REACTION_COMMENT,
+          payload: data.data,
+        });
+      } else if (idPost && idComment === null) {
+        const info = await axios.patch(`/posts/${idPost}`, payload);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -173,7 +186,7 @@ export function searchUser(myId, searcher) {
   return async function (dispatch) {
     try {
       var json = await axios.get(`/users/name/${searcher}`);
-      let filtered = json.data.filter(user => user._id !== myId)
+      let filtered = json.data.filter((user) => user._id !== myId);
       return dispatch({
         type: SEARCH_USER,
         payload: filtered,
@@ -203,7 +216,7 @@ export const authUser = (mail, password, google) => {
     try {
       if (google === undefined) {
         var user = await axios.get(`/users/${mail}`);
-        let formatUser = await   user.data;
+        let formatUser = await user.data;
         if (formatUser.password !== password) {
           return dispatch({
             type: AUTH_USER,
@@ -215,7 +228,6 @@ export const authUser = (mail, password, google) => {
             payload: { auth: true, user: formatUser },
           });
         }
-        
       } else if (google) {
         var user = await axios.get(`/users/${mail}`);
         if (user) {
@@ -246,7 +258,7 @@ export const authUser = (mail, password, google) => {
       }
     }
   };
-}
+};
 export function cleanAuthUser() {
   return async function (dispatch) {
     return dispatch({
@@ -334,7 +346,7 @@ export const deleteFriend = (myUserid, idFriend) => {
   // const ids = {
   //   idFriend: anyUserId,
   //   };
-    
+
   return async function (dispatch) {
     try {
       let info = await axios.delete(`/friends/${myUserid}/${idFriend}`);
@@ -424,16 +436,33 @@ export function blockRestoreUser(userId) {
   };
 }
 
+  export function deleteAccountUser(userId){
+    return async function (dispatch) {
+      try {
+        const { data } = await axios.delete(`/users/${userId}`);
+        return dispatch({
+          type: DELETE_ACCOUNT,
+          payload: { auth: false }
+        });
+      } catch (error) {
+        console.log(error);
+      }
+  }
+}
+
+
 export function getDeletedUsers() {
   return async function (dispatch) {
     try {
-      let info = await axios.get('/users/deleted', {});
+      let {data} = await axios.get('/users/deleted');
       dispatch({
-        type: GET_DELETED_USERS,
-        payload: info.data,
+        type: GET_USERS_DELETED,
+        payload: data,
       });
     } catch (error) {
       console.log(error, 'Error');
     }
   };
 }
+
+

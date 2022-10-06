@@ -49,71 +49,7 @@ export const MobileNav = ({ myUser, onOpen, ...rest }) => {
           aria-label="open menu"
           icon={<FiMenu />}
         />
-        <Menu>
-        <MenuButton
-            as={IconButton}
-            justifyContent={'center'}
-            alignContent={'center'}
-            borderRadius={2}
-            bg={'white'}
-            p={2}
-            icon={<FiBell />}
-            _hover={{
-              bg: 'logo.3',
-              color: 'white',
-            }}
-            _active={{ bg: 'rgba(140, 161, 116, 0.5)' }}
-          />
-          <Icon
-            viewBox="0 0 200 200"
-            color="red.500"
-            boxSize={3}
-            position={'relative'}
-            top={'-15%'}
-            right={'1.2%'}
-          >
-            <path
-              fill="currentColor"
-              d="M 100, 100 m -75, 0 a 75,75 0 1,0 150,0 a 75,75 0 1,0 -150,0"
-            />
-          </Icon>
-          {/*--------Campanita de notis-----------*/}
-          <MenuList>
-            <MenuItem
-              _hover={{
-                bg: 'logo.3',
-                color: 'white',
-              }}
-            >
-              A Nacho le gusta tu post
-            </MenuItem>
-            <MenuItem
-              _hover={{
-                bg: 'logo.3',
-                color: 'white',
-              }}
-            >
-              A Ari le gusta tu post
-            </MenuItem>
-            <MenuItem
-              color={'red'}
-              _hover={{
-                bg: 'logo.3',
-                color: 'white',
-              }}
-            >
-              Alirio lee el readme
-            </MenuItem>
-            <MenuItem
-              _hover={{
-                bg: 'logo.3',
-                color: 'white',
-              }}
-            >
-              Keki aceptó tu solicitud de amistad
-            </MenuItem>
-          </MenuList>
-        </Menu>
+
         <Box
           display={{ base: 'flex', md: 'none' }}
           fontSize="2xl"

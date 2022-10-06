@@ -20,6 +20,7 @@ export class PostsService {
     createPostDto.createdAt = Date.now();
     createPostDto.reported = false;
     createPostDto.premium = false;
+    createPostDto.rating = 0
     
     try {
       const post:Post = await this.postModel.create(createPostDto);
@@ -38,7 +39,7 @@ export class PostsService {
     return await this.postModel
     .find()
     .sort({createdAt: -1})
-    .populate({ path: 'author', select:'-posts -password -friends -email -bio -followers'})
+    .populate({ path: 'author', select:'-posts -password -friends -bio -followers'})
     .populate({ path: 'comments', populate:{ path : 'idUser', select:'-posts -password -friends -email -bio -followers'}  })
     .setOptions({ sanitizeFilter: true })
     .exec();
@@ -49,7 +50,7 @@ export class PostsService {
     const posts = await this.postModel
     .find({description: {$regex: term, $options: "$i"}})
     .sort({createdAt:-1})
-    .populate({ path: 'author', select:'-posts -password -friends -email -bio -followers'})
+    .populate({ path: 'author', select:'-posts -password -friends -bio -followers'})
     .populate({ path: 'comments', populate:{ path : 'idUser'} })
     .exec();
     if (!posts) throw new NotFoundException(`Any post includes: ${term}`);
@@ -60,7 +61,7 @@ export class PostsService {
     if(isValidObjectId(id)){
       const post =  await this.postModel
       .findById(id)
-      .populate({ path: 'author', select:'-posts -password -friends -email -bio -followers'})
+      .populate({ path: 'author', select:'-posts -password -friends -bio -followers'})
       .populate({ path: 'comments', populate:{ path : 'idUser'} })
       .exec()
       return post
@@ -93,5 +94,16 @@ export class PostsService {
 
   async findAllPostOfMyFriends (id: string){
 
+  }
+
+  
+  async findByRating() {
+
+    const posts = await this.postModel
+    .find()
+    .sort({rating:-1})
+    .exec();
+    if (!posts) throw new NotFoundException(`Thers no trending posts yet`);
+    return posts;
   }
 }

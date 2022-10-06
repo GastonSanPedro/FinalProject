@@ -43,7 +43,7 @@ export default function AnyProfile() {
         maxH={'28vh'}
         width="85%"
         position={'absolute'}
-        backgroundImage={port1}
+        backgroundImage={user.cover}
         bgRepeat="no-repeat"
         bgSize="cover"
       />
