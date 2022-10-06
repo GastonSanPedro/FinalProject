@@ -62,7 +62,7 @@ export function getMyUser(email) {
   return async function (dispatch) {
     try {
       let info = await axios.get(`/users/${email}`);
-      //console.log(info.data);
+
       dispatch({
         type: GET_MY_USER,
         payload: info.data,
@@ -152,7 +152,8 @@ export function postReaction(payload, idPost, idComment, idUser) {
     }
   };
 }
-export function createUserPost(inputPost) {
+export function createUserPost(inputPost, id) {
+  
   return async function (dispatch) {
     try {
       const { data } = await axios.post('/posts', inputPost);
@@ -347,6 +348,7 @@ export const deleteFriend = (myUserid, idFriend) => {
 
       return dispatch({
         type: DELETE_FRIENDS,
+        payload: data
       });
     } catch (error) {
       console.log(error);

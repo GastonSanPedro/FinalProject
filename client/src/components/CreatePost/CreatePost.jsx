@@ -38,7 +38,7 @@ const CreatePost = ({ site, myUser, createdRef }) => {
         });
       } else {
         const inputPost = { author: myUser._id, ...input };
-        dispatch(createUserPost(inputPost));
+        dispatch(createUserPost(inputPost, myUser._id));
         setInput({
           description: '',
           pics: '',

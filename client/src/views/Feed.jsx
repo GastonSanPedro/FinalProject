@@ -1,10 +1,7 @@
 import { Box } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
 import ContainerPost from '../components/ContainerPost/ContainerPost';
-import NavbarSerch from '../components/NavbarSearch/NavbarSearch';
 import SidebarWithHeader from '../components/Sidebar-Navbar/SideBar';
-import { RiImage2Line } from 'react-icons/ri';
-
 import { getFriendsPosts } from '../redux/action';
 import { useEffect } from 'react';
 
