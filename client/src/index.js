@@ -28,8 +28,8 @@ import PaymentSucess from './views/PaymentSucess';
 // import dotenv from 'dotenv'
 // dotenv.config();
 //console.log(process.env.REACT_APP_API);
-axios.defaults.baseURL = process.env.REACT_APP_API; //que no se me olvide descomentar esta
-// axios.defaults.baseURL = 'http://localhost:3001';
+// axios.defaults.baseURL = process.env.REACT_APP_API; //que no se me olvide descomentar esta
+axios.defaults.baseURL = 'http://localhost:3001';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
