@@ -15,6 +15,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 const ImgPostContainer = ({
   site,
   myUser,
+  user,
   posts,
   singlePost,
   handleClickRef,
@@ -62,19 +63,25 @@ const ImgPostContainer = ({
                     <ImgPost
                       userName={
                         site === 'profile' || site === 'anyProfile'
-                          ? renderPosts?.userName
+                          ? (site === 'profile' ? myUser : user)?.userName
                           : post.author?.userName
                       }
                       fullName={
                         site === 'profile' || site === 'anyProfile'
-                          ? renderPosts?.fullName
+                          ? (site === 'profile' ? myUser : user)?.fullName
                           : post.author?.fullName
                       }
                       avatar={
                         site === 'profile' || site === 'anyProfile'
-                          ? renderPosts?.image
+                          ? (site === 'profile' ? myUser : user)?.image  
                           : post?.author?.image
                       }
+                      firstName={site === 'anyProfile' 
+                      ? user?.firstName
+                      : post?.author?.firstName}
+                      lastName={site === 'anyProfile' 
+                      ? user?.lastName
+                      : post?.author?.lastName}
                       image={post?.pics}
                       email={post?.author?.email}
                       authorId={post?.author}

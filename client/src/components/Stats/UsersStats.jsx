@@ -33,7 +33,7 @@ const UserStats = () => {
     })
 
     const [userData, setUserData] = useState({
-        labels: [ "Paying", `Never pay`],
+        labels: [ "Paying", `Not paying`],
         datasets: [{
             label: "Posts",
             data: [payingOne?.length, nonPaying?.length],
