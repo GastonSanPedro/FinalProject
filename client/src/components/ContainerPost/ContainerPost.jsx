@@ -115,6 +115,7 @@ export default function ContainerPost({
             user={user}
             email={email}
             singlePost={singlePost}
+            handleDelete={handleDelete}
             handleClickRef={handleClickRef}
           />
         ) : (

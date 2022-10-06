@@ -19,7 +19,7 @@ import {
 import '../index.css';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getPosts, deletePost, getDeletedUsers, getUsers } from '../redux/action';
+import { getPosts, deletePost, getDeletedUsers, getUsers, logOut } from '../redux/action';
 import SidebarWithHeader from '../components/Sidebar-Navbar/SideBar';
 import ContainerPost from '../components/ContainerPost/ContainerPost';
 import { FiUsers } from "react-icons/fi";
@@ -27,8 +27,10 @@ import { BsFilePost } from "react-icons/bs";
 import ContainerUsersAdmin from '../components/AdminAssets/ContainerUsersAdmin';
 import { useState } from 'react';
 // import { useRadio, useRadioGroup } from '@chakra-ui/react'
-// import UserStats from '../components/Stats/UsersStats';
 import { blockRestoreUser } from '../redux/action';
+import PostStats from '../components/Stats/PostStats';
+import UserStats from '../components/Stats/UsersStats';
+
 
 const AdminProfile = () => {
 
@@ -66,20 +68,19 @@ const AdminProfile = () => {
 
         useEffect(() => {
         }, [users, deletedUsers])
-        
-    }
 
+    }
 
     return (
         <>
             <SidebarWithHeader myUser={myUser} friends={friends} myFollowers={myFollowers} />
-            <VStack position={"absolute"}
-                top={"100px"}
+            <HStack position={"absolute"}
+                top={"110px"}
                 left={"20%"}
                 w={"75%"}
                 spacing={"30px"}>
                 <Box
-                    h={"200px"}
+                    h={"230px"}
                     w={"100%"}
                     border={"1px"}
                     borderColor={"gray.200"}
@@ -96,13 +97,17 @@ const AdminProfile = () => {
                             <StatNumber>{users?.length}</StatNumber>
                         </Stat>
 
-                        {/* <UserStats /> */}
                     </HStack>
+                    <Box h={"200px"} position={"absolute"} top={"-15%"} left={"20.5%"}>
+                        <UserStats
+                        
+                         />
+                    </Box>
                 </Box>
 
 
                 <Box
-                    h={"200px"}
+                    h={"230px"}
                     w={"100%"}
                     border={"1px"}
                     borderColor={"gray.200"}
@@ -120,33 +125,16 @@ const AdminProfile = () => {
                             <StatNumber>{posts?.length}</StatNumber>
                         </Stat>
                     </HStack>
+                    <Box h={"200px"} position={"absolute"} top={"-15%"} right={"2%"}>
+                        <PostStats />
+                    </Box>
                 </Box>
 
 
-            </VStack>
+            </HStack>
 
 
-            {/* <Box pos="absolute" mt="8%" ml="20%" bg={'rgba(229, 191, 124, 0.2)'} h="auto" w='75%'>
-                <Box>
-                    <HStack>
-                        <UserStats />
-                        <Box pt="0px" mt="0px">
-                            <Center pt="0px" mt="0px" >
-                                <VStack ml="200px" >
-                                    <Heading pt="0px" mt="0px" >Premium post stats</Heading>
-                                    <Box>
-                                        <Text >Plan de 3 días</Text>
-                                        <Text>Plan de 1 semana</Text>
-                                        <Text>Plan de 1 mes</Text>
-                                    </Box>
-                                </VStack>
-                            </Center>
-                        </Box>
-                    </HStack>
-                </Box>
-            </Box> */}
-
-            <Box pos="absolute" mt="38%" ml="20%" h="auto" w='75%'>
+            <Box pos="absolute" mt="25%" ml="20%" h="auto" w='75%'>
 
 
 
@@ -155,7 +143,7 @@ const AdminProfile = () => {
 
 
 
-                    <AccordionItem bg={`logo.1`}>
+                    <AccordionItem bg={"gray.50"}>
                         <h2>
                             <AccordionButton>
                                 <Box flex='1' textAlign='left' >
@@ -177,7 +165,7 @@ const AdminProfile = () => {
 
 
 
-                    <AccordionItem bg={`logo.1`}>
+                    <AccordionItem bg={"gray.50"}>
                         <h2>
                             <AccordionButton>
                                 <Box flex='1' textAlign='left'>

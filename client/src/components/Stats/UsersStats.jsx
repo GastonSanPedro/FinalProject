@@ -2,40 +2,51 @@ import React, { useState } from 'react';
 import { Box } from '@chakra-ui/react';
 import { Doughnut } from "react-chartjs-2"
 import { Chart as ChartJS } from 'chart.js/auto'
+import { useSelector } from 'react-redux';
 
+const getDataColors = opacity =>{
+    const colors = [
+         '#CDEBA4',
+         '#E5BF7C',
+         '#8CA174'
+    ];
+    return colors.map(color => opacity ? `${color + opacity}` : color)
+}
 
-const colors = [
-    '#4dc9f6',
-    '#f67019',
-    '#f53794',
-    '#537bc4',
-    '#acc236',
-    '#166a8f',
-    '#00a950',
-    '#58595b',
-    '#8549ba'
-];
 
 const UserStats = () => {
 
+    const posts = useSelector((state) => state.posts);
+
+    let premiumPost = posts?.filter((p) => p?.premium === true)
+    let standardPost = posts?.filter((p) => p?.premium === false)
+
+    
+
     const [userData, setUserData] = useState({
-        labels: ["Plan 1", "Plan 2", "Plan 2"],
+        labels: [ `Paying`, `Never pay`, "Pay 1 post"],
         datasets: [{
-            label: "Ganancias",
-            data: [10, 20, 30],
-            backgroundColor: colors.map(c => c)
+            label: "Posts",
+            data: [60, 10,42 ],
+            backgroundColor: getDataColors(20),
+            borderColor: getDataColors()
         }]
     })
 
+    const options = {
+        plugins: {
+            legend: { position: "left" }
+        }
+    }
+
     return (
         <>
-            <Box
-                h="300px"
-                w="auto"
-            >
-                <Doughnut
-                 data={userData} />
-            </Box>
+
+            <Doughnut
+                data={userData}
+                options={options}
+                canvas={"200px"} />
+
         </>
     )
 }

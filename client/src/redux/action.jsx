@@ -28,12 +28,8 @@ export const DELETE_POST = 'DELETE_POST';
 export const CREATE_PAYMENT = 'CREATE_PAYMENT';
 export const SET_PREMIUM = 'SET_PREMIUM';
 export const BLOCK_RESTORE_USER = 'BLOCK_RESTORE_USER';
-<<<<<<< HEAD
-export const GET_DELETED_USERS = 'GET_DELETED_USERS';
-=======
 export const DELETE_ACCOUNT = 'DELETE_ACCOUNT';
 export const GET_USERS_DELETED = 'GET_USERS_DELETED';
->>>>>>> dev3
 
 export function getUsers() {
   return async function (dispatch) {
