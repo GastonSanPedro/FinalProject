@@ -20,6 +20,7 @@ export class PostsService {
     createPostDto.createdAt = Date.now();
     createPostDto.reported = false;
     createPostDto.premium = false;
+    createPostDto.rating = 0
     
     try {
       const post:Post = await this.postModel.create(createPostDto);
