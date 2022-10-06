@@ -78,7 +78,7 @@ const UserCard = ({ site, myUser, user, friends }) => {
       <Box
         position={'absolute'}
         ml={'80%'}
-        bg={`logo.2`}
+        bg={`logo.3`}
         w={7}
         h={'50vh'}
       ></Box>

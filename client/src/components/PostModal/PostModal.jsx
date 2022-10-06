@@ -41,11 +41,9 @@ export const PostModal = ({
   loggedUser,
   postId,
   isOpen,
-  onOpen,
   onClose,
   site,
 }) => {
-  console.log(loggedUser);
   const [overlay, setOverlay] = useState(<OverlayOne />);
   const [hide, setHide] = useState(false);
   const [Reaction, setReaction] = useState({
@@ -55,7 +53,6 @@ export const PostModal = ({
     confusedLeaf: 0,
   });
   useEffect(() => {}, [singlePost]);
-  //console.log(singlePost);
   const [input, setInput] = useState({
     idUser: loggedUser,
     idPost: postId,
@@ -82,8 +79,6 @@ export const PostModal = ({
     dispatch(cleanSinglePost());
     setTimeout(function () {
       dispatch(getMyUser(loggedEmail));
-      // navigate('/explore');
-      //console.log('me ejecute');
     }, 3000);
   };
   return (

@@ -6,6 +6,7 @@ import { useState, useRef } from 'react';
 import NavbarSerch from '../NavbarSearch/NavbarSearch';
 import { BsChatLeftText } from 'react-icons/bs';
 import { RiImage2Line } from 'react-icons/ri'
+import ProfileFeed from '../ProfileFeed/ProfileFeed';
 
 export default function ContainerPost({
   site,
@@ -72,12 +73,11 @@ export default function ContainerPost({
   return (
     <>
       <Flex
-        pl={'0%'}
         textAlign={'center'}
         justifyContent={'center'}
         direction={'column'}
         borderRadius={2}
-        mt={site === 'feed' ? '0vh' : '4vh'}
+        mt={site === 'feed' ? '0vh' : '2vh'}
       >
         {site === 'search' ||
           site === 'admin' ||
@@ -89,16 +89,7 @@ export default function ContainerPost({
               createdRef={ref}
             />
           ) : (
-          <Box
-            p={3}
-            m={3}
-            mt={'4vh'}
-            h={site === 'feed' ? '22vh' : '36vh'}
-            w={site === 'feed' ? '100%' : '65%'}
-            display={'flex'}
-            backgroundColor={'white'}
-            mb={site === 'profile' ? '50px' : null}
-          ></Box>
+            <ProfileFeed site={site} user={user}/>
         )}
         {site === 'explore' ? null : <Divider />}
 
