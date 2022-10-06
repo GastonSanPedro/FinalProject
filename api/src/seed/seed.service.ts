@@ -33,9 +33,9 @@ export class SeedService {
 
       const usersToInsert: IUser[] = []
       
-      userDBFull.forEach(({ firstName, lastName, userName, email, password, image, birthdate, posteos, fullName, bio }) => {
+      userDBFull.forEach(({ firstName, lastName, userName, email, password, image, birthdate, posteos, fullName, bio, cover }) => {
 
-      usersToInsert.push({ firstName, lastName, userName: userName.toLowerCase(), email: email.toLowerCase(), password, image, birthdate, posteos, fullName: fullName.toLowerCase(), bio })  
+      usersToInsert.push({ firstName, lastName, userName: userName.toLowerCase(), email: email.toLowerCase(), password, image, birthdate, posteos, fullName: fullName.toLowerCase(), bio, cover })  
       });
     
    await this.userModel.insertMany(usersToInsert)
