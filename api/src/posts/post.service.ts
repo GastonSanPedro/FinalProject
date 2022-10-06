@@ -20,6 +20,7 @@ export class PostsService {
     createPostDto.createdAt = Date.now();
     createPostDto.reported = false;
     createPostDto.premium = false;
+    createPostDto.rating = 0
     
     try {
       const post:Post = await this.postModel.create(createPostDto);
@@ -93,5 +94,16 @@ export class PostsService {
 
   async findAllPostOfMyFriends (id: string){
 
+  }
+
+  
+  async findByRating() {
+
+    const posts = await this.postModel
+    .find()
+    .sort({rating:-1})
+    .exec();
+    if (!posts) throw new NotFoundException(`Thers no trending posts yet`);
+    return posts;
   }
 }

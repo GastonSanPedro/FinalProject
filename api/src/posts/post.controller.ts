@@ -16,12 +16,17 @@ export class PostsController {
   create(@Body() createPostDto: CreatePostDto) {
     return this.postsService.create(createPostDto);
   }
-
+  
   @Get()
   findAll() {
     return this.postsService.findAll();
   }
 
+  @Get('/trending')
+  findByRating() {
+    return this.postsService.findByRating();
+  }
+  
   @Get('/:term')
   findByDescription(@Param('term') term: string) {
     return this.postsService.findByDescription(term);
