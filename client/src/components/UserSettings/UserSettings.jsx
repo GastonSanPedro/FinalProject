@@ -1,9 +1,12 @@
-import { Box, Button, Flex, Text } from "@chakra-ui/react";
-import EditableForm from "./EditableForm";
-import { AiOutlineDelete } from "react-icons/ai";
-
 import { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import { useDispatch} from "react-redux";
+import { AiOutlineDelete } from "react-icons/ai";
+import { Box, Button, Flex, Text } from "@chakra-ui/react";
+import { deleteAccountUser } from "../../redux/action";
+
+import EditableForm from "./EditableForm";
+import emailjs from '@emailjs/browser';
 
 function randomNumber(min, max) {
   let a = Math.random() * (max - min) + min;
@@ -20,12 +23,29 @@ export const ColorBox = () => {
 
 export const UserSettings = ({myUser, input, setInput, users}) => {
   const dispatch = useDispatch()
+  const navigate = useNavigate();
   const {firstName, lastName, userName, password, email} = myUser
   const [errors, setErrors] = useState({})
   const [disabled, setDisabled ] = useState(true)
 
   const usernames = users.map(user => user.userName)
 
+
+  const  deleteAccount = async ()=>{
+    dispatch(deleteAccountUser(myUser._id))
+  //   const templateParams = {
+  //     name: myUser.firstName,
+  //     lastName: myUser.lastName,
+  //     email: myUser.email,
+  //     greetings:'You are deleting your account 🍁🍁🍁:',
+  //     body:`You can still restore it from this link : ${myUser._id}`
+  // };
+  //   await emailjs.send("service_95rwpyl","welcomeTemplate", templateParams, "NT4sJB-hk0XwMsuPr" )
+
+    setTimeout(function () {
+      navigate('/landing-page');
+    }, 2000);
+  }
   
   
   if(Object.entries(myUser).length){
@@ -145,6 +165,7 @@ export const UserSettings = ({myUser, input, setInput, users}) => {
                           fontStyle={'none'}
                           fontWeight={'normal'}
                           borderRadius={2}
+                          onClick={deleteAccount}
                           _hover={{
                             color: 'white',
                             bg: 'logo.3' 

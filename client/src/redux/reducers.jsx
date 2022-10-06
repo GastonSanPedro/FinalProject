@@ -26,6 +26,8 @@ import {
   SEARCH_FRIENDS,
   CREATE_PAYMENT,
   SET_PREMIUM,
+  BLOCK_RESTORE_USER,
+  DELETE_ACCOUNT
 } from './action';
 
 const initialState = {
@@ -200,7 +202,16 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
       };
-
+    case BLOCK_RESTORE_USER:
+      return {
+        ...state
+      };
+    case DELETE_ACCOUNT:
+      return {
+        ...state,
+        auth: action.payload,
+        myUser: [],
+      }
     default:
       return state;
   }

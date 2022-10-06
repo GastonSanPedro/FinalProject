@@ -60,6 +60,7 @@ const CreateUser = ({ logOrSign, setlogOrSign }) => {
 
   const valEmail = (inputValueEmail) => {
     const emailF = allUsers.filter((user) => inputValueEmail === user.email);
+    
     if (emailF[0]) return true;
     else return false;
   };
