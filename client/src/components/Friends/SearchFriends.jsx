@@ -1,7 +1,7 @@
 import { Input, Box, IconButton } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
 import { useDispatch } from 'react-redux';
-import { searchFriends } from '../../redux/action';
+import { searchFriends, cleanSearchFriend } from '../../redux/action';
 
 
 
@@ -11,8 +11,11 @@ const SearchFriends = ({setInput, input, myUser}) => {
         setInput((e.target.value))
     }
     const handleSubmit= (e) => {
+      if(input !== null && input !== '' && input !== ' ' && input && input !== '  ' && input !== '   ' && input !== '    '){
         dispatch(searchFriends(myUser?._id, input))
-        
+      } else{
+        dispatch(cleanSearchFriend())
+      }        
     }
     return (
         <>
