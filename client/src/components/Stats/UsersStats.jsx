@@ -29,7 +29,10 @@ const UserStats = () => {
         else if (premiumPosts?.length === 1) {
             payingOne?.push(u)
         }
-        payingPlusTwo?.push(u)
+        else if (payingPlusTwo?.length >= 2){
+            payingPlusTwo?.push(u)
+        }
+        
 
     })
 

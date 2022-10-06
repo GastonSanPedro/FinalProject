@@ -19,7 +19,7 @@ import {
 import '../index.css';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getPosts, deletePost, getDeletedUsers, getUsers, logOut } from '../redux/action';
+import { getPosts, deletePost, getDeletedUsers, } from '../redux/action';
 import SidebarWithHeader from '../components/Sidebar-Navbar/SideBar';
 import ContainerPost from '../components/ContainerPost/ContainerPost';
 import { FiUsers } from "react-icons/fi";
@@ -150,8 +150,8 @@ const AdminProfile = () => {
                                     <Box flex='1' textAlign='left' >
                                         Reported Posts
                                     </Box>
-                                    {posts.length > 0 ?
-                                    <AiTwotonePlusCircle color='red'/> : null}
+                                    {/* {posts.length > 0 ?
+                                    <AiTwotonePlusCircle color='red'/> : null} */}
                                 <AccordionIcon />
                             </AccordionButton>
                         </h2>
