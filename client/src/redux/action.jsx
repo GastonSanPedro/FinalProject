@@ -70,10 +70,11 @@ export function getMyUser(email) {
 export function getPosts() {
   return async function (dispatch) {
     try {
-      let info = await axios.get(`/posts/`);
+      let {data} = await axios.get(`/posts/`);
+      let filtrado = data.filter(el=>el.author !== null)
       dispatch({
         type: GET_POSTS,
-        payload: info.data,
+        payload: filtrado,
       });
     } catch (error) {
       console.log(error, 'Error al llamar a la api');
