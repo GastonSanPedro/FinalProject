@@ -24,6 +24,7 @@ import {
   getPosts,
   getUser,
   getFriendsPosts,
+  getTrendingPosts,
 } from '../../redux/action';
 import { useState } from 'react';
 import { BiMessage, BiShocked, BiHeart, BiHappyAlt } from 'react-icons/bi';
@@ -138,6 +139,11 @@ export default function ImgPost({
           dispatch(getFriendsPosts(loggedUser));
         }, 1000);
       }
+      if (site === 'trending') {
+        setTimeout(function () {
+          dispatch(getTrendingPosts());
+        }, 1000);
+      }
     } else if (userReaction && userReaction.type === value) {
       const filtered = likes.filter((r) => r.idUser !== loggedUser);
       dispatch(
@@ -168,6 +174,11 @@ export default function ImgPost({
           dispatch(getFriendsPosts(loggedUser));
         }, 1000);
       }
+      if (site === 'trending') {
+        setTimeout(function () {
+          dispatch(getTrendingPosts());
+        }, 1000);
+      }
     } else {
       const filtered = likes.filter((r) => r.idUser !== loggedUser);
       const newReaction = [...filtered, { idUser: loggedUser, type: value }];
@@ -191,6 +202,11 @@ export default function ImgPost({
       if (site === 'feed') {
         setTimeout(function () {
           dispatch(getFriendsPosts(loggedUser));
+        }, 1000);
+      }
+      if (site === 'trending') {
+        setTimeout(function () {
+          dispatch(getTrendingPosts());
         }, 1000);
       }
     }
