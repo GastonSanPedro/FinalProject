@@ -84,6 +84,8 @@ export default function ImgPost({
   authorId,
   rating,
   premium,
+  firstName,
+  lastName
 }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [overlay, setOverlay] = useState(<OverlayOne />);
@@ -260,7 +262,7 @@ export default function ImgPost({
       // }}
       >
         <HStack position={'absolute'} top={4}>
-          {site === 'profile' || site === 'anyProfile' ? null : (
+          
             <Avatar
               cursor={'pointer'}
               onClick={() => handleNavigate()}
@@ -269,11 +271,11 @@ export default function ImgPost({
               name={fullName}
               alt={'Author'}
             />
-          )}
+          
           <VStack position={'absolute'} left={'50px'} top={'3px'} w={'200px'}>
-            <Text as="b" left={0} position={'absolute'}>
-              {' '}
-              {firstname} {lastname}
+            <Text as="b" left={"0px"} textAlign={"left"} position={'absolute'} w={"300px"}>
+              {/* {site fullName} */}
+              {firstName} {lastName}
             </Text>
             <Text fontSize="sm" left={0} position={'absolute'} pt={'12px'}>
               {userName}
