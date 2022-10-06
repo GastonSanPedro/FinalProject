@@ -3,7 +3,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import { useState } from 'react';
 import UserCardAdmin from './UserCardAdmin';
 
-export default function ContainerUsersAdmin ({users, HandleBlock}) {
+export default function ContainerUsersAdmin ({users, HandleBlock, block}) {
 
     // const users =useSelector((state)=>state.users)
 
@@ -51,6 +51,7 @@ export default function ContainerUsersAdmin ({users, HandleBlock}) {
                     email={user?.email}
                     posts={user?.posts}
                     userId={user?._id}
+                    block={block}
                     />
                     </Box>
                 )} )

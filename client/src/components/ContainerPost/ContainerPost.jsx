@@ -15,10 +15,10 @@ export default function ContainerPost({
   posts,
   singlePost,
   handleDelete,
+  handleRestore,
 }) {
   const [typePost, setTypePost] = useState('img');
-  //console.log(myUser);
-  //console.log(posts.filter((post) => post.author?._id === myUser?._id));
+  
   const ref = useRef();
   const handleClickRef = () => {
     ref.current.focus();
@@ -50,14 +50,13 @@ export default function ContainerPost({
         (p) => p?.pics?.length === 0
       );
       return textPosts;
-    }
-    else if (typePost === 'img') {
-      if(arrayUserPosts(site)?.length >0 ){
-      let imagePosts = arrayUserPosts(site)?.filter(
-        (p) => p?.pics?.length >= 1
-      );
-      return imagePosts;
-    }
+    } else if (typePost === 'img') {
+      if (arrayUserPosts(site)?.length > 0) {
+        let imagePosts = arrayUserPosts(site)?.filter(
+          (p) => p?.pics?.length >= 1
+        );
+        return imagePosts;
+      }
     }
   };
 
@@ -103,7 +102,7 @@ export default function ContainerPost({
             mt={'4vh'}
             h={site === 'feed' ? '22vh' : '36vh'}
             w={site === 'feed' ? '100%' : '65%'}
-            display={'flex'}
+            display={site === 'trending' ? 'none' : 'flex'}
             backgroundColor={'white'}
             mb={site === 'profile' ? '50px' : null}
           ></Box>
@@ -121,6 +120,7 @@ export default function ContainerPost({
             email={email}
             singlePost={singlePost}
             handleDelete={handleDelete}
+            handleRestore={handleRestore}
             handleClickRef={handleClickRef}
           />
         ) : (
@@ -132,6 +132,7 @@ export default function ContainerPost({
             email={email}
             singlePost={singlePost}
             handleDelete={handleDelete}
+            handleRestore={handleRestore}
             handleClickRef={handleClickRef}
           />
         )}

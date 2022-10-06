@@ -19,6 +19,7 @@ export default function TextPostContainer({
   singlePost,
   handleClickRef,
   handleDelete,
+  handleRestore
 }) {
   //--------- Lógica InfiteScroll --------
   const [currentStart, setCurrentStart] = useState(0);
@@ -109,6 +110,7 @@ export default function TextPostContainer({
                         comments={post?.comments}
                         site={site}
                         handleDelete={handleDelete}
+                        handleRestore={handleRestore}
                         background={
                           site === 'profile' || site === 'anyProfile'
                             ? `logo.${Math.random(1, 2, 3)}`
