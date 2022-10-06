@@ -75,9 +75,9 @@ const CreatePost = ({ site, myUser, createdRef }) => {
           duration: 2000,
           isClosable: true,
         });
-        // setTimeout(function () {
-        //   dispatch(getPosts());
-        // }, 2000);
+        setTimeout(function () {
+          dispatch(getPosts());
+        }, 2000);
       }
     }
   };

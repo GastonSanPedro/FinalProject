@@ -39,4 +39,7 @@ export class CreatePostDto {
     @IsNotEmpty()
     author: Types.ObjectId
     
+    @ApiProperty()
+    @IsOptional()
+    rating: number;
 }
