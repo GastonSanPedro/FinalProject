@@ -156,6 +156,7 @@ export function createUserPost(inputPost) {
   return async function (dispatch) {
     try {
       const { data } = await axios.post('/posts', inputPost);
+      console.log({data})
       return dispatch({
         type: CREATE_USER_POST,
         payload: data,

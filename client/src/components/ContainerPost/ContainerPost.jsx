@@ -2,7 +2,7 @@ import { Flex, Button, Divider, Box } from '@chakra-ui/react';
 import CreatePost from '../CreatePost/CreatePost';
 import ImgPostContainer from '../ImgPost/ImgPostContainer';
 import TextPostContainer from '../TextPost/TextPostContainer';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import NavbarSerch from '../NavbarSearch/NavbarSearch';
 import { BsChatLeftText } from 'react-icons/bs';
 import { RiImage2Line } from 'react-icons/ri';
@@ -49,10 +49,12 @@ export default function ContainerPost({
       return textPosts;
     }
     else if (typePost === 'img') {
+      if(arrayUserPosts(site)?.length >0 ){
       let imagePosts = arrayUserPosts(site)?.filter(
         (p) => p?.pics?.length >= 1
       );
       return imagePosts;
+    }
     }
   };
 
