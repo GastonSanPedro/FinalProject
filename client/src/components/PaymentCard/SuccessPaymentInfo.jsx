@@ -30,10 +30,16 @@ export const SuccessPaymentInfo = ({ myPosts }) => {
   };
   useEffect(() => {
     const items = Bill?.items?.map((item) => {
+      //console.log(myPosts?.find((obj) => obj._id === item.title));
+      const match = myPosts?.find((obj) => obj._id === item.title);
+      console.log(match.rating);
       return {
         id: item.title,
+        rating: match?.rating,
+        value: item.unit_price,
       };
     });
+    console.log(items);
     dispatch(setPremium(items));
   }, [Bill]);
 

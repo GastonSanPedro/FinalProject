@@ -75,8 +75,8 @@ export function getMyUser(email) {
 export function getPosts() {
   return async function (dispatch) {
     try {
-      let {data} = await axios.get(`/posts/`);
-      let filtrado = data.filter(el=>el.author !== null)
+      let { data } = await axios.get(`/posts/`);
+      let filtrado = data.filter((el) => el.author !== null);
       dispatch({
         type: GET_POSTS,
         payload: filtrado,
@@ -409,7 +409,11 @@ export function setPremium(input) {
   return async function (dispatch) {
     try {
       const change = input.map(async (item) => {
-        const data = await axios.patch(`/posts/${item.id}`, { premium: true });
+        //console.log(item);
+        const data = await axios.patch(`/posts/${item.id}`, {
+          premium: true,
+          rating: item.rating + item.value,
+        });
         return data.data;
       });
       console.log(change);
@@ -432,25 +436,24 @@ export function blockRestoreUser(userId) {
   };
 }
 
-  export function deleteAccountUser(userId){
-    return async function (dispatch) {
-      try {
-        const { data } = await axios.delete(`/users/${userId}`);
-        return dispatch({
-          type: DELETE_ACCOUNT,
-          payload: { auth: false }
-        });
-      } catch (error) {
-        console.log(error);
-      }
-  }
+export function deleteAccountUser(userId) {
+  return async function (dispatch) {
+    try {
+      const { data } = await axios.delete(`/users/${userId}`);
+      return dispatch({
+        type: DELETE_ACCOUNT,
+        payload: { auth: false },
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 }
-
 
 export function getDeletedUsers() {
   return async function (dispatch) {
     try {
-      let {data} = await axios.get('/users/deleted');
+      let { data } = await axios.get('/users/deleted');
       dispatch({
         type: GET_USERS_DELETED,
         payload: data,
@@ -460,5 +463,3 @@ export function getDeletedUsers() {
     }
   };
 }
-
-
