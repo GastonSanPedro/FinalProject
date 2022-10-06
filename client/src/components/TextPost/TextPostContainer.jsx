@@ -65,7 +65,7 @@ export default function TextPostContainer({
             columns={
               site === 'profile' || site === 'anyProfile'
                 ? { base: 1, xl: 2 }
-                : { base: 1, xl: 3 }
+                : { base: 1, xl: 2 }
             }
             spacing={'10'}
             mt={2}
@@ -98,10 +98,13 @@ export default function TextPostContainer({
                         date={post?.createdAt}
                         postId={post?._id}
                         reported={post?.reported}
+                        likes={post?.likes}
                         loggedUser={myUser?._id}
                         loggedEmail={myUser?.email}
                         premium={post?.premium}
                         singlePost={singlePost}
+                        authorId={post?.author}
+                        comments={post?.comments}
                         site={site}
                         background={
                           site === 'profile' || site === 'anyProfile'

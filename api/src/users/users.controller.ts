@@ -33,6 +33,11 @@ export class UsersController {
     return this.usersService.findAll();
   }
 
+  @Get('/deleted')
+  findAllDeleted() {
+    return this.usersService.findAllDeleted();
+  }
+
   @Get(':term')
   findOne(@Param('term') term: string) {
     return this.usersService.findOne(term);

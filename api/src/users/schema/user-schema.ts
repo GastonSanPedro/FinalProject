@@ -59,6 +59,9 @@ export class User extends Document {
   @Prop()
   isDeleted: Boolean
 
+  @Prop()
+  reportedPosts: number
+
 }
 
 export const UserSchema = SchemaFactory.createForClass(User).plugin(softDeletePlugin);
