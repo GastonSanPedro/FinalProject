@@ -29,6 +29,7 @@ import {
   BLOCK_RESTORE_USER,
   DELETE_ACCOUNT,
   GET_USERS_DELETED,
+  POST_REACTION_POST,
 } from './action';
 
 const initialState = {
@@ -85,10 +86,9 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         singlePost: action.payload,
       };
-    case POST_REACTION:
+    case POST_REACTION_POST:
       return {
         ...state,
-        singlePost: action.payload,
       };
     case CLEAN_SINGLE_POST:
       return {
