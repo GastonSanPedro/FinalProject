@@ -29,10 +29,10 @@ const Profile = () => {
   // }, [dispatch, neededEmail]);
 
   useEffect(() => {
-    if (friends.length === 0) {
+    if (friends?.length === 0) {
       dispatch(getFriends(myUser?._id));
     }
-    if (myFollowers.length === 0) {
+    if (myFollowers?.length === 0) {
       dispatch(getFollowers(myUser?._id));
     }
     dispatch(getPosts());
