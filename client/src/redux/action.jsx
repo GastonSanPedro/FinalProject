@@ -101,8 +101,10 @@ export function getSinglePosts(id) {
     }
   };
 }
-export function cleanSinglePost() {
+export function cleanSinglePost(id) {
   return async function (dispatch) {
+    const info = await axios.get(`/users/${id}`);
+    console.log(info.data);
     try {
       dispatch({
         type: SINGLE_POST,

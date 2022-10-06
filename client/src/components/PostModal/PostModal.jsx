@@ -15,7 +15,12 @@ import {
   Button,
   InputGroup,
 } from '@chakra-ui/react';
-import { postComment, getMyUser, cleanSinglePost } from '../../redux/action';
+import {
+  postComment,
+  getMyUser,
+  cleanSinglePost,
+  getPosts,
+} from '../../redux/action';
 import { useDispatch } from 'react-redux';
 import { CommentBox } from './CommentBox';
 import { useNavigate } from 'react-router-dom';
@@ -45,7 +50,7 @@ export const PostModal = ({
   onClose,
   site,
 }) => {
-  console.log(loggedUser);
+  //console.log(site);
   const [overlay, setOverlay] = useState(<OverlayOne />);
   const [hide, setHide] = useState(false);
   const [Reaction, setReaction] = useState({
@@ -54,7 +59,7 @@ export const PostModal = ({
     heart: 0,
     confusedLeaf: 0,
   });
-  useEffect(() => {}, [singlePost]);
+  // useEffect(() => {}, [singlePost]);
   //console.log(singlePost);
   const [input, setInput] = useState({
     idUser: loggedUser,
@@ -77,14 +82,12 @@ export const PostModal = ({
       duration: 2000,
       isClosable: true,
     });
+    setTimeout(function () {
+      dispatch(getPosts());
+    }, 2000);
   };
   const handleClose = (e) => {
-    dispatch(cleanSinglePost());
-    setTimeout(function () {
-      dispatch(getMyUser(loggedEmail));
-      // navigate('/explore');
-      //console.log('me ejecute');
-    }, 3000);
+    dispatch(cleanSinglePost(loggedUser));
   };
   return (
     <div>

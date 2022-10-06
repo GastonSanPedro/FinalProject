@@ -14,6 +14,7 @@ import {
   MenuButton,
   VStack,
   HStack,
+  Badge,
 } from '@chakra-ui/react';
 import {
   getMyUser,
@@ -67,6 +68,7 @@ export default function ImgPost({
   handleDelete,
   comments,
   authorId,
+  premium,
 }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [overlay, setOverlay] = useState(<OverlayOne />);
@@ -79,7 +81,7 @@ export default function ImgPost({
     onOpen();
     dispatch(getSinglePosts(postId));
   };
-
+  //console.log(premium);
   const handleReport = () => {
     dispatch(reportPost(postId));
   };
@@ -108,7 +110,7 @@ export default function ImgPost({
       }
       if (site === 'profile') {
         setTimeout(function () {
-          dispatch(getMyUser(loggedEmail));
+          dispatch(getPosts());
         }, 1000);
       }
     } else if (userReaction && userReaction.type === value) {
@@ -126,7 +128,7 @@ export default function ImgPost({
       }
       if (site === 'profile') {
         setTimeout(function () {
-          dispatch(getMyUser(loggedEmail));
+          dispatch(getPosts());
         }, 1000);
       }
     } else {
@@ -146,7 +148,7 @@ export default function ImgPost({
       }
       if (site === 'profile') {
         setTimeout(function () {
-          dispatch(getMyUser(loggedEmail));
+          dispatch(getPosts());
         }, 1000);
       }
     }
@@ -176,7 +178,11 @@ export default function ImgPost({
   //   return displayText
   // }
   const handleNavigate = () => {
-    navigate(`/user/${authorId}`);
+    if (authorId._id !== loggedUser) {
+      navigate(`/user/${authorId._id}`);
+    } else {
+      navigate(`/profile`);
+    }
   };
   const heartsReactions = likes.filter((r) => r.type === 'heart');
   const sunsReactions = likes.filter((r) => r.type === 'suns');
@@ -217,6 +223,7 @@ export default function ImgPost({
         p={6}
         h={'74vh'}
         overflow={'hidden'}
+        boxShadow={premium ? '0px 1vh 2vw -1px #FBFF3A;' : null}
         // _hover={{
         //   bg: `logo.${randomNumber(1, 4)}`,
         // }}
@@ -240,6 +247,11 @@ export default function ImgPost({
             <Text fontSize="sm" left={0} position={'absolute'} pt={'12px'}>
               {userName}
             </Text>
+            {premium ? (
+              <Badge position={'absolute'} bg={'gold'} right={'-20%'}>
+                PREMIUM
+              </Badge>
+            ) : null}
           </VStack>
         </HStack>
         <Image
