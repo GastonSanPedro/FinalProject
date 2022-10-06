@@ -55,7 +55,7 @@ const Trending = () => {
           myUser={myUser}
           posts={trendingPosts}
           singlePost={singlePost}
-          site={'explore'}
+          site={'trending'}
           word
         />
       </Box>
