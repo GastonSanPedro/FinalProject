@@ -95,4 +95,15 @@ export class PostsService {
   async findAllPostOfMyFriends (id: string){
 
   }
+
+  
+  async findByRating() {
+
+    const posts = await this.postModel
+    .find()
+    .sort({rating:-1})
+    .exec();
+    if (!posts) throw new NotFoundException(`Thers no trending posts yet`);
+    return posts;
+  }
 }
