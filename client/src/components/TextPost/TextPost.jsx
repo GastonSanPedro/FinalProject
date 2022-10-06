@@ -93,6 +93,7 @@ export default function TextPost({
   site,
   authorId,
   comments,
+  handleDelete,
 }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [overlay, setOverlay] = useState(<OverlayOne />);
@@ -469,6 +470,9 @@ export default function TextPost({
           </Menu>
         </Box>
       </Flex>
+      {site === 'admin' ? (
+        <Button onClick={() => handleDelete(postId)}>Eliminar</Button>
+      ) : null}
     </>
   );
 }

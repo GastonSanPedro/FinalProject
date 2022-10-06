@@ -37,7 +37,7 @@ export default function ContainerPost({
       return posts;
     }
     if (site === 'admin') {
-      let reportedPosts = posts?.filter((post) => post.reported === true);
+      let reportedPosts = posts?.filter((post) => post?.reported === true);
       return reportedPosts;
     }
     if (site === 'trending') {
@@ -52,7 +52,7 @@ export default function ContainerPost({
       );
       return textPosts;
     }
-    if (typePost === 'img') {
+    else if (typePost === 'img') {
       let imagePosts = arrayUserPosts(site)?.filter(
         (p) => p?.pics?.length >= 1
       );
@@ -119,6 +119,7 @@ export default function ContainerPost({
             user={user}
             email={email}
             singlePost={singlePost}
+            handleDelete={handleDelete}
             handleClickRef={handleClickRef}
           />
         ) : (
