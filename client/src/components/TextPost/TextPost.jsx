@@ -348,7 +348,7 @@ export default function TextPost({
               <Button
                 size={'sm'}
                 h={30}
-                bg={'yellow.300'}
+                bg={'logo.2'}
                 icon={<BsSun />}
                 name="suns"
                 mr={'0.3vw'}
@@ -362,7 +362,7 @@ export default function TextPost({
                   setHide(true);
                 }}
                 _hover={{
-                  bg: 'yellow.200',
+                  bg: 'orange.200',
                 }}
                 _active={{
                   bg: 'white',
@@ -376,12 +376,12 @@ export default function TextPost({
                 <Button
                   size={'sm'}
                   h={30}
-                  bg={'green.500'}
+                  bg={'logo.2'}
                   mr={'0.3vw'}
                   name="happyLeaf"
                   // value={comment.likes?.happyLeaf}
                   _hover={{
-                    bg: 'logo.3',
+                    bg: 'orange.200',
                   }}
                   _active={{
                     bg: 'white',
@@ -397,12 +397,12 @@ export default function TextPost({
                 <Button
                   size={'sm'}
                   h={30}
-                  bg={'red.400'}
+                  bg={'logo.2'}
                   name="heart"
                   mr={'0.3vw'}
                   // value={comment?.likes?.heart}
                   _hover={{
-                    bg: 'red.300',
+                    bg: 'orange.200',
                   }}
                   _active={{
                     bg: 'white',
@@ -418,12 +418,12 @@ export default function TextPost({
                 <Button
                   size={'sm'}
                   h={30}
-                  bg={'blue.400'}
+                  bg={'logo.2'}
                   name="confusedLeaf"
                   // value={comment?.likes?.confusedLeaf}
                   icon={<BiShocked />}
                   _hover={{
-                    bg: 'blue.300',
+                    bg: 'orange.200',
                   }}
                   _active={{
                     bg: 'white',
@@ -445,13 +445,13 @@ export default function TextPost({
             ml={'-37%'}
             top={'80.1%'}
             size={'sm'}
-            bg={'gray.300'}
+            bg={'logo.1'}
             h={30}
             onClick={() => {
               handleClick();
             }}
             _hover={{
-              bg: 'gray.200',
+              bg: 'logo.3',
             }}
             _active={{
               bg: 'white',
@@ -471,10 +471,10 @@ export default function TextPost({
               top={'80.1%'}
               siz={'lg'}
               h={30}
-              bg={'gray.200'}
+              bg={'logo.1'}
               icon={<FiMoreVertical />}
               _hover={{
-                bg: 'white',
+                bg: 'logo.3', 
               }}
               _active={{
                 bg: 'white',
