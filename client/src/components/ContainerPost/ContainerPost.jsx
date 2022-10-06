@@ -78,7 +78,7 @@ export default function ContainerPost({
       >
         {site === 'search' ||
           site === 'admin' ||
-          site === 'explore' ? null : site === 'feed' || site === 'profile' ? (
+          site === 'explore' ? null : site === 'feed' ? (
             <CreatePost
               site={site}
               email={email}
@@ -86,7 +86,7 @@ export default function ContainerPost({
               createdRef={ref}
             />
           ) : (
-            <ProfileFeed site={site} user={user} myUser={myUser}/>
+            <ProfileFeed site={site} user={site === 'profile' ? myUser : user} myUser={myUser}/>
         )}
         {site === 'explore' ? null : <Divider />}
 

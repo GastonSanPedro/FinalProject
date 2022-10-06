@@ -214,6 +214,7 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         usersDeleted: action.payload
       }
+
     default:
       return state;
   }

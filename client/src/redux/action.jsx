@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { IoReturnDownBackSharp, IoReturnDownForwardOutline } from 'react-icons/io5';
 export const GET_USERS = 'GET_USERS';
 export const GET_USER = 'GET_USER';
 export const GET_POSTS = 'GET_POSTS';
@@ -455,13 +456,25 @@ export function getDeletedUsers() {
     }
   };
 }
-export function postComentWall(body, id){
+export function postComentWall(body, id, site){
   return async function(dispatch){
     try{
       let info = await axios.patch(`users/wall/${id}`, body)
-      return dispatch({
-        type: POST_COMMENT_WALL,
-      })
+      
+      if(site === 'profile'){
+        let {data} = await axios.get(`/users/${id}`);
+        return dispatch({
+          type: GET_MY_USER,
+          payload: data,
+        });
+      }
+      if(site === 'anyProfile'){
+      let {data} = await axios.get(`/users/${id}`);
+       return dispatch({
+          type: GET_USER,
+          payload: data,
+        });
+      }
     }catch(error){
       console.log(error)
     }

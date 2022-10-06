@@ -1,8 +1,29 @@
-import { Box, Flex, Avatar, Text, Input, Button } from "@chakra-ui/react";
+import { Box, Flex, Avatar, Text, Input, Button, HStack } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
+import ModalFeed from "./ModalFeed";
+import ProfileFeedComent from "./ProfileFeedComent";
+import {RiMailSendLine} from 'react-icons/ri';
+import { useDispatch } from "react-redux";
+import { useState } from 'react';
+import { postComentWall } from "../../redux/action";
 
-const ProfileFeed = ({myUser, user}) => {
+const ProfileFeed = ({myUser, user, site}) => {
+
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const [input, setInput] = useState('')
+
+  const handleChange = (e) => { 
+    setInput(
+      e.target.value
+    )}
+
+
+  const handleSubmit = ()=> {
+    dispatch(postComentWall({description: input, author: myUser._id}, user._id, site))
+    setInput('')
+  }
+  const preview = user?.wall?.slice(0,4)
   return(
     <>
       <Box
@@ -48,12 +69,53 @@ const ProfileFeed = ({myUser, user}) => {
         </Flex>
         <Box>
         <Input
+          onChange={(e)=>handleChange(e)}
           ml={'2%'}
           variant={'flushed'}
-          w={'80%'}
+          w={'75%'}
+          value={input}
         />
         
-        <Button>Post</Button>
+        <Button
+        onClick={()=>handleSubmit()}
+        w={'10vh'}
+        alignContent={'baseline'}
+        variant={'unstyled'}
+        fontWeight={'normal'}
+        rightIcon={<RiMailSendLine/>}
+        _hover={{
+          bg: 'logo.2',
+          color: 'white'
+        }}
+        >Post</Button>
+        </Box>
+        <HStack
+        spacing={2}
+        display={'flex'} 
+        flexDir={'column'} 
+        mt={'2vh'} 
+        mr={'4vh'}
+        w={'95%'} 
+        maxH={'30vh'} minH={'30vh'} >
+          
+          {
+           preview?.map((post, i) =>{
+              return(
+                <Box ml={i === 0? '1.3%' : null} w={'100%'} key={i}>
+                <ProfileFeedComent
+                  description={post.description}
+                  firstName={post.author.firstName}
+                  lastName={post.author.lastName}
+                  avatar={post.author.image}
+                   />
+                </Box>
+              )
+            })
+          }
+          
+        </HStack>
+        <Box w={'100%'}>
+        <ModalFeed user={user}/>
         </Box>
         </Flex>
         
