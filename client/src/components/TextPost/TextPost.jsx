@@ -222,6 +222,7 @@ export default function TextPost({
         description={description}
         image={image}
         onOpen={onOpen}
+        rating={rating}
         onClose={onClose}
         isOpen={isOpen}
         loggedUser={loggedUser}
