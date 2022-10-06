@@ -75,7 +75,9 @@ export class CreateUserDto {
   @IsOptional()
   followers?: User[];
 
-  // @ApiProperty()
-  // @IsNotEmpty()
-  // isDeleted: Boolean
+  @ApiProperty()
+  @IsOptional()
+  reportedPosts: number
+
+
 }
