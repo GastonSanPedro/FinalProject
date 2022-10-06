@@ -413,11 +413,12 @@ export function setPremium(input) {
   return async function (dispatch) {
     try {
       const change = input.map(async (item) => {
-        //console.log(item);
+        console.log(input);
         const data = await axios.patch(`/posts/${item.id}`, {
           premium: true,
           rating: item.rating + item.value,
         });
+        console.log(data);
         return data.data;
       });
       console.log(change);

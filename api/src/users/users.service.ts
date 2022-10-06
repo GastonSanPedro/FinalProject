@@ -61,6 +61,7 @@ export class UsersService {
           userFinded = await this.userModel
           .findOne({email : term})
           .populate({ path: 'friends.idFriend' })
+          .populate({ path: 'wall.author'})
           .exec()
         }
 
@@ -70,6 +71,7 @@ export class UsersService {
           userFinded =  await this.userModel
           .findById(term)
           .populate({ path: 'friends.idFriend'})
+          .populate({ path: 'wall.author'})
           .exec()
         }
 
@@ -79,6 +81,7 @@ export class UsersService {
           userFinded =  await this.userModel
           .findOne({userName: term})
           .populate({ path: 'friends.idFriend'})
+          .populate({ path: 'wall.author'})
           .exec()
         }
         //Si no encontro nada arroja error
@@ -140,14 +143,14 @@ export class UsersService {
   async addCommentWall(idUserWall: string, wallCommentDto: AddWallCommentDto) {
     wallCommentDto.createdAt = Date.now()
 
-    if(isValidObjectId(idUserWall) && isValidObjectId(wallCommentDto.author)){
-    const userWall: any = await this.userModel.findById(idUserWall)
-    const myUser: User = await this.userModel.findById(wallCommentDto.author)
+ 
+    const userWall: any = await this.findOne(idUserWall.toString())
+    const myUser: User = await this.findOne(wallCommentDto.author.toString())
 
-      if(!userWall || !wallCommentDto.author) throw new NotFoundException('User not Found ')
+      if(!userWall || !myUser) throw new NotFoundException('User not Found ')
       userWall.wall.push(wallCommentDto)
       userWall.save()
-    }
+    
     console.log(idUserWall)
   }
 

@@ -20,6 +20,8 @@ import {
   postReaction,
   cleanSinglePost,
   getPosts,
+  getTrendingPosts,
+  getFriendsPosts,
 } from '../../redux/action';
 import { useDispatch } from 'react-redux';
 import { CommentBox } from './CommentBox';
@@ -76,9 +78,21 @@ export const PostModal = ({
       duration: 2000,
       isClosable: true,
     });
-    setTimeout(function () {
-      dispatch(getPosts());
-    }, 2000);
+    if (site === 'profile' || site === 'explore') {
+      setTimeout(function () {
+        dispatch(getPosts());
+      }, 2000);
+    }
+    if (site === 'trending') {
+      setTimeout(function () {
+        dispatch(getTrendingPosts());
+      }, 2000);
+    }
+    if (site === 'feed') {
+      setTimeout(function () {
+        dispatch(getFriendsPosts(loggedUser));
+      }, 2000);
+    }
   };
   const handleClose = (e) => {
     dispatch(cleanSinglePost(loggedUser));
