@@ -14,6 +14,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './schema/user-schema';
 import { UsersService } from './users.service';
 import { usersDB } from '../seed/users';
+import { AddWallCommentDto } from './dto/add-wallcomment.dto';
 
 
 @ApiTags('Users')
@@ -42,6 +43,11 @@ export class UsersController {
   findOne(@Param('term') term: string) {
     return this.usersService.findOne(term);
   }
+
+  @Get('/restoreUser/:id')
+  restaured(@Param('id') id: string) {
+    return this.usersService.restaured(id);
+  }
   @Get('/name/:term')
    findByName(@Param('term') term: string) {
   
@@ -53,11 +59,15 @@ export class UsersController {
     return this.usersService.update(term, updateUserDto);
   }
 
+  @Patch('/wall/:idUserWall')
+  addCommentWall(@Param('idUserWall') idUserWall: string, @Body() wallCommentDto: AddWallCommentDto) {
+    return this.usersService.addCommentWall(idUserWall, wallCommentDto);
+  }
+
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.usersService.remove(id)
   }
 
-  
 
 }
