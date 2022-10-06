@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { IoReturnDownBackSharp, IoReturnDownForwardOutline } from 'react-icons/io5';
 export const GET_USERS = 'GET_USERS';
 export const GET_USER = 'GET_USER';
 export const GET_POSTS = 'GET_POSTS';
@@ -30,6 +31,7 @@ export const SET_PREMIUM = 'SET_PREMIUM';
 export const BLOCK_USER = 'BLOCK_USER';
 export const DELETE_ACCOUNT = 'DELETE_ACCOUNT';
 export const GET_USERS_DELETED = 'GET_USERS_DELETED';
+export const POST_COMMENT_WALL = 'POST_COMMENT_WAL';
 export const TRENDING_POSTS = 'TRENDING_POSTS';
 export const RESTORE_POST = "RESTORE_POST";
 export const CLEAN_SEARCHFRIEND = 'CLEAN_SEARCHFRIEND'
@@ -156,7 +158,8 @@ export function postReaction(payload, idPost, idComment, idUser) {
     }
   };
 }
-export function createUserPost(inputPost) {
+export function createUserPost(inputPost, id) {
+  
   return async function (dispatch) {
     try {
       const { data } = await axios.post('/posts', inputPost);
@@ -319,7 +322,7 @@ export const addFriend = (myUserid, anyUserId) => {
       console.log(error);
     }
   };
-};
+}
 export const getFriends = (myId) => {
   return async function (dispatch) {
     let { data } = await axios.get(`/friends/${myId}`);
@@ -328,7 +331,7 @@ export const getFriends = (myId) => {
       payload: data,
     });
   };
-};
+}
 export const getFollowers = (id) => {
   return async function (dispatch) {
     let { data } = await axios.get(`/friends/followers/${id}`);
@@ -348,11 +351,8 @@ export const searchFriends = (myUserId, input) => {
       payload: data,
     });
   };
-};
+}
 export const deleteFriend = (myUserid, idFriend) => {
-  // const ids = {
-  //   idFriend: anyUserId,
-  //   };
 
   return async function (dispatch) {
     try {
@@ -374,7 +374,7 @@ export const deleteFriend = (myUserid, idFriend) => {
       console.log(error);
     }
   };
-};
+}
 export const getFriendsPosts = (myId) => {
   return async function (dispatch) {
     const { data } = await axios.get(`/friends/posts/${myId}`);
@@ -383,7 +383,7 @@ export const getFriendsPosts = (myId) => {
       payload: data,
     });
   };
-};
+}
 export function reportPost(id) {
   return async function (dispatch) {
     try {
@@ -408,7 +408,6 @@ export function deletePost(id) {
     }
   };
 }
-
 export function createPayment(id, info) {
   return async function (dispatch) {
     try {
@@ -483,6 +482,31 @@ export function getDeletedUsers() {
     }
   };
 }
+export function postComentWall(body, id, site){
+  return async function(dispatch){
+    try{
+      let info = await axios.patch(`users/wall/${id}`, body)
+      
+      if(site === 'profile'){
+        let {data} = await axios.get(`/users/${id}`);
+        return dispatch({
+          type: GET_MY_USER,
+          payload: data,
+        });
+      }
+      if(site === 'anyProfile'){
+      let {data} = await axios.get(`/users/${id}`);
+       return dispatch({
+          type: GET_USER,
+          payload: data,
+        });
+      }
+    }catch(error){
+      console.log(error)
+    }
+  } 
+}
+
 
 export function getTrendingPosts() {
   return async function (dispatch) {

@@ -295,11 +295,6 @@ export default function ImgPost({
           src={image}
           border="1px"
           borderColor="gray.200"
-          // h={'210px'}
-          // pt={5}
-          // pl={10}
-          // mx={-6}
-          // mb={6}
           pos={'relative'}
           layout={'cover'}
           objectFit={'cover'}
@@ -329,9 +324,6 @@ export default function ImgPost({
                 icon={<BsSun />}
                 name="suns"
                 mr={'0.3vw'}
-                // value={
-                //   comment.likes?.length === 0 ? 0 : Number(comment.likes[0]?.suns)
-                // }
                 onClick={(e) => {
                   handleClickReaction(e, 'suns');
                 }}
@@ -356,7 +348,6 @@ export default function ImgPost({
                   bg={'logo.2'}
                   mr={'0.3vw'}
                   name="happyLeaf"
-                  // value={comment.likes?.happyLeaf}
                   _hover={{
                     bg: 'orange.200',
                   }}

@@ -22,7 +22,7 @@ const CreatePost = ({ site, myUser, createdRef }) => {
   const [TypePost, setTypePost] = useState('text');
   const dispatch = useDispatch();
   const toast = useToast();
-  const posts = useSelector(state=> state.posts)
+  const posts = useSelector((state) => state.posts);
   const handleInputChange = (event) => {
     setInput({ ...input, [event.target.name]: event.target.value });
   };
@@ -39,20 +39,20 @@ const CreatePost = ({ site, myUser, createdRef }) => {
         });
       } else {
         const inputPost = { author: myUser._id, ...input };
-        dispatch(createUserPost(inputPost));
+        dispatch(createUserPost(inputPost, myUser._id));
         setInput({
           description: '',
           pics: '',
         });
         toast({
-          title: 'Sucess',
+          title: 'Success',
           description: 'Post created successfully',
           status: 'success',
           duration: 2000,
           isClosable: true,
         });
         setTimeout(() => {
-          dispatch(getPosts())
+          dispatch(getPosts());
         }, 500);
       }
     } else {
@@ -72,21 +72,18 @@ const CreatePost = ({ site, myUser, createdRef }) => {
           pics: '',
         });
         toast({
-          title: 'Sucess',
+          title: 'Success',
           description: 'Post created successfully',
           status: 'success',
           duration: 2000,
           isClosable: true,
         });
         setTimeout(() => {
-          dispatch(getPosts())
+          dispatch(getPosts());
         }, 500);
       }
     }
   };
-
-  
-
 
   const handleInputImage = (event) => {
     const closeWidget = () => {
@@ -121,7 +118,7 @@ const CreatePost = ({ site, myUser, createdRef }) => {
         h={site === 'feed' ? '22vh' : '36vh'}
         w={site === 'feed' ? '100%' : '65%'}
         display={'flex'}
-        backgroundColor={'withe'}
+        backgroundColor={'white'}
         mb={site === 'profile' ? '50px' : null}
       >
         {site === 'feed' ? (
@@ -189,10 +186,13 @@ const CreatePost = ({ site, myUser, createdRef }) => {
             mt={site === 'feed' ? 0 : '10px'}
           >
             <Button
-              colorScheme={'gray'}
+              bg={'logo.1'}
               mt={site === 'profile' ? '10vh' : 2}
               onClick={(e) => {
                 handleSubmit(input);
+              }}
+              _hover={{
+                bg: 'logo.3',
               }}
             >
               Post
@@ -209,6 +209,9 @@ const CreatePost = ({ site, myUser, createdRef }) => {
                   className="cloudinary-button"
                   onClick={(e) => {
                     handleInputImage();
+                  }}
+                  _hover={{
+                    bg: 'logo.2',
                   }}
                 >
                   Upload

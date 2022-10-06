@@ -53,7 +53,6 @@ export const PostModal = ({
   onClose,
   site,
 }) => {
-  //console.log(site);
   const [overlay, setOverlay] = useState(<OverlayOne />);
   const [input, setInput] = useState({
     idUser: loggedUser,
@@ -72,7 +71,7 @@ export const PostModal = ({
     dispatch(postReaction({ rating: rating + 1 }, postId, null));
     setInput({ idUser: loggedUser, idPost: postId, description: '' });
     toast({
-      title: 'Sucess',
+      title: 'Success',
       description: 'Comment added successfully',
       status: 'success',
       duration: 2000,

@@ -43,7 +43,7 @@ export const CommentBox = ({ comment, formatedDate, loggedUser, postId }) => {
     dispatch(postComment(input, postId));
     setInput({ idUser: loggedUser, idPost: postId, description: '' });
     toast({
-      title: 'Sucess',
+      title: 'Success',
       description: 'Comment added successfully',
       status: 'success',
       duration: 2000,

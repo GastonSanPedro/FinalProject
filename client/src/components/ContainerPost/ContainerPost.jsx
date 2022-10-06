@@ -5,7 +5,8 @@ import TextPostContainer from '../TextPost/TextPostContainer';
 import { useState, useRef, useEffect } from 'react';
 import NavbarSerch from '../NavbarSearch/NavbarSearch';
 import { BsChatLeftText } from 'react-icons/bs';
-import { RiImage2Line } from 'react-icons/ri';
+import { RiImage2Line } from 'react-icons/ri'
+import ProfileFeed from '../ProfileFeed/ProfileFeed';
 
 export default function ContainerPost({
   site,
@@ -18,7 +19,6 @@ export default function ContainerPost({
   handleRestore,
 }) {
   const [typePost, setTypePost] = useState('img');
-  
   const ref = useRef();
   const handleClickRef = () => {
     ref.current.focus();
@@ -46,9 +46,7 @@ export default function ContainerPost({
   };
   const typePosts = (typePost) => {
     if (typePost === 'text') {
-      let textPosts = arrayUserPosts(site)?.filter(
-        (p) => p?.pics?.length === 0
-      );
+      let textPosts = arrayUserPosts(site)?.filter((p) => p?.pics?.length === 0 );
       return textPosts;
     } else if (typePost === 'img') {
       if (arrayUserPosts(site)?.length > 0) {
@@ -79,33 +77,25 @@ export default function ContainerPost({
   return (
     <>
       <Flex
-        pl={'0%'}
         textAlign={'center'}
         justifyContent={'center'}
         direction={'column'}
         borderRadius={2}
-        mt={site === 'feed' ? '0vh' : '4vh'}
+        mt={site === 'feed' ? '0vh' : '4.1vh'}
       >
         {site === 'search' ||
-        site === 'admin' ||
-        site === 'explore' ? null : site === 'feed' || site === 'profile' ? (
-          <CreatePost
-            site={site}
-            email={email}
-            myUser={myUser}
-            createdRef={ref}
-          />
-        ) : (
-          <Box
-            p={3}
-            m={3}
-            mt={'4vh'}
-            h={site === 'feed' ? '22vh' : '36vh'}
-            w={site === 'feed' ? '100%' : '65%'}
-            display={site === 'trending' ? 'none' : 'flex'}
-            backgroundColor={'white'}
-            mb={site === 'profile' ? '50px' : null}
-          ></Box>
+          site === 'admin' ||
+          site === 'explore'||
+          site === 'trending'
+           ? null : site === 'feed' ? (
+            <CreatePost
+              site={site}
+              email={email}
+              myUser={myUser}
+              createdRef={ref}
+            />
+          ) : (
+            <ProfileFeed site={site} user={site === 'profile' ? myUser : user} myUser={myUser}/>
         )}
         {site === 'explore' ? null : <Divider />}
 
