@@ -32,6 +32,8 @@ export const BLOCK_RESTORE_USER = 'BLOCK_RESTORE_USER';
 export const DELETE_ACCOUNT = 'DELETE_ACCOUNT';
 export const GET_USERS_DELETED = 'GET_USERS_DELETED';
 export const POST_COMMENT_WALL = 'POST_COMMENT_WAL';
+export const TRENDING_POSTS = 'TRENDING_POSTS';
+export const RESTORE_POST = "RESTORE_POST";
 
 export function getUsers() {
   return async function (dispatch) {
@@ -50,10 +52,11 @@ export function getUsers() {
 export function getUser(email) {
   return async function (dispatch) {
     try {
-      let info = await axios.get(`/users/${email}`);
+      let {data} = await axios.get(`/users/${email}`);
+      console.log(data, "getUser")
       dispatch({
         type: GET_USER,
-        payload: info.data,
+        payload: data,
       });
     } catch (error) {
       console.log(error);
@@ -64,7 +67,6 @@ export function getMyUser(email) {
   return async function (dispatch) {
     try {
       let info = await axios.get(`/users/${email}`);
-
       dispatch({
         type: GET_MY_USER,
         payload: info.data,
@@ -77,8 +79,8 @@ export function getMyUser(email) {
 export function getPosts() {
   return async function (dispatch) {
     try {
-      let {data} = await axios.get(`/posts/`);
-      let filtrado = data.filter(el=>el.author !== null)
+      let { data } = await axios.get(`/posts/`);
+      let filtrado = data.filter((el) => el.author !== null);
       dispatch({
         type: GET_POSTS,
         payload: filtrado,
@@ -159,6 +161,7 @@ export function createUserPost(inputPost, id) {
   return async function (dispatch) {
     try {
       const { data } = await axios.post('/posts', inputPost);
+      console.log({data})
       return dispatch({
         type: CREATE_USER_POST,
         payload: data,
@@ -300,11 +303,18 @@ export const addFriend = (myUserid, anyUserId) => {
   return async function (dispatch) {
     try {
       let info = await axios.post(`/friends/`, ids);
-      let { data } = await axios.get(`/friends/${myUserid}`);
-
+      let friendsUser = await axios.get(`/friends/${myUserid}`);
+      let anyUserWithoutFriend = await axios.get(`/users/${anyUserId}`)
+      let myUser = await axios.get(`/users/${myUserid}`)
+      console.log({anyUserWithoutFriend})
+      console.log({friendsUser})
       return dispatch({
         type: ADD_FRIEND,
-        payload: data,
+        payload: {
+          friendsUser: friendsUser.data,
+          anyUserWithoutFriend: anyUserWithoutFriend.data,
+          myUser: myUser.data
+        },
       });
     } catch (error) {
       console.log(error);
@@ -323,6 +333,7 @@ export const getFriends = (myId) => {
 export const getFollowers = (id) => {
   return async function (dispatch) {
     let { data } = await axios.get(`/friends/followers/${id}`);
+    
     return dispatch({
       type: GET_FOLLOWERS,
       payload: data,
@@ -346,11 +357,18 @@ export const deleteFriend = (myUserid, idFriend) => {
   return async function (dispatch) {
     try {
       let info = await axios.delete(`/friends/${myUserid}/${idFriend}`);
-      let { data } = await axios.get(`/friends/${myUserid}`);
-
+      let friendsUser = await axios.get(`/friends/${myUserid}`);
+      let anyUserWithNewFriend = await axios.get(`/users/${idFriend}`)
+      let myUser = await axios.get(`/users/${myUserid}`)
+      console.log(friendsUser.data)
+      console.log(anyUserWithNewFriend.data)
       return dispatch({
         type: DELETE_FRIENDS,
-        payload: data
+        payload: {
+          friendsUser: friendsUser.data,
+          anyUserWithNewFriend: anyUserWithNewFriend.data,
+          myUser: myUser.data
+        },
       });
     } catch (error) {
       console.log(error);
@@ -409,7 +427,12 @@ export function setPremium(input) {
   return async function (dispatch) {
     try {
       const change = input.map(async (item) => {
-        const data = await axios.patch(`/posts/${item.id}`, { premium: true });
+        console.log(input);
+        const data = await axios.patch(`/posts/${item.id}`, {
+          premium: true,
+          rating: item.rating + item.value,
+        });
+        console.log(data);
         return data.data;
       });
       console.log(change);
@@ -430,23 +453,25 @@ export function blockRestoreUser(userId) {
     }
   };
 }
-export function deleteAccountUser(userId){
-    return async function (dispatch) {
-      try {
-        const { data } = await axios.delete(`/users/${userId}`);
-        return dispatch({
-          type: DELETE_ACCOUNT,
-          payload: { auth: false }
-        });
-      } catch (error) {
-        console.log(error);
-      }
-  }
+
+export function deleteAccountUser(userId) {
+  return async function (dispatch) {
+    try {
+      const { data } = await axios.delete(`/users/${userId}`);
+      return dispatch({
+        type: DELETE_ACCOUNT,
+        payload: { auth: false },
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 }
+
 export function getDeletedUsers() {
   return async function (dispatch) {
     try {
-      let {data} = await axios.get('/users/deleted');
+      let { data } = await axios.get('/users/deleted');
       dispatch({
         type: GET_USERS_DELETED,
         payload: data,
@@ -482,4 +507,29 @@ export function postComentWall(body, id, site){
 }
 
 
+export function getTrendingPosts() {
+  return async function (dispatch) {
+    try {
+      let info = await axios.get('/posts/trending');
+      dispatch({
+        type: TRENDING_POSTS,
+        payload: info.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
 
+export function restoretPost(id) {
+  return async function (dispatch) {
+    try {
+      await axios.patch(`/posts/${id}`, { reported: false });
+      return dispatch({
+        type: RESTORE_POST,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}

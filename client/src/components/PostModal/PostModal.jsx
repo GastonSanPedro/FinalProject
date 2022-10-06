@@ -17,9 +17,11 @@ import {
 } from '@chakra-ui/react';
 import {
   postComment,
-  getMyUser,
+  postReaction,
   cleanSinglePost,
   getPosts,
+  getTrendingPosts,
+  getFriendsPosts,
 } from '../../redux/action';
 import { useDispatch } from 'react-redux';
 import { CommentBox } from './CommentBox';
@@ -46,23 +48,18 @@ export const PostModal = ({
   loggedUser,
   postId,
   isOpen,
+  onOpen,
+  rating,
   onClose,
   site,
 }) => {
   const [overlay, setOverlay] = useState(<OverlayOne />);
-  const [hide, setHide] = useState(false);
-  const [Reaction, setReaction] = useState({
-    suns: 0,
-    happyLeaf: 0,
-    heart: 0,
-    confusedLeaf: 0,
-  });
-  useEffect(() => {}, [singlePost]);
   const [input, setInput] = useState({
     idUser: loggedUser,
     idPost: postId,
     description: '',
   });
+  console.log(rating);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const toast = useToast();
@@ -71,6 +68,7 @@ export const PostModal = ({
   };
   const handleSubmit = (e) => {
     dispatch(postComment(input, postId));
+    dispatch(postReaction({ rating: rating + 1 }, postId, null));
     setInput({ idUser: loggedUser, idPost: postId, description: '' });
     toast({
       title: 'Sucess',
@@ -79,9 +77,21 @@ export const PostModal = ({
       duration: 2000,
       isClosable: true,
     });
-    setTimeout(function () {
-      dispatch(getPosts());
-    }, 2000);
+    if (site === 'profile' || site === 'explore') {
+      setTimeout(function () {
+        dispatch(getPosts());
+      }, 2000);
+    }
+    if (site === 'trending') {
+      setTimeout(function () {
+        dispatch(getTrendingPosts());
+      }, 2000);
+    }
+    if (site === 'feed') {
+      setTimeout(function () {
+        dispatch(getFriendsPosts(loggedUser));
+      }, 2000);
+    }
   };
   const handleClose = (e) => {
     dispatch(cleanSinglePost(loggedUser));

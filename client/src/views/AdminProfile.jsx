@@ -1,29 +1,37 @@
 import {
     Box,
-    Heading,
     HStack,
     VStack,
-    Text,
-    Center,
-    StatGroup,
     Stat,
     StatLabel,
     StatNumber,
-    StatHelpText,
-    StatArrow,
     Accordion,
     AccordionItem,
     AccordionButton,
     AccordionIcon,
-    AccordionPanel
+    AccordionPanel,
+    Icon,
+    Input,
+    Button,
+    RadioGroup,
+    Radio
 } from '@chakra-ui/react';
 import '../index.css';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getPosts, deletePost } from '../redux/action';
+import { getPosts, deletePost, getDeletedUsers, } from '../redux/action';
 import SidebarWithHeader from '../components/Sidebar-Navbar/SideBar';
-import UserStats from '../components/Stats/UsersStats';
 import ContainerPost from '../components/ContainerPost/ContainerPost';
+import { FiUsers } from "react-icons/fi";
+import { BsFilePost } from "react-icons/bs";
+import { AiTwotonePlusCircle } from "react-icons/ai"
+import ContainerUsersAdmin from '../components/AdminAssets/ContainerUsersAdmin';
+import { useState } from 'react';
+import { blockRestoreUser } from '../redux/action';
+import PostStats from '../components/Stats/PostStats';
+import UserStats from '../components/Stats/UsersStats';
+import { restoretPost } from '../redux/action';
+
 
 const AdminProfile = () => {
 
@@ -31,81 +39,127 @@ const AdminProfile = () => {
 
     const posts = useSelector((state) => state.posts);
     const myUser = useSelector((state) => state.myUser);
-    const friends= useSelector((state) => state.friends);
+    const friends = useSelector((state) => state.friends);
     const myFollowers = useSelector((state) => state.followers)
+    const users = useSelector((state) => state.users)
+    const deletedUsers = useSelector((state) => state.deletedUsers)
+
+    const [block, setBlock] = useState('Blocked users')
+
+    console.log({ users })
 
     // useEffect(() => {
-    //     dispatch(getPosts());
-    // }, [posts]);
+    //     if (deletedUsers?.length === 0) { dispatch(getDeletedUsers()) }
+    // }, [dispatch])
+
+    // useEffect(() => {
+    //     if (posts?.length === 0) { dispatch(getPosts()); }
+    // }, [posts])
+
+    useEffect(() => {
+        // if (deletedUsers?.length === 0) { dispatch(getDeletedUsers()) }
+        dispatch(getDeletedUsers())
+        if (posts?.length === 0) { dispatch(getPosts()); }
+    }, [])
 
     const handleDelete = (id) => {
         dispatch(deletePost(id))
     }
 
+    const handleRestore = (id) => {
+        dispatch(restoretPost(id))
+    }
+
+
+    const HandleBlock = (userId) => {
+        dispatch(blockRestoreUser(userId))
+        dispatch(getDeletedUsers())
+
+        
+
+    }
+
     return (
         <>
             <SidebarWithHeader myUser={myUser} friends={friends} myFollowers={myFollowers} />
+            <HStack position={"absolute"}
+                top={"110px"}
+                left={"20%"}
+                w={"75%"}
+                spacing={"30px"}>
+                <Box
+                    h={"230px"}
+                    w={"100%"}
+                    border={"1px"}
+                    borderColor={"gray.200"}
+                >
+                    <HStack left={"20px"} top={"20px"} position={"relative"}>
+                        <Icon
+                            color={`logo.2`}
+                            as={FiUsers}
+                            w={"70px"}
+                            h={"70px"} />
 
+                        <Stat position={"relative"} left={"10px"}>
+                            <StatLabel fontSize={"4xl"}>Users</StatLabel>
+                            <StatNumber>{users?.length}</StatNumber>
+                        </Stat>
 
-            <Box pos="absolute" mt="8%" ml="20%" bg={'rgba(229, 191, 124, 0.2)'} h="auto" w='75%'>
-                <Box>
-                    <HStack>
-                        <UserStats />
-                        <Box pt="0px" mt="0px">
-                            <Center pt="0px" mt="0px" >
-                                <VStack ml="200px" >
-                                    <Heading pt="0px" mt="0px" >Premium post stats</Heading>
-                                    <Box>
-                                        <Text >Plan de 3 días</Text>
-                                        <Text>Plan de 1 semana</Text>
-                                        <Text>Plan de 1 mes</Text>
-                                    </Box>
-                                </VStack>
-                            </Center>
-                        </Box>
                     </HStack>
+                    <Box h={"200px"} position={"absolute"} top={"-15%"} left={"20.5%"}>
+                        <UserStats
+
+                        />
+                    </Box>
                 </Box>
-            </Box>
+
+
+                <Box
+                    h={"230px"}
+                    w={"100%"}
+                    border={"1px"}
+                    borderColor={"gray.200"}
+                >
+                    <HStack left={"20px"} top={"20px"} position={"relative"}>
+                        <Icon
+                            color={`logo.3`}
+                            as={BsFilePost}
+                            w={"70px"}
+                            h={"70px"}
+                        />
+
+                        <Stat position={"relative"} left={"10px"}>
+                            <StatLabel fontSize={"4xl"}>Posts</StatLabel>
+                            <StatNumber>{posts?.length}</StatNumber>
+                        </Stat>
+                    </HStack>
+                    <Box h={"200px"} position={"absolute"} top={"-15%"} right={"2%"}>
+                        <PostStats />
+                    </Box>
+                </Box>
+
+
+            </HStack>
+
+
+            <Box pos="absolute" mt="25%" ml="20%" h="auto" w='75%'>
 
 
 
-            <Box pos="absolute" mt="30%" ml="20%" bg={'rgba(229, 191, 124, 0.2)'} h="auto" w='75%'>
-                <StatGroup>
-                    <Stat>
-                        <StatLabel>New Users</StatLabel>
-                        <StatNumber>28</StatNumber>
-                        <StatHelpText>
-                            <StatArrow type='increase' />
-                            32%
-                        </StatHelpText>
-                    </Stat>
-                    <Stat>
-                        <StatLabel>Coments </StatLabel>
-                        <StatNumber>875</StatNumber>
-                        <StatHelpText>
-                            <StatArrow type='increase' />
-                            120.58%
-                        </StatHelpText>
-                    </Stat>
-                    <Stat>
-                        <StatLabel>Likes</StatLabel>
-                        <StatNumber>2687</StatNumber>
-                        <StatHelpText>
-                            <StatArrow type='increase' />
-                            26.8%
-                        </StatHelpText>
-                    </Stat>
-                </StatGroup>
+                <Accordion allowMultiple >
 
-            </Box>
-            <Box pos="absolute" mt="40%" ml="20%" bg={'rgba(229, 191, 124, 0.2)'} h="auto" w='75%'>
-                <Accordion defaultIndex={[1]} allowMultiple>
-                    <AccordionItem>
+
+
+
+                    <AccordionItem bg={"gray.50"}>
                         <h2>
                             <AccordionButton>
-                                <Box flex='1' textAlign='left'>
-                                    Posteos reportados
+
+                                <Box flex='1' textAlign='left' >
+                                    Reported Posts
                                 </Box>
+                                {/* {posts.length > 0 ?
+                                    <AiTwotonePlusCircle color='red'/> : null} */}
                                 <AccordionIcon />
                             </AccordionButton>
                         </h2>
@@ -115,11 +169,48 @@ const AdminProfile = () => {
                                 posts={posts}
                                 site="admin"
                                 handleDelete={handleDelete}
+                                handleRestore={handleRestore}
                             />
                         </AccordionPanel>
                     </AccordionItem>
 
+
+
+
+                    <AccordionItem bg={"gray.50"}>
+                        <h2>
+                            <AccordionButton>
+                                <Box flex='1' textAlign='left'>
+                                    Block/Restore Users
+                                </Box>
+                                <AccordionIcon />
+                            </AccordionButton>
+                        </h2>
+                        <AccordionPanel pb={4}>
+                            <HStack>
+
+                                <RadioGroup onChange={setBlock} value={block}>
+                                    <HStack direction="row">
+                                        <Radio value='Blocked users'>Blocked users</Radio>
+                                        <Radio value='All users'>Users in good standing</Radio>
+                                    </HStack>
+                                </RadioGroup>
+
+                            </HStack>
+                            <ContainerUsersAdmin
+                                HandleBlock={HandleBlock}
+                                users={block === 'All users' ? users : deletedUsers}
+                                block={block}
+
+                            />
+                        </AccordionPanel>
+                    </AccordionItem>
+
+
+
                 </Accordion>
+
+
             </Box>
         </>
     );

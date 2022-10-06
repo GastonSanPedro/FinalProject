@@ -2,7 +2,7 @@ import { Flex, Button, Divider, Box } from '@chakra-ui/react';
 import CreatePost from '../CreatePost/CreatePost';
 import ImgPostContainer from '../ImgPost/ImgPostContainer';
 import TextPostContainer from '../TextPost/TextPostContainer';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import NavbarSerch from '../NavbarSearch/NavbarSearch';
 import { BsChatLeftText } from 'react-icons/bs';
 import { RiImage2Line } from 'react-icons/ri'
@@ -16,6 +16,7 @@ export default function ContainerPost({
   posts,
   singlePost,
   handleDelete,
+  handleRestore,
 }) {
   const [typePost, setTypePost] = useState('img');
   const ref = useRef();
@@ -36,18 +37,24 @@ export default function ContainerPost({
       return posts;
     }
     if (site === 'admin') {
-      let reportedPosts = posts?.filter((post) => post.reported === true);
+      let reportedPosts = posts?.filter((post) => post?.reported === true);
       return reportedPosts;
+    }
+    if (site === 'trending') {
+      return posts;
     }
   };
   const typePosts = (typePost) => {
     if (typePost === 'text') {
       let textPosts = arrayUserPosts(site)?.filter((p) => p?.pics?.length === 0 );
       return textPosts;
-    }
-    if (typePost === 'img') {
-      let imagePosts = arrayUserPosts(site)?.filter((p) => p?.pics?.length >= 1 );
-      return imagePosts;
+    } else if (typePost === 'img') {
+      if (arrayUserPosts(site)?.length > 0) {
+        let imagePosts = arrayUserPosts(site)?.filter(
+          (p) => p?.pics?.length >= 1
+        );
+        return imagePosts;
+      }
     }
   };
 
@@ -100,6 +107,8 @@ export default function ContainerPost({
             user={user}
             email={email}
             singlePost={singlePost}
+            handleDelete={handleDelete}
+            handleRestore={handleRestore}
             handleClickRef={handleClickRef}
           />
         ) : (
@@ -111,6 +120,7 @@ export default function ContainerPost({
             email={email}
             singlePost={singlePost}
             handleDelete={handleDelete}
+            handleRestore={handleRestore}
             handleClickRef={handleClickRef}
           />
         )}

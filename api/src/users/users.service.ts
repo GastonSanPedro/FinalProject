@@ -5,6 +5,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './schema/user-schema';
 import { SoftDeleteModel } from 'soft-delete-plugin-mongoose';
+import { AddWallCommentDto } from './dto/add-wallcomment.dto';
 
 
 @Injectable()
@@ -40,6 +41,7 @@ export class UsersService {
     return await this.userModel
     .find()
     .populate({ path: 'friends.idFriend'})
+    .populate({ path: 'wall.author'})
     .exec()
   }
 
@@ -59,6 +61,7 @@ export class UsersService {
           userFinded = await this.userModel
           .findOne({email : term})
           .populate({ path: 'friends.idFriend' })
+          .populate({ path: 'wall.author'})
           .exec()
         }
 
@@ -68,6 +71,7 @@ export class UsersService {
           userFinded =  await this.userModel
           .findById(term)
           .populate({ path: 'friends.idFriend'})
+          .populate({ path: 'wall.author'})
           .exec()
         }
 
@@ -77,6 +81,7 @@ export class UsersService {
           userFinded =  await this.userModel
           .findOne({userName: term})
           .populate({ path: 'friends.idFriend'})
+          .populate({ path: 'wall.author'})
           .exec()
         }
         //Si no encontro nada arroja error
@@ -97,21 +102,17 @@ export class UsersService {
   async remove(id: string) {
     const userDelete:User = await this.userModel.findById(id);
     const deleted = await this.userModel.softDelete(userDelete)
-    if(userDelete.isDeleted ===false){
-
-    return deleted
-    }else{
-      return this.userModel.restore(userDelete)
-    }
-     
+    if(userDelete.isDeleted ===false)return deleted    
     }
 
+  async restaured(id:string , updateUserDto: UpdateUserDto ){
+  const userRestaured:User = await this.userModel.findById(id);
+  
+  console.log(userRestaured)
+  await userRestaured.updateOne(updateUserDto) 
 
-  // async restaured(id:string){
-  //   const userRestaured:User = await this.userModel.findById(id)
-  //   const restaured = await this.userModel.restore(userRestaured)
-  //   return restaured
-  // }
+  return {...userRestaured.toJSON(), ...updateUserDto};
+  }
   
 
 
@@ -135,6 +136,18 @@ export class UsersService {
       return userFinded
   }
 
+  async addCommentWall(idUserWall: string, wallCommentDto: AddWallCommentDto) {
+    wallCommentDto.createdAt = Date.now()
 
+ 
+    const userWall: any = await this.findOne(idUserWall.toString())
+    const myUser: User = await this.findOne(wallCommentDto.author.toString())
+
+      if(!userWall || !myUser) throw new NotFoundException('User not Found ')
+      userWall.wall.push(wallCommentDto)
+      userWall.save()
+    
+    console.log(idUserWall)
+  }
 
 }

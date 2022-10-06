@@ -14,7 +14,6 @@ const LinkItems = [
     { name: 'Home', icon: FiHome },
     { name: 'Trending', icon: FiTrendingUp },
     { name: 'Explore', icon: FiCompass },
-    { name: 'Favourites', icon: FiStar },
   ];
 
 export const SidebarContent = ({ myFollowers, friends, myUser, onClose, ...rest }) => {

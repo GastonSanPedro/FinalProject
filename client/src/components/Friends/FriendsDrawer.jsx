@@ -32,6 +32,7 @@ export default function Friends({ myUser, friends, myFollowers }) {
     onOpen();
   };
 
+  console.log(myFollowers)
   return (
     <>
       <Flex
@@ -83,12 +84,12 @@ export default function Friends({ myUser, friends, myFollowers }) {
                       return (
                         <Box key={index}>
                           <FriendCard
-                            image={friend.idFriend?.image}
-                            email={friend.idFriend?.email}
-                            id={friend.idFriend?._id}
-                            firstName={friend.idFriend?.firstName}
-                            lastName={friend.idFriend?.lastName}
-                            fullName={friend.idFriend?.fullName}
+                            image={friend?.idFriend?.image}
+                            email={friend?.idFriend?.email}
+                            id={friend?.idFriend?._id}
+                            firstName={friend?.idFriend?.firstName}
+                            lastName={friend?.idFriend?.lastName}
+                            fullName={friend?.idFriend?.fullName}
                           />
                         </Box>
                       );
@@ -109,16 +110,16 @@ export default function Friends({ myUser, friends, myFollowers }) {
                 </h2>
                 <AccordionPanel pb={4}>
                   {myFollowers ? (
-                    myFollowers.map((follower, index) => {
+                    myFollowers?.map((follower, index) => {
                       return (
                         <Box key={index}>
                           <FriendCard
-                            image={follower.image}
-                            email={follower.email}
-                            id={follower._id}
-                            firstName={follower.firstName}
-                            lastName={follower.lastName}
-                            fullName={follower.fullName}
+                            image={follower?.image}
+                            email={follower?.email}
+                            id={follower?._id}
+                            firstName={follower?.firstName}
+                            lastName={follower?.lastName}
+                            fullName={follower?.fullName}
                           />
                         </Box>
                       );

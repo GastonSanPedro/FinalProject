@@ -23,6 +23,8 @@ import {
   reportPost,
   getPosts,
   getUser,
+  getFriendsPosts,
+  getTrendingPosts,
 } from '../../redux/action';
 import { useState } from 'react';
 import { BiMessage, BiShocked, BiHeart, BiHappyAlt } from 'react-icons/bi';
@@ -77,8 +79,10 @@ export default function ImgPost({
   loggedEmail,
   site,
   handleDelete,
+  handleRestore,
   comments,
   authorId,
+  rating,
   premium,
 }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -92,7 +96,6 @@ export default function ImgPost({
     onOpen();
     dispatch(getSinglePosts(postId));
   };
-  //console.log(premium);
   const handleReport = () => {
     dispatch(reportPost(postId));
   };
@@ -108,7 +111,14 @@ export default function ImgPost({
     if (userReaction === undefined) {
       const newReaction = [...likes, { idUser: loggedUser, type: value }];
       console.log(newReaction);
-      dispatch(postReaction({ likes: newReaction }, postId, null, loggedUser));
+      dispatch(
+        postReaction(
+          { likes: newReaction, rating: rating + 1 },
+          postId,
+          null,
+          loggedUser
+        )
+      );
       if (site === 'explore' || site === 'search') {
         setTimeout(function () {
           dispatch(getPosts());
@@ -122,11 +132,28 @@ export default function ImgPost({
       if (site === 'profile') {
         setTimeout(function () {
           dispatch(getPosts());
+        }, 1000);
+      }
+      if (site === 'feed') {
+        setTimeout(function () {
+          dispatch(getFriendsPosts(loggedUser));
+        }, 1000);
+      }
+      if (site === 'trending') {
+        setTimeout(function () {
+          dispatch(getTrendingPosts());
         }, 1000);
       }
     } else if (userReaction && userReaction.type === value) {
       const filtered = likes.filter((r) => r.idUser !== loggedUser);
-      dispatch(postReaction({ likes: filtered }, postId, null, loggedUser));
+      dispatch(
+        postReaction(
+          { likes: filtered, rating: rating - 1 },
+          postId,
+          null,
+          loggedUser
+        )
+      );
       if (site === 'explore' || site === 'search') {
         setTimeout(function () {
           dispatch(getPosts());
@@ -140,6 +167,16 @@ export default function ImgPost({
       if (site === 'profile') {
         setTimeout(function () {
           dispatch(getPosts());
+        }, 1000);
+      }
+      if (site === 'feed') {
+        setTimeout(function () {
+          dispatch(getFriendsPosts(loggedUser));
+        }, 1000);
+      }
+      if (site === 'trending') {
+        setTimeout(function () {
+          dispatch(getTrendingPosts());
         }, 1000);
       }
     } else {
@@ -162,32 +199,19 @@ export default function ImgPost({
           dispatch(getPosts());
         }, 1000);
       }
+      if (site === 'feed') {
+        setTimeout(function () {
+          dispatch(getFriendsPosts(loggedUser));
+        }, 1000);
+      }
+      if (site === 'trending') {
+        setTimeout(function () {
+          dispatch(getTrendingPosts());
+        }, 1000);
+      }
     }
-
-    //if(likes.find((r)=> r.id ))
   };
 
-  // function sentenceCase(input, lowercaseBefore) {
-  //   input = input === undefined || input === null ? '' : input;
-  //   if (lowercaseBefore) {
-  //     input = input.toLowerCase();
-  //   }
-  //   return input
-  //     .toString()
-  //     .replace(/(^|\. *)([a-z])/g, function (match, separator, char) {
-  //       return separator + char.toUpperCase();
-  //     });
-  // }
-
-  // if (sentenceCase(description, true).length >50 ){
-  //   let displayText = sentenceCase(description, true).slice(0,50)
-  //   return displayText
-  // }
-
-  // if(description.length > 50){
-  //   var displayText = description.slice(0,50)
-  //   return displayText
-  // }
   const handleNavigate = () => {
     if (authorId._id !== loggedUser) {
       navigate(`/user/${authorId._id}`);
@@ -199,12 +223,7 @@ export default function ImgPost({
   const sunsReactions = likes.filter((r) => r.type === 'suns');
   const happyReactions = likes.filter((r) => r.type === 'happyLeaf');
   const confusedReactions = likes.filter((r) => r.type === 'confusedLeaf');
-  //console.log(heartsReactions);
-  // console.log(singlePost);
-  // if (singlePost.length === 0) {
-  //   console.log('funco');
-  //   dispatch(getMyUser(loggedEmail));
-  // }
+
   return (
     <>
       <PostModal
@@ -218,6 +237,7 @@ export default function ImgPost({
         loggedUser={loggedUser}
         loggedEmail={loggedEmail}
         postId={postId}
+        rating={rating}
         date={formatedDate}
         avatar={avatar}
         email={email}
@@ -229,15 +249,15 @@ export default function ImgPost({
         borderColor="gray.200"
         bgColor="#f5f5f5"
         maxW={'25vw'}
-        w={'25vw'}
+        w={site === "admin" ? "23vw" :'25vw'}
         rounded={'sm'}
         p={6}
         h={'74vh'}
         overflow={'hidden'}
         boxShadow={premium ? '0px 1vh 2vw -1px #FBFF3A;' : null}
-        // _hover={{
-        //   bg: `logo.${randomNumber(1, 4)}`,
-        // }}
+      // _hover={{
+      //   bg: `logo.${randomNumber(1, 4)}`,
+      // }}
       >
         <HStack position={'absolute'} top={4}>
           {site === 'profile' || site === 'anyProfile' ? null : (
@@ -297,7 +317,7 @@ export default function ImgPost({
               <Button
                 size={'sm'}
                 h={30}
-                bg={'yellow.300'}
+                bg={'logo.2'}
                 icon={<BsSun />}
                 name="suns"
                 mr={'0.3vw'}
@@ -308,7 +328,7 @@ export default function ImgPost({
                   setHide(true);
                 }}
                 _hover={{
-                  bg: 'yellow.200',
+                  bg: 'orange.200',
                 }}
                 _active={{
                   bg: 'white',
@@ -322,11 +342,11 @@ export default function ImgPost({
                 <Button
                   size={'sm'}
                   h={30}
-                  bg={'green.500'}
+                  bg={'logo.2'}
                   mr={'0.3vw'}
                   name="happyLeaf"
                   _hover={{
-                    bg: 'logo.3',
+                    bg: 'orange.200',
                   }}
                   _active={{
                     bg: 'white',
@@ -342,12 +362,12 @@ export default function ImgPost({
                 <Button
                   size={'sm'}
                   h={30}
-                  bg={'red.400'}
+                  bg={'logo.2'}
                   name="heart"
                   mr={'0.3vw'}
                   // value={comment?.likes?.heart}
                   _hover={{
-                    bg: 'red.300',
+                    bg: 'orange.200',
                   }}
                   _active={{
                     bg: 'white',
@@ -363,12 +383,12 @@ export default function ImgPost({
                 <Button
                   size={'sm'}
                   h={30}
-                  bg={'blue.400'}
+                  bg={'logo.2'}
                   name="confusedLeaf"
                   // value={comment?.likes?.confusedLeaf}
                   icon={<BiShocked />}
                   _hover={{
-                    bg: 'blue.300',
+                    bg: 'orange.200',
                   }}
                   _active={{
                     bg: 'white',
@@ -390,13 +410,13 @@ export default function ImgPost({
             ml={'18%'}
             top={'87.1%'}
             size={'sm'}
-            bg={'gray.300'}
+            bg={'logo.1'}
             h={30}
             onClick={() => {
               handleClick();
             }}
             _hover={{
-              bg: 'gray.200',
+              bg: 'logo.3',
             }}
             _active={{
               bg: 'white',
@@ -416,10 +436,10 @@ export default function ImgPost({
               top={'87.1%'}
               siz={'lg'}
               h={30}
-              bg={'gray.200'}
+              bg={'logo.1'}
               icon={<FiMoreVertical />}
               _hover={{
-                bg: 'white',
+                bg: 'logo.3',
               }}
               _active={{
                 bg: 'white',
@@ -463,7 +483,10 @@ export default function ImgPost({
         </Text>
       </Box>
       {site === 'admin' ? (
-        <Button onClick={() => handleDelete(postId)}>Eliminar</Button>
+        <HStack>
+          <Button onClick={() => handleDelete(postId)}>Delete</Button>
+          <Button onClick={() => handleRestore(postId)}>Restore</Button>
+        </HStack>
       ) : null}
     </>
   );

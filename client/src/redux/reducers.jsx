@@ -30,6 +30,8 @@ import {
   DELETE_ACCOUNT,
   GET_USERS_DELETED,
   POST_REACTION_POST,
+  TRENDING_POSTS,
+  RESTORE_POST,
 } from './action';
 
 const initialState = {
@@ -50,7 +52,8 @@ const initialState = {
   friendsPosts: [],
   followers: [],
   payment: [],
-  usersDeleted : [],
+  usersDeleted: [],
+  trendingPosts: [],
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -149,7 +152,9 @@ export default function rootReducer(state = initialState, action) {
     case ADD_FRIEND:
       return {
         ...state,
-        friends: action.payload,
+        friends: action.payload.friendsUser,
+        user: action.payload.anyUserWithoutFriend,
+        myUser: action.payload.myUser
       };
     case GET_FRIENDS:
       return {
@@ -170,7 +175,9 @@ export default function rootReducer(state = initialState, action) {
     case DELETE_FRIENDS:
       return {
         ...state,
-        friends: action.payload,
+        friends: action.payload.friendsUser,
+        user: action.payload.anyUserWithNewFriend,
+        myUser: action.payload.myUser
       };
     case GET_FRIENDS_POSTS:
       return {
@@ -190,6 +197,11 @@ export default function rootReducer(state = initialState, action) {
           posts: [...state.myUser.posts],
         },
       };
+    // case GET_FRIENDS_POSTS:
+    //   return {
+    //     ...state,
+    //     posts: action.payload,
+    //   };
     case CREATE_PAYMENT:
       return {
         ...state,
@@ -201,20 +213,28 @@ export default function rootReducer(state = initialState, action) {
       };
     case BLOCK_RESTORE_USER:
       return {
-        ...state
+        ...state,
       };
     case DELETE_ACCOUNT:
       return {
         ...state,
         auth: action.payload,
         myUser: [],
-      }
+      };
     case GET_USERS_DELETED:
-      return{
+      return {
         ...state,
-        usersDeleted: action.payload
-      }
-
+        usersDeleted: action.payload,
+      };
+    case TRENDING_POSTS:
+      return {
+        ...state,
+        trendingPosts: action.payload,
+      };
+    case RESTORE_POST:
+      return {
+        ...state,
+      };
     default:
       return state;
   }

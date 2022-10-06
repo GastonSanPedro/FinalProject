@@ -19,6 +19,7 @@ const ImgPostContainer = ({
   singlePost,
   handleClickRef,
   handleDelete,
+  handleRestore
 }) => {
   //--------- Lógica InfiteScroll --------
   const [currentStart, setCurrentStart] = useState(0);
@@ -78,6 +79,7 @@ const ImgPostContainer = ({
                       email={post?.author?.email}
                       authorId={post?.author}
                       description={post?.description}
+                      rating={post?.rating}
                       date={post?.createdAt}
                       postId={post?._id}
                       premium={post?.premium}
@@ -89,6 +91,7 @@ const ImgPostContainer = ({
                       singlePost={singlePost}
                       site={site}
                       handleDelete={handleDelete}
+                      handleRestore={handleRestore}
                     />
                   </SlideFade>
                 );

@@ -11,7 +11,7 @@ export const SuccessPaymentInfo = ({ myPosts }) => {
   const dispatch = useDispatch();
   const toast = useToast();
   const navigate = useNavigate();
-
+  console.log();
   const handleClick = (event, id) => {
     if (current === id) {
       setCurrent(undefined);
@@ -28,12 +28,18 @@ export const SuccessPaymentInfo = ({ myPosts }) => {
       setCurrent(id);
     }
   };
+  console.log(Bill);
   useEffect(() => {
     const items = Bill?.items?.map((item) => {
+      //console.log(myPosts?.find((obj) => obj._id === item.title));
+      const match = myPosts?.findIndex((obj) => obj._id === item.title);
       return {
         id: item.title,
+        rating: myPosts[match]?.rating,
+        value: item.unit_price,
       };
     });
+    console.log(items);
     dispatch(setPremium(items));
   }, [Bill]);
 
@@ -126,7 +132,7 @@ export const SuccessPaymentInfo = ({ myPosts }) => {
           right={'12%'}
           mt={'2vh'}
           onClick={(e) => {
-            navigate('/Home');
+            navigate('/profile');
             localStorage.removeItem('bill');
             setBill('');
             toast({
