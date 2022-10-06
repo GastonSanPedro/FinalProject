@@ -101,6 +101,7 @@ export class PostsService {
 
     const posts = await this.postModel
     .find()
+    .populate({ path: 'author', select:'-posts -password -friends -bio -followers'})
     .sort({rating:-1})
     .exec();
     if (!posts) throw new NotFoundException(`Thers no trending posts yet`);
