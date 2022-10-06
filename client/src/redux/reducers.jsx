@@ -30,6 +30,7 @@ import {
   DELETE_ACCOUNT,
   GET_USERS_DELETED,
   POST_REACTION_POST,
+  TRENDING_POSTS,
 } from './action';
 
 const initialState = {
@@ -50,7 +51,8 @@ const initialState = {
   friendsPosts: [],
   followers: [],
   payment: [],
-  usersDeleted : [],
+  usersDeleted: [],
+  trendingPosts: [],
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -206,19 +208,24 @@ export default function rootReducer(state = initialState, action) {
       };
     case BLOCK_RESTORE_USER:
       return {
-        ...state
+        ...state,
       };
     case DELETE_ACCOUNT:
       return {
         ...state,
         auth: action.payload,
         myUser: [],
-      }
+      };
     case GET_USERS_DELETED:
-      return{
+      return {
         ...state,
-        usersDeleted: action.payload
-      }
+        usersDeleted: action.payload,
+      };
+    case TRENDING_POSTS:
+      return {
+        ...state,
+        trendingPosts: action.payload,
+      };
     default:
       return state;
   }

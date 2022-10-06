@@ -32,7 +32,7 @@ export const SuccessPaymentInfo = ({ myPosts }) => {
     const items = Bill?.items?.map((item) => {
       //console.log(myPosts?.find((obj) => obj._id === item.title));
       const match = myPosts?.find((obj) => obj._id === item.title);
-      console.log(match.rating);
+      //console.log(match.rating);
       return {
         id: item.title,
         rating: match?.rating,
@@ -132,7 +132,7 @@ export const SuccessPaymentInfo = ({ myPosts }) => {
           right={'12%'}
           mt={'2vh'}
           onClick={(e) => {
-            navigate('/Home');
+            navigate('/profile');
             localStorage.removeItem('bill');
             setBill('');
             toast({
