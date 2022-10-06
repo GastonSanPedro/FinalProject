@@ -44,9 +44,9 @@ export class UsersController {
     return this.usersService.findOne(term);
   }
 
-  @Get('/restoreUser/:id')
-  restaured(@Param('id') id: string) {
-    return this.usersService.restaured(id);
+  @Patch('/restoreUser/:id')
+  restaured(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
+    return this.usersService.restaured(id, updateUserDto);
   }
   @Get('/name/:term')
    findByName(@Param('term') term: string) {
@@ -69,5 +69,9 @@ export class UsersController {
     return this.usersService.remove(id)
   }
 
+  // @Get('/restoreUser/:id')
+  // findDeletedById(@Param('id') id: string) {
+  //   return this.usersService.findDeletedById(id);
+  // }
 
 }
