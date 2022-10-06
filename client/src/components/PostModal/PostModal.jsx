@@ -52,15 +52,6 @@ export const PostModal = ({
 }) => {
   //console.log(site);
   const [overlay, setOverlay] = useState(<OverlayOne />);
-  const [hide, setHide] = useState(false);
-  const [Reaction, setReaction] = useState({
-    suns: 0,
-    happyLeaf: 0,
-    heart: 0,
-    confusedLeaf: 0,
-  });
-  // useEffect(() => {}, [singlePost]);
-  //console.log(singlePost);
   const [input, setInput] = useState({
     idUser: loggedUser,
     idPost: postId,

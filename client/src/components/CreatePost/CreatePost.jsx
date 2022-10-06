@@ -12,7 +12,7 @@ import {
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { createUserPost } from '../../redux/action';
+import { createUserPost, getPosts } from '../../redux/action';
 
 const CreatePost = ({ site, myUser, createdRef }) => {
   const [input, setInput] = useState({
@@ -50,6 +50,7 @@ const CreatePost = ({ site, myUser, createdRef }) => {
           duration: 2000,
           isClosable: true,
         });
+        dispatch(getPosts());
       }
     } else {
       if (input.description === '' || input.pics === '') {
@@ -74,6 +75,7 @@ const CreatePost = ({ site, myUser, createdRef }) => {
           duration: 2000,
           isClosable: true,
         });
+        dispatch(getPosts());
       }
     }
   };
