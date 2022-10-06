@@ -17,6 +17,7 @@ export interface IUser {
     birthdate: string;
     posteos?: Iposteos[];
     bio?: string;
+    cover?: string
     
 }
 

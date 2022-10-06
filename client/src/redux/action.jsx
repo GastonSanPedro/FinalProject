@@ -27,6 +27,9 @@ export const REPORT_POST = 'REPORT_POST';
 export const DELETE_POST = 'DELETE_POST';
 export const CREATE_PAYMENT = 'CREATE_PAYMENT';
 export const SET_PREMIUM = 'SET_PREMIUM';
+export const BLOCK_RESTORE_USER = 'BLOCK_RESTORE_USER';
+export const DELETE_ACCOUNT = 'DELETE_ACCOUNT';
+export const GET_USERS_DELETED = 'GET_USERS_DELETED';
 
 export function getUsers() {
   return async function (dispatch) {
@@ -415,3 +418,47 @@ export function setPremium(input) {
     }
   };
 }
+
+export function blockRestoreUser(userId) {
+  return async function (dispatch) {
+    try {
+      const { data } = await axios.delete(`/users/${userId}`);
+      return dispatch({
+        type: BLOCK_RESTORE_USER,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
+
+  export function deleteAccountUser(userId){
+    return async function (dispatch) {
+      try {
+        const { data } = await axios.delete(`/users/${userId}`);
+        return dispatch({
+          type: DELETE_ACCOUNT,
+          payload: { auth: false }
+        });
+      } catch (error) {
+        console.log(error);
+      }
+  }
+}
+
+
+export function getDeletedUsers() {
+  return async function (dispatch) {
+    try {
+      let {data} = await axios.get('/users/deleted');
+      dispatch({
+        type: GET_USERS_DELETED,
+        payload: data,
+      });
+    } catch (error) {
+      console.log(error, 'Error');
+    }
+  };
+}
+
+
