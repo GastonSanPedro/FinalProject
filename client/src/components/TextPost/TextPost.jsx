@@ -3,7 +3,6 @@ import {
   Avatar,
   chakra,
   Flex,
-  useColorModeValue,
   IconButton,
   ModalOverlay,
   useDisclosure,
@@ -16,6 +15,7 @@ import {
   Badge,
   Button,
   Text,
+  HStack
 } from '@chakra-ui/react';
 import { BiMessage, BiShocked, BiHeart, BiHappyAlt } from 'react-icons/bi';
 import { FiMoreVertical } from 'react-icons/fi';
@@ -94,6 +94,7 @@ export default function TextPost({
   authorId,
   comments,
   handleDelete,
+  handleRestore,
 }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [overlay, setOverlay] = useState(<OverlayOne />);
@@ -471,7 +472,10 @@ export default function TextPost({
         </Box>
       </Flex>
       {site === 'admin' ? (
-        <Button onClick={() => handleDelete(postId)}>Eliminar</Button>
+        <HStack>
+          <Button onClick={() => handleDelete(postId)}>Delete</Button>
+          <Button onClick={() => handleRestore(postId)}>Restore</Button>
+        </HStack>
       ) : null}
     </>
   );

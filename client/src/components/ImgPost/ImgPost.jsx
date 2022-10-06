@@ -78,6 +78,7 @@ export default function ImgPost({
   loggedEmail,
   site,
   handleDelete,
+  handleRestore,
   comments,
   authorId,
   rating,
@@ -232,15 +233,15 @@ export default function ImgPost({
         borderColor="gray.200"
         bgColor="#f5f5f5"
         maxW={'25vw'}
-        w={'25vw'}
+        w={site === "admin" ? "23vw" :'25vw'}
         rounded={'sm'}
         p={6}
         h={'74vh'}
         overflow={'hidden'}
         boxShadow={premium ? '0px 1vh 2vw -1px #FBFF3A;' : null}
-        // _hover={{
-        //   bg: `logo.${randomNumber(1, 4)}`,
-        // }}
+      // _hover={{
+      //   bg: `logo.${randomNumber(1, 4)}`,
+      // }}
       >
         <HStack position={'absolute'} top={4}>
           {site === 'profile' || site === 'anyProfile' ? null : (
@@ -475,7 +476,10 @@ export default function ImgPost({
         </Text>
       </Box>
       {site === 'admin' ? (
-        <Button onClick={() => handleDelete(postId)}>Eliminar</Button>
+        <HStack>
+          <Button onClick={() => handleDelete(postId)}>Delete</Button>
+          <Button onClick={() => handleRestore(postId)}>Restore</Button>
+        </HStack>
       ) : null}
     </>
   );

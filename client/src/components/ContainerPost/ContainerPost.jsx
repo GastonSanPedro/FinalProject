@@ -15,6 +15,7 @@ export default function ContainerPost({
   posts,
   singlePost,
   handleDelete,
+  handleRestore,
 }) {
   const [typePost, setTypePost] = useState('img');
   
@@ -121,6 +122,7 @@ export default function ContainerPost({
             email={email}
             singlePost={singlePost}
             handleDelete={handleDelete}
+            handleRestore={handleRestore}
             handleClickRef={handleClickRef}
           />
         ) : (
@@ -132,6 +134,7 @@ export default function ContainerPost({
             email={email}
             singlePost={singlePost}
             handleDelete={handleDelete}
+            handleRestore={handleRestore}
             handleClickRef={handleClickRef}
           />
         )}

@@ -30,6 +30,7 @@ import { useState } from 'react';
 import { blockRestoreUser } from '../redux/action';
 import PostStats from '../components/Stats/PostStats';
 import UserStats from '../components/Stats/UsersStats';
+import { restoretPost } from '../redux/action';
 
 
 const AdminProfile = () => {
@@ -62,6 +63,10 @@ const AdminProfile = () => {
 
     const handleDelete = (id) => {
         dispatch(deletePost(id))
+    }
+
+    const handleRestore = (id) => {
+        dispatch(restoretPost(id))
     }
 
 
@@ -163,6 +168,7 @@ const AdminProfile = () => {
                                 posts={posts}
                                 site="admin"
                                 handleDelete={handleDelete}
+                                handleRestore={handleRestore}
                             />
                         </AccordionPanel>
                     </AccordionItem>
