@@ -27,6 +27,9 @@ export default function Friends({ myUser, friends, myFollowers }) {
   const [size, setSize] = useState('');
   const [input, setInput] = useState('');
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  console.log(friends)
+  console.log(myFollowers)
   
   const handleClick = () => {
     onOpen();
@@ -83,12 +86,12 @@ export default function Friends({ myUser, friends, myFollowers }) {
                       return (
                         <Box key={index}>
                           <FriendCard
-                            image={friend.idFriend?.image}
-                            email={friend.idFriend?.email}
-                            id={friend.idFriend?._id}
-                            firstName={friend.idFriend?.firstName}
-                            lastName={friend.idFriend?.lastName}
-                            fullName={friend.idFriend?.fullName}
+                            image={friend?.idFriend?.image}
+                            email={friend?.idFriend?.email}
+                            id={friend?.idFriend?._id}
+                            firstName={friend?.idFriend?.firstName}
+                            lastName={friend?.idFriend?.lastName}
+                            fullName={friend?.idFriend?.fullName}
                           />
                         </Box>
                       );
@@ -109,16 +112,16 @@ export default function Friends({ myUser, friends, myFollowers }) {
                 </h2>
                 <AccordionPanel pb={4}>
                   {myFollowers ? (
-                    myFollowers.map((follower, index) => {
+                    myFollowers?.map((follower, index) => {
                       return (
                         <Box key={index}>
                           <FriendCard
-                            image={follower.image}
-                            email={follower.email}
-                            id={follower._id}
-                            firstName={follower.firstName}
-                            lastName={follower.lastName}
-                            fullName={follower.fullName}
+                            image={follower?.image}
+                            email={follower?.email}
+                            id={follower?._id}
+                            firstName={follower?.firstName}
+                            lastName={follower?.lastName}
+                            fullName={follower?.fullName}
                           />
                         </Box>
                       );

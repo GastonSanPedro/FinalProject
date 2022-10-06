@@ -49,10 +49,11 @@ export function getUsers() {
 export function getUser(email) {
   return async function (dispatch) {
     try {
-      let info = await axios.get(`/users/${email}`);
+      let {data} = await axios.get(`/users/${email}`);
+      console.log(data, "getUser")
       dispatch({
         type: GET_USER,
-        payload: info.data,
+        payload: data,
       });
     } catch (error) {
       console.log(error);
@@ -63,7 +64,6 @@ export function getMyUser(email) {
   return async function (dispatch) {
     try {
       let info = await axios.get(`/users/${email}`);
-      //console.log(info.data);
       dispatch({
         type: GET_MY_USER,
         payload: info.data,
@@ -300,7 +300,7 @@ export const addFriend = (myUserid, anyUserId) => {
     try {
       let info = await axios.post(`/friends/`, ids);
       let { data } = await axios.get(`/friends/${myUserid}`);
-
+      console.log({data})
       return dispatch({
         type: ADD_FRIEND,
         payload: data,
@@ -313,6 +313,7 @@ export const addFriend = (myUserid, anyUserId) => {
 export const getFriends = (myId) => {
   return async function (dispatch) {
     let { data } = await axios.get(`/friends/${myId}`);
+    console.log(data, "getFriends action")
     return dispatch({
       type: GET_FRIENDS,
       payload: data,
@@ -322,6 +323,7 @@ export const getFriends = (myId) => {
 export const getFollowers = (id) => {
   return async function (dispatch) {
     let { data } = await axios.get(`/friends/followers/${id}`);
+    
     return dispatch({
       type: GET_FOLLOWERS,
       payload: data,
@@ -349,9 +351,9 @@ export const deleteFriend = (myUserid, idFriend) => {
     try {
       let info = await axios.delete(`/friends/${myUserid}/${idFriend}`);
       let { data } = await axios.get(`/friends/${myUserid}`);
-
       return dispatch({
         type: DELETE_FRIENDS,
+        payload: data
       });
     } catch (error) {
       console.log(error);
