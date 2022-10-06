@@ -25,9 +25,9 @@ export class FriendsController {
     return this.friendsService.findAllFollowersByUser(idUser);
   }
 
-  @Get('/followersAndFriends/:idUser')
-  findAllFollowersAndFriendsByUser(@Param('idUser') idUser: string) {
-    return this.friendsService.findAllFollowersAndFriendsByUser(idUser);
+  @Get('/followersAndFriends/:idUser/:term')
+  findAllFollowersAndFriendsByUser(@Param('idUser') idUser: string, @Param('term') term: string) {
+    return this.friendsService.findAllFollowersAndFriendsByUser(idUser, term);
   }
 
 

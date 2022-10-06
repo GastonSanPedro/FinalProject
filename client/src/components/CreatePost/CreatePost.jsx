@@ -10,8 +10,8 @@ import {
   useToast,
   Image,
 } from '@chakra-ui/react';
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { createUserPost, getPosts } from '../../redux/action';
 
 const CreatePost = ({ site, myUser, createdRef }) => {
@@ -22,6 +22,7 @@ const CreatePost = ({ site, myUser, createdRef }) => {
   const [TypePost, setTypePost] = useState('text');
   const dispatch = useDispatch();
   const toast = useToast();
+  const posts = useSelector(state=> state.posts)
   const handleInputChange = (event) => {
     setInput({ ...input, [event.target.name]: event.target.value });
   };
@@ -50,7 +51,9 @@ const CreatePost = ({ site, myUser, createdRef }) => {
           duration: 2000,
           isClosable: true,
         });
-        dispatch(getPosts());
+        setTimeout(() => {
+          dispatch(getPosts())
+        }, 500);
       }
     } else {
       if (input.description === '' || input.pics === '') {
@@ -75,12 +78,16 @@ const CreatePost = ({ site, myUser, createdRef }) => {
           duration: 2000,
           isClosable: true,
         });
-        setTimeout(function () {
-          dispatch(getPosts());
-        }, 2000);
+        setTimeout(() => {
+          dispatch(getPosts())
+        }, 500);
       }
     }
   };
+
+  
+
+
   const handleInputImage = (event) => {
     const closeWidget = () => {
       myWidget.close();

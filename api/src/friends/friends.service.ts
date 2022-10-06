@@ -57,7 +57,7 @@ export class FriendsService {
     }
   }
 
-  async findAllFollowersAndFriendsByUser(idUser: string) {
+  async findAllFollowersAndFriendsByUser(idUser: string, term: string) {
   const all = []
 
   const allFollowers = await this.findAllFollowersByUser(idUser)
@@ -77,11 +77,16 @@ export class FriendsService {
   let user = await this.userModel.findById(newSet[i])
     friendFollower.push(user)
   }
-  
+  friendFollower = await this.userModel.find(
+    {$or:[
+      {firstName: {$regex: term, $options: "$i"} },
+      {lastName: {$regex: term, $options: "$i"} },
+      {fullName: {$regex: term, $options: "$i"} },
+      {userName: {$regex: term, $options: "$i"} }
+    ]})
 
   return friendFollower
  }
-
 
   async findAllPostOfMyFriends (idUser: string){
     if(isValidObjectId(idUser)){

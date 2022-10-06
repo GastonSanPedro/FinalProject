@@ -45,6 +45,8 @@ const AdminProfile = () => {
 
     const [block, setBlock] = useState('Blocked users')
 
+    console.log({users})
+
     // useEffect(() => {
     //     if (deletedUsers?.length === 0) { dispatch(getDeletedUsers()) }
     // }, [dispatch])
