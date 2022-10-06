@@ -5,6 +5,8 @@ import { User } from 'src/users/schema/user-schema';
 import { AddFriendDto } from './dto/create-friend.dto';
 import { UpdateFriendDto } from './dto/update-friend.dto';
 import { Friend } from './schema/friend-schema';
+// import { SoftDeleteModel } from 'soft-delete-plugin-mongoose';
+import { find } from 'rxjs';
 
 @Injectable()
 export class FriendsService {
@@ -88,12 +90,12 @@ export class FriendsService {
         populate:{ 
           path:'posts.author', 
           select:'-posts -password -friends -bio -followers'}})
-      .exec() 
-
+      .exec()
+       
       const friendsPost: any = user.friends.map(friend => friend.idFriend)
-      const friendsPostAll = friendsPost.map(friend => friend.posts).flat()
-
-    return friendsPostAll
+      const friendsPostAll = friendsPost.map(friend => friend?.posts).flat()
+    
+      return friendsPostAll
     } 
   }
 
