@@ -17,13 +17,16 @@ import {
 import { useState } from 'react';
 import { useDisclosure } from '@chakra-ui/react';
 import { FiUsers } from 'react-icons/fi';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { FriendCard } from './FriendCard';
 import SearchFriends from './SearchFriends';
+import { cleanSearchFriend } from '../../redux/action'
 
 export default function Friends({ myUser, friends, myFollowers }) {
 
-  
+  const searchFriends = useSelector((state) => state.searchFriends)
+  const dispatch = useDispatch()
+
   const [size, setSize] = useState('');
   const [input, setInput] = useState('');
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -31,8 +34,11 @@ export default function Friends({ myUser, friends, myFollowers }) {
   const handleClick = () => {
     onOpen();
   };
+  const handleClose = () => {
+    dispatch(cleanSearchFriend())
+    onClose()
+  }
 
-  console.log(myFollowers)
   return (
     <>
       <Flex
@@ -61,14 +67,31 @@ export default function Friends({ myUser, friends, myFollowers }) {
         {'Friends'}
       </Flex>
 
-      <Drawer onClose={onClose} isOpen={isOpen} size={'xs'}>
+      <Drawer onClose={handleClose} isOpen={isOpen} size={'xs'}>
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />
           <DrawerHeader>{`My friends`}</DrawerHeader>
           <DrawerBody>
             <SearchFriends setInput={setInput} input={input} myUser={myUser} />
-            <Accordion defaultIndex={[0]} allowMultiple>
+            {
+              searchFriends.length > 0 ? (
+                searchFriends.map((friend, index) => {
+                  return (
+                    <Box key={index}>
+                      <FriendCard
+                        image={friend?.image}
+                        email={friend?.email}
+                        id={friend?._id}
+                        firstName={friend?.firstName}
+                        lastName={friend?.lastName}
+                        fullName={friend?.fullName}
+                      />
+                    </Box>
+                  );
+                })
+              ):(
+              <Accordion defaultIndex={[0]} allowMultiple>
               <AccordionItem>
                 <h2>
                   <AccordionButton>
@@ -129,7 +152,7 @@ export default function Friends({ myUser, friends, myFollowers }) {
                   )}
                 </AccordionPanel>
               </AccordionItem>
-            </Accordion>
+            </Accordion>)}
           </DrawerBody>
         </DrawerContent>
       </Drawer>

@@ -59,7 +59,8 @@ const AdminProfile = () => {
     useEffect(() => {
         // if (deletedUsers?.length === 0) { dispatch(getDeletedUsers()) }
         dispatch(getDeletedUsers())
-        if (posts?.length === 0) { dispatch(getPosts()); }
+        if (posts?.length === 0) { 
+            dispatch(getPosts()); }
     }, [])
 
     const handleDelete = (id) => {
@@ -70,12 +71,9 @@ const AdminProfile = () => {
         dispatch(restoretPost(id))
     }
 
-
     const HandleBlock = (userId) => {
         dispatch(blockRestoreUser(userId))
         dispatch(getDeletedUsers())
-
-        
 
     }
 

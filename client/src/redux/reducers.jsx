@@ -32,6 +32,7 @@ import {
   POST_REACTION_POST,
   TRENDING_POSTS,
   RESTORE_POST,
+  CLEAN_SEARCHFRIEND
 } from './action';
 
 const initialState = {
@@ -159,8 +160,7 @@ export default function rootReducer(state = initialState, action) {
     case GET_FRIENDS:
       return {
         ...state,
-        friends: action.payload,
-        searchFriends: action.payload,
+        friends: action.payload
       };
     case GET_FOLLOWERS:
       return {
@@ -235,6 +235,11 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
       };
+      case CLEAN_SEARCHFRIEND:
+        return {
+          ...state,
+          searchFriends: action.payload
+        };
     default:
       return state;
   }

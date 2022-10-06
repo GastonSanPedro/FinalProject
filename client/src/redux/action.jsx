@@ -32,6 +32,7 @@ export const DELETE_ACCOUNT = 'DELETE_ACCOUNT';
 export const GET_USERS_DELETED = 'GET_USERS_DELETED';
 export const TRENDING_POSTS = 'TRENDING_POSTS';
 export const RESTORE_POST = "RESTORE_POST";
+export const CLEAN_SEARCHFRIEND = 'CLEAN_SEARCHFRIEND'
 
 export function getUsers() {
   return async function (dispatch) {
@@ -337,15 +338,13 @@ export const getFollowers = (id) => {
     });
   };
 };
-export const searchFriends = (id, input) => {
+export const searchFriends = (myUserId, input) => {
   return async function (dispatch) {
-    let json = await axios.get('/friends/' + id);
-    let filterFriends = json.data.filter((friend) => {
-      return friend.idFriend.fullName.includes(input);
-    });
-    return dispatch({
+    let {data} = await axios.get(`/friends/followersAndFriends/${myUserId}/${input}` );
+    
+   return dispatch({
       type: SEARCH_FRIENDS,
-      payload: filterFriends,
+      payload: data,
     });
   };
 };
@@ -509,4 +508,16 @@ export function restoretPost(id) {
       console.log(error);
     }
   };
+}
+  export function cleanSearchFriend() {
+    return async function (dispatch) {
+      try {
+        dispatch({
+          type: CLEAN_SEARCHFRIEND,
+          payload: [],
+        });
+      } catch (error) {
+        console.log(error);
+      }
+}
 }

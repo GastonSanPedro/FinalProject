@@ -12,6 +12,7 @@ const SearchFriends = ({setInput, input, myUser}) => {
     }
     const handleSubmit= (e) => {
         dispatch(searchFriends(myUser?._id, input))
+        
     }
     return (
         <>
