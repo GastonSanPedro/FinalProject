@@ -24,9 +24,9 @@ import SidebarWithHeader from '../components/Sidebar-Navbar/SideBar';
 import ContainerPost from '../components/ContainerPost/ContainerPost';
 import { FiUsers } from "react-icons/fi";
 import { BsFilePost } from "react-icons/bs";
+import { AiTwotonePlusCircle } from "react-icons/ai"
 import ContainerUsersAdmin from '../components/AdminAssets/ContainerUsersAdmin';
 import { useState } from 'react';
-// import { useRadio, useRadioGroup } from '@chakra-ui/react'
 import { blockRestoreUser } from '../redux/action';
 import PostStats from '../components/Stats/PostStats';
 import UserStats from '../components/Stats/UsersStats';
@@ -100,8 +100,8 @@ const AdminProfile = () => {
                     </HStack>
                     <Box h={"200px"} position={"absolute"} top={"-15%"} left={"20.5%"}>
                         <UserStats
-                        
-                         />
+
+                        />
                     </Box>
                 </Box>
 
@@ -146,9 +146,12 @@ const AdminProfile = () => {
                     <AccordionItem bg={"gray.50"}>
                         <h2>
                             <AccordionButton>
-                                <Box flex='1' textAlign='left' >
-                                    Reported posts
-                                </Box>
+                                
+                                    <Box flex='1' textAlign='left' >
+                                        Reported Posts
+                                    </Box>
+                                    {posts.length > 0 ?
+                                    <AiTwotonePlusCircle color='red'/> : null}
                                 <AccordionIcon />
                             </AccordionButton>
                         </h2>
@@ -169,7 +172,7 @@ const AdminProfile = () => {
                         <h2>
                             <AccordionButton>
                                 <Box flex='1' textAlign='left'>
-                                    Bloqued users
+                                    Block/Restore Users
                                 </Box>
                                 <AccordionIcon />
                             </AccordionButton>
