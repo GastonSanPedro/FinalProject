@@ -40,7 +40,7 @@ export const UserSettings = ({myUser, input, setInput, users}) => {
       greetings:'You are deleting your account 🍁🍁🍁:',
       body:`You can still restore it from this link : https://finalprojectteam.herokuapp.com/users/restoreUser/${myUser._id}`
   };
-    await emailjs.send("service_95rwpyl","welcomeTemplate", templateParams, "NT4sJB-hk0XwMsuPr" )
+    await emailjs.send("service_95rwpyl","welcomeTemplate", templateParams, "bKbMpxxr6e29fyR-9" )
 
     setTimeout(function () {
       navigate('/landing-page');
