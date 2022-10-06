@@ -30,6 +30,7 @@ export const SET_PREMIUM = 'SET_PREMIUM';
 export const BLOCK_RESTORE_USER = 'BLOCK_RESTORE_USER';
 export const DELETE_ACCOUNT = 'DELETE_ACCOUNT';
 export const GET_USERS_DELETED = 'GET_USERS_DELETED';
+export const POST_COMMENT_WALL = 'POST_COMMENT_WAL';
 
 export function getUsers() {
   return async function (dispatch) {
@@ -308,7 +309,7 @@ export const addFriend = (myUserid, anyUserId) => {
       console.log(error);
     }
   };
-};
+}
 export const getFriends = (myId) => {
   return async function (dispatch) {
     let { data } = await axios.get(`/friends/${myId}`);
@@ -317,7 +318,7 @@ export const getFriends = (myId) => {
       payload: data,
     });
   };
-};
+}
 export const getFollowers = (id) => {
   return async function (dispatch) {
     let { data } = await axios.get(`/friends/followers/${id}`);
@@ -326,7 +327,7 @@ export const getFollowers = (id) => {
       payload: data,
     });
   };
-};
+}
 export const searchFriends = (id, input) => {
   return async function (dispatch) {
     let json = await axios.get('/friends/' + id);
@@ -338,7 +339,7 @@ export const searchFriends = (id, input) => {
       payload: filterFriends,
     });
   };
-};
+}
 export const deleteFriend = (myUserid, idFriend) => {
 
   return async function (dispatch) {
@@ -354,7 +355,7 @@ export const deleteFriend = (myUserid, idFriend) => {
       console.log(error);
     }
   };
-};
+}
 export const getFriendsPosts = (myId) => {
   return async function (dispatch) {
     const { data } = await axios.get(`/friends/posts/${myId}`);
@@ -363,7 +364,7 @@ export const getFriendsPosts = (myId) => {
       payload: data,
     });
   };
-};
+}
 export function reportPost(id) {
   return async function (dispatch) {
     try {
@@ -388,7 +389,6 @@ export function deletePost(id) {
     }
   };
 }
-
 export function createPayment(id, info) {
   return async function (dispatch) {
     try {
@@ -417,7 +417,6 @@ export function setPremium(input) {
     }
   };
 }
-
 export function blockRestoreUser(userId) {
   return async function (dispatch) {
     try {
@@ -430,8 +429,7 @@ export function blockRestoreUser(userId) {
     }
   };
 }
-
-  export function deleteAccountUser(userId){
+export function deleteAccountUser(userId){
     return async function (dispatch) {
       try {
         const { data } = await axios.delete(`/users/${userId}`);
@@ -444,8 +442,6 @@ export function blockRestoreUser(userId) {
       }
   }
 }
-
-
 export function getDeletedUsers() {
   return async function (dispatch) {
     try {
@@ -459,5 +455,18 @@ export function getDeletedUsers() {
     }
   };
 }
+export function postComentWall(body, id){
+  return async function(dispatch){
+    try{
+      let info = await axios.patch(`users/wall/${id}`, body)
+      return dispatch({
+        type: POST_COMMENT_WALL,
+      })
+    }catch(error){
+      console.log(error)
+    }
+  } 
+}
+
 
 
