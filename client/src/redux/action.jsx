@@ -28,12 +28,14 @@ export const REPORT_POST = 'REPORT_POST';
 export const DELETE_POST = 'DELETE_POST';
 export const CREATE_PAYMENT = 'CREATE_PAYMENT';
 export const SET_PREMIUM = 'SET_PREMIUM';
-export const BLOCK_RESTORE_USER = 'BLOCK_RESTORE_USER';
+export const BLOCK_USER = 'BLOCK_USER';
 export const DELETE_ACCOUNT = 'DELETE_ACCOUNT';
 export const GET_USERS_DELETED = 'GET_USERS_DELETED';
 export const POST_COMMENT_WALL = 'POST_COMMENT_WAL';
 export const TRENDING_POSTS = 'TRENDING_POSTS';
 export const RESTORE_POST = "RESTORE_POST";
+export const CLEAN_SEARCHFRIEND = 'CLEAN_SEARCHFRIEND'
+export const RESTORE_USER = "RESTORE_USER";
 
 export function getUsers() {
   return async function (dispatch) {
@@ -339,16 +341,14 @@ export const getFollowers = (id) => {
       payload: data,
     });
   };
-}
-export const searchFriends = (id, input) => {
+};
+export const searchFriends = (myUserId, input) => {
   return async function (dispatch) {
-    let json = await axios.get('/friends/' + id);
-    let filterFriends = json.data.filter((friend) => {
-      return friend.idFriend.fullName.includes(input);
-    });
-    return dispatch({
+    let {data} = await axios.get(`/friends/followersAndFriends/${myUserId}/${input}` );
+    
+   return dispatch({
       type: SEARCH_FRIENDS,
-      payload: filterFriends,
+      payload: data,
     });
   };
 }
@@ -441,12 +441,13 @@ export function setPremium(input) {
     }
   };
 }
-export function blockRestoreUser(userId) {
+
+export function blockUser(userId) {
   return async function (dispatch) {
     try {
       const { data } = await axios.delete(`/users/${userId}`);
       return dispatch({
-        type: BLOCK_RESTORE_USER,
+        type: BLOCK_USER,
       });
     } catch (error) {
       console.log(error);
@@ -527,6 +528,30 @@ export function restoretPost(id) {
       await axios.patch(`/posts/${id}`, { reported: false });
       return dispatch({
         type: RESTORE_POST,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
+  export function cleanSearchFriend() {
+    return async function (dispatch) {
+      try {
+        dispatch({
+          type: CLEAN_SEARCHFRIEND,
+          payload: [],
+        });
+      } catch (error) {
+        console.log(error);
+      }
+}
+}
+export function restoretUser(id) {
+  return async function (dispatch) {
+    try {
+      await axios.patch(`/users/restoreUser/${id}`, { isDeleted: false});
+      return dispatch({
+        type: RESTORE_USER,
       });
     } catch (error) {
       console.log(error);

@@ -3,7 +3,19 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 
-export default function UserCardAdmin({ fullName, image, firstName, lastName, email, userName, userId, HandleBlock,block,posts }) {
+export default function UserCardAdmin({
+    fullName,
+    image,
+    firstName,
+    lastName,
+    email,
+    userName,
+    userId,
+    HandleBlock,
+    block,
+    posts,
+    handleRestoreUser 
+}) {
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -13,7 +25,7 @@ export default function UserCardAdmin({ fullName, image, firstName, lastName, em
         return Math.floor(a);
     }
 
-    let reportedPosts = posts?.filter((p)=> p?.reported === true)
+    let reportedPosts = posts?.filter((p) => p?.reported === true)
 
 
     return (
@@ -75,19 +87,34 @@ export default function UserCardAdmin({ fullName, image, firstName, lastName, em
                     w={'35%'}
                 >
                    
+                  { block === "All users" ?
                     <Button
-                        onClick={() => HandleBlock(userId)}
+                        onClick= {() =>HandleBlock(userId)}
                         size={'sm'}
                         w={'80%'}
-                        colorScheme={block==="All users" ?  "red" : "green" }
+                        colorScheme={"red" }
                         rounded={'md'}
                         _hover={{
                             transform: 'translateY(-2px)',
                             boxShadow: 'lg',
                         }}
                     >
-                        Block / Restore
-                    </Button>
+                      Block  
+                    </Button> :
+
+                    <Button
+                        onClick= {() =>handleRestoreUser (userId)}
+                        size={'sm'}
+                        w={'80%'}
+                        colorScheme={"green"}
+                        rounded={'md'}
+                        _hover={{
+                            transform: 'translateY(-2px)',
+                            boxShadow: 'lg',
+                        }}
+                    >
+                      Restore
+                    </Button>}
 
                 </HStack>
             </Stack>

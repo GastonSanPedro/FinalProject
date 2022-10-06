@@ -27,11 +27,11 @@ import { BsFilePost } from "react-icons/bs";
 import { AiTwotonePlusCircle } from "react-icons/ai"
 import ContainerUsersAdmin from '../components/AdminAssets/ContainerUsersAdmin';
 import { useState } from 'react';
-import { blockRestoreUser } from '../redux/action';
+import { blockUser } from '../redux/action';
 import PostStats from '../components/Stats/PostStats';
 import UserStats from '../components/Stats/UsersStats';
 import { restoretPost } from '../redux/action';
-
+import { restoretUser } from '../redux/action';
 
 const AdminProfile = () => {
 
@@ -42,11 +42,11 @@ const AdminProfile = () => {
     const friends = useSelector((state) => state.friends);
     const myFollowers = useSelector((state) => state.followers)
     const users = useSelector((state) => state.users)
-    const deletedUsers = useSelector((state) => state.deletedUsers)
+    const deletedUsers = useSelector((state) => state.usersDeleted)
 
     const [block, setBlock] = useState('Blocked users')
 
-    console.log({ users })
+
 
     // useEffect(() => {
     //     if (deletedUsers?.length === 0) { dispatch(getDeletedUsers()) }
@@ -59,7 +59,8 @@ const AdminProfile = () => {
     useEffect(() => {
         // if (deletedUsers?.length === 0) { dispatch(getDeletedUsers()) }
         dispatch(getDeletedUsers())
-        if (posts?.length === 0) { dispatch(getPosts()); }
+        if (posts?.length === 0) { 
+            dispatch(getPosts()); }
     }, [])
 
     const handleDelete = (id) => {
@@ -70,13 +71,13 @@ const AdminProfile = () => {
         dispatch(restoretPost(id))
     }
 
-
     const HandleBlock = (userId) => {
-        dispatch(blockRestoreUser(userId))
+        dispatch(blockUser(userId))
         dispatch(getDeletedUsers())
+    }
 
-        
-
+    const handleRestoreUser = (userId) =>{
+        dispatch(restoretUser(userId))
     }
 
     return (
@@ -199,6 +200,7 @@ const AdminProfile = () => {
                             </HStack>
                             <ContainerUsersAdmin
                                 HandleBlock={HandleBlock}
+                                handleRestoreUser={handleRestoreUser}
                                 users={block === 'All users' ? users : deletedUsers}
                                 block={block}
 

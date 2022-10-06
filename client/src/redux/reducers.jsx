@@ -26,12 +26,14 @@ import {
   SEARCH_FRIENDS,
   CREATE_PAYMENT,
   SET_PREMIUM,
-  BLOCK_RESTORE_USER,
+  BLOCK_USER,
   DELETE_ACCOUNT,
   GET_USERS_DELETED,
   POST_REACTION_POST,
   TRENDING_POSTS,
   RESTORE_POST,
+  RESTORE_USER,
+  CLEAN_SEARCHFRIEND
 } from './action';
 
 const initialState = {
@@ -159,8 +161,7 @@ export default function rootReducer(state = initialState, action) {
     case GET_FRIENDS:
       return {
         ...state,
-        friends: action.payload,
-        searchFriends: action.payload,
+        friends: action.payload
       };
     case GET_FOLLOWERS:
       return {
@@ -211,7 +212,7 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
       };
-    case BLOCK_RESTORE_USER:
+    case BLOCK_USER:
       return {
         ...state,
       };
@@ -235,6 +236,11 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
       };
+      case CLEAN_SEARCHFRIEND:
+        return {
+          ...state,
+          searchFriends: action.payload
+        };
     default:
       return state;
   }

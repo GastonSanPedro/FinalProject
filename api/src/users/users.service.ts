@@ -114,8 +114,6 @@ export class UsersService {
   return {...userRestaured.toJSON(), ...updateUserDto};
   }
   
-
-
   async findByName(term: string) {
     let userFinded:User[];
     //term = term.toLowerCase()
