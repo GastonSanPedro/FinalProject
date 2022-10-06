@@ -192,7 +192,7 @@ export default function rootReducer(state = initialState, action) {
     case DELETE_POST:
       return {
         ...state,
-        posts: [...state.posts],
+        posts: action.payload,
         myUser: {
           ...state.myUser,
           posts: [...state.myUser.posts],
@@ -235,6 +235,7 @@ export default function rootReducer(state = initialState, action) {
     case RESTORE_POST:
       return {
         ...state,
+        posts: action.payload
       };
       case CLEAN_SEARCHFRIEND:
         return {

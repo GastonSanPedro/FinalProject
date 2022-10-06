@@ -1,3 +1,4 @@
+import { Action } from '@remix-run/router';
 import axios from 'axios';
 import { IoReturnDownBackSharp, IoReturnDownForwardOutline } from 'react-icons/io5';
 export const GET_USERS = 'GET_USERS';
@@ -387,9 +388,11 @@ export const getFriendsPosts = (myId) => {
 export function reportPost(id) {
   return async function (dispatch) {
     try {
-      await axios.patch(`/posts/${id}`, { reported: true });
+     await axios.patch(`/posts/${id}`, { reported: true });
+     const {data} = await axios.get(`/posts/${id}`);
       return dispatch({
         type: REPORT_POST,
+        payload: data
       });
     } catch (error) {
       console.log(error);
@@ -399,9 +402,11 @@ export function reportPost(id) {
 export function deletePost(id) {
   return async function (dispatch) {
     try {
-      const { data } = await axios.delete(`/posts/${id}`);
+      const info = await axios.delete(`/posts/${id}`);
+      const { data } = await axios.get(`/posts`);
       return dispatch({
         type: DELETE_POST,
+        payload: data
       });
     } catch (error) {
       console.log(error);
@@ -487,20 +492,22 @@ export function postComentWall(body, id, site){
     try{
       let info = await axios.patch(`users/wall/${id}`, body)
       
-      if(site === 'profile'){
+        if(site === 'profile'){
+          let {data} = await axios.get(`/users/${id}`);
+          return dispatch({
+            type: GET_MY_USER,
+            payload: data,
+          });
+        }
+        if(site === 'anyProfile'){
         let {data} = await axios.get(`/users/${id}`);
-        return dispatch({
-          type: GET_MY_USER,
-          payload: data,
-        });
-      }
-      if(site === 'anyProfile'){
-      let {data} = await axios.get(`/users/${id}`);
-       return dispatch({
-          type: GET_USER,
-          payload: data,
-        });
-      }
+         return dispatch({
+            type: GET_USER,
+            payload: data,
+          });
+        }
+   
+      
     }catch(error){
       console.log(error)
     }
@@ -526,8 +533,11 @@ export function restoretPost(id) {
   return async function (dispatch) {
     try {
       await axios.patch(`/posts/${id}`, { reported: false });
+      const {data} = await axios.get(`/posts`);
+      console.log(data)
       return dispatch({
         type: RESTORE_POST,
+        payload: data
       });
     } catch (error) {
       console.log(error);

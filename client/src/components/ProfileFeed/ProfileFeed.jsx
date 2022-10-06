@@ -8,7 +8,7 @@ import ProfileFeedComent from "./ProfileFeedComent";
 import { RiMailSendLine } from "react-icons/ri";
 
 
-const ProfileFeed = ({myUser, user}) => {
+const ProfileFeed = ({myUser, user, site}) => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const [input, setInput] = useState('')
@@ -20,8 +20,9 @@ const ProfileFeed = ({myUser, user}) => {
 
 
   const handleSubmit = ()=> {
-    dispatch(postComentWall({description: input, author: myUser._id}, user._id))
-    setInput('')}
+    dispatch(postComentWall({description: input, author: myUser._id}, user._id, site))
+    setInput('')
+  }
  
   const preview = user?.wall?.slice(0,4)
   return(
