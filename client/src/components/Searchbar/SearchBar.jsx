@@ -11,20 +11,21 @@ import {
   getFollowers,
   getFriendsPosts,
   getUsers,
+  getPosts,
 } from '../../redux/action';
 
 const Searchbar = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const myUser = useSelector((state) => state.myUser);
   const friends = useSelector((state) => state.friends);
   const myFollowers = useSelector((state) => state.followers);
+  const auth = useSelector((state) => state.auth);
+
   const [User, setUser] = useState(
     useState(JSON.parse(localStorage.getItem('user')))
   );
-  const neededEmail = User[0].email;
-  const neededId = User[0]._id;
 
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
   const [searcher, setSearcher] = useState('');
 
   function handleInputChange(e) {
@@ -32,11 +33,14 @@ const Searchbar = () => {
     setSearcher(e.target.value);
   }
   if (!myUser?.email) {
+    const neededEmail = User[0]?.email;
+    const neededId = User[0]?._id;
     dispatch(getMyUser(neededEmail));
     dispatch(getFriends(neededId));
     dispatch(getFollowers(neededId));
     dispatch(getFriendsPosts(neededId));
-    dispatch(getUsers())
+    dispatch(getUsers());
+    dispatch(getPosts());
   }
   // useEffect(() => {
   //   dispatch(getPosts())

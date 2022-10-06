@@ -56,7 +56,6 @@ const ImgPostContainer = ({
           <SimpleGrid columns={{ base: 1, xl: 3 }} spacing={'10'} mt={2} mr={5}>
             {renderPosts?.length !== 0 ? (
               renderPosts?.map((post, index) => {
-                //console.log(post.author);
                 return (
                   <SlideFade in={onToggle} key={index} offsetY="20px">
                     <ImgPost
@@ -81,6 +80,7 @@ const ImgPostContainer = ({
                       description={post?.description}
                       date={post?.createdAt}
                       postId={post?._id}
+                      premium={post?.premium}
                       reported={post?.reported}
                       loggedUser={myUser?._id}
                       loggedEmail={myUser?.email}

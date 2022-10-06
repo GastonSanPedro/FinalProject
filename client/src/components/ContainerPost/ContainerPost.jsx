@@ -18,13 +18,15 @@ export default function ContainerPost({
   handleDelete,
 }) {
   const [typePost, setTypePost] = useState('img');
+  //console.log(myUser);
+  //console.log(posts.filter((post) => post.author?._id === myUser?._id));
   const ref = useRef();
   const handleClickRef = () => {
     ref.current.focus();
   };
   const arrayUserPosts = (site) => {
     if (site === 'profile') {
-      return myUser?.posts;
+      return posts?.filter((post) => post.author?._id === myUser?._id);
     }
     if (site === 'anyProfile') {
       return user?.posts;
@@ -33,7 +35,7 @@ export default function ContainerPost({
       return posts;
     }
     if (site === 'feed') {
-      return posts
+      return posts;
     }
     if (site === 'admin') {
       let reportedPosts = posts?.filter((post) => post.reported === true);
@@ -57,19 +59,20 @@ export default function ContainerPost({
 
   const NAV_ITEMS = [
     {
-       label: 'Images',
-       icon: <RiImage2Line/>,
-       onClick: () => {
-        setTypePost('image')}
-     },
-     {
-         label: 'Text',
-         icon: <BsChatLeftText/>,
-         onClick: () => {
-          setTypePost('text')
-         }
-       }  
-  ]
+      label: 'Images',
+      icon: <RiImage2Line />,
+      onClick: () => {
+        setTypePost('image');
+      },
+    },
+    {
+      label: 'Text',
+      icon: <BsChatLeftText />,
+      onClick: () => {
+        setTypePost('text');
+      },
+    },
+  ];
   return (
     <>
       <Flex
@@ -93,8 +96,8 @@ export default function ContainerPost({
         )}
         {site === 'explore' ? null : <Divider />}
 
-        <NavbarSerch NAV_ITEMS={NAV_ITEMS}/>
-         
+        <NavbarSerch NAV_ITEMS={NAV_ITEMS} />
+
         {typePost === 'text' ? (
           <TextPostContainer
             posts={typePosts('text')}

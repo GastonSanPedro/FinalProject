@@ -15,7 +15,12 @@ import {
   Button,
   InputGroup,
 } from '@chakra-ui/react';
-import { postComment, getMyUser, cleanSinglePost } from '../../redux/action';
+import {
+  postComment,
+  getMyUser,
+  cleanSinglePost,
+  getPosts,
+} from '../../redux/action';
 import { useDispatch } from 'react-redux';
 import { CommentBox } from './CommentBox';
 import { useNavigate } from 'react-router-dom';
@@ -74,12 +79,12 @@ export const PostModal = ({
       duration: 2000,
       isClosable: true,
     });
+    setTimeout(function () {
+      dispatch(getPosts());
+    }, 2000);
   };
   const handleClose = (e) => {
-    dispatch(cleanSinglePost());
-    setTimeout(function () {
-      dispatch(getMyUser(loggedEmail));
-    }, 3000);
+    dispatch(cleanSinglePost(loggedUser));
   };
   return (
     <div>

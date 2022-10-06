@@ -8,4 +8,7 @@ export class UpdateUserDto extends PartialType(CreateUserDto) {
     // @IsOptional()
     // @IsNotEmpty()
     // posteos?: Iposteos[]
+    @ApiProperty()
+    @IsOptional()
+    isDeleted: Boolean
 }
