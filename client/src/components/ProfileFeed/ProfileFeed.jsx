@@ -1,13 +1,16 @@
 import { Box, Flex, Avatar, Text, Input, Button, HStack } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
-import { useState } from 'react'
+import { useState } from 'react';
 import { useDispatch } from "react-redux";
-import  { postComentWall } from '../../redux/action'
-import { useDispatch } from "react-redux";
+import { postComentWall } from '../../redux/action';
+import ModalFeed from "./ModalFeed";
+import ProfileFeedComent from "./ProfileFeedComent";
+import { RiMailSendLine } from "react-icons/ri";
 
 
 const ProfileFeed = ({myUser, user}) => {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const [input, setInput] = useState('')
 
   const handleChange = (e) => { 

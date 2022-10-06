@@ -28,19 +28,19 @@ const Settings = () =>{
          onClick: () => {
            setState('users')}
        },
-       {
-           label: 'Posts',
-           icon: <IoStatsChartOutline/>,
-           onClick: () => {
-             setState('posts')
-           }
-         },
-       {
-         label: 'Payments',
-         icon: <RiHistoryLine/>,
-         onClick: () => {
-           setState('images')}
-       }  
+      //  {
+      //      label: 'Posts',
+      //      icon: <IoStatsChartOutline/>,
+      //      onClick: () => {
+      //        setState('posts')
+      //      }
+      //    },
+      //  {
+      //    label: 'Payments',
+      //    icon: <RiHistoryLine/>,
+      //    onClick: () => {
+      //      setState('images')}
+      //  }  
     ]
     
     const [input, setInput] = useState({
