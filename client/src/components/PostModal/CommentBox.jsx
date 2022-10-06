@@ -77,7 +77,7 @@ export const CommentBox = ({ comment, formatedDate, loggedUser, postId }) => {
         <Flex width={'100%'} maxH={'auto'} minH={'4.75vh'}>
           <Text pl={'1vw'}>{comment.description}</Text>
         </Flex>
-        <Flex align={'flex-end'} justify={'start'} mt={'2vh'}>
+        {/* <Flex align={'flex-end'} justify={'start'} mt={'2vh'}>
           <IconButton
             size={'lg'}
             bg={'none'}
@@ -95,88 +95,118 @@ export const CommentBox = ({ comment, formatedDate, loggedUser, postId }) => {
               color: 'logo.3',
             }}
           />
-          <Box
-            onMouseLeave={() => {
-              setHide(false);
-            }}
+        </Flex> */}
+        {/* <Box pt={3}>
+          <Flex
+            position={'absolute'}
+            ml={'-30vw'}
+            align={'flex-start'}
+            justify={'center'}
+            width={'17vw'}
+            zIndex={5}
+            top={'80%'}
           >
-            <IconButton
-              size={'lg'}
-              h={30}
-              bg={'none'}
-              icon={<BsSun />}
-              //   name="suns"
-              value={
-                comment.likes?.length === 0 ? 0 : Number(comment.likes[0]?.suns)
-              }
-              onClick={(e) => {
-                setReaction({ ...Reaction, suns: Number(e.target.value) + 1 });
-              }}
-              onMouseEnter={() => {
-                setHide(true);
-              }}
-              _hover={{
-                bg: 'white',
-              }}
-              _active={{
-                bg: 'white',
-                color: 'logo.3',
-              }}
-            />
             <Box
-              transition={' display 8s'}
-              display={!hide ? 'none' : 'inline'}
-              width={!hide ? '4vw' : '12vw'}
+              onMouseLeave={() => {
+                setHide(false);
+              }}
             >
-              <IconButton
-                size={'lg'}
+              <Button
+                size={'sm'}
                 h={30}
-                bg={'none'}
-                name="happyLeaf"
-                value={comment.likes?.happyLeaf}
-                icon={<BiHappyAlt />}
+                bg={'yellow.300'}
+                icon={<BsSun />}
+                name="suns"
+                mr={'0.3vw'}
+                // value={
+                //   comment.likes?.length === 0 ? 0 : Number(comment.likes[0]?.suns)
+                // }
+                onClick={(e) => {
+                  handleClickReaction(e, 'suns');
+                }}
+                onMouseEnter={() => {
+                  setHide(true);
+                }}
                 _hover={{
-                  bg: 'white',
+                  bg: 'yellow.200',
                 }}
                 _active={{
                   bg: 'white',
                   color: 'logo.3',
                 }}
-              />
-              <IconButton
-                size={'lg'}
-                h={30}
-                bg={'none'}
-                name="heart"
-                value={comment?.likes?.heart}
-                icon={<BiHeart />}
-                _hover={{
-                  bg: 'white',
-                }}
-                _active={{
-                  bg: 'white',
-                  color: 'logo.3',
-                }}
-              />
-              <IconButton
-                size={'lg'}
-                h={30}
-                bg={'none'}
-                name="confusedLeaf"
-                value={comment?.likes?.confusedLeaf}
-                icon={<BiShocked />}
-                _hover={{
-                  bg: 'white',
-                }}
-                _active={{
-                  bg: 'white',
-                  color: 'logo.3',
-                }}
-              />
+              >
+                <BsSun />
+                <Text ml={'0.5vw'}>{sunsReactions.length}</Text>
+              </Button>
+              <Box transition={' display 8s'} display={'inline'} width={'12vw'}>
+                <Button
+                  size={'sm'}
+                  h={30}
+                  bg={'green.500'}
+                  mr={'0.3vw'}
+                  name="happyLeaf"
+                  // value={comment.likes?.happyLeaf}
+                  _hover={{
+                    bg: 'logo.3',
+                  }}
+                  _active={{
+                    bg: 'white',
+                    color: 'logo.3',
+                  }}
+                  onClick={(e) => {
+                    handleClickReaction(e, 'happyLeaf');
+                  }}
+                >
+                  <BiHappyAlt />
+                  <Text ml={'0.5vw'}>{happyReactions.length}</Text>
+                </Button>
+                <Button
+                  size={'sm'}
+                  h={30}
+                  bg={'red.400'}
+                  name="heart"
+                  mr={'0.3vw'}
+                  // value={comment?.likes?.heart}
+                  _hover={{
+                    bg: 'red.300',
+                  }}
+                  _active={{
+                    bg: 'white',
+                    color: 'logo.3',
+                  }}
+                  onClick={(e) => {
+                    handleClickReaction(e, 'heart');
+                  }}
+                >
+                  <BiHeart></BiHeart>
+                  <Text ml={'0.5vw'}>{heartsReactions.length}</Text>
+                </Button>
+                <Button
+                  size={'sm'}
+                  h={30}
+                  bg={'blue.400'}
+                  name="confusedLeaf"
+                  // value={comment?.likes?.confusedLeaf}
+                  icon={<BiShocked />}
+                  _hover={{
+                    bg: 'blue.300',
+                  }}
+                  _active={{
+                    bg: 'white',
+                    color: 'logo.3',
+                  }}
+                  onClick={(e) => {
+                    handleClickReaction(e, 'confusedLeaf');
+                  }}
+                >
+                  <BiShocked />
+                  <Text ml={'0.5vw'}>{confusedReactions.length}</Text>
+                </Button>
+              </Box>
             </Box>
-          </Box>
-        </Flex>
-        <InputGroup display={show ? 'block' : 'none'}>
+          </Flex>
+        </Box> */}
+        {/* <InputGroup display={show ? 'block' : 'none'}>
           <Input
             placeholder="Comment here"
             type="text"
@@ -198,8 +228,8 @@ export const CommentBox = ({ comment, formatedDate, loggedUser, postId }) => {
           >
             Send
           </Button>
-        </InputGroup>
-      </Flex>{' '}
+        </InputGroup> */}
+      </Flex>
     </div>
   );
 };

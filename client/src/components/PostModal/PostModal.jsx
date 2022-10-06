@@ -17,7 +17,7 @@ import {
 } from '@chakra-ui/react';
 import {
   postComment,
-  getMyUser,
+  postReaction,
   cleanSinglePost,
   getPosts,
 } from '../../redux/action';
@@ -47,25 +47,18 @@ export const PostModal = ({
   postId,
   isOpen,
   onOpen,
+  rating,
   onClose,
   site,
 }) => {
   //console.log(site);
   const [overlay, setOverlay] = useState(<OverlayOne />);
-  const [hide, setHide] = useState(false);
-  const [Reaction, setReaction] = useState({
-    suns: 0,
-    happyLeaf: 0,
-    heart: 0,
-    confusedLeaf: 0,
-  });
-  // useEffect(() => {}, [singlePost]);
-  //console.log(singlePost);
   const [input, setInput] = useState({
     idUser: loggedUser,
     idPost: postId,
     description: '',
   });
+  console.log(rating);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const toast = useToast();
@@ -74,6 +67,7 @@ export const PostModal = ({
   };
   const handleSubmit = (e) => {
     dispatch(postComment(input, postId));
+    dispatch(postReaction({ rating: rating + 1 }, postId, null));
     setInput({ idUser: loggedUser, idPost: postId, description: '' });
     toast({
       title: 'Sucess',

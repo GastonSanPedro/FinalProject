@@ -40,7 +40,11 @@ export default function ContainerPost({
       let reportedPosts = posts?.filter((post) => post?.reported === true);
       return reportedPosts;
     }
+    if (site === 'trending') {
+      return posts;
+    }
   };
+  console.log(posts);
   const typePosts = (typePost) => {
     if (typePost === 'text') {
       let textPosts = arrayUserPosts(site)?.filter(

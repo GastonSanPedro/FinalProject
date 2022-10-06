@@ -21,6 +21,7 @@ import Payments from './views/Payments';
 import Settings from './views/Settings';
 import Explore from './views/Explore';
 import PaymentSucess from './views/PaymentSucess';
+import Trending from './views/Trending';
 // const Dotenv = require('dotenv-webpack');
 
 // require('dotenv').config();
@@ -51,6 +52,7 @@ root.render(
             <Route path="/payments" element={<Payments />} />
             <Route path="/settings" element={<Settings />} />
             <Route path="/explore" element={<Explore />} />
+            <Route path="/trending" element={<Trending />} />
             <Route path="/success-payment" element={<PaymentSucess />} />
           </Routes>
         </BrowserRouter>

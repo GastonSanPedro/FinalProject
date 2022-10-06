@@ -78,6 +78,7 @@ const ImgPostContainer = ({
                       email={post?.author?.email}
                       authorId={post?.author}
                       description={post?.description}
+                      rating={post?.rating}
                       date={post?.createdAt}
                       postId={post?._id}
                       premium={post?.premium}
