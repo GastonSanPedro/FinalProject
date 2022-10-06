@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 
-export default function UserCardAdmin({ fullName, image, firstName, lastName, email, userName, userId, HandleBlock }) {
+export default function UserCardAdmin({ fullName, image, firstName, lastName, email, userName, userId, HandleBlock,block,posts }) {
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -12,6 +12,8 @@ export default function UserCardAdmin({ fullName, image, firstName, lastName, em
         let a = Math.random() * (max - min) + min;
         return Math.floor(a);
     }
+
+    let reportedPosts = posts?.filter((p)=> p?.reported === true)
 
 
     return (
@@ -61,8 +63,7 @@ export default function UserCardAdmin({ fullName, image, firstName, lastName, em
                     <Flex flexDir={'column'}>
                         <Center>
                             <Text fontSize={'sm'} color={'gray.500'}>Reported posts</Text>
-                            {/**va la propiedad neuva que me están haciendo en el back */}
-                            <Text fontSize={'sm'} fontWeight={600} mr={2}>5</Text>
+                            <Text fontSize={'sm'} fontWeight={600} mr={2}>{reportedPosts?.length}</Text>
                         </Center>
                     </Flex>
                 </Stack>
@@ -73,36 +74,19 @@ export default function UserCardAdmin({ fullName, image, firstName, lastName, em
                     // left={'1%'}
                     w={'35%'}
                 >
-                    <Button
-
-                        onClick={() => HandleBlock(userId)}
-                        size={'sm'}
-                        w={'80%'}
-                        // mt={2}
-
-                        colorScheme='green'
-                        rounded={'md'}
-                        _hover={{
-                            transform: 'translateY(-2px)',
-                            boxShadow: 'lg',
-                        }}
-
-                    >
-                        Restore
-                    </Button>
-
+                   
                     <Button
                         onClick={() => HandleBlock(userId)}
                         size={'sm'}
                         w={'80%'}
-                        colorScheme='red'
+                        colorScheme={block==="All users" ?  "red" : "green" }
                         rounded={'md'}
                         _hover={{
                             transform: 'translateY(-2px)',
                             boxShadow: 'lg',
                         }}
                     >
-                        Block
+                        Block / Restore
                     </Button>
 
                 </HStack>

@@ -31,6 +31,7 @@ import {
   GET_USERS_DELETED,
   POST_REACTION_POST,
   TRENDING_POSTS,
+  RESTORE_POST,
 } from './action';
 
 const initialState = {
@@ -225,6 +226,10 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         trendingPosts: action.payload,
+      };
+    case RESTORE_POST:
+      return {
+        ...state,
       };
     default:
       return state;

@@ -30,6 +30,7 @@ import { useState } from 'react';
 import { blockRestoreUser } from '../redux/action';
 import PostStats from '../components/Stats/PostStats';
 import UserStats from '../components/Stats/UsersStats';
+import { restoretPost } from '../redux/action';
 
 
 const AdminProfile = () => {
@@ -45,7 +46,7 @@ const AdminProfile = () => {
 
     const [block, setBlock] = useState('Blocked users')
 
-    console.log({users})
+    console.log({ users })
 
     // useEffect(() => {
     //     if (deletedUsers?.length === 0) { dispatch(getDeletedUsers()) }
@@ -56,7 +57,8 @@ const AdminProfile = () => {
     // }, [posts])
 
     useEffect(() => {
-        if (deletedUsers?.length === 0) { dispatch(getDeletedUsers()) }
+        // if (deletedUsers?.length === 0) { dispatch(getDeletedUsers()) }
+        dispatch(getDeletedUsers())
         if (posts?.length === 0) { dispatch(getPosts()); }
     }, [])
 
@@ -64,12 +66,16 @@ const AdminProfile = () => {
         dispatch(deletePost(id))
     }
 
+    const handleRestore = (id) => {
+        dispatch(restoretPost(id))
+    }
+
 
     const HandleBlock = (userId) => {
         dispatch(blockRestoreUser(userId))
+        dispatch(getDeletedUsers())
 
-        useEffect(() => {
-        }, [users, deletedUsers])
+        
 
     }
 
@@ -148,11 +154,11 @@ const AdminProfile = () => {
                     <AccordionItem bg={"gray.50"}>
                         <h2>
                             <AccordionButton>
-                                
-                                    <Box flex='1' textAlign='left' >
-                                        Reported Posts
-                                    </Box>
-                                    {/* {posts.length > 0 ?
+
+                                <Box flex='1' textAlign='left' >
+                                    Reported Posts
+                                </Box>
+                                {/* {posts.length > 0 ?
                                     <AiTwotonePlusCircle color='red'/> : null} */}
                                 <AccordionIcon />
                             </AccordionButton>
@@ -163,6 +169,7 @@ const AdminProfile = () => {
                                 posts={posts}
                                 site="admin"
                                 handleDelete={handleDelete}
+                                handleRestore={handleRestore}
                             />
                         </AccordionPanel>
                     </AccordionItem>
@@ -185,7 +192,7 @@ const AdminProfile = () => {
                                 <RadioGroup onChange={setBlock} value={block}>
                                     <HStack direction="row">
                                         <Radio value='Blocked users'>Blocked users</Radio>
-                                        <Radio value='All users'>All users</Radio>
+                                        <Radio value='All users'>Users in good standing</Radio>
                                     </HStack>
                                 </RadioGroup>
 
@@ -193,6 +200,8 @@ const AdminProfile = () => {
                             <ContainerUsersAdmin
                                 HandleBlock={HandleBlock}
                                 users={block === 'All users' ? users : deletedUsers}
+                                block={block}
+
                             />
                         </AccordionPanel>
                     </AccordionItem>

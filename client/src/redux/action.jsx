@@ -31,6 +31,7 @@ export const BLOCK_RESTORE_USER = 'BLOCK_RESTORE_USER';
 export const DELETE_ACCOUNT = 'DELETE_ACCOUNT';
 export const GET_USERS_DELETED = 'GET_USERS_DELETED';
 export const TRENDING_POSTS = 'TRENDING_POSTS';
+export const RESTORE_POST = "RESTORE_POST";
 
 export function getUsers() {
   return async function (dispatch) {
@@ -474,6 +475,19 @@ export function getTrendingPosts() {
       dispatch({
         type: TRENDING_POSTS,
         payload: info.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
+
+export function restoretPost(id) {
+  return async function (dispatch) {
+    try {
+      await axios.patch(`/posts/${id}`, { reported: false });
+      return dispatch({
+        type: RESTORE_POST,
       });
     } catch (error) {
       console.log(error);

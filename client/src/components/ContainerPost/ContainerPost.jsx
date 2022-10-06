@@ -15,10 +15,10 @@ export default function ContainerPost({
   posts,
   singlePost,
   handleDelete,
+  handleRestore,
 }) {
   const [typePost, setTypePost] = useState('img');
-  //console.log(myUser);
-  //console.log(posts.filter((post) => post.author?._id === myUser?._id));
+  
   const ref = useRef();
   const handleClickRef = () => {
     ref.current.focus();
@@ -120,6 +120,7 @@ export default function ContainerPost({
             email={email}
             singlePost={singlePost}
             handleDelete={handleDelete}
+            handleRestore={handleRestore}
             handleClickRef={handleClickRef}
           />
         ) : (
@@ -131,6 +132,7 @@ export default function ContainerPost({
             email={email}
             singlePost={singlePost}
             handleDelete={handleDelete}
+            handleRestore={handleRestore}
             handleClickRef={handleClickRef}
           />
         )}
