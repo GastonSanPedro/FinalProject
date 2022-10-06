@@ -67,7 +67,7 @@ const UserCard = ({ site, myUser, user, friends }) => {
       display={'flex'}
       flexDir={'column'}
       ml="77%"
-      mt="19%"
+      mt="20%"
       h="50vh"
       w="19vw"
       p="1% 3% 1% 1%"

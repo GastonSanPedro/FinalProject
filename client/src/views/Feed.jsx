@@ -18,9 +18,8 @@ const Feed = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(getFriendsPosts(myUser?._id));
+    dispatch(getFriendsPosts(myUser._id));
   }, [dispatch]);
-
 
 
   return (

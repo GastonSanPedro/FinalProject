@@ -336,9 +336,6 @@ export const searchFriends = (id, input) => {
   };
 };
 export const deleteFriend = (myUserid, idFriend) => {
-  // const ids = {
-  //   idFriend: anyUserId,
-  //   };
 
   return async function (dispatch) {
     try {

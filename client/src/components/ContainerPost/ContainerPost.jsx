@@ -18,8 +18,6 @@ export default function ContainerPost({
   handleDelete,
 }) {
   const [typePost, setTypePost] = useState('img');
-  //console.log(myUser);
-  //console.log(posts.filter((post) => post.author?._id === myUser?._id));
   const ref = useRef();
   const handleClickRef = () => {
     ref.current.focus();
@@ -44,15 +42,11 @@ export default function ContainerPost({
   };
   const typePosts = (typePost) => {
     if (typePost === 'text') {
-      let textPosts = arrayUserPosts(site)?.filter(
-        (p) => p?.pics?.length === 0
-      );
+      let textPosts = arrayUserPosts(site)?.filter((p) => p?.pics?.length === 0 );
       return textPosts;
     }
     if (typePost === 'img') {
-      let imagePosts = arrayUserPosts(site)?.filter(
-        (p) => p?.pics?.length >= 1
-      );
+      let imagePosts = arrayUserPosts(site)?.filter((p) => p?.pics?.length >= 1 );
       return imagePosts;
     }
   };
@@ -80,7 +74,7 @@ export default function ContainerPost({
         justifyContent={'center'}
         direction={'column'}
         borderRadius={2}
-        mt={site === 'feed' ? '0vh' : '2vh'}
+        mt={site === 'feed' ? '0vh' : '4.1vh'}
       >
         {site === 'search' ||
           site === 'admin' ||
@@ -92,7 +86,7 @@ export default function ContainerPost({
               createdRef={ref}
             />
           ) : (
-            <ProfileFeed site={site} user={user}/>
+            <ProfileFeed site={site} user={user} myUser={myUser}/>
         )}
         {site === 'explore' ? null : <Divider />}
 

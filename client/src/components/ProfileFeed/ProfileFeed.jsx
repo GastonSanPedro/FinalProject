@@ -1,4 +1,4 @@
-import { Box, Flex, Avatar, Text } from "@chakra-ui/react";
+import { Box, Flex, Avatar, Text, Input, Button } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
 const ProfileFeed = ({myUser, user}) => {
@@ -19,30 +19,44 @@ const ProfileFeed = ({myUser, user}) => {
         w={7}
         h={'50vh'}
         />
-         {/* <Flex
-          onClick={()=>{navigate(`/user/${myUser._id}`)}}
+        <Flex 
+          w={'100%'} 
+          flexDir={'column'} 
+          mt={'2vh'}
+          ml={'2vh'}>
+        <Flex
+          onClick={()=>{navigate(`/profile`)}}
           align="center"
-          w={'100%'}
-          p="4"
+          w={'90%'}
+          h={'5vh'}
           borderRadius="lg"
           role="group"
           cursor="pointer"
-          _hover={{
-            bg: '#8ea26f',
-            color: 'white',
-          }}
         >
         <Avatar
             size={'sm'}
-            name={myUser.firstName}
-            src={myUser.image}
+            name={myUser?.firstName}
+            src={myUser?.image}
             />
-            <Text pl={2} fontSize={'1vw'} fontWeight={'bold'}> 
-            {myUser.firstName} {myUser.lastName}
-            </Text>      
+            <Text pl={2} fontSize={'1.4vw'} fontWeight={'bold'}> 
+            {myUser?.firstName} {myUser?.lastName}
+            </Text>
+            <Text pl={2} fontSize={'1.1vw'} fontWeight={'light'} fontStyle={'italic'} color={'gray.500'}> 
+            {myUser?.userName} 
+            </Text>       
           
-        </Flex> */}
-
+        </Flex>
+        <Box>
+        <Input
+          ml={'2%'}
+          variant={'flushed'}
+          w={'80%'}
+        />
+        
+        <Button>Post</Button>
+        </Box>
+        </Flex>
+        
       </Box>
     </>
 
