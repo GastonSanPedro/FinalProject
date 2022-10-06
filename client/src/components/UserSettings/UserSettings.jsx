@@ -31,8 +31,8 @@ export const UserSettings = ({myUser, input, setInput, users}) => {
   const usernames = users.map(user => user.userName)
 
 
-  // const  deleteAccount = async ()=>{
-  //   dispatch(deleteAccountUser(myUser._id))
+  const  deleteAccount = async ()=>{
+    dispatch(deleteAccountUser(myUser._id))
   //   const templateParams = {
   //     name: myUser.firstName,
   //     lastName: myUser.lastName,
