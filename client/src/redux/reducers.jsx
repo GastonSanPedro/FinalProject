@@ -153,7 +153,8 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         friends: action.payload.friendsUser,
-        user: action.payload.anyUserWithoutFriend
+        user: action.payload.anyUserWithoutFriend,
+        myUser: action.payload.myUser
       };
     case GET_FRIENDS:
       return {
@@ -175,7 +176,8 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         friends: action.payload.friendsUser,
-        user: action.payload.anyUserWithNewFriend
+        user: action.payload.anyUserWithNewFriend,
+        myUser: action.payload.myUser
       };
     case GET_FRIENDS_POSTS:
       return {

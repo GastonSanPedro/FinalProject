@@ -32,8 +32,7 @@ export default function Friends({ myUser, friends, myFollowers }) {
     onOpen();
   };
 
-  console.log({friends})
-
+  console.log(myFollowers)
   return (
     <>
       <Flex
