@@ -111,15 +111,21 @@ export const PaymentModal = ({
         const properObject = { products: Selected };
         //console.log(properObject);
         dispatch(createPayment(loggedId, properObject));
-        console.log(payment.items);
+        console.log(payment?.items);
         localStorage.setItem('bill', JSON.stringify(payment));
-        if (payment.init_point) {
-          window.location.href = payment?.init_point;
-        }
+        setTimeout(function () {
+          if (payment?.init_point) {
+            window.location.href = payment?.init_point;
+          }
+        }, 2000);
       }
     }
     //alert('Select one price for the post with the ID: ' + post.title);
   };
+  if (payment?.init_point) {
+    localStorage.setItem('bill', JSON.stringify(payment));
+    window.location.href = payment?.init_point;
+  }
   const normalPosts = myPosts?.filter((post) => post.premium !== true);
   const ImagePost = normalPosts?.filter((post) => post.pics?.length >= 1);
   const TextPost = normalPosts?.filter((post) => post.pics?.length === 0);
