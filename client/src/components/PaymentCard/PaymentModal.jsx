@@ -117,8 +117,9 @@ export const PaymentModal = ({
     }
     //alert('Select one price for the post with the ID: ' + post.title);
   };
-  const ImagePost = myPosts?.filter((post) => post.pics?.length >= 1);
-  const TextPost = myPosts?.filter((post) => post.pics?.length === 0);
+  const normalPosts = myPosts?.filter((post) => post.premium !== true);
+  const ImagePost = normalPosts?.filter((post) => post.pics?.length >= 1);
+  const TextPost = normalPosts?.filter((post) => post.pics?.length === 0);
 
   return (
     <div>

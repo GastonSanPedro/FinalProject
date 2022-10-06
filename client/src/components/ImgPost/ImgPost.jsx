@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   Text,
   Avatar,
   Image,
@@ -7,17 +8,21 @@ import {
   IconButton,
   ModalOverlay,
   useDisclosure,
-  Button,
   MenuList,
   MenuItem,
   Menu,
   MenuButton,
   VStack,
-  HStack
+  HStack,
+  Badge,
 } from '@chakra-ui/react';
 import {
+  getMyUser,
   getSinglePosts,
+  postReaction,
   reportPost,
+  getPosts,
+  getUser,
 } from '../../redux/action';
 import { useState } from 'react';
 import { BiMessage, BiShocked, BiHeart, BiHappyAlt } from 'react-icons/bi';
@@ -56,25 +61,27 @@ export default function ImgPost({
   email,
   singlePost,
   postId,
+  likes,
   loggedUser,
   loggedEmail,
   site,
   handleDelete,
-  authorId
+  comments,
+  authorId,
+  premium,
 }) {
-
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [overlay, setOverlay] = useState(<OverlayOne />);
   const [hide, setHide] = useState(false);
   const [Reaction, setReaction] = useState({});
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const handleClick = () => {
     setOverlay(<OverlayOne />);
     onOpen();
     dispatch(getSinglePosts(postId));
   };
-
+  //console.log(premium);
   const handleReport = () => {
     dispatch(reportPost(postId));
   };
@@ -83,6 +90,71 @@ export default function ImgPost({
     newDate.toLocaleTimeString('es-ES').slice(0, -3) +
     ' ' +
     newDate.toLocaleDateString('es-ES');
+
+  const handleClickReaction = (e, value) => {
+    const userReaction = likes?.find((r) => r.idUser === loggedUser);
+    //console.log(userReaction);
+    if (userReaction === undefined) {
+      const newReaction = [...likes, { idUser: loggedUser, type: value }];
+      console.log(newReaction);
+      dispatch(postReaction({ likes: newReaction }, postId, null, loggedUser));
+      if (site === 'explore' || site === 'search') {
+        setTimeout(function () {
+          dispatch(getPosts());
+        }, 1000);
+      }
+      if (site === 'anyProfile') {
+        setTimeout(function () {
+          dispatch(getUser(authorId));
+        }, 1000);
+      }
+      if (site === 'profile') {
+        setTimeout(function () {
+          dispatch(getPosts());
+        }, 1000);
+      }
+    } else if (userReaction && userReaction.type === value) {
+      const filtered = likes.filter((r) => r.idUser !== loggedUser);
+      dispatch(postReaction({ likes: filtered }, postId, null, loggedUser));
+      if (site === 'explore' || site === 'search') {
+        setTimeout(function () {
+          dispatch(getPosts());
+        }, 1000);
+      }
+      if (site === 'anyProfile') {
+        setTimeout(function () {
+          dispatch(getUser(authorId));
+        }, 1000);
+      }
+      if (site === 'profile') {
+        setTimeout(function () {
+          dispatch(getPosts());
+        }, 1000);
+      }
+    } else {
+      const filtered = likes.filter((r) => r.idUser !== loggedUser);
+      const newReaction = [...filtered, { idUser: loggedUser, type: value }];
+      console.log(newReaction);
+      dispatch(postReaction({ likes: newReaction }, postId, null, loggedUser));
+      if (site === 'explore' || site === 'search') {
+        setTimeout(function () {
+          dispatch(getPosts());
+        }, 1000);
+      }
+      if (site === 'anyProfile') {
+        setTimeout(function () {
+          dispatch(getUser(authorId));
+        }, 1000);
+      }
+      if (site === 'profile') {
+        setTimeout(function () {
+          dispatch(getPosts());
+        }, 1000);
+      }
+    }
+
+    //if(likes.find((r)=> r.id ))
+  };
 
   // function sentenceCase(input, lowercaseBefore) {
   //   input = input === undefined || input === null ? '' : input;
@@ -106,10 +178,22 @@ export default function ImgPost({
   //   return displayText
   // }
   const handleNavigate = () => {
-    navigate(`/user/${authorId}`)
-  }
-
-
+    if (authorId._id !== loggedUser) {
+      navigate(`/user/${authorId._id}`);
+    } else {
+      navigate(`/profile`);
+    }
+  };
+  const heartsReactions = likes.filter((r) => r.type === 'heart');
+  const sunsReactions = likes.filter((r) => r.type === 'suns');
+  const happyReactions = likes.filter((r) => r.type === 'happyLeaf');
+  const confusedReactions = likes.filter((r) => r.type === 'confusedLeaf');
+  //console.log(heartsReactions);
+  // console.log(singlePost);
+  // if (singlePost.length === 0) {
+  //   console.log('funco');
+  //   dispatch(getMyUser(loggedEmail));
+  // }
   return (
     <>
       <PostModal
@@ -126,43 +210,62 @@ export default function ImgPost({
         date={formatedDate}
         avatar={avatar}
         email={email}
+        site={site}
       />
       <Box
-        position={"relative"}
+        position={'relative'}
         border="1px"
-        borderColor='gray.200'
-        // bgColor="#f5f5f5"
+        borderColor="gray.200"
+        bgColor="#f5f5f5"
         maxW={'25vw'}
         w={'25vw'}
         rounded={'sm'}
         p={6}
-        h={'70vh'}
+        h={'74vh'}
         overflow={'hidden'}
+        boxShadow={premium ? '0px 1vh 2vw -1px #FBFF3A;' : null}
+        // _hover={{
+        //   bg: `logo.${randomNumber(1, 4)}`,
+        // }}
       >
-        <HStack
-          position={"absolute"}
-          top={4}
-        >
-          {site === "profile" || site === "anyProfile" ? null :
-             <Avatar cursor={"pointer"} onClick={() => handleNavigate()} size='md' src={avatar} name={fullName} alt={'Author'}/>
-            }
-          <VStack
-            position={"absolute"}
-            left={"50px"}
-            top={"3px"}
-            w={"200px"}
-          >
-            <Text as='b' left={0} position={"absolute"}> {firstname} {lastname}</Text>
-            <Text fontSize='sm' left={0} position={"absolute"} pt={"12px"} >{userName}</Text>
+        <HStack position={'absolute'} top={4}>
+          {site === 'profile' || site === 'anyProfile' ? null : (
+            <Avatar
+              cursor={'pointer'}
+              onClick={() => handleNavigate()}
+              size="md"
+              src={avatar}
+              name={fullName}
+              alt={'Author'}
+            />
+          )}
+          <VStack position={'absolute'} left={'50px'} top={'3px'} w={'200px'}>
+            <Text as="b" left={0} position={'absolute'}>
+              {' '}
+              {firstname} {lastname}
+            </Text>
+            <Text fontSize="sm" left={0} position={'absolute'} pt={'12px'}>
+              {userName}
+            </Text>
+            {premium ? (
+              <Badge position={'absolute'} bg={'gold'} right={'-20%'}>
+                PREMIUM
+              </Badge>
+            ) : null}
           </VStack>
         </HStack>
         <Image
           cursor="pointer"
-          position={"absolute"}
-          top={"55px"}
+          position={'absolute'}
+          top={'55px'}
           src={image}
           border="1px"
-          borderColor='gray.200'
+          borderColor="gray.200"
+          // h={'210px'}
+          // pt={5}
+          // pl={10}
+          // mx={-6}
+          // mb={6}
           pos={'relative'}
           layout={'cover'}
           objectFit={'cover'}
@@ -170,125 +273,148 @@ export default function ImgPost({
           width={'100%'}
           onClick={() => handleClick()}
         />
-        <Box top={"60px"} right={"-90px"} position={'relative'}>
+        <Box pt={3}>
           <Flex
             position={'absolute'}
             ml={'-2vw'}
             align={'flex-start'}
             justify={'right'}
-            width={'14vw'}
+            width={'17vw'}
             zIndex={5}
+            top={'87%'}
           >
             <Box
               onMouseLeave={() => {
                 setHide(false);
               }}
             >
-              <IconButton
-                size={'lg'}
+              <Button
+                size={'sm'}
                 h={30}
-                bg={'none'}
-                mr={"20px"}
+                bg={'yellow.300'}
                 icon={<BsSun />}
+                name="suns"
+                mr={'0.3vw'}
+                // value={
+                //   comment.likes?.length === 0 ? 0 : Number(comment.likes[0]?.suns)
+                // }
                 onClick={(e) => {
-                  setReaction({
-                    ...Reaction,
-                    suns: Number(e.target.value) + 1,
-                  });
+                  handleClickReaction(e, 'suns');
                 }}
                 onMouseEnter={() => {
                   setHide(true);
                 }}
                 _hover={{
-                  bg: 'white',
+                  bg: 'yellow.200',
                 }}
                 _active={{
                   bg: 'white',
                   color: 'logo.3',
                 }}
-              />
-              <Box
-                transition={' display 8s'}
-                display={!hide ? 'none' : 'inline'}
-                width={!hide ? '4vw' : '12vw'}
               >
-                <IconButton
-                  size={'lg'}
+                <BsSun />
+                <Text ml={'0.5vw'}>{sunsReactions.length}</Text>
+              </Button>
+              <Box transition={' display 8s'} display={'inline'} width={'12vw'}>
+                <Button
+                  size={'sm'}
                   h={30}
-                  bg={'none'}
+                  bg={'green.500'}
+                  mr={'0.3vw'}
                   name="happyLeaf"
                   // value={comment.likes?.happyLeaf}
-                  icon={<BiHappyAlt />}
                   _hover={{
-                    bg: 'white',
+                    bg: 'logo.3',
                   }}
                   _active={{
                     bg: 'white',
                     color: 'logo.3',
                   }}
-                />
-                <IconButton
-                  size={'lg'}
+                  onClick={(e) => {
+                    handleClickReaction(e, 'happyLeaf');
+                  }}
+                >
+                  <BiHappyAlt />
+                  <Text ml={'0.5vw'}>{happyReactions.length}</Text>
+                </Button>
+                <Button
+                  size={'sm'}
                   h={30}
-                  bg={'none'}
+                  bg={'red.400'}
                   name="heart"
+                  mr={'0.3vw'}
                   // value={comment?.likes?.heart}
-                  icon={<BiHeart />}
                   _hover={{
-                    bg: 'white',
+                    bg: 'red.300',
                   }}
                   _active={{
                     bg: 'white',
                     color: 'logo.3',
                   }}
-                />
-                <IconButton
-                  size={'lg'}
+                  onClick={(e) => {
+                    handleClickReaction(e, 'heart');
+                  }}
+                >
+                  <BiHeart></BiHeart>
+                  <Text ml={'0.5vw'}>{heartsReactions.length}</Text>
+                </Button>
+                <Button
+                  size={'sm'}
                   h={30}
-                  bg={'none'}
+                  bg={'blue.400'}
                   name="confusedLeaf"
                   // value={comment?.likes?.confusedLeaf}
                   icon={<BiShocked />}
                   _hover={{
-                    bg: 'white',
+                    bg: 'blue.300',
                   }}
                   _active={{
                     bg: 'white',
                     color: 'logo.3',
                   }}
-                />
+                  onClick={(e) => {
+                    handleClickReaction(e, 'confusedLeaf');
+                  }}
+                >
+                  <BiShocked />
+                  <Text ml={'0.5vw'}>{confusedReactions.length}</Text>
+                </Button>
               </Box>
             </Box>
           </Flex>
-          <IconButton
+          <Button
             zIndex={5}
             position="absolute"
-            mr={'4.7%'}
-            size={'lg'}
-            bg={'none'}
+            ml={'18%'}
+            top={'87.1%'}
+            size={'sm'}
+            bg={'gray.300'}
             h={30}
-            icon={<BiMessage />}
             onClick={() => {
               handleClick();
             }}
             _hover={{
-              bg: 'white',
+              bg: 'gray.200',
             }}
             _active={{
               bg: 'white',
               color: 'logo.3',
             }}
-          />
+          >
+            <BiMessage />
+            <Text ml={'0.5vw'}>{comments.length}</Text>
+          </Button>
           <Menu>
             <MenuButton
               zIndex={5}
               as={IconButton}
               position="absolute"
-              ml={'12%'}
+              ml={'35.4%'}
               mb={'4vh'}
+              top={'87.1%'}
               siz={'lg'}
               h={30}
-              bg={'none'}
+              bg={'gray.200'}
               icon={<FiMoreVertical />}
               _hover={{
                 bg: 'white',
@@ -304,12 +430,14 @@ export default function ImgPost({
           </Menu>
         </Box>
 
-        <VStack bottom={"45px"} left={"35px"} position={"absolute"}>
-          <Text as='i' fontWeight={500} width={'21vw'} h={'12vh'} color={"black"} pt={9}>
-            {description?.length > 60 ?
-              `${description?.slice(0, 60)} ... `
+        <VStack>
+          <Text width={'22vw'} h={'12vh'} color={'black'} pt={9} mt={'2vh'}>
+            {/* {sentenceCase(description, true)} */}
+            {/* {displayText} */}
+            {description?.length > 60
+              ? `${description?.slice(0, 60)} ... `
               : description}
-            {description?.length > 70 ?
+            {description?.length > 70 ? (
               <Button
                 zIndex={5}
                 position="relative"
@@ -318,11 +446,19 @@ export default function ImgPost({
                 color={'gray.500'}
               >
                 Ver más
-              </Button> : null}
+              </Button>
+            ) : null}
           </Text>
-          
         </VStack>
-        <Text color={'gray.500'} position={"absolute"} bottom={"5px"} right={"10px"}  w="150px">{formatedDate}</Text>
+        <Text
+          color={'gray.500'}
+          position={'absolute'}
+          bottom={'5px'}
+          right={'10px'}
+          w="150px"
+        >
+          {formatedDate}
+        </Text>
       </Box>
       {site === 'admin' ? (
         <Button onClick={() => handleDelete(postId)}>Eliminar</Button>

@@ -14,13 +14,22 @@ import {
   useToast,
   Box,
   Badge,
+  Button,
+  Text,
 } from '@chakra-ui/react';
 import { BiMessage, BiShocked, BiHeart, BiHappyAlt } from 'react-icons/bi';
 import { FiMoreVertical } from 'react-icons/fi';
 import { BsSun } from 'react-icons/bs';
 import Quotes from '../../assets/comillas.svg';
 import { useDispatch } from 'react-redux';
-import { getSinglePosts, reportPost, postComment } from '../../redux/action';
+import {
+  getSinglePosts,
+  reportPost,
+  postComment,
+  getPosts,
+  getUser,
+  postReaction,
+} from '../../redux/action';
 import { PostModal } from '../PostModal/PostModal';
 import { useNavigate } from 'react-router-dom';
 
@@ -68,7 +77,10 @@ export default function TextPost({
   avatar,
   premium,
   email,
+  likes,
   site,
+  authorId,
+  comments,
 }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [overlay, setOverlay] = useState(<OverlayOne />);
@@ -79,7 +91,10 @@ export default function TextPost({
     idPost: postId,
     description: '',
   });
-
+  const heartsReactions = likes.filter((r) => r.type === 'heart');
+  const sunsReactions = likes.filter((r) => r.type === 'suns');
+  const happyReactions = likes.filter((r) => r.type === 'happyLeaf');
+  const confusedReactions = likes.filter((r) => r.type === 'confusedLeaf');
   const newDate = new Date(date);
   const formatedDate =
     newDate.toLocaleTimeString('es-ES').slice(0, -3) +
@@ -92,6 +107,68 @@ export default function TextPost({
     setOverlay(<OverlayOne />);
     dispatch(getSinglePosts(postId));
     onOpen();
+  };
+  const handleClickReaction = (e, value) => {
+    const userReaction = likes?.find((r) => r.idUser === loggedUser);
+    //console.log(userReaction);
+    if (userReaction === undefined) {
+      const newReaction = [...likes, { idUser: loggedUser, type: value }];
+      console.log(newReaction);
+      dispatch(postReaction({ likes: newReaction }, postId, null, loggedUser));
+      if (site === 'explore' || site === 'search') {
+        setTimeout(function () {
+          dispatch(getPosts());
+        }, 1000);
+      }
+      if (site === 'anyProfile') {
+        setTimeout(function () {
+          dispatch(getUser(authorId));
+        }, 1000);
+      }
+      if (site === 'profile') {
+        setTimeout(function () {
+          dispatch(getPosts());
+        }, 1000);
+      }
+    } else if (userReaction && userReaction.type === value) {
+      const filtered = likes.filter((r) => r.idUser !== loggedUser);
+      dispatch(postReaction({ likes: filtered }, postId, null, loggedUser));
+      if (site === 'explore' || site === 'search') {
+        setTimeout(function () {
+          dispatch(getPosts());
+        }, 1000);
+      }
+      if (site === 'anyProfile') {
+        setTimeout(function () {
+          dispatch(getUser(authorId));
+        }, 1000);
+      }
+      if (site === 'profile') {
+        setTimeout(function () {
+          dispatch(getPosts());
+        }, 1000);
+      }
+    } else {
+      const filtered = likes.filter((r) => r.idUser !== loggedUser);
+      const newReaction = [...filtered, { idUser: loggedUser, type: value }];
+      console.log(newReaction);
+      dispatch(postReaction({ likes: newReaction }, postId, null, loggedUser));
+      if (site === 'explore' || site === 'search') {
+        setTimeout(function () {
+          dispatch(getPosts());
+        }, 1000);
+      }
+      if (site === 'anyProfile') {
+        setTimeout(function () {
+          dispatch(getUser(authorId));
+        }, 1000);
+      }
+      if (site === 'profile') {
+        setTimeout(function () {
+          dispatch(getPosts());
+        }, 1000);
+      }
+    }
   };
   const handleReport = () => {
     dispatch(reportPost(postId));
@@ -131,13 +208,16 @@ export default function TextPost({
       <Flex
         maxW={'640px'}
         direction={{ base: 'column-reverse', md: 'row' }}
-        width={site === 'profile' || site === 'anyProfile' ? '34vw' : '24vw'}
+        width={site === 'profile' || site === 'anyProfile' ? '34vw' : '34vw'}
         h={'30vh'}
+        border="1px"
+        borderColor="gray.200"
         p={5}
         justifyContent={'space-between'}
         position={'relative'}
         ml={'1vw'}
-        bg={useColorModeValue('white', 'gray.800')}
+        bgColor="#f5f5f5"
+        boxShadow={premium ? '0px 1vh 2vw -1px #FBFF3A;' : null}
         _after={{
           content: '""',
           position: 'absolute',
@@ -147,9 +227,6 @@ export default function TextPost({
           top: '10px',
           backgroundSize: 'cover',
           backgroundImage: `${Quotes}`,
-        }}
-        _hover={{
-          bg: `logo.${randomNumber(1, 4)}`,
         }}
       >
         <Flex
@@ -163,7 +240,7 @@ export default function TextPost({
           pl={'1vw'}
         >
           {premium === true ? (
-            <Badge w={'4.5vw'} color={'white'} bg={'yellow.300'}>
+            <Badge position={'absolute'} bg={'gold'} right={'13%'} top={'5%'}>
               Premium
             </Badge>
           ) : null}
@@ -174,7 +251,7 @@ export default function TextPost({
             fontSize={'15px'}
             pb={4}
           >
-            {description}
+            {description.slice(0, 100) + '...'}
           </chakra.p>
           <chakra.p
             fontFamily={'Roboto'}
@@ -208,37 +285,149 @@ export default function TextPost({
             ml={'3%'}
           />
         </Flex>
-        <Flex
-          align={'flex-end'}
-          justify={'center'}
-          h={'4vh'}
-          position={'absolute'}
-          bottom={'3'}
-          right={'28%'}
-        >
-          <Box
-            onMouseLeave={() => {
-              setHide(false);
+        <Box pt={3}>
+          <Flex
+            position={'absolute'}
+            ml={'-30vw'}
+            align={'flex-start'}
+            justify={'center'}
+            width={'17vw'}
+            zIndex={5}
+            top={'80%'}
+          >
+            <Box
+              onMouseLeave={() => {
+                setHide(false);
+              }}
+            >
+              <Button
+                size={'sm'}
+                h={30}
+                bg={'yellow.300'}
+                icon={<BsSun />}
+                name="suns"
+                mr={'0.3vw'}
+                // value={
+                //   comment.likes?.length === 0 ? 0 : Number(comment.likes[0]?.suns)
+                // }
+                onClick={(e) => {
+                  handleClickReaction(e, 'suns');
+                }}
+                onMouseEnter={() => {
+                  setHide(true);
+                }}
+                _hover={{
+                  bg: 'yellow.200',
+                }}
+                _active={{
+                  bg: 'white',
+                  color: 'logo.3',
+                }}
+              >
+                <BsSun />
+                <Text ml={'0.5vw'}>{sunsReactions.length}</Text>
+              </Button>
+              <Box transition={' display 8s'} display={'inline'} width={'12vw'}>
+                <Button
+                  size={'sm'}
+                  h={30}
+                  bg={'green.500'}
+                  mr={'0.3vw'}
+                  name="happyLeaf"
+                  // value={comment.likes?.happyLeaf}
+                  _hover={{
+                    bg: 'logo.3',
+                  }}
+                  _active={{
+                    bg: 'white',
+                    color: 'logo.3',
+                  }}
+                  onClick={(e) => {
+                    handleClickReaction(e, 'happyLeaf');
+                  }}
+                >
+                  <BiHappyAlt />
+                  <Text ml={'0.5vw'}>{happyReactions.length}</Text>
+                </Button>
+                <Button
+                  size={'sm'}
+                  h={30}
+                  bg={'red.400'}
+                  name="heart"
+                  mr={'0.3vw'}
+                  // value={comment?.likes?.heart}
+                  _hover={{
+                    bg: 'red.300',
+                  }}
+                  _active={{
+                    bg: 'white',
+                    color: 'logo.3',
+                  }}
+                  onClick={(e) => {
+                    handleClickReaction(e, 'heart');
+                  }}
+                >
+                  <BiHeart></BiHeart>
+                  <Text ml={'0.5vw'}>{heartsReactions.length}</Text>
+                </Button>
+                <Button
+                  size={'sm'}
+                  h={30}
+                  bg={'blue.400'}
+                  name="confusedLeaf"
+                  // value={comment?.likes?.confusedLeaf}
+                  icon={<BiShocked />}
+                  _hover={{
+                    bg: 'blue.300',
+                  }}
+                  _active={{
+                    bg: 'white',
+                    color: 'logo.3',
+                  }}
+                  onClick={(e) => {
+                    handleClickReaction(e, 'confusedLeaf');
+                  }}
+                >
+                  <BiShocked />
+                  <Text ml={'0.5vw'}>{confusedReactions.length}</Text>
+                </Button>
+              </Box>
+            </Box>
+          </Flex>
+          <Button
+            zIndex={5}
+            position="absolute"
+            ml={'-37%'}
+            top={'80.1%'}
+            size={'sm'}
+            bg={'gray.300'}
+            h={30}
+            onClick={() => {
+              handleClick();
+            }}
+            _hover={{
+              bg: 'gray.200',
+            }}
+            _active={{
+              bg: 'white',
+              color: 'logo.3',
             }}
           >
-            <IconButton
-              size={'lg'}
+            <BiMessage />
+            <Text ml={'0.5vw'}>{comments.length}</Text>
+          </Button>
+          <Menu>
+            <MenuButton
+              zIndex={5}
+              as={IconButton}
+              position="absolute"
+              ml={'-24%'}
+              mb={'4vh'}
+              top={'80.1%'}
+              siz={'lg'}
               h={30}
-              bg={'none'}
-              icon={<BsSun />}
-              //   name="suns"
-              // value={
-              //   comment.likes?.length === 0 ? 0 : Number(comment.likes[0]?.suns)
-              // }
-              onClick={(e) => {
-                setReaction({
-                  ...Reaction,
-                  suns: Number(e.target.value) + 1,
-                });
-              }}
-              onMouseEnter={() => {
-                setHide(true);
-              }}
+              bg={'gray.200'}
+              icon={<FiMoreVertical />}
               _hover={{
                 bg: 'white',
               }}
@@ -247,100 +436,11 @@ export default function TextPost({
                 color: 'logo.3',
               }}
             />
-            <Box
-              transition={' display 8s'}
-              display={!hide ? 'none' : 'inline'}
-              width={!hide ? '4vw' : '12vw'}
-            >
-              <IconButton
-                size={'lg'}
-                h={30}
-                bg={'none'}
-                name="happyLeaf"
-                // value={comment.likes?.happyLeaf}
-                icon={<BiHappyAlt />}
-                _hover={{
-                  bg: 'white',
-                }}
-                _active={{
-                  bg: 'white',
-                  color: 'logo.3',
-                }}
-              />
-              <IconButton
-                size={'lg'}
-                h={30}
-                bg={'none'}
-                name="heart"
-                // value={comment?.likes?.heart}
-                icon={<BiHeart />}
-               _hover={{
-                  bg: 'white',
-                }}
-                _active={{
-                  bg: 'white',
-                  color: 'logo.3',
-                }}
-              />
-              <IconButton
-                size={'lg'}
-                h={30}
-                bg={'none'}
-                name="confusedLeaf"
-                // value={comment?.likes?.confusedLeaf}
-                icon={<BiShocked />}
-                _hover={{
-                  bg: 'white',
-                }}
-                _active={{
-                  bg: 'white',
-                  color: 'logo.3',
-                }}
-              />
-            </Box>
-          </Box>
-        </Flex>
-        <IconButton
-          position={'absolute'}
-          size={'lg'}
-          bg={'none'}
-          h={'4vh'}
-          icon={<BiMessage />}
-          right={site === 'profile' ? '10%' : '14%'}
-          bottom={'3'}
-          onClick={() => {
-            handleClick();
-          }}
-          _hover={{
-            bg: 'white',
-          }}
-          _active={{
-            bg: 'white',
-            color: 'logo.3',
-          }}
-        />
-        <Menu>
-          <MenuButton
-            as={IconButton}
-            position="absolute"
-            right={'2%'}
-            bottom={'3'}
-            siz={'lg'}
-            h={'4vh'}
-            bg={'none'}
-            icon={<FiMoreVertical />}
-            _hover={{
-              bg: 'white',
-            }}
-            _active={{
-              bg: 'white',
-              color: 'logo.3',
-            }}
-          />
-          <MenuList>
-            <MenuItem onClick={() => handleReport()}>Report post</MenuItem>
-          </MenuList>
-        </Menu>
+            <MenuList>
+              <MenuItem onClick={() => handleReport()}>Report post</MenuItem>
+            </MenuList>
+          </Menu>
+        </Box>
       </Flex>
     </>
   );
